@@ -8,8 +8,34 @@ Solución para procesar y consultar grandes volúmenes de documentos de texto ut
 - Almacenamiento vectorial usando ChromaDB
 - Consultas semánticas sobre la documentación procesada
 - Integración con Cline para desarrollo asistido
+- Soporte para Docker
 
 ## Instalación
+
+### Opción 1: Usando Docker (Recomendado)
+
+1. Clonar el repositorio:
+```bash
+git clone https://github.com/jivagrisma/script-doc_processor.py.git
+cd script-doc_processor.py
+```
+
+2. Ejecutar script de instalación:
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+3. Usar el procesador de documentos:
+```bash
+# Procesar documentación
+docker-compose run --rm doc-processor --path docs/mi_proyecto --reset
+
+# Realizar consultas
+docker-compose run --rm doc-processor --query "tu consulta aquí"
+```
+
+### Opción 2: Instalación Local
 
 1. Clonar el repositorio:
 ```bash
@@ -22,92 +48,82 @@ cd script-doc_processor.py
 pip install -r requirements.txt
 ```
 
+## Estructura de Proyecto Recomendada
+
+```
+proyecto/
+├── docs/                    # Documentación del proyecto
+│   ├── nextjs_2025/        # Documentación específica (ej: Next.js 2025)
+│   │   ├── parte_1.txt
+│   │   └── parte_2.txt
+│   └── otros_docs/         # Otra documentación relevante
+├── smart_docs.py           # Script principal
+├── requirements.txt        # Dependencias
+├── .gitignore             # Configuración de git
+└── chroma_db/             # Base de datos vectorial (auto-generada)
+```
+
 ## Uso con Cline
 
 ### 1. Procesar Documentación
 
-Primero, procesa los documentos que servirán como contexto:
-
 ```bash
-python3 smart_docs.py --path ruta/a/documentos --reset
+# Con Docker:
+docker-compose run --rm doc-processor --path docs/nextjs_2025 --reset
+
+# Sin Docker:
+python3 smart_docs.py --path docs/nextjs_2025 --reset
 ```
 
-Ejemplo:
-```bash
-python3 smart_docs.py --path doc_py/fastapi-fastapi_p36 --reset
-```
-
-Este comando:
-- Procesa todos los archivos en el directorio especificado
-- Divide los documentos en chunks manejables
-- Almacena los chunks en ChromaDB
-- Prepara el contenido para consultas
-
-### 2. Realizar Consultas
-
-Para obtener información estructurada, usa el siguiente formato de consulta:
+### 2. Realizar Consultas Estructuradas
 
 ```bash
-python3 smart_docs.py --query "Basándote en la documentación de [tecnología], muestra paso a paso cómo [objetivo específico], incluyendo:
+# Con Docker:
+docker-compose run --rm doc-processor --query "Basándote en la documentación de [tecnología], muestra paso a paso cómo [objetivo específico], incluyendo:
 1) [primer aspecto]
 2) [segundo aspecto]
 3) [tercer aspecto]"
+
+# Sin Docker:
+python3 smart_docs.py --query "..."
 ```
 
-Ejemplo de consulta para desarrollo:
-```bash
-python3 smart_docs.py --query "Basándote en la documentación de FastAPI, muestra paso a paso cómo crear una API con autenticación, incluyendo:
-1) Importaciones y configuración inicial
-2) Definición de modelos y esquemas
-3) Implementación de rutas y autenticación"
-```
-
-### 3. Resultados
-
-El script devolverá:
-- Fragmentos relevantes de la documentación
-- Porcentaje de relevancia para cada fragmento
-- Fuente exacta de la información
-- Fecha de procesamiento del contenido
-
-### 4. Uso con Cline
-
-1. Procesa la documentación relevante para tu proyecto
-2. Realiza una consulta específica sobre lo que necesitas implementar
-3. Usa la respuesta como contexto en Cline para:
-   - Generar código nuevo
-   - Modificar código existente
-   - Implementar funcionalidades
-   - Resolver problemas específicos
-
-## Ejemplos de Uso
-
-### Ejemplo 1: Consulta sobre Implementación
+### 3. Ejemplo de Consulta
 
 ```bash
-python3 smart_docs.py --query "Basándote en la documentación de FastAPI, muestra cómo implementar autenticación OAuth2 con JWT, incluyendo:
-1) Configuración de dependencias
-2) Manejo de tokens
-3) Protección de rutas"
+docker-compose run --rm doc-processor --query "Basándote en la documentación de Next.js 2025, explica cómo implementar:
+1) Configuración inicial del proyecto
+2) Manejo de rutas y páginas
+3) Integración con APIs"
 ```
 
-### Ejemplo 2: Consulta sobre Arquitectura
+## Mejores Prácticas
 
-```bash
-python3 smart_docs.py --query "Basándote en la documentación de FastAPI, explica la estructura recomendada para una API, incluyendo:
-1) Organización de directorios
-2) Separación de responsabilidades
-3) Manejo de configuraciones"
-```
+### 1. Organización de Documentación
 
-## Estructura de Archivos
+- Dividir documentación en archivos manejables
+- Usar nombres descriptivos y numerados
+- Mantener una estructura consistente por tecnología/tema
+- Incluir versión en nombre de directorio
 
-```
-script-doc_processor/
-├── smart_docs.py     # Script principal
-├── requirements.txt  # Dependencias
-└── README.md        # Documentación
-```
+### 2. Control de Versiones
+
+- Documentar fecha y versión de la documentación
+- Mantener documentación antigua en directorios separados
+- Usar --reset al cambiar significativamente el contexto
+
+### 3. Uso con Docker
+
+- Los volúmenes persisten entre ejecuciones
+- La documentación se monta en /app/docs
+- La base de datos ChromaDB se monta en /app/chroma_db
+- Usar --rm para limpiar contenedores después de cada uso
+
+### 4. Mantenimiento
+
+- Limpiar chroma_db/ periódicamente
+- Hacer respaldo de documentos importantes
+- Actualizar la imagen Docker cuando haya cambios en requirements.txt
 
 ## Contribuir
 
