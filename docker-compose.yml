@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  doc-processor:
+    build: .
+    volumes:
+      - .:/app
+      - chroma_db:/app/chroma_db
+    environment:
+      - CHROMA_DB_DIR=/app/chroma_db
+    command: python3 doc_processor.py
+
+  query:
+    build: .
+    volumes:
+      - .:/app
+      - chroma_db:/app/chroma_db
+    environment:
+      - CHROMA_DB_DIR=/app/chroma_db
+    command: python3 query_docs.py
+
+  smart-docs:
+    build: .
+    volumes:
+      - .:/app
+      - chroma_db:/app/chroma_db
+    environment:
+      - CHROMA_DB_DIR=/app/chroma_db
+    command: python3 smart_docs.py
+
+volumes:
+  chroma_db:
