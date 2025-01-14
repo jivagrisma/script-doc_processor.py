@@ -37,3 +37,7 @@ chroma_db/
 # OS
 .DS_Store
 Thumbs.db
+
+# Proyectos separados
+h2h_bancolombia/
+h2h_bancolombia_v1.0.1/

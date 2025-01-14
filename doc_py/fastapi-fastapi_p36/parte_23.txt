@@ -1,0 +1,7371 @@
+这将允许您在**多个地方**能够**重用模型**，并且可以一次性声明所有参数的验证和元数据。😎
+
+/// note
+
+自 FastAPI 版本 `0.115.0` 起支持此功能。🤓
+
+///
+
+## 使用 Pydantic 模型的 Header 参数
+
+在 **Pydantic 模型**中声明所需的 **header 参数**，然后将参数声明为 `Header` :
+
+{* ../../docs_src/header_param_models/tutorial001_an_py310.py hl[9:14,18] *}
+
+**FastAPI** 将从请求中接收到的 **headers** 中**提取**出**每个字段**的数据，并提供您定义的 Pydantic 模型。
+
+## 查看文档
+
+您可以在文档 UI 的 `/docs` 中查看所需的 headers：
+
+<div class="screenshot">
+<img src="/img/tutorial/header-param-models/image01.png">
+</div>
+
+## 禁止额外的 Headers
+
+在某些特殊使用情况下（可能并不常见），您可能希望**限制**您想要接收的 headers。
+
+您可以使用 Pydantic 的模型配置来禁止（ `forbid` ）任何额外（ `extra` ）字段：
+
+{* ../../docs_src/header_param_models/tutorial002_an_py310.py hl[10] *}
+
+如果客户尝试发送一些**额外的 headers**，他们将收到**错误**响应。
+
+例如，如果客户端尝试发送一个值为 `plumbus` 的 `tool` header，客户端将收到一个**错误**响应，告知他们 header 参数 `tool` 是不允许的：
+
+```json
+{
+    "detail": [
+        {
+            "type": "extra_forbidden",
+            "loc": ["header", "tool"],
+            "msg": "Extra inputs are not permitted",
+            "input": "plumbus",
+        }
+    ]
+}
+```
+
+## 总结
+
+您可以使用 **Pydantic 模型**在 **FastAPI** 中声明 **headers**。😎
+
+
+================================================
+File: /docs/zh/docs/tutorial/header-params.md
+================================================
+# Header 参数
+
+定义 `Header` 参数的方式与定义 `Query`、`Path`、`Cookie` 参数相同。
+
+## 导入 `Header`
+
+首先，导入 `Header`：
+
+{* ../../docs_src/header_params/tutorial001_an_py310.py hl[3] *}
+
+## 声明 `Header` 参数
+
+然后，使用和 `Path`、`Query`、`Cookie` 一样的结构定义 header 参数。
+
+第一个值是默认值，还可以传递所有验证参数或注释参数：
+
+{* ../../docs_src/header_params/tutorial001_an_py310.py hl[9] *}
+
+/// note | 技术细节
+
+`Header` 是 `Path`、`Query`、`Cookie` 的**兄弟类**，都继承自共用的 `Param` 类。
+
+注意，从 `fastapi` 导入的 `Query`、`Path`、`Header` 等对象，实际上是返回特殊类的函数。
+
+///
+
+/// info | 说明
+
+必须使用 `Header` 声明 header 参数，否则该参数会被解释为查询参数。
+
+///
+
+## 自动转换
+
+`Header` 比 `Path`、`Query` 和 `Cookie` 提供了更多功能。
+
+大部分标准请求头用**连字符**分隔，即**减号**（`-`）。
+
+但是 `user-agent` 这样的变量在 Python 中是无效的。
+
+因此，默认情况下，`Header` 把参数名中的字符由下划线（`_`）改为连字符（`-`）来提取并存档请求头 。
+
+同时，HTTP 的请求头不区分大小写，可以使用 Python 标准样式（即 **snake_case**）进行声明。
+
+因此，可以像在 Python 代码中一样使用 `user_agent` ，无需把首字母大写为 `User_Agent` 等形式。
+
+如需禁用下划线自动转换为连字符，可以把 `Header` 的 `convert_underscores` 参数设置为 `False`：
+
+{* ../../docs_src/header_params/tutorial002_an_py310.py hl[10] *}
+
+/// warning | 警告
+
+注意，使用 `convert_underscores = False` 要慎重，有些 HTTP 代理和服务器不支持使用带有下划线的请求头。
+
+///
+
+## 重复的请求头
+
+有时，可能需要接收重复的请求头。即同一个请求头有多个值。
+
+类型声明中可以使用 `list` 定义多个请求头。
+
+使用 Python `list` 可以接收重复请求头所有的值。
+
+例如，声明 `X-Token` 多次出现的请求头，可以写成这样：
+
+{* ../../docs_src/header_params/tutorial003_an_py310.py hl[9] *}
+
+与*路径操作*通信时，以下面的方式发送两个 HTTP 请求头：
+
+```
+X-Token: foo
+X-Token: bar
+```
+
+响应结果是：
+
+```JSON
+{
+    "X-Token values": [
+        "bar",
+        "foo"
+    ]
+}
+```
+
+## 小结
+
+使用 `Header` 声明请求头的方式与 `Query`、`Path` 、`Cookie` 相同。
+
+不用担心变量中的下划线，**FastAPI** 可以自动转换。
+
+
+================================================
+File: /docs/zh/docs/tutorial/index.md
+================================================
+# 教程 - 用户指南
+
+本教程将一步步向你展示如何使用 **FastAPI** 的绝大部分特性。
+
+各个章节的内容循序渐进，但是又围绕着单独的主题，所以你可以直接跳转到某个章节以解决你的特定需求。
+
+本教程同样可以作为将来的参考手册。
+
+你可以随时回到本教程并查阅你需要的内容。
+
+## 运行代码
+
+所有代码片段都可以复制后直接使用（它们实际上是经过测试的 Python 文件）。
+
+要运行任何示例，请将代码复制到 `main.py` 文件中，然后使用以下命令启动 `uvicorn`：
+
+<div class="termy">
+
+```console
+$ uvicorn main:app --reload
+
+<span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+<span style="color: green;">INFO</span>:     Started reloader process [28720]
+<span style="color: green;">INFO</span>:     Started server process [28722]
+<span style="color: green;">INFO</span>:     Waiting for application startup.
+<span style="color: green;">INFO</span>:     Application startup complete.
+```
+
+</div>
+
+强烈建议你在本地编写或复制代码，对其进行编辑并运行。
+
+在编辑器中使用 FastAPI 会真正地展现出它的优势：只需要编写很少的代码，所有的类型检查，代码补全等等。
+
+---
+
+## 安装 FastAPI
+
+第一个步骤是安装 FastAPI。
+
+为了使用本教程，你可能需要安装所有的可选依赖及对应功能：
+
+<div class="termy">
+
+```console
+$ pip install "fastapi[all]"
+
+---> 100%
+```
+
+</div>
+
+......以上安装还包括了 `uvicorn`，你可以将其用作运行代码的服务器。
+
+/// note
+
+你也可以分开来安装。
+
+假如你想将应用程序部署到生产环境，你可能要执行以下操作：
+
+```
+pip install fastapi
+```
+
+并且安装`uvicorn`来作为服务器：
+
+```
+pip install "uvicorn[standard]"
+```
+
+然后对你想使用的每个可选依赖项也执行相同的操作。
+
+///
+
+## 进阶用户指南
+
+在本**教程-用户指南**之后，你可以阅读**进阶用户指南**。
+
+**进阶用户指南**以本教程为基础，使用相同的概念，并教授一些额外的特性。
+
+但是你应该先阅读**教程-用户指南**（即你现在正在阅读的内容）。
+
+教程经过精心设计，使你可以仅通过**教程-用户指南**来开发一个完整的应用程序，然后根据你的需要，使用**进阶用户指南**中的一些其他概念，以不同的方式来扩展它。
+
+
+================================================
+File: /docs/zh/docs/tutorial/metadata.md
+================================================
+# 元数据和文档 URL
+
+你可以在 FastAPI 应用程序中自定义多个元数据配置。
+
+## API 元数据
+
+你可以在设置 OpenAPI 规范和自动 API 文档 UI 中使用的以下字段：
+
+| 参数 | 类型 | 描述 |
+|------------|------|-------------|
+| `title` | `str` | API 的标题。 |
+| `summary` | `str` | API 的简短摘要。 <small>自 OpenAPI 3.1.0、FastAPI 0.99.0 起可用。.</small> |
+| `description` | `str` | API 的简短描述。可以使用Markdown。 |
+| `version` | `string` | API 的版本。这是您自己的应用程序的版本，而不是 OpenAPI 的版本。例如 `2.5.0` 。 |
+| `terms_of_service` | `str` | API 服务条款的 URL。如果提供，则必须是 URL。 |
+| `contact` | `dict` | 公开的 API 的联系信息。它可以包含多个字段。<details><summary><code>contact</code> 字段</summary><table><thead><tr><th>参数</th><th>Type</th><th>描述</th></tr></thead><tbody><tr><td><code>name</code></td><td><code>str</code></td><td>联系人/组织的识别名称。</td></tr><tr><td><code>url</code></td><td><code>str</code></td><td>指向联系信息的 URL。必须采用 URL 格式。</td></tr><tr><td><code>email</code></td><td><code>str</code></td><td>联系人/组织的电子邮件地址。必须采用电子邮件地址的格式。</td></tr></tbody></table></details> |
+| `license_info` | `dict` | 公开的 API 的许可证信息。它可以包含多个字段。<details><summary><code>license_info</code> 字段</summary><table><thead><tr><th>参数</th><th>类型</th><th>描述</th></tr></thead><tbody><tr><td><code>name</code></td><td><code>str</code></td><td><strong>必须的</strong> (如果设置了<code>license_info</code>). 用于 API 的许可证名称。</td></tr><tr><td><code>identifier</code></td><td><code>str</code></td><td>一个API的<a href="https://spdx.org/licenses/" class="external-link" target="_blank">SPDX</a>许可证表达。 The <code>identifier</code> field is mutually exclusive of the <code>url</code> field. <small>自 OpenAPI 3.1.0、FastAPI 0.99.0 起可用。</small></td></tr><tr><td><code>url</code></td><td><code>str</code></td><td>用于 API 的许可证的 URL。必须采用 URL 格式。</td></tr></tbody></table></details> |
+
+你可以按如下方式设置它们：
+
+{* ../../docs_src/metadata/tutorial001.py hl[4:6] *}
+
+/// tip
+
+您可以在 `description` 字段中编写 Markdown，它将在输出中呈现。
+
+///
+
+通过这样设置，自动 API 文档看起来会像：
+
+<img src="/img/tutorial/metadata/image01.png">
+
+## 标签元数据
+
+### 创建标签元数据
+
+让我们在带有标签的示例中为 `users` 和 `items` 试一下。
+
+创建标签元数据并把它传递给 `openapi_tags` 参数：
+
+{* ../../docs_src/metadata/tutorial004.py hl[3:16,18] *}
+
+注意你可以在描述内使用 Markdown，例如「login」会显示为粗体（**login**）以及「fancy」会显示为斜体（_fancy_）。
+
+/// tip | 提示
+
+不必为你使用的所有标签都添加元数据。
+
+///
+
+### 使用你的标签
+
+将 `tags` 参数和*路径操作*（以及 `APIRouter`）一起使用，将其分配给不同的标签：
+
+{* ../../docs_src/metadata/tutorial004.py hl[21,26] *}
+
+/// info | 信息
+
+阅读更多关于标签的信息[路径操作配置](path-operation-configuration.md#tags){.internal-link target=_blank}。
+
+///
+
+### 查看文档
+
+如果你现在查看文档，它们会显示所有附加的元数据：
+
+<img src="/img/tutorial/metadata/image02.png">
+
+### 标签顺序
+
+每个标签元数据字典的顺序也定义了在文档用户界面显示的顺序。
+
+例如按照字母顺序，即使 `users` 排在 `items` 之后，它也会显示在前面，因为我们将它的元数据添加为列表内的第一个字典。
+
+## OpenAPI URL
+
+默认情况下，OpenAPI 模式服务于 `/openapi.json`。
+
+但是你可以通过参数 `openapi_url` 对其进行配置。
+
+例如，将其设置为服务于 `/api/v1/openapi.json`：
+
+{* ../../docs_src/metadata/tutorial002.py hl[3] *}
+
+如果你想完全禁用 OpenAPI 模式，可以将其设置为 `openapi_url=None`，这样也会禁用使用它的文档用户界面。
+
+## 文档 URLs
+
+你可以配置两个文档用户界面，包括：
+
+* **Swagger UI**：服务于 `/docs`。
+    * 可以使用参数 `docs_url` 设置它的 URL。
+    * 可以通过设置 `docs_url=None` 禁用它。
+* ReDoc：服务于 `/redoc`。
+    * 可以使用参数 `redoc_url` 设置它的 URL。
+    * 可以通过设置 `redoc_url=None` 禁用它。
+
+例如，设置 Swagger UI 服务于 `/documentation` 并禁用 ReDoc：
+
+{* ../../docs_src/metadata/tutorial003.py hl[3] *}
+
+
+================================================
+File: /docs/zh/docs/tutorial/middleware.md
+================================================
+# 中间件
+
+你可以向 **FastAPI** 应用添加中间件.
+
+"中间件"是一个函数,它在每个**请求**被特定的*路径操作*处理之前,以及在每个**响应**返回之前工作.
+
+* 它接收你的应用程序的每一个**请求**.
+* 然后它可以对这个**请求**做一些事情或者执行任何需要的代码.
+* 然后它将**请求**传递给应用程序的其他部分 (通过某种*路径操作*).
+* 然后它获取应用程序生产的**响应** (通过某种*路径操作*).
+* 它可以对该**响应**做些什么或者执行任何需要的代码.
+* 然后它返回这个 **响应**.
+
+/// note | 技术细节
+
+如果你使用了 `yield` 关键字依赖, 依赖中的退出代码将在执行中间件*后*执行.
+
+如果有任何后台任务(稍后记录), 它们将在执行中间件*后*运行.
+
+///
+
+## 创建中间件
+
+要创建中间件你可以在函数的顶部使用装饰器 `@app.middleware("http")`.
+
+中间件参数接收如下参数:
+
+* `request`.
+* 一个函数 `call_next` 它将接收 `request` 作为参数.
+    * 这个函数将 `request` 传递给相应的 *路径操作*.
+    * 然后它将返回由相应的*路径操作*生成的 `response`.
+* 然后你可以在返回 `response` 前进一步修改它.
+
+{* ../../docs_src/middleware/tutorial001.py hl[8:9,11,14] *}
+
+/// tip
+
+请记住可以 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers" class="external-link" target="_blank">用'X-' 前缀</a>添加专有自定义请求头.
+
+但是如果你想让浏览器中的客户端看到你的自定义请求头, 你需要把它们加到 CORS 配置 ([CORS (Cross-Origin Resource Sharing)](cors.md){.internal-link target=_blank}) 的 `expose_headers` 参数中,在 <a href="https://www.starlette.io/middleware/#corsmiddleware" class="external-link" target="_blank">Starlette's CORS docs</a>文档中.
+
+///
+
+/// note | 技术细节
+
+你也可以使用 `from starlette.requests import Request`.
+
+**FastAPI** 为了开发者方便提供了该对象. 但其实它直接来自于 Starlette.
+
+///
+
+### 在 `response` 的前和后
+
+在任何*路径操作*收到`request`前,可以添加要和请求一起运行的代码.
+
+也可以在*响应*生成但是返回之前添加代码.
+
+例如你可以添加自定义请求头 `X-Process-Time` 包含以秒为单位的接收请求和生成响应的时间:
+
+{* ../../docs_src/middleware/tutorial001.py hl[10,12:13] *}
+
+## 其他中间件
+
+你可以稍后在 [Advanced User Guide: Advanced Middleware](../advanced/middleware.md){.internal-link target=_blank}阅读更多关于中间件的教程.
+
+你将在下一节中学习如何使用中间件处理 <abbr title="Cross-Origin Resource Sharing">CORS</abbr> .
+
+
+================================================
+File: /docs/zh/docs/tutorial/path-operation-configuration.md
+================================================
+# 路径操作配置
+
+*路径操作装饰器*支持多种配置参数。
+
+/// warning | 警告
+
+注意：以下参数应直接传递给**路径操作装饰器**，不能传递给*路径操作函数*。
+
+///
+
+## `status_code` 状态码
+
+`status_code` 用于定义*路径操作*响应中的 HTTP 状态码。
+
+可以直接传递 `int` 代码， 比如 `404`。
+
+如果记不住数字码的涵义，也可以用 `status` 的快捷常量：
+
+{* ../../docs_src/path_operation_configuration/tutorial001.py hl[3,17] *}
+
+状态码在响应中使用，并会被添加到 OpenAPI 概图。
+
+/// note | 技术细节
+
+也可以使用 `from starlette import status` 导入状态码。
+
+**FastAPI** 的`fastapi.status` 和 `starlette.status` 一样，只是快捷方式。实际上，`fastapi.status` 直接继承自 Starlette。
+
+///
+
+## `tags` 参数
+
+`tags` 参数的值是由 `str` 组成的 `list` （一般只有一个 `str` ），`tags` 用于为*路径操作*添加标签：
+
+{* ../../docs_src/path_operation_configuration/tutorial002.py hl[17,22,27] *}
+
+OpenAPI 概图会自动添加标签，供 API 文档接口使用：
+
+<img src="/img/tutorial/path-operation-configuration/image01.png">
+
+## `summary` 和 `description` 参数
+
+路径装饰器还支持 `summary` 和 `description` 这两个参数：
+
+{* ../../docs_src/path_operation_configuration/tutorial003.py hl[20:21] *}
+
+## 文档字符串（`docstring`）
+
+描述内容比较长且占用多行时，可以在函数的 <abbr title="函数中作为第一个表达式，用于文档目的的一个多行字符串（并没有被分配个任何变量）">docstring</abbr> 中声明*路径操作*的描述，**FastAPI** 支持从文档字符串中读取描述内容。
+
+文档字符串支持 <a href="https://en.wikipedia.org/wiki/Markdown" class="external-link" target="_blank">Markdown</a>，能正确解析和显示 Markdown 的内容，但要注意文档字符串的缩进。
+
+{* ../../docs_src/path_operation_configuration/tutorial004.py hl[19:27] *}
+
+下图为 Markdown 文本在 API 文档中的显示效果：
+
+<img src="/img/tutorial/path-operation-configuration/image02.png">
+
+## 响应描述
+
+`response_description` 参数用于定义响应的描述说明：
+
+{* ../../docs_src/path_operation_configuration/tutorial005.py hl[21] *}
+
+/// info | 说明
+
+注意，`response_description` 只用于描述响应，`description` 一般则用于描述*路径操作*。
+
+///
+
+/// check | 检查
+
+OpenAPI 规定每个*路径操作*都要有响应描述。
+
+如果没有定义响应描述，**FastAPI** 则自动生成内容为 "Successful response" 的响应描述。
+
+///
+
+<img src="/img/tutorial/path-operation-configuration/image03.png">
+
+## 弃用*路径操作*
+
+`deprecated` 参数可以把*路径操作*标记为<abbr title="过时，建议不要使用">弃用</abbr>，无需直接删除：
+
+{* ../../docs_src/path_operation_configuration/tutorial006.py hl[16] *}
+
+API 文档会把该路径操作标记为弃用：
+
+<img src="/img/tutorial/path-operation-configuration/image04.png">
+
+下图显示了正常*路径操作*与弃用*路径操作* 的区别：
+
+<img src="/img/tutorial/path-operation-configuration/image05.png">
+
+## 小结
+
+通过传递参数给*路径操作装饰器* ，即可轻松地配置*路径操作*、添加元数据。
+
+
+================================================
+File: /docs/zh/docs/tutorial/path-params-numeric-validations.md
+================================================
+# 路径参数和数值校验
+
+与使用 `Query` 为查询参数声明更多的校验和元数据的方式相同，你也可以使用 `Path` 为路径参数声明相同类型的校验和元数据。
+
+## 导入 Path
+
+首先，从 `fastapi` 导入 `Path`：
+
+{* ../../docs_src/path_params_numeric_validations/tutorial001_an_py310.py hl[1,3] *}
+
+## 声明元数据
+
+你可以声明与 `Query` 相同的所有参数。
+
+例如，要声明路径参数 `item_id`的 `title` 元数据值，你可以输入：
+
+{* ../../docs_src/path_params_numeric_validations/tutorial001_an_py310.py hl[10] *}
+
+/// note
+
+路径参数总是必需的，因为它必须是路径的一部分。
+
+所以，你应该在声明时使用 `...` 将其标记为必需参数。
+
+然而，即使你使用 `None` 声明路径参数或设置一个其他默认值也不会有任何影响，它依然会是必需参数。
+
+///
+
+## 按需对参数排序
+
+假设你想要声明一个必需的 `str` 类型查询参数 `q`。
+
+而且你不需要为该参数声明任何其他内容，所以实际上你并不需要使用 `Query`。
+
+但是你仍然需要使用 `Path` 来声明路径参数 `item_id`。
+
+如果你将带有「默认值」的参数放在没有「默认值」的参数之前，Python 将会报错。
+
+但是你可以对其重新排序，并将不带默认值的值（查询参数 `q`）放到最前面。
+
+对 **FastAPI** 来说这无关紧要。它将通过参数的名称、类型和默认值声明（`Query`、`Path` 等）来检测参数，而不在乎参数的顺序。
+
+因此，你可以将函数声明为：
+
+{* ../../docs_src/path_params_numeric_validations/tutorial002.py hl[7] *}
+
+## 按需对参数排序的技巧
+
+如果你想不使用 `Query` 声明没有默认值的查询参数 `q`，同时使用 `Path` 声明路径参数 `item_id`，并使它们的顺序与上面不同，Python 对此有一些特殊的语法。
+
+传递 `*` 作为函数的第一个参数。
+
+Python 不会对该 `*` 做任何事情，但是它将知道之后的所有参数都应作为关键字参数（键值对），也被称为 <abbr title="来自：K-ey W-ord Arg-uments"><code>kwargs</code></abbr>，来调用。即使它们没有默认值。
+
+{* ../../docs_src/path_params_numeric_validations/tutorial003.py hl[7] *}
+
+## 数值校验：大于等于
+
+使用 `Query` 和 `Path`（以及你将在后面看到的其他类）可以声明字符串约束，但也可以声明数值约束。
+
+像下面这样，添加 `ge=1` 后，`item_id` 将必须是一个大于（`g`reater than）或等于（`e`qual）`1` 的整数。
+
+{* ../../docs_src/path_params_numeric_validations/tutorial004.py hl[8] *}
+
+## 数值校验：大于和小于等于
+
+同样的规则适用于：
+
+* `gt`：大于（`g`reater `t`han）
+* `le`：小于等于（`l`ess than or `e`qual）
+
+{* ../../docs_src/path_params_numeric_validations/tutorial005.py hl[9] *}
+
+## 数值校验：浮点数、大于和小于
+
+数值校验同样适用于 `float` 值。
+
+能够声明 <abbr title="大于"><code>gt</code></abbr> 而不仅仅是 <abbr title="大于等于"><code>ge</code></abbr> 在这个前提下变得重要起来。例如，你可以要求一个值必须大于 `0`，即使它小于 `1`。
+
+因此，`0.5` 将是有效值。但是 `0.0`或 `0` 不是。
+
+对于 <abbr title="less than"><code>lt</code></abbr> 也是一样的。
+
+{* ../../docs_src/path_params_numeric_validations/tutorial006.py hl[11] *}
+
+## 总结
+
+你能够以与 [查询参数和字符串校验](query-params-str-validations.md){.internal-link target=_blank} 相同的方式使用 `Query`、`Path`（以及其他你还没见过的类）声明元数据和字符串校验。
+
+而且你还可以声明数值校验：
+
+* `gt`：大于（`g`reater `t`han）
+* `ge`：大于等于（`g`reater than or `e`qual）
+* `lt`：小于（`l`ess `t`han）
+* `le`：小于等于（`l`ess than or `e`qual）
+
+/// info
+
+`Query`、`Path` 以及你后面会看到的其他类继承自一个共同的 `Param` 类（不需要直接使用它）。
+
+而且它们都共享相同的所有你已看到并用于添加额外校验和元数据的参数。
+
+///
+
+/// note | 技术细节
+
+当你从 `fastapi` 导入 `Query`、`Path` 和其他同类对象时，它们实际上是函数。
+
+当被调用时，它们返回同名类的实例。
+
+如此，你导入 `Query` 这个函数。当你调用它时，它将返回一个同样命名为 `Query` 的类的实例。
+
+因为使用了这些函数（而不是直接使用类），所以你的编辑器不会标记有关其类型的错误。
+
+这样，你可以使用常规的编辑器和编码工具，而不必添加自定义配置来忽略这些错误。
+
+///
+
+
+================================================
+File: /docs/zh/docs/tutorial/path-params.md
+================================================
+# 路径参数
+
+FastAPI 支持使用 Python 字符串格式化语法声明**路径参数**（**变量**）：
+
+{* ../../docs_src/path_params/tutorial001.py hl[6:7] *}
+
+这段代码把路径参数 `item_id` 的值传递给路径函数的参数 `item_id`。
+
+运行示例并访问 <a href="http://127.0.0.1:8000/items/foo" class="external-link" target="_blank">http://127.0.0.1:8000/items/foo</a>，可获得如下响应：
+
+```JSON
+{"item_id":"foo"}
+```
+
+## 声明路径参数的类型
+
+使用 Python 标准类型注解，声明路径操作函数中路径参数的类型。
+
+{* ../../docs_src/path_params/tutorial002.py hl[7] *}
+
+本例把 `item_id` 的类型声明为 `int`。
+
+/// check | 检查
+
+类型声明将为函数提供错误检查、代码补全等编辑器支持。
+
+///
+
+## 数据<abbr title="也称为：序列化、解析">转换</abbr>
+
+运行示例并访问 <a href="http://127.0.0.1:8000/items/3" class="external-link" target="_blank">http://127.0.0.1:8000/items/3</a>，返回的响应如下：
+
+```JSON
+{"item_id":3}
+```
+
+/// check | 检查
+
+注意，函数接收并返回的值是 `3`（ `int`），不是 `"3"`（`str`）。
+
+**FastAPI** 通过类型声明自动<abbr title="将来自 HTTP 请求中的字符串转换为 Python 数据类型">**解析**请求中的数据</abbr>。
+
+///
+
+## 数据校验
+
+通过浏览器访问 <a href="http://127.0.0.1:8000/items/foo" class="external-link" target="_blank">http://127.0.0.1:8000/items/foo</a>，接收如下 HTTP 错误信息：
+
+```JSON
+{
+    "detail": [
+        {
+            "loc": [
+                "path",
+                "item_id"
+            ],
+            "msg": "value is not a valid integer",
+            "type": "type_error.integer"
+        }
+    ]
+}
+```
+
+这是因为路径参数 `item_id` 的值 （`"foo"`）的类型不是 `int`。
+
+值的类型不是 `int ` 而是浮点数（`float`）时也会显示同样的错误，比如： <a href="http://127.0.0.1:8000/items/4.2" class="external-link" target="_blank">http://127.0.0.1:8000/items/4.2。</a>
+
+/// check | 检查
+
+**FastAPI** 使用 Python 类型声明实现了数据校验。
+
+注意，上面的错误清晰地指出了未通过校验的具体原因。
+
+这在开发调试与 API 交互的代码时非常有用。
+
+///
+
+## 查看文档
+
+访问 <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>，查看自动生成的 API 文档：
+
+<img src="/img/tutorial/path-params/image01.png">
+
+/// check | 检查
+
+还是使用 Python 类型声明，**FastAPI** 提供了（集成 Swagger UI 的）API 文档。
+
+注意，路径参数的类型是整数。
+
+///
+
+## 基于标准的好处，备选文档
+
+**FastAPI** 使用 <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md" class="external-link" target="_blank">OpenAPI</a> 生成概图，所以能兼容很多工具。
+
+因此，**FastAPI** 还内置了 ReDoc 生成的备选 API 文档，可在此查看 <a href="http://127.0.0.1:8000/redoc" class="external-link" target="_blank">http://127.0.0.1:8000/redoc</a>：
+
+<img src="/img/tutorial/path-params/image02.png">
+
+同样，还有很多兼容工具，包括多种语言的代码生成工具。
+
+## Pydantic
+
+FastAPI 充分地利用了 <a href="https://docs.pydantic.dev/" class="external-link" target="_blank">Pydantic</a> 的优势，用它在后台校验数据。众所周知，Pydantic 擅长的就是数据校验。
+
+同样，`str`、`float`、`bool` 以及很多复合数据类型都可以使用类型声明。
+
+下一章介绍详细内容。
+
+## 顺序很重要
+
+有时，*路径操作*中的路径是写死的。
+
+比如要使用 `/users/me` 获取当前用户的数据。
+
+然后还要使用 `/users/{user_id}`，通过用户 ID 获取指定用户的数据。
+
+由于*路径操作*是按顺序依次运行的，因此，一定要在 `/users/{user_id}` 之前声明 `/users/me` ：
+
+{* ../../docs_src/path_params/tutorial003.py hl[6,11] *}
+
+否则，`/users/{user_id}` 将匹配 `/users/me`，FastAPI 会**认为**正在接收值为 `"me"` 的 `user_id` 参数。
+
+## 预设值
+
+路径操作使用 Python 的 <abbr title="Enumeration">`Enum`</abbr> 类型接收预设的*路径参数*。
+
+### 创建 `Enum` 类
+
+导入 `Enum` 并创建继承自 `str` 和 `Enum` 的子类。
+
+通过从 `str` 继承，API 文档就能把值的类型定义为**字符串**，并且能正确渲染。
+
+然后，创建包含固定值的类属性，这些固定值是可用的有效值：
+
+{* ../../docs_src/path_params/tutorial005.py hl[1,6:9] *}
+
+/// info | 说明
+
+Python 3.4 及之后版本支持<a href="https://docs.python.org/zh-cn/3/library/enum.html" class="external-link" target="_blank">枚举（即 enums）</a>。
+
+///
+
+/// tip | 提示
+
+**AlexNet**、**ResNet**、**LeNet** 是机器学习<abbr title="技术上来说是深度学习模型架构">模型</abbr>。
+
+///
+
+### 声明*路径参数*
+
+使用 Enum 类（`ModelName`）创建使用类型注解的*路径参数*：
+
+{* ../../docs_src/path_params/tutorial005.py hl[16] *}
+
+### 查看文档
+
+ API 文档会显示预定义*路径参数*的可用值：
+
+<img src="/img/tutorial/path-params/image03.png">
+
+### 使用 Python _枚举类型_
+
+*路径参数*的值是枚举的元素。
+
+#### 比较*枚举元素*
+
+枚举类 `ModelName` 中的*枚举元素*支持比较操作：
+
+{* ../../docs_src/path_params/tutorial005.py hl[17] *}
+
+#### 获取*枚举值*
+
+使用 `model_name.value` 或 `your_enum_member.value` 获取实际的值（本例中为**字符串**）：
+
+{* ../../docs_src/path_params/tutorial005.py hl[20] *}
+
+/// tip | 提示
+
+使用 `ModelName.lenet.value` 也能获取值 `"lenet"`。
+
+///
+
+#### 返回*枚举元素*
+
+即使嵌套在 JSON 请求体里（例如， `dict`），也可以从*路径操作*返回*枚举元素*。
+
+返回给客户端之前，要把枚举元素转换为对应的值（本例中为字符串）：
+
+{* ../../docs_src/path_params/tutorial005.py hl[18,21,23] *}
+
+客户端中的 JSON 响应如下：
+
+```JSON
+{
+  "model_name": "alexnet",
+  "message": "Deep Learning FTW!"
+}
+```
+
+## 包含路径的路径参数
+
+假设*路径操作*的路径为 `/files/{file_path}`。
+
+但需要 `file_path` 中也包含*路径*，比如，`home/johndoe/myfile.txt`。
+
+此时，该文件的 URL 是这样的：`/files/home/johndoe/myfile.txt`。
+
+### OpenAPI 支持
+
+OpenAPI 不支持声明包含路径的*路径参数*，因为这会导致测试和定义更加困难。
+
+不过，仍可使用 Starlette 内置工具在 **FastAPI** 中实现这一功能。
+
+而且不影响文档正常运行，但是不会添加该参数包含路径的说明。
+
+### 路径转换器
+
+直接使用 Starlette 的选项声明包含*路径*的*路径参数*：
+
+```
+/files/{file_path:path}
+```
+
+本例中，参数名为 `file_path`，结尾部分的 `:path` 说明该参数应匹配*路径*。
+
+用法如下：
+
+{* ../../docs_src/path_params/tutorial004.py hl[6] *}
+
+/// tip | 提示
+
+注意，包含 `/home/johndoe/myfile.txt` 的路径参数要以斜杠（`/`）开头。
+
+本例中的 URL 是 `/files//home/johndoe/myfile.txt`。注意，`files` 和 `home` 之间要使用**双斜杠**（`//`）。
+
+///
+
+## 小结
+
+通过简短、直观的 Python 标准类型声明，**FastAPI** 可以获得：
+
+- 编辑器支持：错误检查，代码自动补全等
+- 数据**<abbr title="把来自 HTTP 请求中的字符串转换为 Python 数据类型">解析</abbr>**
+- 数据校验
+- API 注解和 API 文档
+
+只需要声明一次即可。
+
+这可能是除了性能以外，**FastAPI** 与其它框架相比的主要优势。
+
+
+================================================
+File: /docs/zh/docs/tutorial/query-param-models.md
+================================================
+# 查询参数模型
+
+如果你有一组具有相关性的**查询参数**，你可以创建一个 **Pydantic 模型**来声明它们。
+
+这将允许你在**多个地方**去**复用模型**，并且一次性为所有参数声明验证和元数据。😎
+
+/// note
+
+FastAPI 从 `0.115.0` 版本开始支持这个特性。🤓
+
+///
+
+## 使用 Pydantic 模型的查询参数
+
+在一个 **Pydantic 模型**中声明你需要的**查询参数**，然后将参数声明为 `Query`：
+
+{* ../../docs_src/query_param_models/tutorial001_an_py310.py hl[9:13,17] *}
+
+**FastAPI** 将会从请求的**查询参数**中**提取**出**每个字段**的数据，并将其提供给你定义的 Pydantic 模型。
+
+## 查看文档
+
+你可以在 `/docs` 页面的 UI 中查看查询参数：
+
+<div class="screenshot">
+<img src="/img/tutorial/query-param-models/image01.png">
+</div>
+
+## 禁止额外的查询参数
+
+在一些特殊的使用场景中（可能不是很常见），你可能希望**限制**你要接收的查询参数。
+
+你可以使用 Pydantic 的模型配置来 `forbid`（意为禁止 —— 译者注）任何 `extra`（意为额外的 —— 译者注）字段：
+
+{* ../../docs_src/query_param_models/tutorial002_an_py310.py hl[10] *}
+
+假设有一个客户端尝试在**查询参数**中发送一些**额外的**数据，它将会收到一个**错误**响应。
+
+例如，如果客户端尝试发送一个值为 `plumbus` 的 `tool` 查询参数，如：
+
+```http
+https://example.com/items/?limit=10&tool=plumbus
+```
+
+他们将收到一个**错误**响应，告诉他们查询参数 `tool` 是不允许的：
+
+```json
+{
+    "detail": [
+        {
+            "type": "extra_forbidden",
+            "loc": ["query", "tool"],
+            "msg": "Extra inputs are not permitted",
+            "input": "plumbus"
+        }
+    ]
+}
+```
+
+## 总结
+
+你可以使用 **Pydantic 模型**在 **FastAPI** 中声明**查询参数**。😎
+
+/// tip
+
+剧透警告：你也可以使用 Pydantic 模型来声明 cookie 和 headers，但你将在本教程的后面部分阅读到这部分内容。🤫
+
+///
+
+
+================================================
+File: /docs/zh/docs/tutorial/query-params-str-validations.md
+================================================
+# 查询参数和字符串校验
+
+**FastAPI** 允许你为参数声明额外的信息和校验。
+
+让我们以下面的应用程序为例：
+
+{* ../../docs_src/query_params_str_validations/tutorial001_py310.py hl[7] *}
+
+查询参数 `q` 的类型为 `str`，默认值为 `None`，因此它是可选的。
+
+## 额外的校验
+
+我们打算添加约束条件：即使 `q` 是可选的，但只要提供了该参数，则该参数值**不能超过50个字符的长度**。
+
+### 导入 `Query`
+
+为此，首先从 `fastapi` 导入 `Query`：
+
+{* ../../docs_src/query_params_str_validations/tutorial002.py hl[1] *}
+
+## 使用 `Query` 作为默认值
+
+现在，将 `Query` 用作查询参数的默认值，并将它的 `max_length` 参数设置为 50：
+
+{* ../../docs_src/query_params_str_validations/tutorial002.py hl[9] *}
+
+由于我们必须用 `Query(default=None)` 替换默认值 `None`，`Query` 的第一个参数同样也是用于定义默认值。
+
+所以：
+
+```Python
+q: Union[str, None] = Query(default=None)
+```
+
+...使得参数可选，等同于：
+
+```Python
+q: str = None
+```
+
+但是 `Query` 显式地将其声明为查询参数。
+
+然后，我们可以将更多的参数传递给 `Query`。在本例中，适用于字符串的 `max_length` 参数：
+
+```Python
+q: Union[str, None] = Query(default=None, max_length=50)
+```
+
+将会校验数据，在数据无效时展示清晰的错误信息，并在 OpenAPI 模式的*路径操作*中记录该参​​数。
+
+## 添加更多校验
+
+你还可以添加 `min_length` 参数：
+
+{* ../../docs_src/query_params_str_validations/tutorial003.py hl[10] *}
+
+## 添加正则表达式
+
+你可以定义一个参数值必须匹配的<abbr title="正则表达式或正则是定义字符串搜索模式的字符序列。">正则表达式</abbr>：
+
+{* ../../docs_src/query_params_str_validations/tutorial004.py hl[11] *}
+
+这个指定的正则表达式通过以下规则检查接收到的参数值：
+
+* `^`：以该符号之后的字符开头，符号之前没有字符。
+* `fixedquery`: 值精确地等于 `fixedquery`。
+* `$`: 到此结束，在 `fixedquery` 之后没有更多字符。
+
+如果你对所有的这些**「正则表达式」**概念感到迷茫，请不要担心。对于许多人来说这都是一个困难的主题。你仍然可以在无需正则表达式的情况下做很多事情。
+
+但是，一旦你需要用到并去学习它们时，请了解你已经可以在 **FastAPI** 中直接使用它们。
+
+## 默认值
+
+你可以向 `Query` 的第一个参数传入 `None` 用作查询参数的默认值，以同样的方式你也可以传递其他默认值。
+
+假设你想要声明查询参数 `q`，使其 `min_length` 为 `3`，并且默认值为 `fixedquery`：
+
+{* ../../docs_src/query_params_str_validations/tutorial005.py hl[7] *}
+
+/// note
+
+具有默认值还会使该参数成为可选参数。
+
+///
+
+## 声明为必需参数
+
+当我们不需要声明额外的校验或元数据时，只需不声明默认值就可以使 `q` 参数成为必需参数，例如：
+
+```Python
+q: str
+```
+
+代替：
+
+```Python
+q: Union[str, None] = None
+```
+
+但是现在我们正在用 `Query` 声明它，例如：
+
+```Python
+q: Union[str, None] = Query(default=None, min_length=3)
+```
+
+因此，当你在使用 `Query` 且需要声明一个值是必需的时，只需不声明默认参数：
+
+{* ../../docs_src/query_params_str_validations/tutorial006.py hl[7] *}
+
+### 使用省略号(`...`)声明必需参数
+
+有另一种方法可以显式的声明一个值是必需的，即将默认参数的默认值设为 `...` ：
+
+{* ../../docs_src/query_params_str_validations/tutorial006b.py hl[7] *}
+
+/// info
+
+如果你之前没见过 `...` 这种用法：它是一个特殊的单独值，它是 <a href="https://docs.python.org/zh-cn/3/library/constants.html#Ellipsis" class="external-link" target="_blank">Python 的一部分并且被称为“Ellipsis”（意为省略号 —— 译者注）</a>。
+Pydantic 和 FastAPI 使用它来显式的声明需要一个值。
+
+///
+
+这将使 **FastAPI** 知道此查询参数是必需的。
+
+### 使用`None`声明必需参数
+
+你可以声明一个参数可以接收`None`值，但它仍然是必需的。这将强制客户端发送一个值，即使该值是`None`。
+
+为此，你可以声明`None`是一个有效的类型，并仍然使用`default=...`：
+
+{* ../../docs_src/query_params_str_validations/tutorial006c.py hl[9] *}
+
+/// tip
+
+Pydantic 是 FastAPI 中所有数据验证和序列化的核心，当你在没有设默认值的情况下使用 `Optional` 或 `Union[Something, None]` 时，它具有特殊行为，你可以在 Pydantic 文档中阅读有关<a href="https://docs.pydantic.dev/latest/concepts/models/#required-optional-fields" class="external-link" target="_blank">必需可选字段</a>的更多信息。
+
+///
+
+### 使用Pydantic中的`Required`代替省略号(`...`)
+
+如果你觉得使用 `...` 不舒服，你也可以从 Pydantic 导入并使用 `Required`：
+
+{* ../../docs_src/query_params_str_validations/tutorial006d.py hl[2,8] *}
+
+/// tip
+
+请记住，在大多数情况下，当你需要某些东西时，可以简单地省略 `default` 参数，因此你通常不必使用 `...` 或 `Required`
+
+///
+
+## 查询参数列表 / 多个值
+
+当你使用 `Query` 显式地定义查询参数时，你还可以声明它去接收一组值，或换句话来说，接收多个值。
+
+例如，要声明一个可在 URL 中出现多次的查询参数 `q`，你可以这样写：
+
+{* ../../docs_src/query_params_str_validations/tutorial011.py hl[9] *}
+
+然后，输入如下网址：
+
+```
+http://localhost:8000/items/?q=foo&q=bar
+```
+
+你会在*路径操作函数*的*函数参数* `q` 中以一个 Python `list` 的形式接收到*查询参数* `q` 的多个值（`foo` 和 `bar`）。
+
+因此，该 URL 的响应将会是：
+
+```JSON
+{
+  "q": [
+    "foo",
+    "bar"
+  ]
+}
+```
+
+/// tip
+
+要声明类型为 `list` 的查询参数，如上例所示，你需要显式地使用 `Query`，否则该参数将被解释为请求体。
+
+///
+
+交互式 API 文档将会相应地进行更新，以允许使用多个值：
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/query-params-str-validations/image02.png">
+
+### 具有默认值的查询参数列表 / 多个值
+
+你还可以定义在没有任何给定值时的默认 `list` 值：
+
+{* ../../docs_src/query_params_str_validations/tutorial012.py hl[9] *}
+
+如果你访问：
+
+```
+http://localhost:8000/items/
+```
+
+`q` 的默认值将为：`["foo", "bar"]`，你的响应会是：
+
+```JSON
+{
+  "q": [
+    "foo",
+    "bar"
+  ]
+}
+```
+
+#### 使用 `list`
+
+你也可以直接使用 `list` 代替 `List [str]`：
+
+{* ../../docs_src/query_params_str_validations/tutorial013.py hl[7] *}
+
+/// note
+
+请记住，在这种情况下 FastAPI 将不会检查列表的内容。
+
+例如，`List[int]` 将检查（并记录到文档）列表的内容必须是整数。但是单独的 `list` 不会。
+
+///
+
+## 声明更多元数据
+
+你可以添加更多有关该参数的信息。
+
+这些信息将包含在生成的 OpenAPI 模式中，并由文档用户界面和外部工具所使用。
+
+/// note
+
+请记住，不同的工具对 OpenAPI 的支持程度可能不同。
+
+其中一些可能不会展示所有已声明的额外信息，尽管在大多数情况下，缺少的这部分功能已经计划进行开发。
+
+///
+
+你可以添加 `title`：
+
+{* ../../docs_src/query_params_str_validations/tutorial007.py hl[10] *}
+
+以及 `description`：
+
+{* ../../docs_src/query_params_str_validations/tutorial008.py hl[13] *}
+
+## 别名参数
+
+假设你想要查询参数为 `item-query`。
+
+像下面这样：
+
+```
+http://127.0.0.1:8000/items/?item-query=foobaritems
+```
+
+但是 `item-query` 不是一个有效的 Python 变量名称。
+
+最接近的有效名称是 `item_query`。
+
+但是你仍然要求它在 URL 中必须是 `item-query`...
+
+这时你可以用 `alias` 参数声明一个别名，该别名将用于在 URL 中查找查询参数值：
+
+{* ../../docs_src/query_params_str_validations/tutorial009.py hl[9] *}
+
+## 弃用参数
+
+现在假设你不再喜欢此参数。
+
+你不得不将其保留一段时间，因为有些客户端正在使用它，但你希望文档清楚地将其展示为<abbr title ="已过时，建议不要使用它">已弃用</abbr>。
+
+那么将参数 `deprecated=True` 传入 `Query`：
+
+{* ../../docs_src/query_params_str_validations/tutorial010.py hl[18] *}
+
+文档将会像下面这样展示它：
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/query-params-str-validations/image01.png">
+
+## 总结
+
+你可以为查询参数声明额外的校验和元数据。
+
+通用的校验和元数据：
+
+* `alias`
+* `title`
+* `description`
+* `deprecated`
+
+特定于字符串的校验：
+
+* `min_length`
+* `max_length`
+* `regex`
+
+在这些示例中，你了解了如何声明对 `str` 值的校验。
+
+请参阅下一章节，以了解如何声明对其他类型例如数值的校验。
+
+
+================================================
+File: /docs/zh/docs/tutorial/query-params.md
+================================================
+# 查询参数
+
+声明的参数不是路径参数时，路径操作函数会把该参数自动解释为**查询**参数。
+
+{* ../../docs_src/query_params/tutorial001.py hl[9] *}
+
+查询字符串是键值对的集合，这些键值对位于 URL 的 `?` 之后，以 `&` 分隔。
+
+例如，以下 URL 中：
+
+```
+http://127.0.0.1:8000/items/?skip=0&limit=10
+```
+
+……查询参数为：
+
+* `skip`：值为 `0`
+* `limit`：值为 `10`
+
+这些值都是 URL 的组成部分，因此，它们的类型**本应**是字符串。
+
+但声明 Python 类型（上例中为 `int`）之后，这些值就会转换为声明的类型，并进行类型校验。
+
+所有应用于路径参数的流程也适用于查询参数：
+
+* （显而易见的）编辑器支持
+* 数据<abbr title="将来自 HTTP 请求的字符串转换为 Python 数据类型">**解析**</abbr>
+* 数据校验
+* API 文档
+
+## 默认值
+
+查询参数不是路径的固定内容，它是可选的，还支持默认值。
+
+上例用 `skip=0` 和 `limit=10` 设定默认值。
+
+访问 URL：
+
+```
+http://127.0.0.1:8000/items/
+```
+
+与访问以下地址相同：
+
+```
+http://127.0.0.1:8000/items/?skip=0&limit=10
+```
+
+但如果访问：
+
+```
+http://127.0.0.1:8000/items/?skip=20
+```
+
+查询参数的值就是：
+
+* `skip=20`：在 URL 中设定的值
+* `limit=10`：使用默认值
+
+## 可选参数
+
+同理，把默认值设为 `None` 即可声明**可选的**查询参数：
+
+{* ../../docs_src/query_params/tutorial002_py310.py hl[7] *}
+
+本例中，查询参数 `q` 是可选的，默认值为 `None`。
+
+/// check | 检查
+
+注意，**FastAPI** 可以识别出 `item_id` 是路径参数，`q` 不是路径参数，而是查询参数。
+
+///
+
+/// note | 笔记
+
+因为默认值为 `= None`，FastAPI 把 `q` 识别为可选参数。
+
+FastAPI 不使用 `Optional[str]` 中的 `Optional`（只使用 `str`），但 `Optional[str]` 可以帮助编辑器发现代码中的错误。
+
+///
+
+## 查询参数类型转换
+
+参数还可以声明为 `bool` 类型，FastAPI 会自动转换参数类型：
+
+
+{* ../../docs_src/query_params/tutorial003_py310.py hl[7] *}
+
+本例中，访问：
+
+```
+http://127.0.0.1:8000/items/foo?short=1
+```
+
+或
+
+```
+http://127.0.0.1:8000/items/foo?short=True
+```
+
+或
+
+```
+http://127.0.0.1:8000/items/foo?short=true
+```
+
+或
+
+```
+http://127.0.0.1:8000/items/foo?short=on
+```
+
+或
+
+```
+http://127.0.0.1:8000/items/foo?short=yes
+```
+
+或其它任意大小写形式（大写、首字母大写等），函数接收的 `short` 参数都是布尔值 `True`。值为 `False` 时也一样。
+
+
+## 多个路径和查询参数
+
+**FastAPI** 可以识别同时声明的多个路径参数和查询参数。
+
+而且声明查询参数的顺序并不重要。
+
+FastAPI 通过参数名进行检测：
+
+{* ../../docs_src/query_params/tutorial004_py310.py hl[6,8] *}
+
+## 必选查询参数
+
+为不是路径参数的参数声明默认值（至此，仅有查询参数），该参数就**不是必选**的了。
+
+如果只想把参数设为**可选**，但又不想指定参数的值，则要把默认值设为 `None`。
+
+如果要把查询参数设置为**必选**，就不要声明默认值：
+
+{* ../../docs_src/query_params/tutorial005.py hl[6:7] *}
+
+这里的查询参数 `needy` 是类型为 `str` 的必选查询参数。
+
+在浏览器中打开如下 URL：
+
+```
+http://127.0.0.1:8000/items/foo-item
+```
+
+……因为路径中没有必选参数 `needy`，返回的响应中会显示如下错误信息：
+
+```JSON
+{
+    "detail": [
+        {
+            "loc": [
+                "query",
+                "needy"
+            ],
+            "msg": "field required",
+            "type": "value_error.missing"
+        }
+    ]
+}
+```
+
+`needy` 是必选参数，因此要在 URL 中设置值：
+
+```
+http://127.0.0.1:8000/items/foo-item?needy=sooooneedy
+```
+
+……这样就正常了：
+
+```JSON
+{
+    "item_id": "foo-item",
+    "needy": "sooooneedy"
+}
+```
+
+当然，把一些参数定义为必选，为另一些参数设置默认值，再把其它参数定义为可选，这些操作都是可以的：
+
+{* ../../docs_src/query_params/tutorial006_py310.py hl[8] *}
+
+本例中有 3 个查询参数：
+
+* `needy`，必选的 `str` 类型参数
+* `skip`，默认值为 `0` 的 `int` 类型参数
+* `limit`，可选的 `int` 类型参数
+
+/// tip | 提示
+
+还可以像在[路径参数](path-params.md#_8){.internal-link target=_blank} 中那样使用 `Enum`。
+
+///
+
+
+================================================
+File: /docs/zh/docs/tutorial/request-files.md
+================================================
+# 请求文件
+
+`File` 用于定义客户端的上传文件。
+
+/// info | 说明
+
+因为上传文件以「表单数据」形式发送。
+
+所以接收上传文件，要预先安装 <a href="https://github.com/Kludex/python-multipart" class="external-link" target="_blank">`python-multipart`</a>。
+
+例如： `pip install python-multipart`。
+
+///
+
+## 导入 `File`
+
+从 `fastapi` 导入 `File` 和 `UploadFile`：
+
+{* ../../docs_src/request_files/tutorial001.py hl[1] *}
+
+## 定义 `File` 参数
+
+创建文件（`File`）参数的方式与 `Body` 和 `Form` 一样：
+
+{* ../../docs_src/request_files/tutorial001.py hl[7] *}
+
+/// info | 说明
+
+`File` 是直接继承自 `Form` 的类。
+
+注意，从 `fastapi` 导入的 `Query`、`Path`、`File` 等项，实际上是返回特定类的函数。
+
+///
+
+/// tip | 提示
+
+声明文件体必须使用 `File`，否则，FastAPI 会把该参数当作查询参数或请求体（JSON）参数。
+
+///
+
+文件作为「表单数据」上传。
+
+如果把*路径操作函数*参数的类型声明为 `bytes`，**FastAPI** 将以 `bytes` 形式读取和接收文件内容。
+
+这种方式把文件的所有内容都存储在内存里，适用于小型文件。
+
+不过，很多情况下，`UploadFile` 更好用。
+
+## 含 `UploadFile` 的文件参数
+
+定义文件参数时使用 `UploadFile`：
+
+{* ../../docs_src/request_files/tutorial001.py hl[12] *}
+
+`UploadFile` 与 `bytes` 相比有更多优势：
+
+* 使用 `spooled` 文件：
+    * 存储在内存的文件超出最大上限时，FastAPI 会把文件存入磁盘；
+* 这种方式更适于处理图像、视频、二进制文件等大型文件，好处是不会占用所有内存；
+* 可获取上传文件的元数据；
+* 自带 <a href="https://docs.python.org/zh-cn/3/glossary.html#term-file-like-object" class="external-link" target="_blank">file-like</a> `async` 接口；
+* 暴露的 Python <a href="https://docs.python.org/zh-cn/3/library/tempfile.html#tempfile.SpooledTemporaryFile" class="external-link" target="_blank">`SpooledTemporaryFile`</a> 对象，可直接传递给其他预期「file-like」对象的库。
+
+### `UploadFile`
+
+`UploadFile` 的属性如下：
+
+* `filename`：上传文件名字符串（`str`），例如， `myimage.jpg`；
+* `content_type`：内容类型（MIME 类型 / 媒体类型）字符串（`str`），例如，`image/jpeg`；
+* `file`： <a href="https://docs.python.org/zh-cn/3/library/tempfile.html#tempfile.SpooledTemporaryFile" class="external-link" target="_blank">`SpooledTemporaryFile`</a>（ <a href="https://docs.python.org/zh-cn/3/glossary.html#term-file-like-object" class="external-link" target="_blank">file-like</a> 对象）。其实就是 Python文件，可直接传递给其他预期 `file-like` 对象的函数或支持库。
+
+`UploadFile` 支持以下 `async` 方法，（使用内部 `SpooledTemporaryFile`）可调用相应的文件方法。
+
+* `write(data)`：把 `data` （`str` 或 `bytes`）写入文件；
+* `read(size)`：按指定数量的字节或字符（`size` (`int`)）读取文件内容；
+* `seek(offset)`：移动至文件 `offset` （`int`）字节处的位置；
+    * 例如，`await myfile.seek(0) ` 移动到文件开头；
+    * 执行 `await myfile.read()` 后，需再次读取已读取内容时，这种方法特别好用；
+* `close()`：关闭文件。
+
+因为上述方法都是 `async` 方法，要搭配「await」使用。
+
+例如，在 `async` *路径操作函数* 内，要用以下方式读取文件内容：
+
+```Python
+contents = await myfile.read()
+```
+
+在普通 `def` *路径操作函数*  内，则可以直接访问 `UploadFile.file`，例如：
+
+```Python
+contents = myfile.file.read()
+```
+
+/// note | `async` 技术细节
+
+使用 `async` 方法时，**FastAPI** 在线程池中执行文件方法，并 `await` 操作完成。
+
+///
+
+/// note | Starlette 技术细节
+
+**FastAPI** 的 `UploadFile` 直接继承自 **Starlette** 的 `UploadFile`，但添加了一些必要功能，使之与 **Pydantic** 及 FastAPI 的其它部件兼容。
+
+///
+
+## 什么是 「表单数据」
+
+与 JSON 不同，HTML 表单（`<form></form>`）向服务器发送数据通常使用「特殊」的编码。
+
+**FastAPI** 要确保从正确的位置读取数据，而不是读取 JSON。
+
+/// note | 技术细节
+
+不包含文件时，表单数据一般用 `application/x-www-form-urlencoded`「媒体类型」编码。
+
+但表单包含文件时，编码为 `multipart/form-data`。使用了 `File`，**FastAPI** 就知道要从请求体的正确位置获取文件。
+
+编码和表单字段详见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/POST" class="external-link" target="_blank"><abbr title="Mozilla Developer Network">MDN</abbr> Web 文档的 <code>POST </code></a> 小节。
+
+///
+
+/// warning | 警告
+
+可在一个*路径操作*中声明多个 `File` 和 `Form` 参数，但不能同时声明要接收 JSON 的 `Body` 字段。因为此时请求体的编码是 `multipart/form-data`，不是 `application/json`。
+
+这不是 **FastAPI** 的问题，而是 HTTP 协议的规定。
+
+///
+
+## 可选文件上传
+
+您可以通过使用标准类型注解并将 None 作为默认值的方式将一个文件参数设为可选:
+
+{* ../../docs_src/request_files/tutorial001_02_py310.py hl[7,14] *}
+
+## 带有额外元数据的 `UploadFile`
+
+您也可以将 `File()` 与 `UploadFile` 一起使用，例如，设置额外的元数据:
+
+{* ../../docs_src/request_files/tutorial001_03.py hl[13] *}
+
+## 多文件上传
+
+FastAPI 支持同时上传多个文件。
+
+可用同一个「表单字段」发送含多个文件的「表单数据」。
+
+上传多个文件时，要声明含 `bytes` 或 `UploadFile` 的列表（`List`）：
+
+{* ../../docs_src/request_files/tutorial002_py39.py hl[8,13] *}
+
+接收的也是含 `bytes` 或 `UploadFile` 的列表（`list`）。
+
+
+/// note | 技术细节
+
+也可以使用 `from starlette.responses import HTMLResponse`。
+
+`fastapi.responses` 其实与 `starlette.responses` 相同，只是为了方便开发者调用。实际上，大多数 **FastAPI** 的响应都直接从 Starlette 调用。
+
+///
+
+### 带有额外元数据的多文件上传
+
+和之前的方式一样, 您可以为 `File()` 设置额外参数, 即使是 `UploadFile`:
+
+{* ../../docs_src/request_files/tutorial003_py39.py hl[16] *}
+
+## 小结
+
+本节介绍了如何用 `File` 把上传文件声明为（表单数据的）输入参数。
+
+
+================================================
+File: /docs/zh/docs/tutorial/request-form-models.md
+================================================
+# 表单模型
+
+您可以使用 **Pydantic 模型**在 FastAPI 中声明**表单字段**。
+
+/// info
+
+要使用表单，需预先安装 <a href="https://github.com/Kludex/python-multipart" class="external-link" target="_blank">`python-multipart`</a> 。
+
+确保您创建、激活一个[虚拟环境](../virtual-environments.md){.internal-link target=_blank}后再安装。
+
+```console
+$ pip install python-multipart
+```
+
+///
+
+/// note
+
+自 FastAPI 版本 `0.113.0` 起支持此功能。🤓
+
+///
+
+## 表单的 Pydantic 模型
+
+您只需声明一个 **Pydantic 模型**，其中包含您希望接收的**表单字段**，然后将参数声明为 `Form` :
+
+{* ../../docs_src/request_form_models/tutorial001_an_py39.py hl[9:11,15] *}
+
+**FastAPI** 将从请求中的**表单数据**中**提取**出**每个字段**的数据，并提供您定义的 Pydantic 模型。
+
+## 检查文档
+
+您可以在文档 UI 中验证它，地址为 `/docs` ：
+
+<div class="screenshot">
+<img src="/img/tutorial/request-form-models/image01.png">
+</div>
+
+## 禁止额外的表单字段
+
+在某些特殊使用情况下（可能并不常见），您可能希望将表单字段**限制**为仅在 Pydantic 模型中声明过的字段，并**禁止**任何**额外**的字段。
+
+/// note
+
+自 FastAPI 版本 `0.114.0` 起支持此功能。🤓
+
+///
+
+您可以使用 Pydantic 的模型配置来禁止（ `forbid` ）任何额外（ `extra` ）字段：
+
+{* ../../docs_src/request_form_models/tutorial002_an_py39.py hl[12] *}
+
+如果客户端尝试发送一些额外的数据，他们将收到**错误**响应。
+
+例如，如果客户端尝试发送这样的表单字段：
+
+* `username`: `Rick`
+* `password`: `Portal Gun`
+* `extra`: `Mr. Poopybutthole`
+
+他们将收到一条错误响应，表明字段 `extra` 是不被允许的：
+
+```json
+{
+    "detail": [
+        {
+            "type": "extra_forbidden",
+            "loc": ["body", "extra"],
+            "msg": "Extra inputs are not permitted",
+            "input": "Mr. Poopybutthole"
+        }
+    ]
+}
+```
+
+## 总结
+
+您可以使用 Pydantic 模型在 FastAPI 中声明表单字段。😎
+
+
+================================================
+File: /docs/zh/docs/tutorial/request-forms-and-files.md
+================================================
+# 请求表单与文件
+
+FastAPI 支持同时使用 `File` 和 `Form` 定义文件和表单字段。
+
+/// info | 说明
+
+接收上传文件或表单数据，要预先安装 <a href="https://github.com/Kludex/python-multipart" class="external-link" target="_blank">`python-multipart`</a>。
+
+例如，`pip install python-multipart`。
+
+///
+
+## 导入 `File` 与 `Form`
+
+{* ../../docs_src/request_forms_and_files/tutorial001.py hl[1] *}
+
+## 定义 `File` 与 `Form` 参数
+
+创建文件和表单参数的方式与 `Body` 和 `Query` 一样：
+
+{* ../../docs_src/request_forms_and_files/tutorial001.py hl[8] *}
+
+文件和表单字段作为表单数据上传与接收。
+
+声明文件可以使用 `bytes` 或 `UploadFile` 。
+
+/// warning | 警告
+
+可在一个*路径操作*中声明多个 `File` 与 `Form` 参数，但不能同时声明要接收 JSON 的 `Body` 字段。因为此时请求体的编码为 `multipart/form-data`，不是 `application/json`。
+
+这不是 **FastAPI** 的问题，而是 HTTP 协议的规定。
+
+///
+
+## 小结
+
+在同一个请求中接收数据和文件时，应同时使用 `File` 和 `Form`。
+
+
+================================================
+File: /docs/zh/docs/tutorial/request-forms.md
+================================================
+# 表单数据
+
+接收的不是 JSON，而是表单字段时，要使用 `Form`。
+
+/// info | 说明
+
+要使用表单，需预先安装 <a href="https://github.com/Kludex/python-multipart" class="external-link" target="_blank">`python-multipart`</a>。
+
+例如，`pip install python-multipart`。
+
+///
+
+## 导入 `Form`
+
+从 `fastapi` 导入 `Form`：
+
+{* ../../docs_src/request_forms/tutorial001.py hl[1] *}
+
+## 定义 `Form` 参数
+
+创建表单（`Form`）参数的方式与 `Body` 和 `Query` 一样：
+
+{* ../../docs_src/request_forms/tutorial001.py hl[7] *}
+
+例如，OAuth2 规范的 "密码流" 模式规定要通过表单字段发送 `username` 和 `password`。
+
+<abbr title="specification">该规范</abbr>要求字段必须命名为 `username` 和 `password`，并通过表单字段发送，不能用 JSON。
+
+使用 `Form` 可以声明与 `Body` （及 `Query`、`Path`、`Cookie`）相同的元数据和验证。
+
+/// info | 说明
+
+`Form` 是直接继承自 `Body` 的类。
+
+///
+
+/// tip | 提示
+
+声明表单体要显式使用 `Form` ，否则，FastAPI 会把该参数当作查询参数或请求体（JSON）参数。
+
+///
+
+## 关于 "表单字段"
+
+与 JSON 不同，HTML 表单（`<form></form>`）向服务器发送数据通常使用「特殊」的编码。
+
+**FastAPI** 要确保从正确的位置读取数据，而不是读取 JSON。
+
+/// note | 技术细节
+
+表单数据的「媒体类型」编码一般为 `application/x-www-form-urlencoded`。
+
+但包含文件的表单编码为 `multipart/form-data`。文件处理详见下节。
+
+编码和表单字段详见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/POST" class="external-link" target="_blank"><abbr title="Mozilla Developer Network">MDN</abbr> Web 文档的 <code>POST</code></a>小节。
+
+///
+
+/// warning | 警告
+
+可在一个*路径操作*中声明多个 `Form` 参数，但不能同时声明要接收 JSON 的 `Body` 字段。因为此时请求体的编码是 `application/x-www-form-urlencoded`，不是 `application/json`。
+
+这不是 **FastAPI** 的问题，而是 HTTP 协议的规定。
+
+///
+
+## 小结
+
+本节介绍了如何使用 `Form` 声明表单数据输入参数。
+
+
+================================================
+File: /docs/zh/docs/tutorial/response-model.md
+================================================
+# 响应模型
+
+你可以在任意的*路径操作*中使用 `response_model` 参数来声明用于响应的模型：
+
+* `@app.get()`
+* `@app.post()`
+* `@app.put()`
+* `@app.delete()`
+* 等等。
+
+{* ../../docs_src/response_model/tutorial001_py310.py hl[17,22,24:27] *}
+
+/// note
+
+注意，`response_model`是「装饰器」方法（`get`，`post` 等）的一个参数。不像之前的所有参数和请求体，它不属于*路径操作函数*。
+
+///
+
+它接收的类型与你将为 Pydantic 模型属性所声明的类型相同，因此它可以是一个 Pydantic 模型，但也可以是一个由 Pydantic 模型组成的 `list`，例如 `List[Item]`。
+
+FastAPI 将使用此 `response_model` 来：
+
+* 将输出数据转换为其声明的类型。
+* 校验数据。
+* 在 OpenAPI 的*路径操作*中为响应添加一个 JSON Schema。
+* 并在自动生成文档系统中使用。
+
+但最重要的是：
+
+* 会将输出数据限制在该模型定义内。下面我们会看到这一点有多重要。
+
+/// note | 技术细节
+
+响应模型在参数中被声明，而不是作为函数返回类型的注解，这是因为路径函数可能不会真正返回该响应模型，而是返回一个 `dict`、数据库对象或其他模型，然后再使用 `response_model` 来执行字段约束和序列化。
+
+///
+
+## 返回与输入相同的数据
+
+现在我们声明一个 `UserIn` 模型，它将包含一个明文密码属性。
+
+{* ../../docs_src/response_model/tutorial002.py hl[9,11] *}
+
+我们正在使用此模型声明输入数据，并使用同一模型声明输出数据：
+
+{* ../../docs_src/response_model/tutorial002.py hl[17:18] *}
+
+现在，每当浏览器使用一个密码创建用户时，API 都会在响应中返回相同的密码。
+
+在这个案例中，这可能不算是问题，因为用户自己正在发送密码。
+
+但是，如果我们在其他的*路径操作*中使用相同的模型，则可能会将用户的密码发送给每个客户端。
+
+/// danger
+
+永远不要存储用户的明文密码，也不要在响应中发送密码。
+
+///
+
+## 添加输出模型
+
+相反，我们可以创建一个有明文密码的输入模型和一个没有明文密码的输出模型：
+
+{* ../../docs_src/response_model/tutorial003_py310.py hl[9,11,16] *}
+
+这样，即便我们的*路径操作函数*将会返回包含密码的相同输入用户：
+
+{* ../../docs_src/response_model/tutorial003_py310.py hl[24] *}
+
+...我们已经将 `response_model` 声明为了不包含密码的 `UserOut` 模型：
+
+{* ../../docs_src/response_model/tutorial003_py310.py hl[22] *}
+
+因此，**FastAPI** 将会负责过滤掉未在输出模型中声明的所有数据（使用 Pydantic）。
+
+## 在文档中查看
+
+当你查看自动化文档时，你可以检查输入模型和输出模型是否都具有自己的 JSON Schema：
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/response-model/image01.png">
+
+并且两种模型都将在交互式 API 文档中使用：
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/response-model/image02.png">
+
+## 响应模型编码参数
+
+你的响应模型可以具有默认值，例如：
+
+{* ../../docs_src/response_model/tutorial004.py hl[11,13:14] *}
+
+* `description: Union[str, None] = None` 具有默认值 `None`。
+* `tax: float = 10.5` 具有默认值 `10.5`.
+* `tags: List[str] = []` 具有一个空列表作为默认值： `[]`.
+
+但如果它们并没有存储实际的值，你可能想从结果中忽略它们的默认值。
+
+举个例子，当你在 NoSQL 数据库中保存了具有许多可选属性的模型，但你又不想发送充满默认值的很长的 JSON 响应。
+
+### 使用 `response_model_exclude_unset` 参数
+
+你可以设置*路径操作装饰器*的 `response_model_exclude_unset=True` 参数：
+
+{* ../../docs_src/response_model/tutorial004.py hl[24] *}
+
+然后响应中将不会包含那些默认值，而是仅有实际设置的值。
+
+因此，如果你向*路径操作*发送 ID 为 `foo` 的商品的请求，则响应（不包括默认值）将为：
+
+```JSON
+{
+    "name": "Foo",
+    "price": 50.2
+}
+```
+
+/// info
+
+FastAPI 通过 Pydantic 模型的 `.dict()` 配合 <a href="https://docs.pydantic.dev/latest/concepts/serialization/#modeldict" class="external-link" target="_blank">该方法的 `exclude_unset` 参数</a> 来实现此功能。
+
+///
+
+/// info
+
+你还可以使用：
+
+* `response_model_exclude_defaults=True`
+* `response_model_exclude_none=True`
+
+参考 <a href="https://docs.pydantic.dev/latest/concepts/serialization/#modeldict" class="external-link" target="_blank">Pydantic 文档</a> 中对 `exclude_defaults` 和 `exclude_none` 的描述。
+
+///
+
+#### 默认值字段有实际值的数据
+
+但是，如果你的数据在具有默认值的模型字段中有实际的值，例如 ID 为 `bar` 的项：
+
+```Python hl_lines="3  5"
+{
+    "name": "Bar",
+    "description": "The bartenders",
+    "price": 62,
+    "tax": 20.2
+}
+```
+
+这些值将包含在响应中。
+
+#### 具有与默认值相同值的数据
+
+如果数据具有与默认值相同的值，例如 ID 为 `baz` 的项：
+
+```Python hl_lines="3  5-6"
+{
+    "name": "Baz",
+    "description": None,
+    "price": 50.2,
+    "tax": 10.5,
+    "tags": []
+}
+```
+
+即使 `description`、`tax` 和 `tags` 具有与默认值相同的值，FastAPI 足够聪明 (实际上是 Pydantic 足够聪明) 去认识到这一点，它们的值被显式地所设定（而不是取自默认值）。
+
+因此，它们将包含在 JSON 响应中。
+
+/// tip
+
+请注意默认值可以是任何值，而不仅是`None`。
+
+它们可以是一个列表（`[]`），一个值为 `10.5`的 `float`，等等。
+
+///
+
+### `response_model_include` 和 `response_model_exclude`
+
+你还可以使用*路径操作装饰器*的 `response_model_include` 和 `response_model_exclude` 参数。
+
+它们接收一个由属性名称 `str` 组成的 `set` 来包含（忽略其他的）或者排除（包含其他的）这些属性。
+
+如果你只有一个 Pydantic 模型，并且想要从输出中移除一些数据，则可以使用这种快捷方法。
+
+/// tip
+
+但是依然建议你使用上面提到的主意，使用多个类而不是这些参数。
+
+这是因为即使使用 `response_model_include` 或 `response_model_exclude` 来省略某些属性，在应用程序的 OpenAPI 定义（和文档）中生成的 JSON Schema 仍将是完整的模型。
+
+这也适用于作用类似的 `response_model_by_alias`。
+
+///
+
+{* ../../docs_src/response_model/tutorial005.py hl[31,37] *}
+
+/// tip
+
+`{"name", "description"}` 语法创建一个具有这两个值的 `set`。
+
+等同于 `set(["name", "description"])`。
+
+///
+
+#### 使用 `list` 而不是 `set`
+
+如果你忘记使用 `set` 而是使用 `list` 或 `tuple`，FastAPI 仍会将其转换为 `set` 并且正常工作：
+
+{* ../../docs_src/response_model/tutorial006.py hl[31,37] *}
+
+## 总结
+
+使用*路径操作装饰器*的 `response_model` 参数来定义响应模型，特别是确保私有数据被过滤掉。
+
+使用 `response_model_exclude_unset` 来仅返回显式设定的值。
+
+
+================================================
+File: /docs/zh/docs/tutorial/response-status-code.md
+================================================
+# 响应状态码
+
+与指定响应模型的方式相同，在以下任意*路径操作*中，可以使用 `status_code` 参数声明用于响应的 HTTP 状态码：
+
+* `@app.get()`
+* `@app.post()`
+* `@app.put()`
+* `@app.delete()`
+* 等……
+
+{* ../../docs_src/response_status_code/tutorial001.py hl[6] *}
+
+/// note | 笔记
+
+注意，`status_code` 是（`get`、`post` 等）**装饰器**方法中的参数。与之前的参数和请求体不同，不是*路径操作函数*的参数。
+
+///
+
+`status_code` 参数接收表示 HTTP 状态码的数字。
+
+/// info | 说明
+
+`status_code` 还能接收 `IntEnum` 类型，比如 Python 的 <a href="https://docs.python.org/3/library/http.html#http.HTTPStatus" class="external-link" target="_blank">`http.HTTPStatus`</a>。
+
+///
+
+它可以：
+
+* 在响应中返回状态码
+* 在 OpenAPI 概图（及用户界面）中存档：
+
+<img src="/img/tutorial/response-status-code/image01.png">
+
+/// note | 笔记
+
+某些响应状态码表示响应没有响应体（参阅下一章）。
+
+FastAPI 可以进行识别，并生成表明无响应体的 OpenAPI 文档。
+
+///
+
+## 关于 HTTP 状态码
+
+/// note | 笔记
+
+如果已经了解 HTTP 状态码，请跳到下一章。
+
+///
+
+在 HTTP 协议中，发送 3 位数的数字状态码是响应的一部分。
+
+这些状态码都具有便于识别的关联名称，但是重要的还是数字。
+
+简言之：
+
+* `100` 及以上的状态码用于返回**信息**。这类状态码很少直接使用。具有这些状态码的响应不能包含响应体
+* **`200`** 及以上的状态码用于表示**成功**。这些状态码是最常用的
+    * `200` 是默认状态代码，表示一切**正常**
+    * `201` 表示**已创建**，通常在数据库中创建新记录后使用
+    * `204` 是一种特殊的例子，表示**无内容**。该响应在没有为客户端返回内容时使用，因此，该响应不能包含响应体
+* **`300`** 及以上的状态码用于**重定向**。具有这些状态码的响应不一定包含响应体，但 `304`**未修改**是个例外，该响应不得包含响应体
+* **`400`** 及以上的状态码用于表示**客户端错误**。这些可能是第二常用的类型
+    * `404`，用于**未找到**响应
+    * 对于来自客户端的一般错误，可以只使用 `400`
+* `500` 及以上的状态码用于表示服务器端错误。几乎永远不会直接使用这些状态码。应用代码或服务器出现问题时，会自动返回这些状态代码
+
+/// tip | 提示
+
+状态码及适用场景的详情，请参阅 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" class="external-link" target="_blank"><abbr title="Mozilla Developer Network">MDN 的 HTTP 状态码</abbr>文档</a>。
+
+///
+
+## 状态码名称快捷方式
+
+再看下之前的例子：
+
+{* ../../docs_src/response_status_code/tutorial001.py hl[6] *}
+
+`201` 表示**已创建**的状态码。
+
+但我们没有必要记住所有代码的含义。
+
+可以使用 `fastapi.status` 中的快捷变量。
+
+{* ../../docs_src/response_status_code/tutorial002.py hl[1,6] *}
+
+这只是一种快捷方式，具有相同的数字代码，但它可以使用编辑器的自动补全功能：
+
+<img src="../../../../../../img/tutorial/response-status-code/image02.png">
+
+/// note | 技术细节
+
+也可以使用 `from starlette import status`。
+
+为了让开发者更方便，**FastAPI** 提供了与 `starlette.status` 完全相同的 `fastapi.status`。但它直接来自于 Starlette。
+
+///
+
+## 更改默认状态码
+
+[高级用户指南](../advanced/response-change-status-code.md){.internal-link target=_blank}中，将介绍如何返回与在此声明的默认状态码不同的状态码。
+
+
+================================================
+File: /docs/zh/docs/tutorial/schema-extra-example.md
+================================================
+# 模式的额外信息 - 例子
+
+您可以在JSON模式中定义额外的信息。
+
+一个常见的用例是添加一个将在文档中显示的`example`。
+
+有几种方法可以声明额外的 JSON 模式信息。
+
+## Pydantic `schema_extra`
+
+您可以使用 `Config` 和 `schema_extra` 为Pydantic模型声明一个示例，如<a href="https://docs.pydantic.dev/latest/concepts/json_schema/#schema-customization" class="external-link" target="_blank">Pydantic 文档：定制 Schema </a>中所述:
+
+{* ../../docs_src/schema_extra_example/tutorial001_py310.py hl[13:21] *}
+
+这些额外的信息将按原样添加到输出的JSON模式中。
+
+## `Field` 的附加参数
+
+在 `Field`, `Path`, `Query`, `Body` 和其他你之后将会看到的工厂函数，你可以为JSON 模式声明额外信息，你也可以通过给工厂函数传递其他的任意参数来给JSON 模式声明额外信息，比如增加 `example`:
+
+{* ../../docs_src/schema_extra_example/tutorial002_py310.py hl[2,8:11] *}
+
+/// warning
+
+请记住，传递的那些额外参数不会添加任何验证，只会添加注释，用于文档的目的。
+
+///
+
+## `Body` 额外参数
+
+你可以通过传递额外信息给 `Field` 同样的方式操作`Path`, `Query`, `Body`等。
+
+比如，你可以将请求体的一个 `example` 传递给 `Body`:
+
+{* ../../docs_src/schema_extra_example/tutorial003_an_py310.py hl[22:27] *}
+
+## 文档 UI 中的例子
+
+使用上面的任何方法，它在 `/docs` 中看起来都是这样的:
+
+<img src="/img/tutorial/body-fields/image01.png">
+
+## 技术细节
+
+关于 `example` 和 `examples`...
+
+JSON Schema在最新的一个版本中定义了一个字段 <a href="https://json-schema.org/draft/2019-09/json-schema-validation.html#rfc.section.9.5" class="external-link" target="_blank">`examples`</a> ，但是 OpenAPI 基于之前的一个旧版JSON Schema，并没有 `examples`.
+
+所以 OpenAPI为了相似的目的定义了自己的 <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#fixed-fields-20" class="external-link" target="_blank">`example`</a> (使用 `example`, 而不是 `examples`), 这也是文档 UI 所使用的 (使用 Swagger UI).
+
+所以，虽然 `example` 不是JSON Schema的一部分，但它是OpenAPI的一部分，这将被文档UI使用。
+
+## 其他信息
+
+同样的方法，你可以添加你自己的额外信息，这些信息将被添加到每个模型的JSON模式中，例如定制前端用户界面，等等。
+
+
+================================================
+File: /docs/zh/docs/tutorial/sql-databases.md
+================================================
+# SQL（关系型）数据库
+
+**FastAPI** 并不要求您使用 SQL（关系型）数据库。您可以使用**任何**想用的数据库。
+
+这里，我们来看一个使用 <a href="https://sqlmodel.tiangolo.com/" class="external-link" target="_blank">SQLModel</a> 的示例。
+
+**SQLModel** 是基于 <a href="https://www.sqlalchemy.org/" class="external-link" target="_blank">SQLAlchemy</a> 和 Pydantic 构建的。它由 **FastAPI** 的同一作者制作，旨在完美匹配需要使用 **SQL 数据库**的 FastAPI 应用程序。
+
+/// tip
+
+您可以使用任何其他您想要的 SQL 或 NoSQL 数据库（在某些情况下称为 <abbr title="对象关系映射器（Object Relational Mapper，ORM），一个术语，用来指代一种库，其中某些类对应于 SQL 数据表，这些类的实例则对应于表中的行。">“ORM”</abbr>），FastAPI 不会强迫您使用任何东西。😎
+
+///
+
+由于 SQLModel 基于 SQLAlchemy，因此您可以轻松使用任何由 SQLAlchemy **支持的数据库**（这也让它们被 SQLModel 支持），例如：
+
+* PostgreSQL
+* MySQL
+* SQLite
+* Oracle
+* Microsoft SQL Server 等.
+
+在这个例子中，我们将使用 **SQLite**，因为它使用单个文件，并且 Python 对其有集成支持。因此，您可以直接复制这个例子并运行。
+
+之后，对于您的生产应用程序，您可能会想要使用像 PostgreSQL 这样的数据库服务器。
+
+/// tip
+
+有一个使用 **FastAPI** 和 **PostgreSQL** 的官方的项目生成器，其中包括了前端和更多工具： <a href="https://github.com/fastapi/full-stack-fastapi-template" class="external-link" target="_blank">https://github.com/fastapi/full-stack-fastapi-template</a>
+
+///
+
+这是一个非常简单和简短的教程。如果您想了解一般的数据库、SQL 或更高级的功能，请查看 <a href="https://sqlmodel.tiangolo.com/" class="external-link" target="_blank">SQLModel 文档</a>。
+
+## 安装 `SQLModel`
+
+首先，确保您创建并激活了[虚拟环境](../virtual-environments.md){.internal-link target=_blank}，然后安装了 `sqlmodel` :
+
+<div class="termy">
+
+```console
+$ pip install sqlmodel
+---> 100%
+```
+
+</div>
+
+## 创建含有单一模型的应用程序
+
+我们首先创建应用程序的最简单的第一个版本，只有一个 **SQLModel** 模型。
+
+稍后我们将通过下面的**多个模型**提高其安全性和多功能性。🤓
+
+### 创建模型
+
+导入 `SQLModel` 并创建一个数据库模型：
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[1:11] hl[7:11] *}
+
+`Hero` 类与 Pydantic 模型非常相似（实际上，从底层来看，它确实*就是一个 Pydantic 模型*）。
+
+有一些区别：
+
+* `table=True` 会告诉 SQLModel 这是一个*表模型*，它应该表示 SQL 数据库中的一个*表*，而不仅仅是一个*数据模型*（就像其他常规的 Pydantic 类一样）。
+
+* `Field(primary_key=True)` 会告诉 SQLModel `id` 是 SQL 数据库中的**主键**（您可以在 SQLModel 文档中了解更多关于 SQL 主键的信息）。
+
+    把类型设置为 `int | None` ，SQLModel 就能知道该列在 SQL 数据库中应该是 `INTEGER` 类型，并且应该是 `NULLABLE` 。
+
+* `Field(index=True)` 会告诉 SQLModel 应该为此列创建一个 **SQL 索引**，这样在读取按此列过滤的数据时，程序能在数据库中进行更快的查找。
+
+    SQLModel 会知道声明为 `str` 的内容将是类型为 `TEXT` （或 `VARCHAR` ，具体取决于数据库）的 SQL 列。
+
+### 创建引擎（Engine）
+
+SQLModel 的引擎 `engine`（实际上它是一个 SQLAlchemy `engine` ）是用来与数据库**保持连接**的。
+
+您只需构建**一个 `engine`**，来让您的所有代码连接到同一个数据库。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[14:18] hl[14:15,17:18] *}
+
+使用 `check_same_thread=False` 可以让 FastAPI 在不同线程中使用同一个 SQLite 数据库。这很有必要，因为**单个请求**可能会使用**多个线程**（例如在依赖项中）。
+
+不用担心，我们会按照代码结构确保**每个请求使用一个单独的 SQLModel *会话***，这实际上就是 `check_same_thread` 想要实现的。
+
+### 创建表
+
+然后，我们来添加一个函数，使用 `SQLModel.metadata.create_all(engine)` 为所有*表模型***创建表**。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[21:22] hl[21:22] *}
+
+### 创建会话（Session）依赖项
+
+**`Session`** 会存储**内存中的对象**并跟踪数据中所需更改的内容，然后它**使用 `engine`** 与数据库进行通信。
+
+我们会使用 `yield` 创建一个 FastAPI **依赖项**，为每个请求提供一个新的 `Session` 。这确保我们每个请求使用一个单独的会话。🤓
+
+然后我们创建一个 `Annotated` 的依赖项 `SessionDep` 来简化其他也会用到此依赖的代码。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[25:30]  hl[25:27,30] *}
+
+### 在启动时创建数据库表
+
+我们会在应用程序启动时创建数据库表。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[32:37] hl[35:37] *}
+
+此处，在应用程序启动事件中，我们创建了表。
+
+而对于生产环境，您可能会用一个能够在启动应用程序之前运行的迁移脚本。🤓
+
+/// tip
+
+SQLModel 将会拥有封装 Alembic 的迁移工具，但目前您可以直接使用 <a href="https://alembic.sqlalchemy.org/en/latest/" class="external-link" target="_blank">Alembic</a>。
+
+///
+
+### 创建 Hero 类
+
+因为每个 SQLModel 模型同时也是一个 Pydantic 模型，所以您可以在与 Pydantic 模型相同的**类型注释**中使用它。
+
+例如，如果您声明一个类型为 `Hero` 的参数，它将从 **JSON 主体**中读取数据。
+
+同样，您可以将其声明为函数的**返回类型**，然后数据的结构就会显示在自动生成的 API 文档界面中。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[40:45] hl[40:45] *}
+
+</details>
+
+这里，我们使用 `SessionDep` 依赖项（一个 `Session` ）将新的 `Hero` 添加到 `Session` 实例中，提交更改到数据库，刷新 hero 中的数据，并返回它。
+
+### 读取 Hero 类
+
+我们可以使用 `select()` 从数据库中**读取** `Hero` 类，并利用 `limit` 和 `offset` 来对结果进行分页。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[48:55] hl[51:52,54] *}
+
+### 读取单个 Hero
+
+我们可以**读取**单个 `Hero` 。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[58:63] hl[60] *}
+
+### 删除单个 Hero
+
+我们也可以**删除**单个 `Hero` 。
+
+{* ../../docs_src/sql_databases/tutorial001_an_py310.py ln[66:73] hl[71] *}
+
+### 运行应用程序
+
+您可以运行这个应用程序：
+
+<div class="termy">
+
+```console
+$ fastapi dev main.py
+
+<span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+</div>
+
+然后在 `/docs` UI 中，您能够看到 **FastAPI** 会用这些**模型**来**记录** API，并且还会用它们来**序列化**和**验证**数据。
+
+<div class="screenshot">
+<img src="/img/tutorial/sql-databases/image01.png">
+</div>
+
+## 更新应用程序以支持多个模型
+
+现在让我们稍微**重构**一下这个应用，以提高**安全性**和**多功能性**。
+
+如果您查看之前的应用程序，您可以在 UI 界面中看到，到目前为止，由客户端决定要创建的 `Hero` 的 `id` 值。😱
+
+我们不应该允许这样做，因为他们可能会覆盖我们在数据库中已经分配的 `id` 。决定 `id` 的行为应该由**后端**或**数据库**来完成，**而非客户端**。
+
+此外，我们为 hero 创建了一个 `secret_name` ，但到目前为止，我们在各处都返回了它，这就不太**秘密**了……😅
+
+我们将通过添加一些**额外的模型**来解决这些问题，而 SQLModel 将在这里大放异彩。✨
+
+### 创建多个模型
+
+在 **SQLModel** 中，任何含有 `table=True` 属性的模型类都是一个**表模型**。
+
+任何不含有 `table=True` 属性的模型类都是**数据模型**，这些实际上只是 Pydantic 模型（附带一些小的额外功能）。🤓
+
+有了 SQLModel，我们就可以利用**继承**来在所有情况下**避免重复**所有字段。
+
+#### `HeroBase` - 基类
+
+我们从一个 `HeroBase` 模型开始，该模型具有所有模型**共享的字段**：
+
+* `name`
+* `age`
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[7:9] hl[7:9] *}
+
+#### `Hero` - *表模型*
+
+接下来，我们创建 `Hero` ，实际的*表模型*，并添加那些不总是在其他模型中的**额外字段**：
+
+* `id`
+* `secret_name`
+
+因为 `Hero` 继承自 HeroBase ，所以它**也**包含了在 `HeroBase` 中声明过的**字段**。因此 `Hero` 的所有字段为：
+
+* `id`
+* `name`
+* `age`
+* `secret_name`
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[7:14] hl[12:14] *}
+
+#### `HeroPublic` - 公共*数据模型*
+
+接下来，我们创建一个 `HeroPublic` 模型，这是将**返回**给 API 客户端的模型。
+
+它包含与 `HeroBase` 相同的字段，因此不会包括 `secret_name` 。
+
+终于，我们英雄（hero）的身份得到了保护！ 🥷
+
+它还重新声明了 `id: int` 。这样我们便与 API 客户端建立了一种**约定**，使他们始终可以期待 `id` 存在并且是一个整数 `int`（永远不会是 `None` ）。
+
+/// tip
+
+确保返回模型始终提供一个值并且始终是 `int` （而不是 `None` ）对 API 客户端非常有用，他们可以在这种确定性下编写更简单的代码。
+
+此外，**自动生成的客户端**将拥有更简洁的接口，这样与您的 API 交互的开发者就能更轻松地使用您的 API。😎
+
+///
+
+`HeroPublic` 中的所有字段都与 `HeroBase` 中的相同，其中 `id` 声明为 `int` （不是 `None` ）：
+
+* `id`
+* `name`
+* `age`
+* `secret_name`
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[7:18] hl[17:18] *}
+
+#### `HeroCreate` - 用于创建 hero 的*数据模型*
+
+现在我们创建一个 `HeroCreate` 模型，这是用于**验证**客户数据的模型。
+
+它不仅拥有与 `HeroBase` 相同的字段，还有 `secret_name` 。
+
+现在，当客户端**创建一个新的 hero** 时，他们会发送 `secret_name` ，它会被存储到数据库中，但这些 `secret_name` 不会通过 API 返回给客户端。
+
+/// tip
+
+这应当是**密码**被处理的方式：接收密码，但不要通过 API 返回它们。
+
+在存储密码之前，您还应该对密码的值进行**哈希**处理，**绝不要以明文形式存储它们**。
+
+///
+
+`HeroCreate` 的字段包括：
+
+* `name`
+* `age`
+* `secret_name`
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[7:22] hl[21:22] *}
+
+#### `HeroUpdate` - 用于更新 hero 的*数据模型*
+
+在之前的应用程序中，我们没有办法**更新 hero**，但现在有了**多个模型**，我们便能做到这一点了。🎉
+
+`HeroUpdate` *数据模型*有些特殊，它包含创建新 hero 所需的**所有相同字段**，但所有字段都是**可选的**（它们都有默认值）。这样，当您更新一个 hero 时，您可以只发送您想要更新的字段。
+
+因为所有**字段实际上**都发生了**变化**（类型现在包括 `None` ，并且它们现在有一个默认值 `None` ），我们需要**重新声明**它们。
+
+我们会重新声明所有字段，因此我们并不是真的需要从 `HeroBase` 继承。我会让它继承只是为了保持一致，但这并不必要。这更多是个人喜好的问题。🤷
+
+`HeroUpdate` 的字段包括:
+
+* `name`
+* `age`
+* `secret_name`
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[7:28] hl[25:28] *}
+
+### 使用 `HeroCreate` 创建并返回 `HeroPublic`
+
+既然我们有了**多个模型**，我们就可以对使用它们的应用程序部分进行更新。
+
+我们在请求中接收到一个 `HeroCreate` *数据模型*，然后从中创建一个 `Hero` *表模型*。
+
+这个新的*表模型* `Hero` 会包含客户端发送的字段，以及一个由数据库生成的 `id` 。
+
+然后我们将与函数中相同的*表模型* `Hero` 原样返回。但是由于我们使用 `HeroPublic` *数据模型*声明了 `response_model` ，**FastAPI** 会使用 `HeroPublic` 来验证和序列化数据。
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[56:62] hl[56:58] *}
+
+/// tip
+
+现在我们使用 `response_model=HeroPublic` 来代替**返回类型注释** `-> HeroPublic` ，因为我们返回的值实际上**并不是** `HeroPublic` 类型。
+
+如果我们声明了 `-> HeroPublic` ，您的编辑器和代码检查工具会抱怨（但也确实理所应当）您返回了一个 `Hero` 而不是一个 `HeroPublic` 。
+
+通过 `response_model` 的声明，我们让 **FastAPI** 按照它自己的方式处理，而不会干扰类型注解以及编辑器和其他工具提供的帮助。
+
+///
+
+### 用 `HeroPublic` 读取 Hero
+
+我们可以像之前一样**读取** `Hero` 。同样，使用 `response_model=list[HeroPublic]` 确保正确地验证和序列化数据。
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[65:72] hl[65] *}
+
+### 用 `HeroPublic` 读取单个 Hero
+
+我们可以**读取**单个 `hero` 。
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[75:80] hl[77] *}
+
+### 用 `HeroUpdate` 更新单个 Hero
+
+我们可以**更新**单个 `hero` 。为此，我们会使用 HTTP 的 `PATCH` 操作。
+
+在代码中，我们会得到一个 `dict` ，其中包含客户端发送的所有数据，**只有客户端发送的数据**，并排除了任何一个仅仅作为默认值存在的值。为此，我们使用 `exclude_unset=True` 。这是最主要的技巧。🪄
+
+然后我们会使用 `hero_db.sqlmodel_update(hero_data)` ，来利用 `hero_data` 的数据更新 `hero_db` 。
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[83:93] hl[83:84,88:89] *}
+
+### （又一次）删除单个 Hero
+
+**删除**一个 hero 基本保持不变。
+
+我们不会满足在这一部分中重构一切的愿望。😅
+
+{* ../../docs_src/sql_databases/tutorial002_an_py310.py ln[96:103] hl[101] *}
+
+### （又一次）运行应用程序
+
+您可以再运行一次应用程序：
+
+<div class="termy">
+
+```console
+$ fastapi dev main.py
+
+<span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+</div>
+
+您会在 `/docs` API UI 看到它现在已经更新，并且在进行创建 hero 等操作时，它不会再期望从客户端接收 `id` 数据。
+
+<div class="screenshot">
+<img src="/img/tutorial/sql-databases/image02.png">
+</div>
+
+## 总结
+
+您可以使用 <a href="https://sqlmodel.tiangolo.com/" class="external-link" target="_blank">**SQLModel**</a> 与 SQL 数据库进行交互，并通过*数据模型*和*表模型*简化代码。
+
+您可以在 SQLModel 的文档中学习到更多内容，其中有一个更详细的关于<a href="https://sqlmodel.tiangolo.com/tutorial/fastapi/" class="external-link" target="_blank">如何将 SQLModel 与 FastAPI 一起使用的教程</a>。🚀
+
+
+================================================
+File: /docs/zh/docs/tutorial/static-files.md
+================================================
+# 静态文件
+
+您可以使用 `StaticFiles`从目录中自动提供静态文件。
+
+## 使用`StaticFiles`
+
+* 导入`StaticFiles`。
+* "挂载"(Mount) 一个 `StaticFiles()` 实例到一个指定路径。
+
+{* ../../docs_src/static_files/tutorial001.py hl[2,6] *}
+
+/// note | 技术细节
+
+你也可以用 `from starlette.staticfiles import StaticFiles`。
+
+**FastAPI** 提供了和 `starlette.staticfiles` 相同的 `fastapi.staticfiles` ，只是为了方便你，开发者。但它确实来自Starlette。
+
+///
+
+### 什么是"挂载"(Mounting)
+
+"挂载" 表示在特定路径添加一个完全"独立的"应用，然后负责处理所有子路径。
+
+这与使用`APIRouter`不同，因为安装的应用程序是完全独立的。OpenAPI和来自你主应用的文档不会包含已挂载应用的任何东西等等。
+
+你可以在**高级用户指南**中了解更多。
+
+## 细节
+
+这个 "子应用" 会被 "挂载" 到第一个 `"/static"` 指向的子路径。因此，任何以`"/static"`开头的路径都会被它处理。
+
+ `directory="static"` 指向包含你的静态文件的目录名字。
+
+`name="static"` 提供了一个能被**FastAPI**内部使用的名字。
+
+所有这些参数可以不同于"`static`"，根据你应用的需要和具体细节调整它们。
+
+## 更多信息
+
+更多细节和选择查阅 <a href="https://www.starlette.io/staticfiles/" class="external-link" target="_blank">Starlette's docs about Static Files</a>.
+
+
+================================================
+File: /docs/zh/docs/tutorial/testing.md
+================================================
+# 测试
+
+感谢 <a href="https://www.starlette.io/testclient/" class="external-link" target="_blank">Starlette</a>，测试**FastAPI** 应用轻松又愉快。
+
+它基于 <a href="https://www.python-httpx.org" class="external-link" target="_blank">HTTPX</a>， 而HTTPX又是基于Requests设计的，所以很相似且易懂。
+
+有了它，你可以直接与**FastAPI**一起使用 <a href="https://docs.pytest.org/" class="external-link" target="_blank">pytest</a>。
+
+## 使用 `TestClient`
+
+/// info | 信息
+
+要使用 `TestClient`，先要安装 <a href="https://www.python-httpx.org" class="external-link" target="_blank">`httpx`</a>.
+
+例：`pip install httpx`.
+
+///
+
+导入 `TestClient`.
+
+通过传入你的**FastAPI**应用创建一个 `TestClient` 。
+
+创建名字以 `test_` 开头的函数（这是标准的 `pytest` 约定）。
+
+像使用 `httpx` 那样使用 `TestClient` 对象。
+
+为你需要检查的地方用标准的Python表达式写个简单的 `assert` 语句（重申，标准的`pytest`）。
+
+{* ../../docs_src/app_testing/tutorial001.py hl[2,12,15:18] *}
+
+/// tip | 提示
+
+注意测试函数是普通的 `def`，不是 `async def`。
+
+还有client的调用也是普通的调用，不是用 `await`。
+
+这让你可以直接使用 `pytest` 而不会遇到麻烦。
+
+///
+
+/// note | 技术细节
+
+你也可以用 `from starlette.testclient import TestClient`。
+
+**FastAPI** 提供了和 `starlette.testclient` 一样的 `fastapi.testclient`，只是为了方便开发者。但它直接来自Starlette。
+
+///
+
+/// tip | 提示
+
+除了发送请求之外，如果你还想测试时在FastAPI应用中调用 `async` 函数（例如异步数据库函数）， 可以在高级教程中看下 [Async Tests](../advanced/async-tests.md){.internal-link target=_blank} 。
+
+///
+
+## 分离测试
+
+在实际应用中，你可能会把你的测试放在另一个文件里。
+
+您的**FastAPI**应用程序也可能由一些文件/模块组成等等。
+
+### **FastAPI** app 文件
+
+假设你有一个像 [更大的应用](bigger-applications.md){.internal-link target=_blank} 中所描述的文件结构:
+
+```
+.
+├── app
+│   ├── __init__.py
+│   └── main.py
+```
+
+在 `main.py` 文件中你有一个 **FastAPI** app:
+
+
+{* ../../docs_src/app_testing/main.py *}
+
+### 测试文件
+
+然后你会有一个包含测试的文件 `test_main.py` 。app可以像Python包那样存在（一样是目录，但有个 `__init__.py` 文件）：
+
+``` hl_lines="5"
+.
+├── app
+│   ├── __init__.py
+│   ├── main.py
+│   └── test_main.py
+```
+
+因为这文件在同一个包中，所以你可以通过相对导入从 `main` 模块（`main.py`）导入`app`对象：
+
+{* ../../docs_src/app_testing/test_main.py hl[3] *}
+
+...然后测试代码和之前一样的。
+
+## 测试：扩展示例
+
+现在让我们扩展这个例子，并添加更多细节，看下如何测试不同部分。
+
+### 扩展后的 **FastAPI** app 文件
+
+让我们继续之前的文件结构：
+
+```
+.
+├── app
+│   ├── __init__.py
+│   ├── main.py
+│   └── test_main.py
+```
+
+假设现在包含**FastAPI** app的文件 `main.py`  有些其他**路径操作**。
+
+有个 `GET` 操作会返回错误。
+
+有个 `POST` 操作会返回一些错误。
+
+所有*路径操作* 都需要一个`X-Token` 头。
+
+//// tab | Python 3.10+
+
+```Python
+{!> ../../docs_src/app_testing/app_b_an_py310/main.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!> ../../docs_src/app_testing/app_b_an_py39/main.py!}
+```
+
+////
+
+//// tab | Python 3.8+
+
+```Python
+{!> ../../docs_src/app_testing/app_b_an/main.py!}
+```
+
+////
+
+//// tab | Python 3.10+ non-Annotated
+
+/// tip | 提示
+
+Prefer to use the `Annotated` version if possible.
+
+///
+
+```Python
+{!> ../../docs_src/app_testing/app_b_py310/main.py!}
+```
+
+////
+
+//// tab | Python 3.8+ non-Annotated
+
+/// tip | 提示
+
+Prefer to use the `Annotated` version if possible.
+
+///
+
+```Python
+{!> ../../docs_src/app_testing/app_b/main.py!}
+```
+
+////
+
+### 扩展后的测试文件
+
+然后您可以使用扩展后的测试更新`test_main.py`：
+
+{* ../../docs_src/app_testing/app_b/test_main.py *}
+
+每当你需要客户端在请求中传递信息，但你不知道如何传递时，你可以通过搜索（谷歌）如何用 `httpx`做，或者是用 `requests` 做，毕竟HTTPX的设计是基于Requests的设计的。
+
+接着只需在测试中同样操作。
+
+示例：
+
+* 传一个*路径* 或*查询* 参数，添加到URL上。
+* 传一个JSON体，传一个Python对象(例如一个`dict`)到参数 `json`。
+* 如果你需要发送 *Form Data* 而不是 JSON，使用 `data` 参数。
+* 要发送 *headers*，传 `dict` 给 `headers` 参数。
+* 对于 *cookies*，传 `dict` 给 `cookies` 参数。
+
+关于如何传数据给后端的更多信息 (使用`httpx` 或 `TestClient`)，请查阅 <a href="https://www.python-httpx.org" class="external-link" target="_blank">HTTPX 文档</a>.
+
+/// info | 信息
+
+注意 `TestClient` 接收可以被转化为JSON的数据，而不是Pydantic模型。
+
+如果你在测试中有一个Pydantic模型，并且你想在测试时发送它的数据给应用，你可以使用在[JSON Compatible Encoder](encoder.md){.internal-link target=_blank}介绍的`jsonable_encoder` 。
+
+///
+
+## 运行起来
+
+之后，你只需要安装 `pytest`:
+
+<div class="termy">
+
+```console
+$ pip install pytest
+
+---> 100%
+```
+
+</div>
+
+他会自动检测文件和测试，执行测试，然后向你报告结果。
+
+执行测试：
+
+<div class="termy">
+
+```console
+$ pytest
+
+================ test session starts ================
+platform linux -- Python 3.6.9, pytest-5.3.5, py-1.8.1, pluggy-0.13.1
+rootdir: /home/user/code/superawesome-cli/app
+plugins: forked-1.1.3, xdist-1.31.0, cov-2.8.1
+collected 6 items
+
+---> 100%
+
+test_main.py <span style="color: green; white-space: pre;">......                            [100%]</span>
+
+<span style="color: green;">================= 1 passed in 0.03s =================</span>
+```
+
+</div>
+
+
+================================================
+File: /docs/zh/docs/tutorial/dependencies/classes-as-dependencies.md
+================================================
+# 类作为依赖项
+
+在深入探究 **依赖注入** 系统之前，让我们升级之前的例子。
+
+## 来自前一个例子的`dict`
+
+在前面的例子中, 我们从依赖项 ("可依赖对象") 中返回了一个 `dict`:
+
+{* ../../docs_src/dependencies/tutorial001_py310.py hl[7] *}
+
+但是后面我们在路径操作函数的参数 `commons` 中得到了一个 `dict`。
+
+我们知道编辑器不能为 `dict` 提供很多支持(比如补全)，因为编辑器不知道 `dict` 的键和值类型。
+
+对此，我们可以做的更好...
+
+## 什么构成了依赖项？
+
+到目前为止，您看到的依赖项都被声明为函数。
+
+但这并不是声明依赖项的唯一方法(尽管它可能是更常见的方法)。
+
+关键因素是依赖项应该是 "可调用对象"。
+
+Python 中的 "**可调用对象**" 是指任何 Python 可以像函数一样 "调用" 的对象。
+
+所以，如果你有一个对象 `something` (可能*不是*一个函数)，你可以 "调用" 它(执行它)，就像：
+
+```Python
+something()
+```
+
+或者
+
+```Python
+something(some_argument, some_keyword_argument="foo")
+```
+
+这就是 "可调用对象"。
+
+## 类作为依赖项
+
+您可能会注意到，要创建一个 Python 类的实例，您可以使用相同的语法。
+
+举个例子:
+
+```Python
+class Cat:
+    def __init__(self, name: str):
+        self.name = name
+
+
+fluffy = Cat(name="Mr Fluffy")
+```
+
+在这个例子中, `fluffy` 是一个 `Cat` 类的实例。
+
+为了创建 `fluffy`，你调用了 `Cat` 。
+
+所以，Python 类也是 **可调用对象**。
+
+因此，在 **FastAPI** 中，你可以使用一个 Python 类作为一个依赖项。
+
+实际上 FastAPI 检查的是它是一个 "可调用对象"（函数，类或其他任何类型）以及定义的参数。
+
+如果您在 **FastAPI** 中传递一个 "可调用对象" 作为依赖项，它将分析该 "可调用对象" 的参数，并以处理路径操作函数的参数的方式来处理它们。包括子依赖项。
+
+这也适用于完全没有参数的可调用对象。这与不带参数的路径操作函数一样。
+
+所以，我们可以将上面的依赖项 "可依赖对象" `common_parameters` 更改为类 `CommonQueryParams`:
+
+{* ../../docs_src/dependencies/tutorial002_py310.py hl[9:13] *}
+
+注意用于创建类实例的 `__init__` 方法：
+
+{* ../../docs_src/dependencies/tutorial002_py310.py hl[10] *}
+
+...它与我们以前的 `common_parameters` 具有相同的参数：
+
+{* ../../docs_src/dependencies/tutorial001_py310.py hl[6] *}
+
+这些参数就是 **FastAPI** 用来 "处理" 依赖项的。
+
+在两个例子下，都有：
+
+* 一个可选的 `q` 查询参数，是 `str` 类型。
+* 一个 `skip` 查询参数，是 `int` 类型，默认值为 `0`。
+* 一个 `limit` 查询参数，是 `int` 类型，默认值为 `100`。
+
+在两个例子下，数据都将被转换、验证、在 OpenAPI schema 上文档化，等等。
+
+## 使用它
+
+现在，您可以使用这个类来声明你的依赖项了。
+
+{* ../../docs_src/dependencies/tutorial002_py310.py hl[17] *}
+
+**FastAPI** 调用 `CommonQueryParams` 类。这将创建该类的一个 "实例"，该实例将作为参数 `commons` 被传递给你的函数。
+
+## 类型注解 vs `Depends`
+
+注意，我们在上面的代码中编写了两次`CommonQueryParams`：
+
+```Python
+commons: CommonQueryParams = Depends(CommonQueryParams)
+```
+
+最后的 `CommonQueryParams`:
+
+```Python
+... = Depends(CommonQueryParams)
+```
+
+...实际上是 **Fastapi** 用来知道依赖项是什么的。
+
+FastAPI 将从依赖项中提取声明的参数，这才是 FastAPI 实际调用的。
+
+---
+
+在本例中，第一个 `CommonQueryParams` ：
+
+```Python
+commons: CommonQueryParams ...
+```
+
+...对于 **FastAPI** 没有任何特殊的意义。FastAPI 不会使用它进行数据转换、验证等 (因为对于这，它使用 `= Depends(CommonQueryParams)`)。
+
+你实际上可以只这样编写:
+
+```Python
+commons = Depends(CommonQueryParams)
+```
+
+..就像:
+
+{* ../../docs_src/dependencies/tutorial003_py310.py hl[17] *}
+
+但是声明类型是被鼓励的，因为那样你的编辑器就会知道将传递什么作为参数 `commons` ，然后它可以帮助你完成代码，类型检查，等等：
+
+<img src="/img/tutorial/dependencies/image02.png">
+
+## 快捷方式
+
+但是您可以看到，我们在这里有一些代码重复了，编写了`CommonQueryParams`两次：
+
+```Python
+commons: CommonQueryParams = Depends(CommonQueryParams)
+```
+
+**FastAPI** 为这些情况提供了一个快捷方式，在这些情况下，依赖项 *明确地* 是一个类，**FastAPI** 将 "调用" 它来创建类本身的一个实例。
+
+对于这些特定的情况，您可以跟随以下操作：
+
+不是写成这样：
+
+```Python
+commons: CommonQueryParams = Depends(CommonQueryParams)
+```
+
+...而是这样写:
+
+```Python
+commons: CommonQueryParams = Depends()
+```
+
+您声明依赖项作为参数的类型，并使用 `Depends()` 作为该函数的参数的 "默认" 值(在 `=` 之后)，而在 `Depends()` 中没有任何参数，而不是在 `Depends(CommonQueryParams)` 编写完整的类。
+
+同样的例子看起来像这样：
+
+{* ../../docs_src/dependencies/tutorial004_py310.py hl[17] *}
+
+... **FastAPI** 会知道怎么处理。
+
+/// tip
+
+如果这看起来更加混乱而不是更加有帮助，那么请忽略它，你不*需要*它。
+
+这只是一个快捷方式。因为 **FastAPI** 关心的是帮助您减少代码重复。
+
+///
+
+
+================================================
+File: /docs/zh/docs/tutorial/dependencies/dependencies-in-path-operation-decorators.md
+================================================
+# 路径操作装饰器依赖项
+
+有时，我们并不需要在*路径操作函数*中使用依赖项的返回值。
+
+或者说，有些依赖项不返回值。
+
+但仍要执行或解析该依赖项。
+
+对于这种情况，不必在声明*路径操作函数*的参数时使用 `Depends`，而是可以在*路径操作装饰器*中添加一个由 `dependencies` 组成的 `list`。
+
+## 在*路径操作装饰器*中添加 `dependencies` 参数
+
+*路径操作装饰器*支持可选参数 ~ `dependencies`。
+
+该参数的值是由 `Depends()` 组成的 `list`：
+
+{* ../../docs_src/dependencies/tutorial006.py hl[17] *}
+
+路径操作装饰器依赖项（以下简称为**“路径装饰器依赖项”**）的执行或解析方式和普通依赖项一样，但就算这些依赖项会返回值，它们的值也不会传递给*路径操作函数*。
+
+/// tip | 提示
+
+有些编辑器会检查代码中没使用过的函数参数，并显示错误提示。
+
+在*路径操作装饰器*中使用 `dependencies` 参数，可以确保在执行依赖项的同时，避免编辑器显示错误提示。
+
+使用路径装饰器依赖项还可以避免开发新人误会代码中包含无用的未使用参数。
+
+///
+
+/// info | 说明
+
+本例中，使用的是自定义响应头 `X-Key` 和 `X-Token`。
+
+但实际开发中，尤其是在实现安全措施时，最好使用 FastAPI 内置的[安全工具](../security/index.md){.internal-link target=_blank}（详见下一章）。
+
+///
+
+## 依赖项错误和返回值
+
+路径装饰器依赖项也可以使用普通的依赖项*函数*。
+
+### 依赖项的需求项
+
+路径装饰器依赖项可以声明请求的需求项（比如响应头）或其他子依赖项：
+
+{* ../../docs_src/dependencies/tutorial006.py hl[6,11] *}
+
+### 触发异常
+
+路径装饰器依赖项与正常的依赖项一样，可以 `raise` 异常：
+
+{* ../../docs_src/dependencies/tutorial006.py hl[8,13] *}
+
+### 返回值
+
+无论路径装饰器依赖项是否返回值，路径操作都不会使用这些值。
+
+因此，可以复用在其他位置使用过的、（能返回值的）普通依赖项，即使没有使用这个值，也会执行该依赖项：
+
+{* ../../docs_src/dependencies/tutorial006.py hl[9,14] *}
+
+## 为一组路径操作定义依赖项
+
+稍后，[大型应用 - 多文件](../../tutorial/bigger-applications.md){.internal-link target=\_blank}一章中会介绍如何使用多个文件创建大型应用程序，在这一章中，您将了解到如何为一组*路径操作*声明单个 `dependencies` 参数。
+
+## 全局依赖项
+
+接下来，我们将学习如何为 `FastAPI` 应用程序添加全局依赖项，创建应用于每个*路径操作*的依赖项。
+
+
+================================================
+File: /docs/zh/docs/tutorial/dependencies/dependencies-with-yield.md
+================================================
+# 使用yield的依赖项
+
+FastAPI支持在完成后执行一些<abbr title='有时也被称为"退出"("exit")，"清理"("cleanup")，"拆卸"("teardown")，"关闭"("close")，"上下文管理器"("context managers")。 ...'>额外步骤</abbr>的依赖项.
+
+为此，你需要使用 `yield` 而不是 `return`，然后再编写这些额外的步骤（代码）。
+
+/// tip | 提示
+
+确保在每个依赖中只使用一次 `yield`。
+
+///
+
+/// note | 技术细节
+
+任何一个可以与以下内容一起使用的函数：
+
+* <a href="https://docs.python.org/3/library/contextlib.html#contextlib.contextmanager" class="external-link" target="_blank">`@contextlib.contextmanager`</a> 或者
+* <a href="https://docs.python.org/3/library/contextlib.html#contextlib.asynccontextmanager" class="external-link" target="_blank">`@contextlib.asynccontextmanager`</a>
+
+都可以作为 **FastAPI** 的依赖项。
+
+实际上，FastAPI内部就使用了这两个装饰器。
+
+///
+
+## 使用 `yield` 的数据库依赖项
+
+例如，你可以使用这种方式创建一个数据库会话，并在完成后关闭它。
+
+在发送响应之前，只会执行 `yield` 语句及之前的代码：
+
+{* ../../docs_src/dependencies/tutorial007.py hl[2:4] *}
+
+生成的值会注入到 *路由函数* 和其他依赖项中：
+
+{* ../../docs_src/dependencies/tutorial007.py hl[4] *}
+
+`yield` 语句后面的代码会在创建响应后，发送响应前执行：
+
+{* ../../docs_src/dependencies/tutorial007.py hl[5:6] *}
+
+/// tip | 提示
+
+你可以使用 `async` 或普通函数。
+
+**FastAPI** 会像处理普通依赖一样，对每个依赖做正确的处理。
+
+///
+
+## 包含 `yield` 和 `try` 的依赖项
+
+如果在包含 `yield` 的依赖中使用 `try` 代码块，你会捕获到使用依赖时抛出的任何异常。
+
+例如，如果某段代码在另一个依赖中或在 *路由函数* 中使数据库事务"回滚"或产生任何其他错误，你将会在依赖中捕获到异常。
+
+因此，你可以使用 `except SomeException` 在依赖中捕获特定的异常。
+
+同样，你也可以使用 `finally` 来确保退出步骤得到执行，无论是否存在异常。
+
+{* ../../docs_src/dependencies/tutorial007.py hl[3,5] *}
+## 使用 `yield` 的子依赖项
+
+你可以声明任意数量和层级的树状依赖，而且它们中的任何一个或所有的都可以使用 `yield`。
+
+**FastAPI** 会确保每个带有 `yield` 的依赖中的"退出代码"按正确顺序运行。
+
+例如，`dependency_c` 可以依赖于 `dependency_b`，而 `dependency_b` 则依赖于 `dependency_a`。
+
+{* ../../docs_src/dependencies/tutorial008_an_py39.py hl[6,14,22] *}
+
+所有这些依赖都可以使用 `yield`。
+
+在这种情况下，`dependency_c` 在执行其退出代码时需要 `dependency_b`（此处称为 `dep_b`）的值仍然可用。
+
+而 `dependency_b` 反过来则需要 `dependency_a`（此处称为 `dep_a` ）的值在其退出代码中可用。
+
+{* ../../docs_src/dependencies/tutorial008_an_py39.py hl[18:19,26:27] *}
+
+同样，你可以混合使用带有 `yield` 或 `return` 的依赖。
+
+你也可以声明一个依赖于多个带有 `yield` 的依赖，等等。
+
+你可以拥有任何你想要的依赖组合。
+
+**FastAPI** 将确保按正确的顺序运行所有内容。
+
+/// note | 技术细节
+
+这是由 Python 的<a href="https://docs.python.org/3/library/contextlib.html" class="external-link" target="_blank">上下文管理器</a>完成的。
+
+**FastAPI** 在内部使用它们来实现这一点。
+
+///
+
+## 包含 `yield` 和 `HTTPException` 的依赖项
+
+你可以使用带有 `yield` 的依赖项，并且可以包含 `try` 代码块用于捕获异常。
+
+同样，你可以在 `yield` 之后的退出代码中抛出一个 `HTTPException` 或类似的异常。
+
+/// tip | 提示
+
+这是一种相对高级的技巧，在大多数情况下你并不需要使用它，因为你可以在其他代码中抛出异常（包括 `HTTPException` ），例如在 *路由函数* 中。
+
+但是如果你需要，你也可以在依赖项中做到这一点。🤓
+
+///
+
+{* ../../docs_src/dependencies/tutorial008b_an_py39.py hl[18:22,31] *}
+
+你还可以创建一个 [自定义异常处理器](../handling-errors.md#install-custom-exception-handlers){.internal-link target=_blank} 用于捕获异常（同时也可以抛出另一个 `HTTPException`）。
+
+## 包含 `yield` 和 `except` 的依赖项
+
+如果你在包含 `yield` 的依赖项中使用 `except` 捕获了一个异常，然后你没有重新抛出该异常（或抛出一个新异常），与在普通的Python代码中相同，FastAPI不会注意到发生了异常。
+
+{* ../../docs_src/dependencies/tutorial008c_an_py39.py hl[15:16] *}
+
+在示例代码的情况下，客户端将会收到 *HTTP 500 Internal Server Error* 的响应，因为我们没有抛出 `HTTPException` 或者类似的异常，并且服务器也 **不会有任何日志** 或者其他提示来告诉我们错误是什么。😱
+
+### 在包含 `yield` 和 `except` 的依赖项中一定要 `raise`
+
+如果你在使用 `yield` 的依赖项中捕获到了一个异常，你应该再次抛出捕获到的异常，除非你抛出 `HTTPException` 或类似的其他异常，
+
+你可以使用 `raise` 再次抛出捕获到的异常。
+
+{* ../../docs_src/dependencies/tutorial008d_an_py39.py hl[17] *}
+
+现在客户端同样会得到 *HTTP 500 Internal Server Error* 响应，但是服务器日志会记录下我们自定义的 `InternalError`。
+
+##  使用 `yield` 的依赖项的执行
+
+执行顺序大致如下时序图所示。时间轴从上到下，每一列都代表交互或者代码执行的一部分。
+
+```mermaid
+sequenceDiagram
+
+participant client as Client
+participant handler as Exception handler
+participant dep as Dep with yield
+participant operation as Path Operation
+participant tasks as Background tasks
+
+    Note over client,operation: Can raise exceptions, including HTTPException
+    client ->> dep: Start request
+    Note over dep: Run code up to yield
+    opt raise Exception
+        dep -->> handler: Raise Exception
+        handler -->> client: HTTP error response
+    end
+    dep ->> operation: Run dependency, e.g. DB session
+    opt raise
+        operation -->> dep: Raise Exception (e.g. HTTPException)
+        opt handle
+            dep -->> dep: Can catch exception, raise a new HTTPException, raise other exception
+        end
+        handler -->> client: HTTP error response
+    end
+
+    operation ->> client: Return response to client
+    Note over client,operation: Response is already sent, can't change it anymore
+    opt Tasks
+        operation -->> tasks: Send background tasks
+    end
+    opt Raise other exception
+        tasks -->> tasks: Handle exceptions in the background task code
+    end
+```
+
+/// info | 说明
+
+只会向客户端发送 **一次响应** ，可能是一个错误响应，也可能是来自 *路由函数* 的响应。
+
+在发送了其中一个响应之后，就无法再发送其他响应了。
+
+///
+
+/// tip | 提示
+
+这个时序图展示了 `HTTPException`，除此之外你也可以抛出任何你在使用 `yield` 的依赖项中或者[自定义异常处理器](../handling-errors.md#install-custom-exception-handlers){.internal-link target=_blank}中捕获的异常。
+
+如果你引发任何异常，它将传递给使用 `yield` 的依赖项，包括 `HTTPException`。在大多数情况下你应当从使用 `yield` 的依赖项中重新抛出捕获的异常或者一个新的异常来确保它会被正确的处理。
+
+///
+
+## 包含 `yield`, `HTTPException`, `except` 的依赖项和后台任务
+
+/// warning | 注意
+
+你大概率不需要了解这些技术细节，可以跳过这一章节继续阅读后续的内容。
+
+如果你使用的FastAPI的版本早于0.106.0，并且在使用后台任务中使用了包含 `yield` 的依赖项中的资源，那么这些细节会对你有一些用处。
+
+///
+
+### 包含 `yield` 和 `except` 的依赖项的技术细节
+
+在FastAPI 0.110.0版本之前，如果使用了一个包含 `yield` 的依赖项，你在依赖项中使用 `except` 捕获了一个异常，但是你没有再次抛出该异常，这个异常会被自动抛出/转发到异常处理器或者内部服务错误处理器。
+
+### 后台任务和使用 `yield` 的依赖项的技术细节
+
+在FastAPI 0.106.0版本之前，在 `yield` 后面抛出异常是不可行的，因为 `yield` 之后的退出代码是在响应被发送之后再执行，这个时候异常处理器已经执行过了。
+
+这样设计的目的主要是为了允许在后台任务中使用被依赖项`yield`的对象，因为退出代码会在后台任务结束后再执行。
+
+然而这也意味着在等待响应通过网络传输的同时，非必要的持有一个 `yield` 依赖项中的资源（例如数据库连接），这一行为在FastAPI 0.106.0被改变了。
+
+/// tip | 提示
+
+除此之外，后台任务通常是一组独立的逻辑，应该被单独处理，并且使用它自己的资源（例如它自己的数据库连接）。
+
+这样也会让你的代码更加简洁。
+
+///
+
+如果你之前依赖于这一行为，那么现在你应该在后台任务中创建并使用它自己的资源，不要在内部使用属于 `yield` 依赖项的资源。
+
+例如，你应该在后台任务中创建一个新的数据库会话用于查询数据，而不是使用相同的会话。你应该将对象的ID作为参数传递给后台任务函数，然后在该函数中重新获取该对象，而不是直接将数据库对象作为参数。
+
+## 上下文管理器
+
+### 什么是"上下文管理器"
+
+"上下文管理器"是你可以在 `with` 语句中使用的任何Python对象。
+
+例如，<a href="https://docs.python.org/zh-cn/3/tutorial/inputoutput.html#reading-and-writing-files" class="external-link" target="_blank">你可以使用`with`读取文件</a>：
+
+```Python
+with open("./somefile.txt") as f:
+    contents = f.read()
+    print(contents)
+```
+
+在底层，`open("./somefile.txt")`创建了一个被称为"上下文管理器"的对象。
+
+当 `with` 代码块结束时，它会确保关闭文件，即使发生了异常也是如此。
+
+当你使用 `yield` 创建一个依赖项时，**FastAPI** 会在内部将其转换为上下文管理器，并与其他相关工具结合使用。
+
+### 在使用 `yield` 的依赖项中使用上下文管理器
+
+/// warning | 注意
+
+这是一个更为"高级"的想法。
+
+如果你刚开始使用 **FastAPI** ，你可以暂时可以跳过它。
+
+///
+
+在Python中，你可以通过<a href="https://docs.python.org/3/reference/datamodel.html#context-managers" class="external-link" target="_blank">创建一个带有`__enter__()`和`__exit__()`方法的类</a>来创建上下文管理器。
+
+你也可以在 **FastAPI** 的 `yield` 依赖项中通过 `with` 或者 `async with` 语句来使用它们：
+
+{* ../../docs_src/dependencies/tutorial010.py hl[1:9,13] *}
+
+/// tip | 提示
+
+另一种创建上下文管理器的方法是：
+
+* <a href="https://docs.python.org/zh-cn/3/library/contextlib.html#contextlib.contextmanager" class="external-link" target="_blank">`@contextlib.contextmanager`</a>或者
+* <a href="https://docs.python.org/zh-cn/3/library/contextlib.html#contextlib.asynccontextmanager" class="external-link" target="_blank">`@contextlib.asynccontextmanager`</a>
+
+使用它们装饰一个只有单个 `yield` 的函数。这就是 **FastAPI** 内部对于 `yield` 依赖项的处理方式。
+
+但是你不需要为FastAPI的依赖项使用这些装饰器（而且也不应该）。FastAPI会在内部为你处理这些。
+
+///
+
+
+================================================
+File: /docs/zh/docs/tutorial/dependencies/global-dependencies.md
+================================================
+# 全局依赖项
+
+有时，我们要为整个应用添加依赖项。
+
+通过与定义[*路径装饰器依赖项*](dependencies-in-path-operation-decorators.md){.internal-link target=_blank} 类似的方式，可以把依赖项添加至整个 `FastAPI` 应用。
+
+这样一来，就可以为所有*路径操作*应用该依赖项：
+
+{* ../../docs_src/dependencies/tutorial012.py hl[15] *}
+
+[*路径装饰器依赖项*](dependencies-in-path-operation-decorators.md){.internal-link target=_blank} 一章的思路均适用于全局依赖项， 在本例中，这些依赖项可以用于应用中的所有*路径操作*。
+
+## 为一组路径操作定义依赖项
+
+稍后，[大型应用 - 多文件](../../tutorial/bigger-applications.md){.internal-link target=_blank}一章中会介绍如何使用多个文件创建大型应用程序，在这一章中，您将了解到如何为一组*路径操作*声明单个 `dependencies` 参数。
+
+
+================================================
+File: /docs/zh/docs/tutorial/dependencies/index.md
+================================================
+# 依赖项
+
+FastAPI 提供了简单易用，但功能强大的**<abbr title="也称为组件、资源、提供者、服务、可注入项">依赖注入</abbr>**系统。
+
+这个依赖系统设计的简单易用，可以让开发人员轻松地把组件集成至 **FastAPI**。
+
+## 什么是「依赖注入」
+
+编程中的**「依赖注入」**是声明代码（本文中为*路径操作函数* ）运行所需的，或要使用的「依赖」的一种方式。
+
+然后，由系统（本文中为 **FastAPI**）负责执行任意需要的逻辑，为代码提供这些依赖（「注入」依赖项）。
+
+依赖注入常用于以下场景：
+
+* 共享业务逻辑（复用相同的代码逻辑）
+* 共享数据库连接
+* 实现安全、验证、角色权限
+* 等……
+
+上述场景均可以使用**依赖注入**，将代码重复最小化。
+
+## 第一步
+
+接下来，我们学习一个非常简单的例子，尽管它过于简单，不是很实用。
+
+但通过这个例子，您可以初步了解「依赖注入」的工作机制。
+
+### 创建依赖项
+
+首先，要关注的是依赖项。
+
+依赖项就是一个函数，且可以使用与*路径操作函数*相同的参数：
+
+{* ../../docs_src/dependencies/tutorial001.py hl[8:11] *}
+
+大功告成。
+
+只用了**2 行**代码。
+
+依赖项函数的形式和结构与*路径操作函数*一样。
+
+因此，可以把依赖项当作没有「装饰器」（即，没有 `@app.get("/some-path")` ）的路径操作函数。
+
+依赖项可以返回各种内容。
+
+本例中的依赖项预期接收如下参数：
+
+* 类型为 `str` 的可选查询参数 `q`
+* 类型为 `int` 的可选查询参数 `skip`，默认值是 `0`
+* 类型为 `int` 的可选查询参数 `limit`，默认值是 `100`
+
+然后，依赖项函数返回包含这些值的 `dict`。
+
+### 导入 `Depends`
+
+{* ../../docs_src/dependencies/tutorial001.py hl[3] *}
+
+### 声明依赖项
+
+与在*路径操作函数*参数中使用 `Body`、`Query` 的方式相同，声明依赖项需要使用 `Depends` 和一个新的参数：
+
+{* ../../docs_src/dependencies/tutorial001.py hl[15,20] *}
+
+虽然，在路径操作函数的参数中使用 `Depends` 的方式与 `Body`、`Query` 相同，但 `Depends` 的工作方式略有不同。
+
+这里只能传给 Depends 一个参数。
+
+且该参数必须是可调用对象，比如函数。
+
+该函数接收的参数和*路径操作函数*的参数一样。
+
+/// tip | 提示
+
+下一章介绍，除了函数还有哪些「对象」可以用作依赖项。
+
+///
+
+接收到新的请求时，**FastAPI** 执行如下操作：
+
+* 用正确的参数调用依赖项函数（「可依赖项」）
+* 获取函数返回的结果
+* 把函数返回的结果赋值给*路径操作函数*的参数
+
+```mermaid
+graph TB
+
+common_parameters(["common_parameters"])
+read_items["/items/"]
+read_users["/users/"]
+
+common_parameters --> read_items
+common_parameters --> read_users
+```
+
+这样，只编写一次代码，**FastAPI** 就可以为多个*路径操作*共享这段代码 。
+
+/// check | 检查
+
+注意，无需创建专门的类，并将之传递给 **FastAPI** 以进行「注册」或执行类似的操作。
+
+只要把它传递给 `Depends`，**FastAPI** 就知道该如何执行后续操作。
+
+///
+
+## 要不要使用 `async`？
+
+**FastAPI** 调用依赖项的方式与*路径操作函数*一样，因此，定义依赖项函数，也要应用与路径操作函数相同的规则。
+
+即，既可以使用异步的 `async def`，也可以使用普通的 `def` 定义依赖项。
+
+在普通的 `def` *路径操作函数*中，可以声明异步的 `async def` 依赖项；也可以在异步的 `async def` *路径操作函数*中声明普通的 `def` 依赖项。
+
+上述这些操作都是可行的，**FastAPI** 知道该怎么处理。
+
+/// note | 笔记
+
+如里不了解异步，请参阅[异步：*“着急了？”*](../../async.md){.internal-link target=_blank} 一章中 `async` 和 `await` 的内容。
+
+///
+
+## 与 OpenAPI 集成
+
+依赖项及子依赖项的所有请求声明、验证和需求都可以集成至同一个 OpenAPI 概图。
+
+所以，交互文档里也会显示依赖项的所有信息：
+
+<img src="/img/tutorial/dependencies/image01.png">
+
+## 简单用法
+
+观察一下就会发现，只要*路径* 和*操作*匹配，就可以使用声明的路径操作函数。然后，**FastAPI** 会用正确的参数调用函数，并提取请求中的数据。
+
+实际上，所有（或大多数）网络框架的工作方式都是这样的。
+
+开发人员永远都不需要直接调用这些函数，这些函数是由框架（在此为 **FastAPI** ）调用的。
+
+通过依赖注入系统，只要告诉 **FastAPI** *路径操作函数* 还要「依赖」其他在*路径操作函数*之前执行的内容，**FastAPI** 就会执行函数代码，并「注入」函数返回的结果。
+
+其他与「依赖注入」概念相同的术语为：
+
+* 资源（Resource）
+* 提供方（Provider）
+* 服务（Service）
+* 可注入（Injectable）
+* 组件（Component）
+
+## **FastAPI** 插件
+
+**依赖注入**系统支持构建集成和「插件」。但实际上，FastAPI 根本**不需要创建「插件」**，因为使用依赖项可以声明不限数量的、可用于*路径操作函数*的集成与交互。
+
+创建依赖项非常简单、直观，并且还支持导入 Python 包。毫不夸张地说，只要几行代码就可以把需要的 Python 包与 API 函数集成在一起。
+
+下一章将详细介绍在关系型数据库、NoSQL 数据库、安全等方面使用依赖项的例子。
+
+## **FastAPI** 兼容性
+
+依赖注入系统如此简洁的特性，让 **FastAPI** 可以与下列系统兼容：
+
+* 关系型数据库
+* NoSQL 数据库
+* 外部支持库
+* 外部 API
+* 认证和鉴权系统
+* API 使用监控系统
+* 响应数据注入系统
+* 等等……
+
+## 简单而强大
+
+虽然，**层级式依赖注入系统**的定义与使用十分简单，但它却非常强大。
+
+比如，可以定义依赖其他依赖项的依赖项。
+
+最后，依赖项层级树构建后，**依赖注入系统**会处理所有依赖项及其子依赖项，并为每一步操作提供（注入）结果。
+
+比如，下面有 4 个 API 路径操作（*端点*）：
+
+* `/items/public/`
+* `/items/private/`
+* `/users/{user_id}/activate`
+* `/items/pro/`
+
+开发人员可以使用依赖项及其子依赖项为这些路径操作添加不同的权限：
+
+```mermaid
+graph TB
+
+current_user(["current_user"])
+active_user(["active_user"])
+admin_user(["admin_user"])
+paying_user(["paying_user"])
+
+public["/items/public/"]
+private["/items/private/"]
+activate_user["/users/{user_id}/activate"]
+pro_items["/items/pro/"]
+
+current_user --> active_user
+active_user --> admin_user
+active_user --> paying_user
+
+current_user --> public
+active_user --> private
+admin_user --> activate_user
+paying_user --> pro_items
+```
+
+## 与 **OpenAPI** 集成
+
+在声明需求时，所有这些依赖项还会把参数、验证等功能添加至路径操作。
+
+**FastAPI** 负责把上述内容全部添加到 OpenAPI 概图，并显示在交互文档中。
+
+
+================================================
+File: /docs/zh/docs/tutorial/dependencies/sub-dependencies.md
+================================================
+# 子依赖项
+
+FastAPI 支持创建含**子依赖项**的依赖项。
+
+并且，可以按需声明任意**深度**的子依赖项嵌套层级。
+
+**FastAPI** 负责处理解析不同深度的子依赖项。
+
+### 第一层依赖项
+
+下列代码创建了第一层依赖项：
+
+{* ../../docs_src/dependencies/tutorial005.py hl[8:9] *}
+
+这段代码声明了类型为 `str` 的可选查询参数 `q`，然后返回这个查询参数。
+
+这个函数很简单（不过也没什么用），但却有助于让我们专注于了解子依赖项的工作方式。
+
+### 第二层依赖项
+
+接下来，创建另一个依赖项函数，并同时用该依赖项自身再声明一个依赖项（所以这也是一个「依赖项」）：
+
+{* ../../docs_src/dependencies/tutorial005.py hl[13] *}
+
+这里重点说明一下声明的参数：
+
+* 尽管该函数自身是依赖项，但还声明了另一个依赖项（它「依赖」于其他对象）
+    * 该函数依赖 `query_extractor`, 并把 `query_extractor` 的返回值赋给参数 `q`
+* 同时，该函数还声明了类型是 `str` 的可选 cookie（`last_query`）
+    * 用户未提供查询参数 `q` 时，则使用上次使用后保存在 cookie 中的查询
+
+### 使用依赖项
+
+接下来，就可以使用依赖项：
+
+{* ../../docs_src/dependencies/tutorial005.py hl[22] *}
+
+/// info | 信息
+
+注意，这里在*路径操作函数*中只声明了一个依赖项，即 `query_or_cookie_extractor` 。
+
+但 **FastAPI** 必须先处理 `query_extractor`，以便在调用 `query_or_cookie_extractor` 时使用 `query_extractor` 返回的结果。
+
+///
+
+```mermaid
+graph TB
+
+query_extractor(["query_extractor"])
+query_or_cookie_extractor(["query_or_cookie_extractor"])
+
+read_query["/items/"]
+
+query_extractor --> query_or_cookie_extractor --> read_query
+```
+
+## 多次使用同一个依赖项
+
+如果在同一个*路径操作* 多次声明了同一个依赖项，例如，多个依赖项共用一个子依赖项，**FastAPI** 在处理同一请求时，只调用一次该子依赖项。
+
+FastAPI 不会为同一个请求多次调用同一个依赖项，而是把依赖项的返回值进行<abbr title="一个实用程序/系统来存储计算/生成的值，以便重用它们，而不是再次计算它们。">「缓存」</abbr>，并把它传递给同一请求中所有需要使用该返回值的「依赖项」。
+
+在高级使用场景中，如果不想使用「缓存」值，而是为需要在同一请求的每一步操作（多次）中都实际调用依赖项，可以把 `Depends` 的参数 `use_cache` 的值设置为 `False` :
+
+```Python hl_lines="1"
+async def needy_dependency(fresh_value: str = Depends(get_value, use_cache=False)):
+    return {"fresh_value": fresh_value}
+```
+
+## 小结
+
+千万别被本章里这些花里胡哨的词藻吓倒了，其实**依赖注入**系统非常简单。
+
+依赖注入无非是与*路径操作函数*一样的函数罢了。
+
+但它依然非常强大，能够声明任意嵌套深度的「图」或树状的依赖结构。
+
+/// tip | 提示
+
+这些简单的例子现在看上去虽然没有什么实用价值，
+
+但在**安全**一章中，您会了解到这些例子的用途，
+
+以及这些例子所能节省的代码量。
+
+///
+
+
+================================================
+File: /docs/zh/docs/tutorial/security/first-steps.md
+================================================
+# 安全 - 第一步
+
+假设**后端** API 在某个域。
+
+**前端**在另一个域，或（移动应用中）在同一个域的不同路径下。
+
+并且，前端要使用后端的 **username** 与 **password** 验证用户身份。
+
+固然，**FastAPI** 支持 **OAuth2** 身份验证。
+
+但为了节省开发者的时间，不要只为了查找很少的内容，不得不阅读冗长的规范文档。
+
+我们建议使用 **FastAPI** 的安全工具。
+
+## 概览
+
+首先，看看下面的代码是怎么运行的，然后再回过头来了解其背后的原理。
+
+## 创建 `main.py`
+
+把下面的示例代码复制到 `main.py`：
+
+{* ../../docs_src/security/tutorial001_an_py39.py *}
+
+## 运行
+
+/// info | 说明
+
+先安装 <a href="https://github.com/Kludex/python-multipart" class="external-link" target="_blank">`python-multipart`</a>。
+
+安装命令： `pip install python-multipart`。
+
+这是因为 **OAuth2** 使用**表单数据**发送 `username` 与 `password`。
+
+///
+
+用下面的命令运行该示例：
+
+<div class="termy">
+
+```console
+$ uvicorn main:app --reload
+
+<span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+</div>
+
+## 查看文档
+
+打开 API 文档： <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs。</a>
+
+界面如下图所示：
+
+<img src="/img/tutorial/security/image01.png">
+
+/// check | Authorize 按钮！
+
+页面右上角出现了一个「**Authorize**」按钮。
+
+*路径操作*的右上角也出现了一个可以点击的小锁图标。
+
+///
+
+点击 **Authorize** 按钮，弹出授权表单，输入 `username` 与 `password` 及其它可选字段：
+
+<img src="/img/tutorial/security/image02.png">
+
+/// note | 笔记
+
+目前，在表单中输入内容不会有任何反应，后文会介绍相关内容。
+
+///
+
+虽然此文档不是给前端最终用户使用的，但这个自动工具非常实用，可在文档中与所有 API 交互。
+
+前端团队（可能就是开发者本人）可以使用本工具。
+
+第三方应用与系统也可以调用本工具。
+
+开发者也可以用它来调试、检查、测试应用。
+
+## 密码流
+
+现在，我们回过头来介绍这段代码的原理。
+
+`Password` **流**是 OAuth2 定义的，用于处理安全与身份验证的方式（**流**）。
+
+OAuth2 的设计目标是为了让后端或 API 独立于服务器验证用户身份。
+
+但在本例中，**FastAPI** 应用会处理 API 与身份验证。
+
+下面，我们来看一下简化的运行流程：
+
+- 用户在前端输入 `username` 与`password`，并点击**回车**
+- （用户浏览器中运行的）前端把 `username` 与`password` 发送至 API 中指定的 URL（使用 `tokenUrl="token"` 声明）
+- API 检查 `username` 与`password`，并用令牌（`Token`） 响应（暂未实现此功能）：
+  - 令牌只是用于验证用户的字符串
+  - 一般来说，令牌会在一段时间后过期
+    - 过时后，用户要再次登录
+    - 这样一来，就算令牌被人窃取，风险也较低。因为它与永久密钥不同，**在绝大多数情况下**不会长期有效
+- 前端临时将令牌存储在某个位置
+- 用户点击前端，前往前端应用的其它部件
+- 前端需要从 API 中提取更多数据：
+    - 为指定的端点（Endpoint）进行身份验证
+    - 因此，用 API 验证身份时，要发送值为 `Bearer` + 令牌的请求头 `Authorization`
+    - 假如令牌为 `foobar`，`Authorization` 请求头就是： `Bearer foobar`
+
+## **FastAPI** 的 `OAuth2PasswordBearer`
+
+**FastAPI** 提供了不同抽象级别的安全工具。
+
+本例使用 **OAuth2** 的 **Password** 流以及 **Bearer** 令牌（`Token`）。为此要使用 `OAuth2PasswordBearer` 类。
+
+/// info | 说明
+
+`Bearer` 令牌不是唯一的选择。
+
+但它是最适合这个用例的方案。
+
+甚至可以说，它是适用于绝大多数用例的最佳方案，除非您是 OAuth2 的专家，知道为什么其它方案更合适。
+
+本例中，**FastAPI** 还提供了构建工具。
+
+///
+
+创建 `OAuth2PasswordBearer` 的类实例时，要传递 `tokenUrl` 参数。该参数包含客户端（用户浏览器中运行的前端） 的 URL，用于发送 `username` 与 `password`，并获取令牌。
+
+{* ../../docs_src/security/tutorial001.py hl[6] *}
+
+/// tip | 提示
+
+在此，`tokenUrl="token"` 指向的是暂未创建的相对 URL `token`。这个相对 URL 相当于 `./token`。
+
+因为使用的是相对 URL，如果 API 位于 `https://example.com/`，则指向 `https://example.com/token`。但如果 API 位于 `https://example.com/api/v1/`，它指向的就是`https://example.com/api/v1/token`。
+
+使用相对 URL 非常重要，可以确保应用在遇到[使用代理](../../advanced/behind-a-proxy.md){.internal-link target=_blank}这样的高级用例时，也能正常运行。
+
+///
+
+该参数不会创建端点或*路径操作*，但会声明客户端用来获取令牌的 URL `/token` 。此信息用于 OpenAPI 及 API 文档。
+
+接下来，学习如何创建实际的路径操作。
+
+/// info | 说明
+
+严苛的 **Pythonista** 可能不喜欢用 `tokenUrl` 这种命名风格代替 `token_url`。
+
+这种命名方式是因为要使用与 OpenAPI 规范中相同的名字。以便在深入校验安全方案时，能通过复制粘贴查找更多相关信息。
+
+///
+
+`oauth2_scheme` 变量是 `OAuth2PasswordBearer` 的实例，也是**可调用项**。
+
+以如下方式调用：
+
+```Python
+oauth2_scheme(some, parameters)
+```
+
+因此，`Depends` 可以调用 `oauth2_scheme` 变量。
+
+### 使用
+
+接下来，使用 `Depends` 把 `oauth2_scheme` 传入依赖项。
+
+{* ../../docs_src/security/tutorial001.py hl[10] *}
+
+该依赖项使用字符串（`str`）接收*路径操作函数*的参数 `token` 。
+
+**FastAPI** 使用依赖项在 OpenAPI 概图（及 API 文档）中定义**安全方案**。
+
+/// info | 技术细节
+
+**FastAPI** 使用（在依赖项中声明的）类 `OAuth2PasswordBearer` 在 OpenAPI 中定义安全方案，这是因为它继承自 `fastapi.security.oauth2.OAuth2`，而该类又是继承自`fastapi.security.base.SecurityBase`。
+
+所有与 OpenAPI（及 API 文档）集成的安全工具都继承自 `SecurityBase`， 这就是为什么 **FastAPI** 能把它们集成至 OpenAPI 的原因。
+
+///
+
+## 实现的操作
+
+FastAPI 校验请求中的 `Authorization` 请求头，核对请求头的值是不是由 `Bearer ` ＋ 令牌组成， 并返回令牌字符串（`str`）。
+
+如果没有找到 `Authorization` 请求头，或请求头的值不是 `Bearer ` ＋ 令牌。FastAPI 直接返回 401 错误状态码（`UNAUTHORIZED`）。
+
+开发者不需要检查错误信息，查看令牌是否存在，只要该函数能够执行，函数中就会包含令牌字符串。
+
+正如下图所示，API 文档已经包含了这项功能：
+
+<img src="/img/tutorial/security/image03.png">
+
+目前，暂时还没有实现验证令牌是否有效的功能，不过后文很快就会介绍的。
+
+## 小结
+
+看到了吧，只要多写三四行代码，就可以添加基础的安全表单。
+
+
+================================================
+File: /docs/zh/docs/tutorial/security/get-current-user.md
+================================================
+# 获取当前用户
+
+上一章中，（基于依赖注入系统的）安全系统向*路径操作函数*传递了 `str` 类型的 `token`：
+
+{* ../../docs_src/security/tutorial001.py hl[10] *}
+
+但这并不实用。
+
+接下来，我们学习如何返回当前用户。
+
+
+## 创建用户模型
+
+首先，创建 Pydantic 用户模型。
+
+与使用 Pydantic 声明请求体相同，并且可在任何位置使用：
+
+{* ../../docs_src/security/tutorial002.py hl[5,12:16] *}
+
+## 创建 `get_current_user` 依赖项
+
+创建 `get_current_user` 依赖项。
+
+还记得依赖项支持子依赖项吗？
+
+`get_current_user` 使用 `oauth2_scheme` 作为依赖项。
+
+与之前直接在路径操作中的做法相同，新的 `get_current_user` 依赖项从子依赖项 `oauth2_scheme` 中接收 `str` 类型的 `token`：
+
+{* ../../docs_src/security/tutorial002.py hl[25] *}
+
+## 获取用户
+
+`get_current_user` 使用创建的（伪）工具函数，该函数接收 `str` 类型的令牌，并返回 Pydantic 的 `User` 模型：
+
+{* ../../docs_src/security/tutorial002.py hl[19:22,26:27] *}
+
+## 注入当前用户
+
+在*路径操作* 的 `Depends` 中使用 `get_current_user`：
+
+{* ../../docs_src/security/tutorial002.py hl[31] *}
+
+注意，此处把 `current_user` 的类型声明为 Pydantic 的 `User` 模型。
+
+这有助于在函数内部使用代码补全和类型检查。
+
+/// tip | 提示
+
+还记得请求体也是使用 Pydantic 模型声明的吧。
+
+放心，因为使用了 `Depends`，**FastAPI** 不会搞混。
+
+///
+
+/// check | 检查
+
+依赖系统的这种设计方式可以支持不同的依赖项返回同一个 `User` 模型。
+
+而不是局限于只能有一个返回该类型数据的依赖项。
+
+///
+
+## 其它模型
+
+接下来，直接在*路径操作函数*中获取当前用户，并用 `Depends` 在**依赖注入**系统中处理安全机制。
+
+开发者可以使用任何模型或数据满足安全需求（本例中是 Pydantic 的 `User` 模型）。
+
+而且，不局限于只能使用特定的数据模型、类或类型。
+
+不想在模型中使用 `username`，而是使用 `id` 和 `email`？当然可以。这些工具也支持。
+
+只想使用字符串？或字典？甚至是数据库类模型的实例？工作方式都一样。
+
+实际上，就算登录应用的不是用户，而是只拥有访问令牌的机器人、程序或其它系统？工作方式也一样。
+
+尽管使用应用所需的任何模型、类、数据库。**FastAPI** 通过依赖注入系统都能帮您搞定。
+
+
+## 代码大小
+
+这个示例看起来有些冗长。毕竟这个文件同时包含了安全、数据模型的工具函数，以及路径操作等代码。
+
+但，关键是：
+
+**安全和依赖注入的代码只需要写一次。**
+
+就算写得再复杂，也只是在一个位置写一次就够了。所以，要多复杂就可以写多复杂。
+
+但是，就算有数千个端点（*路径操作*），它们都可以使用同一个安全系统。
+
+而且，所有端点（或它们的任何部件）都可以利用这些依赖项或任何其它依赖项。
+
+所有*路径操作*只需 3 行代码就可以了：
+
+{* ../../docs_src/security/tutorial002.py hl[30:32] *}
+
+## 小结
+
+现在，我们可以直接在*路径操作函数*中获取当前用户。
+
+至此，安全的内容已经讲了一半。
+
+只要再为用户或客户端的*路径操作*添加真正发送 `username` 和 `password` 的功能就可以了。
+
+下一章见。
+
+
+================================================
+File: /docs/zh/docs/tutorial/security/index.md
+================================================
+# 安全性
+
+有许多方法可以处理安全性、身份认证和授权等问题。
+
+而且这通常是一个复杂而「困难」的话题。
+
+在许多框架和系统中，仅处理安全性和身份认证就会花费大量的精力和代码（在许多情况下，可能占编写的所有代码的 50％ 或更多）。
+
+**FastAPI** 提供了多种工具，可帮助你以标准的方式轻松、快速地处理**安全性**，而无需研究和学习所有的安全规范。
+
+但首先，让我们来看一些小的概念。
+
+## 没有时间？
+
+如果你不关心这些术语，而只需要*立即*通过基于用户名和密码的身份认证来增加安全性，请跳转到下一章。
+
+## OAuth2
+
+OAuth2是一个规范，它定义了几种处理身份认证和授权的方法。
+
+它是一个相当广泛的规范，涵盖了一些复杂的使用场景。
+
+它包括了使用「第三方」进行身份认证的方法。
+
+这就是所有带有「使用 Facebook，Google，Twitter，GitHub 登录」的系统背后所使用的机制。
+
+### OAuth 1
+
+有一个 OAuth 1，它与 OAuth2 完全不同，并且更为复杂，因为它直接包含了有关如何加密通信的规范。
+
+如今它已经不是很流行，没有被广泛使用了。
+
+OAuth2 没有指定如何加密通信，它期望你为应用程序使用 HTTPS 进行通信。
+
+/// tip
+
+在有关**部署**的章节中，你将了解如何使用 Traefik 和 Let's Encrypt 免费设置 HTTPS。
+
+///
+
+## OpenID Connect
+
+OpenID Connect 是另一个基于 **OAuth2** 的规范。
+
+它只是扩展了 OAuth2，并明确了一些在 OAuth2 中相对模糊的内容，以尝试使其更具互操作性。
+
+例如，Google 登录使用 OpenID Connect（底层使用OAuth2）。
+
+但是 Facebook 登录不支持 OpenID Connect。它具有自己的 OAuth2 风格。
+
+### OpenID（非「OpenID Connect」）
+
+还有一个「OpenID」规范。它试图解决与 **OpenID Connect** 相同的问题，但它不是基于 OAuth2。
+
+因此，它是一个完整的附加系统。
+
+如今它已经不是很流行，没有被广泛使用了。
+
+## OpenAPI
+
+OpenAPI（以前称为 Swagger）是用于构建 API 的开放规范（现已成为 Linux Foundation 的一部分）。
+
+**FastAPI** 基于 **OpenAPI**。
+
+这就是使多个自动交互式文档界面，代码生成等成为可能的原因。
+
+OpenAPI 有一种定义多个安全「方案」的方法。
+
+通过使用它们，你可以利用所有这些基于标准的工具，包括这些交互式文档系统。
+
+OpenAPI 定义了以下安全方案：
+
+* `apiKey`：一个特定于应用程序的密钥，可以来自：
+    * 查询参数。
+    * 请求头。
+    * cookie。
+* `http`：标准的 HTTP 身份认证系统，包括：
+    * `bearer`: 一个值为 `Bearer` 加令牌字符串的 `Authorization` 请求头。这是从 OAuth2 继承的。
+    * HTTP Basic 认证方式。
+    * HTTP Digest，等等。
+* `oauth2`：所有的 OAuth2 处理安全性的方式（称为「流程」）。
+    *以下几种流程适合构建 OAuth 2.0 身份认证的提供者（例如 Google，Facebook，Twitter，GitHub 等）：
+        * `implicit`
+        * `clientCredentials`
+        * `authorizationCode`
+    * 但是有一个特定的「流程」可以完美地用于直接在同一应用程序中处理身份认证：
+        * `password`：接下来的几章将介绍它的示例。
+* `openIdConnect`：提供了一种定义如何自动发现 OAuth2 身份认证数据的方法。
+    * 此自动发现机制是 OpenID Connect 规范中定义的内容。
+
+
+/// tip
+
+集成其他身份认证/授权提供者（例如Google，Facebook，Twitter，GitHub等）也是可能的，而且较为容易。
+
+最复杂的问题是创建一个像这样的身份认证/授权提供程序，但是 **FastAPI** 为你提供了轻松完成任务的工具，同时为你解决了重活。
+
+///
+
+## **FastAPI** 实用工具
+
+FastAPI 在 `fastapi.security` 模块中为每个安全方案提供了几种工具，这些工具简化了这些安全机制的使用方法。
+
+在下一章中，你将看到如何使用 **FastAPI** 所提供的这些工具为你的 API 增加安全性。
+
+而且你还将看到它如何自动地被集成到交互式文档系统中。
+
+
+================================================
+File: /docs/zh/docs/tutorial/security/oauth2-jwt.md
+================================================
+# OAuth2 实现密码哈希与 Bearer  JWT 令牌验证
+
+至此，我们已经编写了所有安全流，本章学习如何使用 <abbr title="JSON Web Tokens">JWT</abbr> 令牌（Token）和安全密码哈希（Hash）实现真正的安全机制。
+
+本章的示例代码真正实现了在应用的数据库中保存哈希密码等功能。
+
+接下来，我们紧接上一章，继续完善安全机制。
+
+## JWT 简介
+
+JWT 即**JSON 网络令牌**（JSON Web Tokens）。
+
+JWT 是一种将 JSON 对象编码为没有空格，且难以理解的长字符串的标准。JWT 的内容如下所示：
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+JWT 字符串没有加密，任何人都能用它恢复原始信息。
+
+但 JWT 使用了签名机制。接受令牌时，可以用签名校验令牌。
+
+使用 JWT 创建有效期为一周的令牌。第二天，用户持令牌再次访问时，仍为登录状态。
+
+令牌于一周后过期，届时，用户身份验证就会失败。只有再次登录，才能获得新的令牌。如果用户（或第三方）篡改令牌的过期时间，因为签名不匹配会导致身份验证失败。
+
+如需深入了解 JWT 令牌，了解它的工作方式，请参阅 <a href="https://jwt.io/" class="external-link" target="_blank">https://jwt.io</a>。
+
+## 安装 `PyJWT`
+
+安装 `PyJWT`，在 Python 中生成和校验 JWT 令牌：
+
+<div class="termy">
+
+```console
+$ pip install pyjwt
+
+---> 100%
+```
+
+</div>
+
+/// info | 说明
+
+如果您打算使用类似 RSA 或 ECDSA 的数字签名算法，您应该安装加密库依赖项 `pyjwt[crypto]`。
+
+您可以在 <a href="https://pyjwt.readthedocs.io/en/latest/installation.html" class="external-link" target="_blank">PyJWT Installation docs</a> 获得更多信息。
+
+///
+
+## 密码哈希
+
+**哈希**是指把特定内容（本例中为密码）转换为乱码形式的字节序列（其实就是字符串）。
+
+每次传入完全相同的内容时（比如，完全相同的密码），返回的都是完全相同的乱码。
+
+但这个乱码无法转换回传入的密码。
+
+### 为什么使用密码哈希
+
+原因很简单，假如数据库被盗，窃贼无法获取用户的明文密码，得到的只是哈希值。
+
+这样一来，窃贼就无法在其它应用中使用窃取的密码（要知道，很多用户在所有系统中都使用相同的密码，风险超大）。
+
+## 安装 `passlib`
+
+Passlib 是处理密码哈希的 Python 包。
+
+它支持很多安全哈希算法及配套工具。
+
+本教程推荐的算法是 **Bcrypt**。
+
+因此，请先安装附带 Bcrypt 的 PassLib：
+
+<div class="termy">
+
+```console
+$ pip install passlib[bcrypt]
+
+---> 100%
+```
+
+</div>
+
+/// tip | 提示
+
+`passlib` 甚至可以读取 Django、Flask 的安全插件等工具创建的密码。
+
+例如，把 Django 应用的数据共享给 FastAPI 应用的数据库。或利用同一个数据库，可以逐步把应用从 Django 迁移到 FastAPI。
+
+并且，用户可以同时从 Django 应用或 FastAPI 应用登录。
+
+///
+
+## 密码哈希与校验
+
+从 `passlib` 导入所需工具。
+
+创建用于密码哈希和身份校验的 PassLib **上下文**。
+
+/// tip | 提示
+
+PassLib 上下文还支持使用不同哈希算法的功能，包括只能校验的已弃用旧算法等。
+
+例如，用它读取和校验其它系统（如 Django）生成的密码，但要使用其它算法，如 Bcrypt，生成新的哈希密码。
+
+同时，这些功能都是兼容的。
+
+///
+
+接下来，创建三个工具函数，其中一个函数用于哈希用户的密码。
+
+第一个函数用于校验接收的密码是否匹配存储的哈希值。
+
+第三个函数用于身份验证，并返回用户。
+
+{* ../../docs_src/security/tutorial004_an_py310.py hl[8,49,56:57,60:61,70:76] *}
+
+/// note | 笔记
+
+查看新的（伪）数据库 `fake_users_db`，就能看到哈希后的密码：`"$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW"`。
+
+///
+
+## 处理 JWT 令牌
+
+导入已安装的模块。
+
+创建用于 JWT 令牌签名的随机密钥。
+
+使用以下命令，生成安全的随机密钥：
+
+<div class="termy">
+
+```console
+$ openssl rand -hex 32
+
+09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+```
+
+</div>
+
+然后，把生成的密钥复制到变量**SECRET_KEY**，注意，不要使用本例所示的密钥。
+
+创建指定 JWT 令牌签名算法的变量 **ALGORITHM**，本例中的值为 `"HS256"`。
+
+创建设置令牌过期时间的变量。
+
+定义令牌端点响应的 Pydantic 模型。
+
+创建生成新的访问令牌的工具函数。
+
+{* ../../docs_src/security/tutorial004.py hl[6,12:14,28:30,78:86] *}
+
+## 更新依赖项
+
+更新 `get_current_user` 以接收与之前相同的令牌，但这里用的是 JWT 令牌。
+
+解码并校验接收到的令牌，然后，返回当前用户。
+
+如果令牌无效，则直接返回 HTTP 错误。
+
+{* ../../docs_src/security/tutorial004_an_py310.py hl[4,7,13:15,29:31,79:87] *}
+
+## 更新 `/token` *路径操作*
+
+用令牌过期时间创建 `timedelta` 对象。
+
+创建并返回真正的 JWT 访问令牌。
+
+{* ../../docs_src/security/tutorial004_an_py310.py hl[118:133] *}
+
+### JWT `sub` 的技术细节
+
+JWT 规范还包括 `sub` 键，值是令牌的主题。
+
+该键是可选的，但要把用户标识放在这个键里，所以本例使用了该键。
+
+除了识别用户与许可用户在 API 上直接执行操作之外，JWT 还可能用于其它事情。
+
+例如，识别**汽车**或**博客**。
+
+接着，为实体添加权限，比如**驾驶**（汽车）或**编辑**（博客）。
+
+然后，把 JWT 令牌交给用户（或机器人），他们就可以执行驾驶汽车，或编辑博客等操作。无需注册账户，只要有 API 生成的 JWT 令牌就可以。
+
+同理，JWT 可以用于更复杂的场景。
+
+在这些情况下，多个实体的 ID 可能是相同的，以 ID  `foo` 为例，用户的 ID 是 `foo`，车的 ID 是 `foo`，博客的 ID 也是  `foo`。
+
+为了避免 ID 冲突，在给用户创建 JWT 令牌时，可以为 `sub` 键的值加上前缀，例如 `username:`。因此，在本例中，`sub` 的值可以是：`username:johndoe`。
+
+注意，划重点，`sub` 键在整个应用中应该只有一个唯一的标识符，而且应该是字符串。
+
+## 检查
+
+运行服务器并访问文档： <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>。
+
+可以看到如下用户界面：
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/security/image07.png">
+
+用与上一章同样的方式实现应用授权。
+
+使用如下凭证：
+
+用户名: `johndoe` 密码: `secret`
+
+/// check | 检查
+
+注意，代码中没有明文密码**`secret`**，只保存了它的哈希值。
+
+///
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/security/image08.png">
+
+调用 `/users/me/` 端点，收到下面的响应：
+
+```JSON
+{
+  "username": "johndoe",
+  "email": "johndoe@example.com",
+  "full_name": "John Doe",
+  "disabled": false
+}
+```
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/security/image09.png">
+
+打开浏览器的开发者工具，查看数据是怎么发送的，而且数据里只包含了令牌，只有验证用户的第一个请求才发送密码，并获取访问令牌，但之后不会再发送密码：
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/security/image10.png">
+
+/// note | 笔记
+
+注意，请求中 `Authorization` 响应头的值以 `Bearer` 开头。
+
+///
+
+## `scopes` 高级用法
+
+OAuth2 支持**`scopes`**（作用域）。
+
+**`scopes`**为 JWT 令牌添加指定权限。
+
+让持有令牌的用户或第三方在指定限制条件下与 API 交互。
+
+**高级用户指南**中将介绍如何使用 `scopes`，及如何把 `scopes` 集成至 **FastAPI**。
+
+## 小结
+
+至此，您可以使用 OAuth2 和 JWT 等标准配置安全的 **FastAPI** 应用。
+
+几乎在所有框架中，处理安全问题很快都会变得非常复杂。
+
+有些包为了简化安全流，不得不在数据模型、数据库和功能上做出妥协。而有些过于简化的软件包其实存在了安全隐患。
+
+---
+
+**FastAPI** 不向任何数据库、数据模型或工具做妥协。
+
+开发者可以灵活选择最适合项目的安全机制。
+
+还可以直接使用 `passlib` 和 `PyJWT` 等维护良好、使用广泛的包，这是因为 **FastAPI** 不需要任何复杂机制，就能集成外部的包。
+
+而且，**FastAPI** 还提供了一些工具，在不影响灵活、稳定和安全的前提下，尽可能地简化安全机制。
+
+**FastAPI** 还支持以相对简单的方式，使用 OAuth2 等安全、标准的协议。
+
+**高级用户指南**中详细介绍了 OAuth2**`scopes`**的内容，遵循同样的标准，实现更精密的权限系统。OAuth2 的作用域是脸书、谷歌、GitHub、微软、推特等第三方身份验证应用使用的机制，让用户授权第三方应用与 API 交互。
+
+
+================================================
+File: /docs/zh/docs/tutorial/security/simple-oauth2.md
+================================================
+# OAuth2 实现简单的 Password 和 Bearer 验证
+
+本章添加上一章示例中欠缺的部分，实现完整的安全流。
+
+## 获取 `username` 和 `password`
+
+首先，使用 **FastAPI** 安全工具获取 `username` 和 `password`。
+
+OAuth2 规范要求使用**密码流**时，客户端或用户必须以表单数据形式发送 `username` 和 `password` 字段。
+
+并且，这两个字段必须命名为 `username` 和 `password` ，不能使用 `user-name` 或 `email` 等其它名称。
+
+不过也不用担心，前端仍可以显示终端用户所需的名称。
+
+数据库模型也可以使用所需的名称。
+
+但对于登录*路径操作*，则要使用兼容规范的 `username` 和 `password`，（例如，实现与 API 文档集成）。
+
+该规范要求必须以表单数据形式发送 `username` 和 `password`，因此，不能使用 JSON 对象。
+
+### `Scope`（作用域）
+
+OAuth2 还支持客户端发送**`scope`**表单字段。
+
+虽然表单字段的名称是 `scope`（单数），但实际上，它是以空格分隔的，由多个**scope**组成的长字符串。
+
+**作用域**只是不带空格的字符串。
+
+常用于声明指定安全权限，例如：
+
+* 常见用例为，`users:read` 或 `users:write`
+* 脸书和 Instagram 使用 `instagram_basic`
+* 谷歌使用 `https://www.googleapis.com/auth/drive`
+
+/// info | 说明
+
+OAuth2 中，**作用域**只是声明指定权限的字符串。
+
+是否使用冒号 `:` 等符号，或是不是 URL 并不重要。
+
+这些细节只是特定的实现方式。
+
+对 OAuth2 来说，都只是字符串而已。
+
+///
+
+## 获取 `username` 和 `password` 的代码
+
+接下来，使用 **FastAPI** 工具获取用户名与密码。
+
+### `OAuth2PasswordRequestForm`
+
+首先，导入 `OAuth2PasswordRequestForm`，然后，在 `/token` *路径操作* 中，用 `Depends` 把该类作为依赖项。
+
+{* ../../docs_src/security/tutorial003.py hl[4,76] *}
+
+`OAuth2PasswordRequestForm` 是用以下几项内容声明表单请求体的类依赖项：
+
+* `username`
+* `password`
+* 可选的 `scope` 字段，由多个空格分隔的字符串组成的长字符串
+* 可选的 `grant_type`
+
+/// tip | 提示
+
+实际上，OAuth2 规范*要求* `grant_type` 字段使用固定值 `password`，但 `OAuth2PasswordRequestForm` 没有作强制约束。
+
+如需强制使用固定值 `password`，则不要用 `OAuth2PasswordRequestForm`，而是用 `OAuth2PasswordRequestFormStrict`。
+
+///
+
+* 可选的 `client_id`（本例未使用）
+* 可选的 `client_secret`（本例未使用）
+
+/// info | 说明
+
+`OAuth2PasswordRequestForm` 与 `OAuth2PasswordBearer` 一样，都不是 FastAPI 的特殊类。
+
+**FastAPI** 把 `OAuth2PasswordBearer` 识别为安全方案。因此，可以通过这种方式把它添加至 OpenAPI。
+
+但 `OAuth2PasswordRequestForm` 只是可以自行编写的类依赖项，也可以直接声明 `Form` 参数。
+
+但由于这种用例很常见，FastAPI 为了简便，就直接提供了对它的支持。
+
+///
+
+### 使用表单数据
+
+/// tip | 提示
+
+`OAuth2PasswordRequestForm` 类依赖项的实例没有以空格分隔的长字符串属性 `scope`，但它支持 `scopes` 属性，由已发送的 scope 字符串列表组成。
+
+本例没有使用 `scopes`，但开发者也可以根据需要使用该属性。
+
+///
+
+现在，即可使用表单字段 `username`，从（伪）数据库中获取用户数据。
+
+如果不存在指定用户，则返回错误消息，提示**用户名或密码错误**。
+
+本例使用 `HTTPException` 异常显示此错误：
+
+{* ../../docs_src/security/tutorial003.py hl[3,77:79] *}
+
+### 校验密码
+
+至此，我们已经从数据库中获取了用户数据，但尚未校验密码。
+
+接下来，首先将数据放入 Pydantic 的 `UserInDB` 模型。
+
+注意：永远不要保存明文密码，本例暂时先使用（伪）哈希密码系统。
+
+如果密码不匹配，则返回与上面相同的错误。
+
+#### 密码哈希
+
+**哈希**是指，将指定内容（本例中为密码）转换为形似乱码的字节序列（其实就是字符串）。
+
+每次传入完全相同的内容（比如，完全相同的密码）时，得到的都是完全相同的乱码。
+
+但这个乱码无法转换回传入的密码。
+
+##### 为什么使用密码哈希
+
+原因很简单，假如数据库被盗，窃贼无法获取用户的明文密码，得到的只是哈希值。
+
+这样一来，窃贼就无法在其它应用中使用窃取的密码，要知道，很多用户在所有系统中都使用相同的密码，风险超大。
+
+{* ../../docs_src/security/tutorial003.py hl[80:83] *}
+
+#### 关于 `**user_dict`
+
+`UserInDB(**user_dict)` 是指：
+
+*直接把 `user_dict` 的键与值当作关键字参数传递，等效于：*
+
+```Python
+UserInDB(
+    username = user_dict["username"],
+    email = user_dict["email"],
+    full_name = user_dict["full_name"],
+    disabled = user_dict["disabled"],
+    hashed_password = user_dict["hashed_password"],
+)
+```
+
+/// info | 说明
+
+`user_dict` 的说明，详见[**更多模型**一章](../extra-models.md#user_indict){.internal-link target=_blank}。
+
+///
+
+## 返回 Token
+
+`token` 端点的响应必须是 JSON 对象。
+
+响应返回的内容应该包含 `token_type`。本例中用的是**Bearer**Token，因此， Token 类型应为**`bearer`**。
+
+返回内容还应包含 `access_token` 字段，它是包含权限 Token 的字符串。
+
+本例只是简单的演示，返回的 Token 就是 `username`，但这种方式极不安全。
+
+/// tip | 提示
+
+下一章介绍使用哈希密码和 <abbr title="JSON Web Tokens">JWT</abbr> Token 的真正安全机制。
+
+但现在，仅关注所需的特定细节。
+
+///
+
+{* ../../docs_src/security/tutorial003.py hl[85] *}
+
+/// tip | 提示
+
+按规范的要求，应像本示例一样，返回带有 `access_token` 和 `token_type` 的 JSON 对象。
+
+这是开发者必须在代码中自行完成的工作，并且要确保使用这些 JSON 的键。
+
+这几乎是唯一需要开发者牢记在心，并按规范要求正确执行的事。
+
+**FastAPI** 则负责处理其它的工作。
+
+///
+
+## 更新依赖项
+
+接下来，更新依赖项。
+
+使之仅在当前用户为激活状态时，才能获取 `current_user`。
+
+为此，要再创建一个依赖项 `get_current_active_user`，此依赖项以 `get_current_user` 依赖项为基础。
+
+如果用户不存在，或状态为未激活，这两个依赖项都会返回 HTTP 错误。
+
+因此，在端点中，只有当用户存在、通过身份验证、且状态为激活时，才能获得该用户：
+
+{* ../../docs_src/security/tutorial003.py hl[58:67,69:72,90] *}
+
+/// info | 说明
+
+此处返回值为 `Bearer` 的响应头 `WWW-Authenticate` 也是规范的一部分。
+
+任何 401**UNAUTHORIZED**HTTP（错误）状态码都应返回 `WWW-Authenticate` 响应头。
+
+本例中，因为使用的是 Bearer Token，该响应头的值应为 `Bearer`。
+
+实际上，忽略这个附加响应头，也不会有什么问题。
+
+之所以在此提供这个附加响应头，是为了符合规范的要求。
+
+说不定什么时候，就有工具用得上它，而且，开发者或用户也可能用得上。
+
+这就是遵循标准的好处……
+
+///
+
+## 实际效果
+
+打开 API 文档：<a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>。
+
+### 身份验证
+
+点击**Authorize**按钮。
+
+使用以下凭证：
+
+用户名：`johndoe`
+
+密码：`secret`
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/security/image04.png">
+
+通过身份验证后，显示下图所示的内容：
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/security/image05.png">
+
+### 获取当前用户数据
+
+使用 `/users/me` 路径的 `GET` 操作。
+
+可以提取如下当前用户数据：
+
+```JSON
+{
+  "username": "johndoe",
+  "email": "johndoe@example.com",
+  "full_name": "John Doe",
+  "disabled": false,
+  "hashed_password": "fakehashedsecret"
+}
+```
+
+<img src="https://fastapi.tiangolo.com/img/tutorial/security/image06.png">
+
+点击小锁图标，注销后，再执行同样的操作，则会得到 HTTP 401 错误：
+
+```JSON
+{
+  "detail": "Not authenticated"
+}
+```
+
+### 未激活用户
+
+测试未激活用户，输入以下信息，进行身份验证：
+
+用户名：`alice`
+
+密码：`secret2`
+
+然后，执行 `/users/me` 路径的 `GET` 操作。
+
+显示下列**未激活用户**错误信息：
+
+```JSON
+{
+  "detail": "Inactive user"
+}
+```
+
+## 小结
+
+使用本章的工具实现基于 `username` 和 `password` 的完整 API 安全系统。
+
+这些工具让安全系统兼容任何数据库、用户及数据模型。
+
+唯一欠缺的是，它仍然不是真的**安全**。
+
+下一章，介绍使用密码哈希支持库与 <abbr title="JSON Web Tokens">JWT</abbr> 令牌实现真正的安全机制。
+
+
+================================================
+File: /docs/zh-hant/mkdocs.yml
+================================================
+INHERIT: ../en/mkdocs.yml
+
+
+================================================
+File: /docs/zh-hant/docs/async.md
+================================================
+# 並行與 async / await
+
+有關*路徑操作函式*的 `async def` 語法的細節與非同步 (asynchronous) 程式碼、並行 (concurrency) 與平行 (parallelism) 的一些背景知識。
+
+## 趕時間嗎?
+
+<abbr title="too long; didn't read（文長慎入）"><strong>TL;DR:</strong></abbr>
+
+如果你正在使用要求你以 `await` 語法呼叫的第三方函式庫，例如：
+
+```Python
+results = await some_library()
+```
+
+然後，使用 `async def` 宣告你的*路徑操作函式*：
+
+
+```Python hl_lines="2"
+@app.get('/')
+async def read_results():
+    results = await some_library()
+    return results
+```
+
+/// note | 注意
+
+你只能在 `async def` 建立的函式內使用 `await`。
+
+///
+
+---
+
+如果你使用的是第三方函式庫並且它需要與某些外部資源（例如資料庫、API、檔案系統等）進行通訊，但不支援 `await`（目前大多數資料庫函式庫都是這樣），在這種情況下，你可以像平常一樣使用 `def` 宣告*路徑操作函式*，如下所示：
+
+```Python hl_lines="2"
+@app.get('/')
+def results():
+    results = some_library()
+    return results
+```
+
+---
+
+如果你的應用程式不需要與外部資源進行任何通訊並等待其回應，請使用 `async def`。
+
+---
+
+如果你不確定該用哪個，直接用 `def` 就好。
+
+---
+
+**注意**：你可以在*路徑操作函式*中混合使用 `def` 和 `async def` ，並使用最適合你需求的方式來定義每個函式。FastAPI 會幫你做正確的處理。
+
+無論如何，在上述哪種情況下，FastAPI 仍將以非同步方式運行，並且速度非常快。
+
+但透過遵循上述步驟，它將能進行一些效能最佳化。
+
+## 技術細節
+
+現代版本的 Python 支援使用 **「協程」** 的 **`async` 和 `await`** 語法來寫 **「非同步程式碼」**。
+
+接下來我們逐一介紹：
+
+* **非同步程式碼**
+* **`async` 和 `await`**
+* **協程**
+
+## 非同步程式碼
+
+非同步程式碼僅意味著程式語言 💬 有辦法告訴電腦/程式 🤖 在程式碼中的某個點，它 🤖 需要等待某些事情完成。讓我們假設這些事情被稱為「慢速檔案」📝。
+
+因此，在等待「慢速檔案」📝 完成的這段時間，電腦可以去處理一些其他工作。
+
+接著程式 🤖 會在有空檔時回來查看是否有等待的工作已經完成，並執行必要的後續操作。
+
+接下來，它 🤖 完成第一個工作（例如我們的「慢速檔案」📝）並繼續執行相關的所有操作。
+這個「等待其他事情」通常指的是一些相對較慢的（與處理器和 RAM 記憶體的速度相比）的 <abbr title="Input and Output">I/O</abbr> 操作，比如說：
+
+* 透過網路傳送來自用戶端的資料
+* 從網路接收來自用戶端的資料
+* 從磁碟讀取檔案內容
+* 將內容寫入磁碟
+* 遠端 API 操作
+* 資料庫操作
+* 資料庫查詢
+* 等等
+
+由於大部分的執行時間都消耗在等待 <abbr title="輸入與輸出">I/O</abbr> 操作上，因此這些操作被稱為 "I/O 密集型" 操作。
+
+之所以稱為「非同步」，是因為電腦/程式不需要與那些耗時的任務「同步」，等待任務完成的精確時間，然後才能取得結果並繼續工作。
+
+相反地，非同步系統在任務完成後，可以讓任務稍微等一下（幾微秒），等待電腦/程式完成手頭上的其他工作，然後再回來取得結果繼續進行。
+
+相對於「非同步」（asynchronous），「同步」（synchronous）也常被稱作「順序性」（sequential），因為電腦/程式會依序執行所有步驟，即便這些步驟涉及等待，才會切換到其他任務。
+
+### 並行與漢堡
+
+上述非同步程式碼的概念有時也被稱為「並行」，它不同於「平行」。
+
+並行和平行都與 "不同的事情或多或少同時發生" 有關。
+
+但並行和平行之間的細節是完全不同的。
+
+為了理解差異，請想像以下有關漢堡的故事：
+
+### 並行漢堡
+
+你和你的戀人去速食店，排隊等候時，收銀員正在幫排在你前面的人點餐。😍
+
+<img src="/img/async/concurrent-burgers/concurrent-burgers-01.png" class="illustration">
+
+輪到你了，你給你與你的戀人點了兩個豪華漢堡。🍔🍔
+
+<img src="/img/async/concurrent-burgers/concurrent-burgers-02.png" class="illustration">
+
+收銀員通知廚房準備你的漢堡（儘管他們還在為前面其他顧客準備食物）。
+
+<img src="/img/async/concurrent-burgers/concurrent-burgers-03.png" class="illustration">
+
+之後你完成付款。💸
+
+收銀員給你一個號碼牌。
+
+<img src="/img/async/concurrent-burgers/concurrent-burgers-04.png" class="illustration">
+
+在等待漢堡的同時，你可以與戀人選一張桌子，然後坐下來聊很長一段時間（因為漢堡十分豪華，準備特別費工。）
+
+這段時間，你還能欣賞你的戀人有多麼的可愛、聰明與迷人。✨😍✨
+
+<img src="/img/async/concurrent-burgers/concurrent-burgers-05.png" class="illustration">
+
+當你和戀人邊聊天邊等待時，你會不時地查看櫃檯上的顯示的號碼，確認是否已經輪到你了。
+
+然後在某個時刻，終於輪到你了。你走到櫃檯，拿了漢堡，然後回到桌子上。
+
+<img src="/img/async/concurrent-burgers/concurrent-burgers-06.png" class="illustration">
+
+你和戀人享用這頓大餐，整個過程十分開心✨
+
+<img src="/img/async/concurrent-burgers/concurrent-burgers-07.png" class="illustration">
+
+/// info
+
+漂亮的插畫來自 <a href="https://www.instagram.com/ketrinadrawsalot" class="external-link" target="_blank">Ketrina Thompson</a>. 🎨
+
+///
+
+---
+
+想像你是故事中的電腦或程式 🤖。
+
+當你排隊時，你在放空😴，等待輪到你，沒有做任何「生產性」的事情。但這沒關係，因為收銀員只是接單（而不是準備食物），所以排隊速度很快。
+
+然後，當輪到你時，你開始做真正「有生產力」的工作，處理菜單，決定你想要什麼，替戀人選擇餐點，付款，確認你給了正確的帳單或信用卡，檢查你是否被正確收費，確認訂單中的項目是否正確等等。
+
+但是，即使你還沒有拿到漢堡，你與收銀員的工作已經「暫停」了 ⏸，因為你必須等待 🕙 漢堡準備好。
+
+但當你離開櫃檯，坐到桌子旁，拿著屬於你的號碼等待時，你可以把注意力 🔀 轉移到戀人身上，並開始「工作」⏯ 🤓——也就是和戀人調情 😍。這時你又開始做一些非常「有生產力」的事情。
+
+接著，收銀員 💁 將你的號碼顯示在櫃檯螢幕上，並告訴你「漢堡已經做好了」。但你不會瘋狂地立刻跳起來，因為顯示的號碼變成了你的。你知道沒有人會搶走你的漢堡，因為你有自己的號碼，他們也有他們的號碼。
+
+所以你會等戀人講完故事（完成當前的工作 ⏯/正在進行的任務 🤓），然後微笑著溫柔地說你要去拿漢堡了 ⏸。
+
+然後你走向櫃檯 🔀，回到已經完成的最初任務 ⏯，拿起漢堡，說聲謝謝，並帶回桌上。這就結束了與櫃檯的互動步驟/任務 ⏹，接下來會產生一個新的任務，「吃漢堡」 🔀 ⏯，而先前的「拿漢堡」任務已經完成了 ⏹。
+
+### 平行漢堡
+
+現在，讓我們來想像這裡不是「並行漢堡」，而是「平行漢堡」。
+
+你和戀人一起去吃平行的速食餐。
+
+你們站在隊伍中，前面有幾位（假設有 8 位）既是收銀員又是廚師的員工，他們同時接單並準備餐點。
+
+所有排在你前面的人都在等著他們的漢堡準備好後才會離開櫃檯，因為每位收銀員在接完單後，馬上會去準備漢堡，然後才回來處理下一個訂單。
+
+<img src="/img/async/parallel-burgers/parallel-burgers-01.png" class="illustration">
+
+終於輪到你了，你為你和你的戀人點了兩個非常豪華的漢堡。
+
+你付款了 💸。
+
+<img src="/img/async/parallel-burgers/parallel-burgers-02.png" class="illustration">
+
+收銀員走進廚房準備食物。
+
+你站在櫃檯前等待 🕙，以免其他人先拿走你的漢堡，因為這裡沒有號碼牌系統。
+
+<img src="/img/async/parallel-burgers/parallel-burgers-03.png" class="illustration">
+
+由於你和戀人都忙著不讓別人搶走你的漢堡，等漢堡準備好時，你根本無法專心和戀人互動。😞
+
+這是「同步」(synchronous)工作，你和收銀員/廚師 👨‍🍳 是「同步化」的。你必須等到 🕙 收銀員/廚師 👨‍🍳 完成漢堡並交給你的那一刻，否則別人可能會拿走你的餐點。
+
+<img src="/img/async/parallel-burgers/parallel-burgers-04.png" class="illustration">
+
+最終，經過長時間的等待 🕙，收銀員/廚師 👨‍🍳 拿著漢堡回來了。
+
+<img src="/img/async/parallel-burgers/parallel-burgers-05.png" class="illustration">
+
+你拿著漢堡，和你的戀人回到餐桌。
+
+你們僅僅是吃完漢堡，然後就結束了。⏹
+
+<img src="/img/async/parallel-burgers/parallel-burgers-06.png" class="illustration">
+
+整個過程中沒有太多的談情說愛，因為大部分時間 🕙 都花在櫃檯前等待。😞
+
+/// info
+
+漂亮的插畫來自 <a href="https://www.instagram.com/ketrinadrawsalot" class="external-link" target="_blank">Ketrina Thompson</a>. 🎨
+
+///
+
+---
+
+在這個平行漢堡的情境下，你是一個程式 🤖 且有兩個處理器（你和戀人），兩者都在等待 🕙 並專注於等待櫃檯上的餐點 🕙，等待的時間非常長。
+
+這家速食店有 8 個處理器（收銀員/廚師）。而並行漢堡店可能只有 2 個處理器（一位收銀員和一位廚師）。
+
+儘管如此，最終的體驗並不是最理想的。😞
+
+---
+
+這是與漢堡類似的故事。🍔
+
+一個更「現實」的例子，想像一間銀行。
+
+直到最近，大多數銀行都有多位出納員 👨‍💼👨‍💼👨‍💼👨‍💼，以及一條長長的隊伍 🕙🕙🕙🕙🕙🕙🕙🕙。
+
+所有的出納員都在一個接一個地滿足每位客戶的所有需求 👨‍💼⏯。
+
+你必須長時間排隊 🕙，不然就會失去機會。
+
+所以，你不會想帶你的戀人 😍 一起去銀行辦事 🏦。
+
+### 漢堡結論
+
+在「和戀人一起吃速食漢堡」的這個場景中，由於有大量的等待 🕙，使用並行系統 ⏸🔀⏯ 更有意義。
+
+這也是大多數 Web 應用的情況。
+
+許多用戶正在使用你的應用程式，而你的伺服器則在等待 🕙 這些用戶不那麼穩定的網路來傳送請求。
+
+接著，再次等待 🕙 回應。
+
+這種「等待」 🕙 通常以微秒來衡量，但累加起來，最終還是花費了很多等待時間。
+
+這就是為什麼對於 Web API 來說，使用非同步程式碼 ⏸🔀⏯ 是非常有意義的。
+
+這種類型的非同步性正是 NodeJS 成功的原因（儘管 NodeJS 不是平行的），這也是 Go 語言作為程式語言的一個強大優勢。
+
+這與 **FastAPI** 所能提供的性能水平相同。
+
+你可以同時利用並行性和平行性，進一步提升效能，這比大多數已測試的 NodeJS 框架都更快，並且與 Go 語言相當，而 Go 是一種更接近 C 的編譯語言（<a href="https://www.techempower.com/benchmarks/#section=data-r17&hw=ph&test=query&l=zijmkf-1" class="external-link" target="_blank">感謝 Starlette</a>）。
+
+### 並行比平行更好嗎？
+
+不是的！這不是故事的本意。
+
+並行與平行不同。並行在某些 **特定** 的需要大量等待的情境下表現更好。正因如此，並行在 Web 應用程式開發中通常比平行更有優勢。但並不是所有情境都如此。
+
+因此，為了平衡報導，想像下面這個短故事
+
+> 你需要打掃一間又大又髒的房子。
+
+*是的，這就是全部的故事。*
+
+---
+
+這裡沒有任何需要等待 🕙 的地方，只需要在房子的多個地方進行大量的工作。
+
+你可以像漢堡的例子那樣輪流進行，先打掃客廳，再打掃廚房，但由於你不需要等待 🕙 任何事情，只需要持續地打掃，輪流並不會影響任何結果。
+
+無論輪流執行與否（並行），你都需要相同的工時完成任務，同時需要執行相同工作量。
+
+但是，在這種情境下，如果你可以邀請8位前收銀員/廚師（現在是清潔工）來幫忙，每個人（加上你）負責房子的某個區域，這樣你就可以 **平行** 地更快完成工作。
+
+在這個場景中，每個清潔工（包括你）都是一個處理器，完成工作的一部分。
+
+由於大多數的執行時間都花在實際的工作上（而不是等待），而電腦中的工作由 <abbr title="Central Processing Unit">CPU</abbr> 完成，因此這些問題被稱為「CPU 密集型」。
+
+---
+
+常見的 CPU 密集型操作範例包括那些需要進行複雜數學計算的任務。
+
+例如：
+
+* **音訊**或**圖像處理**；
+* **電腦視覺**：一張圖片由數百萬個像素組成，每個像素有 3 個值/顏色，處理這些像素通常需要同時進行大量計算；
+* **機器學習**: 通常需要大量的「矩陣」和「向量」運算。想像一個包含數字的巨大電子表格，並所有的數字同時相乘;
+* **深度學習**: 這是機器學習的子領域，同樣適用。只不過這不僅僅是一張數字表格，而是大量的數據集合，並且在很多情況下，你會使用特殊的處理器來構建或使用這些模型。
+
+### 並行 + 平行: Web + 機器學習
+
+使用 **FastAPI**，你可以利用並行的優勢，這在 Web 開發中非常常見（這也是 NodeJS 的最大吸引力）。
+
+但你也可以利用平行與多行程 (multiprocessing)（讓多個行程同時運行） 的優勢來處理機器學習系統中的 **CPU 密集型**工作。
+
+這一點，再加上 Python 是 **資料科學**、機器學習，尤其是深度學習的主要語言，讓 **FastAPI** 成為資料科學/機器學習 Web API 和應用程式（以及許多其他應用程式）的絕佳選擇。
+
+想了解如何在生產環境中實現這種平行性，請參見 [部屬](deployment/index.md){.internal-link target=_blank}。
+
+## `async` 和 `await`
+
+現代 Python 版本提供一種非常直觀的方式定義非同步程式碼。這使得它看起來就像正常的「順序」程式碼，並在適當的時機「等待」。
+
+當某個操作需要等待才能回傳結果，並且支援這些新的 Python 特性時，你可以像這樣編寫程式碼：
+
+```Python
+burgers = await get_burgers(2)
+```
+
+這裡的關鍵是 `await`。它告訴 Python 必須等待 ⏸ `get_burgers(2)` 完成它的工作 🕙， 然後將結果儲存在 `burgers` 中。如此，Python 就可以在此期間去處理其他事情 🔀 ⏯ （例如接收另一個請求）。
+
+要讓 `await` 運作，它必須位於支持非同步功能的函式內。為此，只需使用 `async def` 宣告函式：
+
+```Python hl_lines="1"
+async def get_burgers(number: int):
+    # Do some asynchronous stuff to create the burgers
+    return burgers
+```
+
+...而不是 `def`:
+
+```Python hl_lines="2"
+# This is not asynchronous
+def get_sequential_burgers(number: int):
+    # Do some sequential stuff to create the burgers
+    return burgers
+```
+
+使用 `async def`，Python Python 知道在該函式內需要注意 `await`，並且它可以「暫停」 ⏸ 執行該函式，然後執行其他任務 🔀 後回來。
+
+當你想要呼叫 `async def` 函式時，必須使用「await」。因此，這樣寫將無法運行：
+
+```Python
+# This won't work, because get_burgers was defined with: async def
+burgers = get_burgers(2)
+```
+
+---
+
+如果你正在使用某個函式庫，它告訴你可以使用 `await` 呼叫它，那麼你需要用 `async def` 定義*路徑操作函式*，如：
+
+```Python hl_lines="2-3"
+@app.get('/burgers')
+async def read_burgers():
+    burgers = await get_burgers(2)
+    return burgers
+```
+
+### 更多技術細節
+
+你可能已經注意到，`await` 只能在 `async def` 定義的函式內使用。
+
+但同時，使用 `async def` 定義的函式本身也必須被「等待」。所以，帶有 `async def` 函式只能在其他使用 `async def` 定義的函式內呼叫。
+
+那麼，這就像「先有雞還是先有蛋」的問題，要如何呼叫第一個 `async` 函式呢？
+
+如果你使用 FastAPI，無需擔心這個問題，因為「第一個」函式將是你的*路徑操作函式*，FastAPI 會知道如何正確處理這個問題。
+
+但如果你想在沒有 FastAPI 的情況下使用 `async` / `await`，你也可以這樣做。
+
+### 編寫自己的非同步程式碼
+
+Starlette （和 **FastAPI**） 是基於 <a href="https://anyio.readthedocs.io/en/stable/" class="external-link" target="_blank">AnyIO</a> 實作的，這使得它們與 Python 標準函式庫相容 <a href="https://docs.python.org/3/library/asyncio-task.html" class="external-link" target="_blank">asyncio</a> 和 <a href="https://trio.readthedocs.io/en/stable/" class="external-link" target="_blank">Trio</a>。
+
+特別是，你可以直接使用 <a href="https://anyio.readthedocs.io/en/stable/" class="external-link" target="_blank">AnyIO</a> 來處理更複雜的並行使用案例，這些案例需要你在自己的程式碼中使用更高階的模式。
+
+即使你不使用 **FastAPI**，你也可以使用 <a href="https://anyio.readthedocs.io/en/stable/" class="external-link" target="_blank">AnyIO</a> 來撰寫自己的非同步應用程式，並獲得高相容性及一些好處（例如結構化並行）。
+
+### 其他形式的非同步程式碼
+
+使用 `async` 和 `await` 的風格在語言中相對較新。
+
+但它使處理異步程式碼變得更加容易。
+
+相同的語法（或幾乎相同的語法）最近也被包含在現代 JavaScript（無論是瀏覽器還是 NodeJS）中。
+
+但在此之前，處理異步程式碼要更加複雜和困難。
+
+在較舊的 Python 版本中，你可能會使用多執行緒或 <a href="https://www.gevent.org/" class="external-link" target="_blank">Gevent</a>。但這些程式碼要更難以理解、調試和思考。
+
+在較舊的 NodeJS / 瀏覽器 JavaScript 中，你會使用「回呼」，這可能會導致<a href="http://callbackhell.com/" class="external-link" target="_blank">回呼地獄</a>。
+
+## 協程
+
+**協程** 只是 `async def` 函式所回傳的非常特殊的事物名稱。Python 知道它是一個類似函式的東西，可以啟動它，並且在某個時刻它會結束，但它也可能在內部暫停 ⏸，只要遇到 `await`。
+
+這種使用 `async` 和 `await` 的非同步程式碼功能通常被概括為「協程」。這與 Go 語言的主要特性「Goroutines」相似。
+
+## 結論
+
+讓我們再次回顧之前的句子：
+
+> 現代版本的 Python 支持使用 **"協程"** 的 **`async` 和 `await`** 語法來寫 **"非同步程式碼"**。
+
+現在應該能明白其含意了。✨
+
+這些就是驅動 FastAPI（通過 Starlette）運作的原理，也讓它擁有如此驚人的效能。
+
+## 非常技術性的細節
+
+/// warning
+
+你大概可以跳過這段。
+
+這裡是有關 FastAPI 內部技術細節。
+
+如果你有相當多的技術背景（例如協程、執行緒、阻塞等），並且對 FastAPI 如何處理 `async def` 與常規 `def` 感到好奇，請繼續閱讀。
+
+///
+
+### 路徑操作函数
+
+當你使用 `def` 而不是 `async def` 宣告*路徑操作函式*時，該函式會在外部的執行緒池（threadpool）中執行，然後等待結果，而不是直接呼叫（因為這樣會阻塞伺服器）。
+
+如果你來自於其他不以這種方式運作的非同步框架，而且你習慣於使用普通的 `def` 定義僅進行簡單計算的*路徑操作函式*，目的是獲得微小的性能增益（大約 100 奈秒），請注意，在 FastAPI 中，效果會完全相反。在這些情況下，最好使用 `async def`除非你的*路徑操作函式*執行阻塞的 <abbr title="輸入/輸出：磁碟讀寫或網路通訊">I/O</abbr> 的程式碼。
+
+不過，在這兩種情況下，**FastAPI** [仍然很快](index.md#_11){.internal-link target=_blank}至少與你之前的框架相當（或者更快）。
+
+### 依賴項(Dependencies)
+
+同樣適用於[依賴項](tutorial/dependencies/index.md){.internal-link target=_blank}。如果依賴項是一個標準的 `def` 函式，而不是 `async def`，那麼它在外部的執行緒池被運行。
+
+### 子依賴項
+
+你可以擁有多個相互依賴的依賴項和[子依賴項](tutorial/dependencies/sub-dependencies.md){.internal-link target=_blank} （作為函式定義的參數），其中一些可能是用 `async def` 宣告，也可能是用 `def` 宣告。它們仍然可以正常運作，用 `def` 定義的那些將會在外部的執行緒中呼叫（來自執行緒池），而不是被「等待」。
+
+### 其他輔助函式
+
+你可以直接呼叫任何使用 `def` 或 `async def` 建立的其他輔助函式，FastAPI 不會影響你呼叫它們的方式。
+
+這與 FastAPI 為你呼叫*路徑操作函式*和依賴項的邏輯有所不同。
+
+如果你的輔助函式是用 `def` 宣告的，它將會被直接呼叫（按照你在程式碼中撰寫的方式），而不是在執行緒池中。如果該函式是用 `async def` 宣告，那麼你在呼叫時應該使用 `await` 等待其結果。
+
+---
+
+再一次強調，這些都是非常技術性的細節，如果你特地在尋找這些資訊，這些內容可能會對你有幫助。
+
+否則，只需遵循上面提到的指引即可：<a href="#_1">趕時間嗎?</a>.
+
+
+================================================
+File: /docs/zh-hant/docs/benchmarks.md
+================================================
+# 基準測試
+
+由第三方機構 TechEmpower 的基準測試表明在 Uvicorn 下運行的 **FastAPI** 應用程式是 <a href="https://www.techempower.com/benchmarks/#section=test&runid=7464e520-0dc2-473d-bd34-dbdfd7e85911&hw=ph&test=query&l=zijzen-7" class="external-link" target="_blank">最快的 Python 可用框架之一</a>，僅次於 Starlette 和 Uvicorn 本身（於 FastAPI 內部使用）。
+
+但是在查看基準得分和對比時，請注意以下幾點。
+
+## 基準測試和速度
+
+當你查看基準測試時，時常會見到幾個不同類型的工具被同時進行測試。
+
+具體來說，是將 Uvicorn、Starlette 和 FastAPI 同時進行比較（以及許多其他工具）。
+
+該工具解決的問題越簡單，其效能就越好。而且大多數基準測試不會測試該工具提供的附加功能。
+
+層次結構如下：
+
+* **Uvicorn**：ASGI 伺服器
+    * **Starlette**：（使用 Uvicorn）一個網頁微框架
+        * **FastAPI**：（使用 Starlette）一個 API 微框架，具有用於建立 API 的多個附加功能、資料驗證等。
+
+* **Uvicorn**：
+    * 具有最佳效能，因為除了伺服器本身之外，它沒有太多額外的程式碼。
+    * 你不會直接在 Uvicorn 中編寫應用程式。這意味著你的程式碼必須或多或少地包含 Starlette（或 **FastAPI**）提供的所有程式碼。如果你這樣做，你的最終應用程式將具有與使用框架相同的開銷並最大限度地減少應用程式程式碼和錯誤。
+    * 如果你要比較 Uvicorn，請將其與 Daphne、Hypercorn、uWSGI 等應用程式伺服器進行比較。
+* **Starlette**：
+    * 繼 Uvicorn 之後的次佳表現。事實上，Starlette 使用 Uvicorn 來運行。因此它將可能只透過執行更多程式碼而變得比 Uvicorn「慢」。
+    * 但它為你提供了建立簡單網頁應用程式的工具，以及基於路徑的路由等。
+    * 如果你要比較 Starlette，請將其與 Sanic、Flask、Django 等網頁框架（或微框架）進行比較。
+* **FastAPI**：
+    * 就像 Starlette 使用 Uvicorn 並不能比它更快一樣， **FastAPI** 使用 Starlette，所以它不能比它更快。
+    * FastAPI 在 Starlette 基礎之上提供了更多功能。包含建構 API 時所需要的功能，例如資料驗證和序列化。FastAPI 可以幫助你自動產生 API 文件，（應用程式啟動時將會自動生成文件，所以不會增加應用程式運行時的開銷）。
+    * 如果你沒有使用 FastAPI 而是直接使用 Starlette（或其他工具，如 Sanic、Flask、Responder 等），你將必須自行實現所有資料驗證和序列化。因此，你的最終應用程式仍然具有與使用 FastAPI 建置相同的開銷。在許多情況下，這種資料驗證和序列化是應用程式中編寫最大量的程式碼。
+    * 因此透過使用 FastAPI，你可以節省開發時間、錯誤與程式碼數量，並且相比不使用 FastAPI 你很大可能會獲得相同或更好的效能（因為那樣你必須在程式碼中實現所有相同的功能）。
+    * 如果你要與 FastAPI 比較，請將其與能夠提供資料驗證、序列化和文件的網頁應用程式框架（或工具集）進行比較，例如 Flask-apispec、NestJS、Molten 等框架。
+
+
+================================================
+File: /docs/zh-hant/docs/environment-variables.md
+================================================
+# 環境變數
+
+/// tip
+
+如果你已經知道什麼是「環境變數」並且知道如何使用它們，你可以放心跳過這一部分。
+
+///
+
+環境變數（也稱為「**env var**」）是一個獨立於 Python 程式碼**之外**的變數，它存在於**作業系統**中，可以被你的 Python 程式碼（或其他程式）讀取。
+
+環境變數對於處理應用程式**設定**（作為 Python **安裝**的一部分等方面）非常有用。
+
+## 建立和使用環境變數
+
+你在 **shell（終端機）**中就可以**建立**和使用環境變數，並不需要用到 Python：
+
+//// tab | Linux, macOS, Windows Bash
+
+<div class="termy">
+
+```console
+// 你可以使用以下指令建立一個名為 MY_NAME 的環境變數
+$ export MY_NAME="Wade Wilson"
+
+// 然後，你可以在其他程式中使用它，例如
+$ echo "Hello $MY_NAME"
+
+Hello Wade Wilson
+```
+
+</div>
+
+////
+
+//// tab | Windows PowerShell
+
+<div class="termy">
+
+```console
+// 建立一個名為 MY_NAME 的環境變數
+$ $Env:MY_NAME = "Wade Wilson"
+
+// 在其他程式中使用它，例如
+$ echo "Hello $Env:MY_NAME"
+
+Hello Wade Wilson
+```
+
+</div>
+
+////
+
+## 在 Python 中讀取環境變數
+
+你也可以在 Python **之外**的終端機中建立環境變數（或使用其他方法），然後在 Python 中**讀取**它們。
+
+例如，你可以建立一個名為 `main.py` 的檔案，其中包含以下內容：
+
+```Python hl_lines="3"
+import os
+
+name = os.getenv("MY_NAME", "World")
+print(f"Hello {name} from Python")
+```
+
+/// tip
+
+第二個參數是 <a href="https://docs.python.org/zh-tw/3.8/library/os.html#os.getenv" class="external-link" target="_blank">`os.getenv()`</a> 的預設回傳值。
+
+如果沒有提供，預設值為 `None`，這裡我們提供 `"World"` 作為預設值。
+
+///
+
+然後你可以呼叫這個 Python 程式：
+
+//// tab | Linux, macOS, Windows Bash
+
+<div class="termy">
+
+```console
+// 這裡我們還沒有設定環境變數
+$ python main.py
+
+// 因為我們沒有設定環境變數，所以我們得到的是預設值
+
+Hello World from Python
+
+// 但是如果我們事先建立過一個環境變數
+$ export MY_NAME="Wade Wilson"
+
+// 然後再次呼叫程式
+$ python main.py
+
+// 現在就可以讀取到環境變數了
+
+Hello Wade Wilson from Python
+```
+
+</div>
+
+////
+
+//// tab | Windows PowerShell
+
+<div class="termy">
+
+```console
+// 這裡我們還沒有設定環境變數
+$ python main.py
+
+// 因為我們沒有設定環境變數，所以我們得到的是預設值
+
+Hello World from Python
+
+// 但是如果我們事先建立過一個環境變數
+$ $Env:MY_NAME = "Wade Wilson"
+
+// 然後再次呼叫程式
+$ python main.py
+
+// 現在就可以讀取到環境變數了
+
+Hello Wade Wilson from Python
+```
+
+</div>
+
+////
+
+由於環境變數可以在程式碼之外設定，但可以被程式碼讀取，並且不必與其他檔案一起儲存（提交到 `git`），因此通常用於配置或**設定**。
+
+你還可以為**特定的程式呼叫**建立特定的環境變數，該環境變數僅對該程式可用，且僅在其執行期間有效。
+
+要實現這一點，只需在同一行內（程式本身之前）建立它：
+
+<div class="termy">
+
+```console
+// 在這個程式呼叫的同一行中建立一個名為 MY_NAME 的環境變數
+$ MY_NAME="Wade Wilson" python main.py
+
+// 現在就可以讀取到環境變數了
+
+Hello Wade Wilson from Python
+
+// 在此之後這個環境變數將不再存在
+$ python main.py
+
+Hello World from Python
+```
+
+</div>
+
+/// tip
+
+你可以在 <a href="https://12factor.net/zh_cn/config" class="external-link" target="_blank">The Twelve-Factor App: 配置</a>中了解更多資訊。
+
+///
+
+## 型別和驗證
+
+這些環境變數只能處理**文字字串**，因為它們是位於 Python 範疇之外的，必須與其他程式和作業系統的其餘部分相容（甚至與不同的作業系統相容，如 Linux、Windows、macOS）。
+
+這意味著從環境變數中讀取的**任何值**在 Python 中都將是一個 `str`，任何型別轉換或驗證都必須在程式碼中完成。
+
+你將在[進階使用者指南 - 設定和環境變數](./advanced/settings.md)中了解更多關於使用環境變數處理**應用程式設定**的資訊。
+
+## `PATH` 環境變數
+
+有一個**特殊的**環境變數稱為 **`PATH`**，作業系統（Linux、macOS、Windows）用它來查找要執行的程式。
+
+`PATH` 變數的值是一個長字串，由 Linux 和 macOS 上的冒號 `:` 分隔的目錄組成，而在 Windows 上則是由分號 `;` 分隔的。
+
+例如，`PATH` 環境變數可能如下所示：
+
+//// tab | Linux, macOS
+
+```plaintext
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+```
+
+這意味著系統應該在以下目錄中查找程式：
+
+-   `/usr/local/bin`
+-   `/usr/bin`
+-   `/bin`
+-   `/usr/sbin`
+-   `/sbin`
+
+////
+
+//// tab | Windows
+
+```plaintext
+C:\Program Files\Python312\Scripts;C:\Program Files\Python312;C:\Windows\System32
+```
+
+這意味著系統應該在以下目錄中查找程式：
+
+-   `C:\Program Files\Python312\Scripts`
+-   `C:\Program Files\Python312`
+-   `C:\Windows\System32`
+
+////
+
+當你在終端機中輸入一個**指令**時，作業系統會在 `PATH` 環境變數中列出的**每個目錄**中**查找**程式。
+
+例如，當你在終端機中輸入 `python` 時，作業系統會在該列表中的**第一個目錄**中查找名為 `python` 的程式。
+
+如果找到了，那麼作業系統將**使用它**；否則，作業系統會繼續在**其他目錄**中查找。
+
+### 安裝 Python 並更新 `PATH`
+
+安裝 Python 時，可能會詢問你是否要更新 `PATH` 環境變數。
+
+//// tab | Linux, macOS
+
+假設你安裝了 Python，並將其安裝在目錄 `/opt/custompython/bin` 中。
+
+如果你選擇更新 `PATH` 環境變數，那麼安裝程式會將 `/opt/custompython/bin` 加入到 `PATH` 環境變數中。
+
+它看起來大致會是這樣：
+
+```plaintext
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/custompython/bin
+```
+
+如此一來，當你在終端機輸入 `python` 時，系統會在 `/opt/custompython/bin` 中找到 Python 程式（最後一個目錄）並使用它。
+
+////
+
+//// tab | Windows
+
+假設你安裝了 Python，並將其安裝在目錄 `C:\opt\custompython\bin` 中。
+
+如果你選擇更新 `PATH` 環境變數（在 Python 安裝程式中，這個選項是名為 `Add Python x.xx to PATH` 的勾選框——譯者註），那麼安裝程式會將 `C:\opt\custompython\bin` 加入到 `PATH` 環境變數中。
+
+```plaintext
+C:\Program Files\Python312\Scripts;C:\Program Files\Python312;C:\Windows\System32;C:\opt\custompython\bin
+```
+
+如此一來，當你在終端機輸入 `python` 時，系統會在 `C:\opt\custompython\bin` 中找到 Python 程式（最後一個目錄）並使用它。
+
+////
+
+因此，如果你輸入：
+
+<div class="termy">
+
+```console
+$ python
+```
+
+</div>
+
+//// tab | Linux, macOS
+
+系統會在 `/opt/custompython/bin` 中**找到** `python` 程式並執行它。
+
+這大致等同於輸入以下指令：
+
+<div class="termy">
+
+```console
+$ /opt/custompython/bin/python
+```
+
+</div>
+
+////
+
+//// tab | Windows
+
+系統會在 `C:\opt\custompython\bin\python` 中**找到** `python` 程式並執行它。
+
+這大致等同於輸入以下指令：
+
+<div class="termy">
+
+```console
+$ C:\opt\custompython\bin\python
+```
+
+</div>
+
+////
+
+當學習[虛擬環境](virtual-environments.md)時，這些資訊將會很有用。
+
+## 結論
+
+透過這個教學，你應該對**環境變數**是什麼以及如何在 Python 中使用它們有了基本的了解。
+
+你也可以在<a href="https://zh.wikipedia.org/wiki/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F" class="external-link" target="_blank">環境變數 - 維基百科</a> (<a href="https://en.wikipedia.org/wiki/Environment_variable" class="external-link" target="_blank">Wikipedia for Environment Variable</a>) 中了解更多關於它們的資訊。
+
+在許多情況下，環境變數的用途和適用性可能不會立刻顯現。但是在開發過程中，它們會在許多不同的場景中出現，因此瞭解它們是非常必要的。
+
+例如，你在接下來的[虛擬環境](virtual-environments.md)章節中將需要這些資訊。
+
+
+================================================
+File: /docs/zh-hant/docs/fastapi-cli.md
+================================================
+# FastAPI CLI
+
+**FastAPI CLI** 是一個命令列程式，能用來運行你的 FastAPI 應用程式、管理你的 FastAPI 專案等。
+
+當你安裝 FastAPI（例如使用 `pip install "fastapi[standard]"`），它會包含一個叫做 `fastapi-cli` 的套件，這個套件提供了 `fastapi` 命令。
+
+要運行你的 FastAPI 應用程式來進行開發，你可以使用 `fastapi dev` 命令：
+
+<div class="termy">
+
+```console
+$ <font color="#4E9A06">fastapi</font> dev <u style="text-decoration-style:single">main.py</u>
+<font color="#3465A4">INFO    </font> Using path <font color="#3465A4">main.py</font>
+<font color="#3465A4">INFO    </font> Resolved absolute path <font color="#75507B">/home/user/code/awesomeapp/</font><font color="#AD7FA8">main.py</font>
+<font color="#3465A4">INFO    </font> Searching for package file structure from directories with <font color="#3465A4">__init__.py</font> files
+<font color="#3465A4">INFO    </font> Importing from <font color="#75507B">/home/user/code/</font><font color="#AD7FA8">awesomeapp</font>
+
+ ╭─ <font color="#8AE234"><b>Python module file</b></font> ─╮
+ │                      │
+ │  🐍 main.py          │
+ │                      │
+ ╰──────────────────────╯
+
+<font color="#3465A4">INFO    </font> Importing module <font color="#4E9A06">main</font>
+<font color="#3465A4">INFO    </font> Found importable FastAPI app
+
+ ╭─ <font color="#8AE234"><b>Importable FastAPI app</b></font> ─╮
+ │                          │
+ │  <span style="background-color:#272822"><font color="#FF4689">from</font></span><span style="background-color:#272822"><font color="#F8F8F2"> main </font></span><span style="background-color:#272822"><font color="#FF4689">import</font></span><span style="background-color:#272822"><font color="#F8F8F2"> app</font></span><span style="background-color:#272822">  </span>  │
+ │                          │
+ ╰──────────────────────────╯
+
+<font color="#3465A4">INFO    </font> Using import string <font color="#8AE234"><b>main:app</b></font>
+
+ <span style="background-color:#C4A000"><font color="#2E3436">╭────────── FastAPI CLI - Development mode ───────────╮</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  Serving at: http://127.0.0.1:8000                  │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  API docs: http://127.0.0.1:8000/docs               │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  Running in development mode, for production use:   │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  </font></span><span style="background-color:#C4A000"><font color="#555753"><b>fastapi run</b></font></span><span style="background-color:#C4A000"><font color="#2E3436">                                        │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">╰─────────────────────────────────────────────────────╯</font></span>
+
+<font color="#4E9A06">INFO</font>:     Will watch for changes in these directories: [&apos;/home/user/code/awesomeapp&apos;]
+<font color="#4E9A06">INFO</font>:     Uvicorn running on <b>http://127.0.0.1:8000</b> (Press CTRL+C to quit)
+<font color="#4E9A06">INFO</font>:     Started reloader process [<font color="#34E2E2"><b>2265862</b></font>] using <font color="#34E2E2"><b>WatchFiles</b></font>
+<font color="#4E9A06">INFO</font>:     Started server process [<font color="#06989A">2265873</font>]
+<font color="#4E9A06">INFO</font>:     Waiting for application startup.
+<font color="#4E9A06">INFO</font>:     Application startup complete.
+```
+
+</div>
+
+`fastapi` 命令列程式就是 **FastAPI CLI**。
+
+FastAPI CLI 接收你的 Python 程式路徑（例如 `main.py`），並自動檢測 FastAPI 實例（通常命名為 `app`），確定正確的引入模組流程，然後運行該應用程式。
+
+在生產環境，你應該使用 `fastapi run` 命令。 🚀
+
+**FastAPI CLI** 內部使用了 <a href="https://www.uvicorn.org" class="external-link" target="_blank">Uvicorn</a>，這是一個高效能、適合生產環境的 ASGI 伺服器。 😎
+
+## `fastapi dev`
+
+執行 `fastapi dev` 會啟動開發模式。
+
+預設情況下，**auto-reload** 功能是啟用的，當你對程式碼進行修改時，伺服器會自動重新載入。這會消耗較多資源，並且可能比禁用時更不穩定。因此，你應該只在開發環境中使用此功能。它也會在 IP 位址 `127.0.0.1` 上監聽，這是用於你的機器與自身通訊的 IP 位址（`localhost`）。
+
+## `fastapi run`
+
+執行 `fastapi run` 會以生產模式啟動 FastAPI。
+
+預設情況下，**auto-reload** 功能是禁用的。它也會在 IP 位址 `0.0.0.0` 上監聽，表示會監聽所有可用的 IP 地址，這樣任何能與該機器通訊的人都可以公開存取它。這通常是你在生產環境中運行應用程式的方式，例如在容器中運行時。
+
+在大多數情況下，你會（也應該）有一個「終止代理」來處理 HTTPS，這取決於你如何部署你的應用程式，你的服務供應商可能會為你做這件事，或者你需要自己設置它。
+
+/// tip
+
+你可以在[部署文件](deployment/index.md){.internal-link target=_blank}中了解更多相關資訊。
+
+///
+
+
+================================================
+File: /docs/zh-hant/docs/features.md
+================================================
+# 特性
+
+## FastAPI 特性
+
+**FastAPI** 提供了以下内容：
+
+### 建立在開放標準的基礎上
+
+* 使用 <a href="https://github.com/OAI/OpenAPI-Specification" class="external-link" target="_blank"><strong>OpenAPI</strong></a> 來建立 API，包含<abbr title="path，也被叫做: endpoints, routes">路徑</abbr><abbr title="也叫做 HTTP 方法，例如 POST, GET, PUT, DELETE">操作</abbr>、參數、請求內文、安全性等聲明。
+* 使用 <a href="https://json-schema.org/" class="external-link" target="_blank"><strong>JSON Schema</strong></a>（因為 OpenAPI 本身就是基於 JSON Schema）自動生成資料模型文件。
+* 經過縝密的研究後圍繞這些標準進行設計，而不是事後在已有系統上附加的一層功能。
+* 這也讓我們在多種語言中可以使用自動**用戶端程式碼生成**。
+
+### 能夠自動生成文件
+
+FastAPI 能生成互動式 API 文件和探索性的 Web 使用者介面。由於該框架基於 OpenAPI，因此有多種選擇，預設提供了兩種。
+
+* <a href="https://github.com/swagger-api/swagger-ui" class="external-link" target="_blank"><strong>Swagger UI</strong></a> 提供互動式探索，讓你可以直接從瀏覽器呼叫並測試你的 API 。
+
+![Swagger UI interaction](https://fastapi.tiangolo.com/img/index/index-03-swagger-02.png)
+
+* <a href="https://github.com/Rebilly/ReDoc" class="external-link" target="_blank"><strong>ReDoc</strong></a> 提供結構性的文件，讓你可以在瀏覽器中查看。
+
+![ReDoc](https://fastapi.tiangolo.com/img/index/index-06-redoc-02.png)
+
+
+### 現代 Python
+
+這一切都基於標準的 **Python 型別**宣告（感謝 Pydantic）。無需學習新的語法，只需使用標準的現代 Python。
+
+如果你需要 2 分鐘來學習如何使用 Python 型別（即使你不使用 FastAPI），可以看看這個簡短的教學：[Python 型別](python-types.md){.internal-link target=_blank}。
+
+如果你寫帶有 Python 型別的程式碼：
+
+```python
+from datetime import date
+
+from pydantic import BaseModel
+
+# 宣告一個變數為 string
+# 並在函式中獲得 editor support
+def main(user_id: str):
+    return user_id
+
+
+# 宣告一個 Pydantic model
+class User(BaseModel):
+    id: int
+    name: str
+    joined: date
+```
+
+
+可以像這樣來使用：
+
+```python
+my_user: User = User(id=3, name="John Doe", joined="2018-07-19")
+
+second_user_data = {
+    "id": 4,
+    "name": "Mary",
+    "joined": "2018-11-30",
+}
+
+my_second_user: User = User(**second_user_data)
+```
+
+
+/// info
+
+`**second_user_data` 意思是:
+
+將 `second_user_data` 字典直接作為 key-value 引數傳遞，等同於：`User(id=4, name="Mary", joined="2018-11-30")`
+
+///
+
+### 多種編輯器支援
+
+整個框架的設計是為了讓使用變得簡單且直觀，在開始開發之前，所有決策都在多個編輯器上進行了測試，以確保提供最佳的開發體驗。
+
+在最近的 Python 開發者調查中，我們能看到<a href="https://www.jetbrains.com/research/python-developers-survey-2017/#tools-and-features" class="external-link" target="_blank"> 被使用最多的功能是 autocompletion</a>，此功能可以預測將要輸入文字，並自動補齊。
+
+整個 **FastAPI** 框架就是基於這一點，任何地方都可以進行自動補齊。
+
+你幾乎不需要經常來回看文件。
+
+在這裡，你的編輯器可能會這樣幫助你：
+
+* <a href="https://code.visualstudio.com/" class="external-link" target="_blank">Visual Studio Code</a> 中:
+
+![editor support](https://fastapi.tiangolo.com/img/vscode-completion.png)
+
+* <a href="https://www.jetbrains.com/pycharm/" class="external-link" target="_blank">PyCharm</a> 中:
+
+![editor support](https://fastapi.tiangolo.com/img/pycharm-completion.png)
+
+你將能進行程式碼補齊，這是在之前你可能曾認為不可能的事。例如，請求 JSON body（可能是巢狀的）中的鍵 `price`。
+
+這樣比較不會輸錯鍵名，不用來回翻看文件，也不用來回滾動尋找你最後使用的 `username` 或者 `user_name`。
+
+
+
+### 簡潔
+
+FastAPI 為你提供了**預設值**，讓你不必在初期進行繁瑣的配置，一切都可以自動運作。如果你有更具體的需求，則可以進行調整和自定義，
+
+但在大多數情況下，你只需要直接使用預設值，就能順利完成 API 開發。
+
+### 驗證
+
+所有的驗證都由完善且強大的 **Pydantic** 處理。
+
+* 驗證大部分（甚至所有？）的 Python **資料型別**，包括：
+    * JSON 物件 (`dict`)。
+    * JSON 陣列 (`list`) 定義項目型別。
+    * 字串 (`str`) 欄位，定義最小或最大長度。
+    * 數字 (`int`, `float`) 與其最大值和最小值等。
+
+* 驗證外來的型別，比如:
+    * URL
+    * Email
+    * UUID
+
+
+### 安全性及身份驗證
+
+FastAPI 已經整合了安全性和身份驗證的功能，但不會強制與特定的資料庫或資料模型進行綁定。
+
+OpenAPI 中定義的安全模式，包括：
+
+* HTTP 基本認證。
+* **OAuth2**（也使用 **JWT tokens**）。在 [OAuth2 with JWT](tutorial/security/oauth2-jwt.md){.internal-link target=_blank} 查看教學。
+* API 密鑰，在：
+    * 標頭（Header）
+    * 查詢參數
+    * Cookies，等等。
+
+加上来自 Starlette（包括 **session cookie**）的所有安全特性。
+
+所有的這些都是可重複使用的工具和套件，可以輕鬆與你的系統、資料儲存（Data Stores）、關聯式資料庫（RDBMS）以及非關聯式資料庫（NoSQL）等等整合。
+
+
+### 依賴注入（Dependency Injection）
+
+FastAPI 有一個使用簡單，但是非常強大的<abbr title='也叫做 "components", "resources", "services", "providers"'><strong>依賴注入</strong></abbr>系統。
+
+* 依賴項甚至可以有自己的依賴，從而形成一個層級或**依賴圖**的結構。
+* 所有**自動化處理**都由框架完成。
+* 依賴項不僅能從請求中提取資料，還能**對 API 的路徑操作進行強化**，並自動生成文檔。
+* 即使是依賴項中定義的*路徑操作參數*，也會**自動進行驗證**。
+* 支持複雜的用戶身份驗證系統、**資料庫連接**等。
+* 不與資料庫、前端等進行強制綁定，但能輕鬆整合它們。
+
+
+### 無限制「擴充功能」
+
+或者說，無需其他額外配置，直接導入並使用你所需要的程式碼。
+
+任何整合都被設計得非常簡單易用（通過依賴注入），你只需用與*路徑操作*相同的結構和語法，用兩行程式碼就能為你的應用程式建立一個「擴充功能」。
+
+
+### 測試
+
+* 100% 的<abbr title="有自動測試的程式碼">測試覆蓋率</abbr>。
+* 100% 的程式碼有<abbr title="Python 型別註釋，有了這個你的編輯器和外部工具可以給你更好的支援">型別註釋</abbr>。
+* 已能夠在生產環境應用程式中使用。
+
+## Starlette 特性
+
+**FastAPI** 完全相容且基於 <a href="https://www.starlette.io/" class="external-link" target="_blank"><strong>Starlette</strong></a>。所以，你有其他的 Starlette 程式碼也能正常運作。FastAPI 繼承了 Starlette 的所有功能，如果你已經知道或者使用過 Starlette，大部分的功能會以相同的方式運作。
+
+通過 **FastAPI** 你可以獲得所有 **Starlette** 的特性（FastAPI 就像加強版的 Starlette）：
+
+* 性能極其出色。它是 <a href="https://github.com/encode/starlette#performance" class="external-link" target="_blank">Python 可用的最快框架之一，和 **NodeJS** 及 **Go** 相當</a>。
+* **支援 WebSocket**。
+* 能在行程內處理背景任務。
+* 支援啟動和關閉事件。
+* 有基於 HTTPX 的測試用戶端。
+* 支援 **CORS**、GZip、靜態檔案、串流回應。
+* 支援 **Session 和 Cookie** 。
+* 100% 測試覆蓋率。
+* 100% 型別註釋的程式碼庫。
+
+## Pydantic 特性
+
+**FastAPI** 完全相容且基於 <a href="https://docs.pydantic.dev/" class="external-link" target="_blank"><strong>Pydantic</strong></a>。所以，你有其他 Pydantic 程式碼也能正常工作。
+
+相容包括基於 Pydantic 的外部函式庫， 例如用於資料庫的 <abbr title="Object-Relational Mapper">ORM</abbr>s, <abbr title="Object-Document Mapper">ODM</abbr>s。
+
+這也意味著在很多情況下，你可以把從請求中獲得的物件**直接傳到資料庫**，因為所有資料都會自動進行驗證。
+
+反之亦然，在很多情況下，你也可以把從資料庫中獲取的物件**直接傳給客戶端**。
+
+通過 **FastAPI** 你可以獲得所有 **Pydantic** 的特性（FastAPI 基於 Pydantic 做了所有的資料處理）：
+
+* **更簡單**：
+    * 不需要學習新的 micro-language 來定義結構。
+    * 如果你知道 Python 型別，你就知道如何使用 Pydantic。
+* 和你的 **<abbr title="Integrated Development Environment，和程式碼編輯器類似">IDE</abbr>/<abbr title="一個檢查程式碼錯誤的工具">linter</abbr>/brain** 都能好好配合：
+    * 因為 Pydantic 的資料結構其實就是你自己定義的類別實例，所以自動補齊、linting、mypy 以及你的直覺都能很好地在經過驗證的資料上發揮作用。
+* 驗證**複雜結構**：
+    * 使用 Pydantic 模型時，你可以把資料結構分層設計，並且用 Python 的 `List` 和 `Dict` 等型別來定義。
+    * 驗證器讓我們可以輕鬆地定義和檢查複雜的資料結構，並把它們轉換成 JSON Schema 進行記錄。
+    * 你可以擁有深層**巢狀的 JSON** 物件，並對它們進行驗證和註釋。
+* **可擴展**：
+    * Pydantic 讓我們可以定義客製化的資料型別，或者你可以使用帶有 validator 裝飾器的方法來擴展模型中的驗證功能。
+* 100% 測試覆蓋率。
+
+
+================================================
+File: /docs/zh-hant/docs/index.md
+================================================
+<p align="center">
+  <a href="https://fastapi.tiangolo.com"><img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" alt="FastAPI"></a>
+</p>
+<p align="center">
+    <em>FastAPI 框架，高效能，易於學習，快速開發，適用於生產環境</em>
+</p>
+<p align="center">
+<a href="https://github.com/fastapi/fastapi/actions?query=workflow%3ATest+event%3Apush+branch%3Amaster" target="_blank">
+    <img src="https://github.com/fastapi/fastapi/workflows/Test/badge.svg?event=push&branch=master" alt="Test">
+</a>
+<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/fastapi" target="_blank">
+    <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/fastapi.svg" alt="Coverage">
+</a>
+<a href="https://pypi.org/project/fastapi" target="_blank">
+    <img src="https://img.shields.io/pypi/v/fastapi?color=%2334D058&label=pypi%20package" alt="Package version">
+</a>
+<a href="https://pypi.org/project/fastapi" target="_blank">
+    <img src="https://img.shields.io/pypi/pyversions/fastapi.svg?color=%2334D058" alt="Supported Python versions">
+</a>
+</p>
+
+---
+
+**文件**： <a href="https://fastapi.tiangolo.com" target="_blank">https://fastapi.tiangolo.com</a>
+
+**程式碼**： <a href="https://github.com/fastapi/fastapi" target="_blank">https://github.com/fastapi/fastapi</a>
+
+---
+
+FastAPI 是一個現代、快速（高效能）的 web 框架，用於 Python 並採用標準 Python 型別提示。
+
+主要特點包含：
+
+- **快速**： 非常高的效能，可與 **NodeJS** 和 **Go** 效能相當 (歸功於 Starlette and Pydantic)。 [FastAPI 是最快的 Python web 框架之一](#performance)。
+- **極速開發**： 提高開發功能的速度約 200% 至 300%。 \*
+- **更少的 Bug**： 減少約 40% 的人為（開發者）導致的錯誤。 \*
+- **直覺**： 具有出色的編輯器支援，處處都有<abbr title="也被稱為自動完成、IntelliSense">自動補全</abbr>以減少偵錯時間。
+- **簡單**： 設計上易於使用和學習，大幅減少閱讀文件的時間。
+- **簡潔**： 最小化程式碼重複性。可以通過不同的參數聲明來實現更豐富的功能，和更少的錯誤。
+- **穩健**： 立即獲得生產級可用的程式碼，還有自動生成互動式文件。
+- **標準化**： 基於 (且完全相容於) OpenAPIs 的相關標準：<a href="https://github.com/OAI/OpenAPI-Specification" class="external-link" target="_blank">OpenAPI</a>（之前被稱為 Swagger）和<a href="https://json-schema.org/" class="external-link" target="_blank">JSON Schema</a>。
+
+<small>\* 基於內部開發團隊在建立生產應用程式時的測試預估。</small>
+
+## 贊助
+
+<!-- sponsors -->
+
+{% if sponsors %}
+{% for sponsor in sponsors.gold -%}
+<a href="{{ sponsor.url }}" target="_blank" title="{{ sponsor.title }}"><img src="{{ sponsor.img }}" style="border-radius:15px"></a>
+{% endfor -%}
+{%- for sponsor in sponsors.silver -%}
+<a href="{{ sponsor.url }}" target="_blank" title="{{ sponsor.title }}"><img src="{{ sponsor.img }}" style="border-radius:15px"></a>
+{% endfor %}
+{% endif %}
+
+<!-- /sponsors -->
+
+<a href="https://fastapi.tiangolo.com/fastapi-people/#sponsors" class="external-link" target="_blank">其他贊助商</a>
+
+## 評價
+
+"_[...] 近期大量的使用 **FastAPI**。 [...] 目前正在計畫在**微軟**團隊的**機器學習**服務中導入。其中一些正在整合到核心的 **Windows** 產品和一些 **Office** 產品。_"
+
+<div style="text-align: right; margin-right: 10%;">Kabir Khan - <strong>Microsoft</strong> <a href="https://github.com/fastapi/fastapi/pull/26" target="_blank"><small>(ref)</small></a></div>
+
+---
+
+"_我們使用 **FastAPI** 來建立產生**預測**結果的 **REST** 伺服器。 [for Ludwig]_"
+
+<div style="text-align: right; margin-right: 10%;">Piero Molino, Yaroslav Dudin, and Sai Sumanth Miryala - <strong>Uber</strong> <a href="https://eng.uber.com/ludwig-v0-2/" target="_blank"><small>(ref)</small></a></div>
+
+---
+
+"_**Netflix** 很榮幸地宣布開源**危機管理**協調框架： **Dispatch**! [是使用 **FastAPI** 建構]_"
+
+<div style="text-align: right; margin-right: 10%;">Kevin Glisson, Marc Vilanova, Forest Monsen - <strong>Netflix</strong> <a href="https://netflixtechblog.com/introducing-dispatch-da4b8a2a8072" target="_blank"><small>(ref)</small></a></div>
+
+---
+
+"_我對 **FastAPI** 興奮得不得了。它太有趣了！_"
+
+<div style="text-align: right; margin-right: 10%;">Brian Okken - <strong><a href="https://pythonbytes.fm/episodes/show/123/time-to-right-the-py-wrongs?time_in_sec=855" target="_blank">Python Bytes</a> podcast host</strong> <a href="https://twitter.com/brianokken/status/1112220079972728832" target="_blank"><small>(ref)</small></a></div>
+
+---
+
+"_老實說，你建造的東西看起來非常堅固和精緻。在很多方面，這就是我想要的，看到有人建造它真的很鼓舞人心。_"
+
+<div style="text-align: right; margin-right: 10%;">Timothy Crosley - <strong><a href="https://github.com/hugapi/hug" target="_blank">Hug</a> creator</strong> <a href="https://news.ycombinator.com/item?id=19455465" target="_blank"><small>(ref)</small></a></div>
+
+---
+
+"_如果您想學習一種用於構建 REST API 的**現代框架**，不能錯過 **FastAPI** [...] 它非常快速、且易於使用和學習 [...]_"
+
+"_我們的 **APIs** 已經改用 **FastAPI** [...] 我想你會喜歡它 [...]_"
+
+<div style="text-align: right; margin-right: 10%;">Ines Montani - Matthew Honnibal - <strong><a href="https://explosion.ai" target="_blank">Explosion AI</a> 創辦人 - <a href="https://spacy.io" target="_blank">spaCy</a> creators</strong> <a href="https://twitter.com/_inesmontani/status/1144173225322143744" target="_blank"><small>(ref)</small></a> - <a href="https://twitter.com/honnibal/status/1144031421859655680" target="_blank"><small>(ref)</small></a></div>
+
+---
+
+"_如果有人想要建立一個生產環境的 Python API，我強烈推薦 **FastAPI**，它**設計精美**，**使用簡單**且**高度可擴充**，它已成為我們 API 優先開發策略中的**關鍵組件**，並且驅動了許多自動化服務，例如我們的 Virtual TAC Engineer。_"
+
+<div style="text-align: right; margin-right: 10%;">Deon Pillsbury - <strong>Cisco</strong> <a href="https://www.linkedin.com/posts/deonpillsbury_cisco-cx-python-activity-6963242628536487936-trAp/" target="_blank"><small>(ref)</small></a></div>
+
+---
+
+## **Typer**，命令列中的 FastAPI
+
+<a href="https://typer.tiangolo.com" target="_blank"><img src="https://typer.tiangolo.com/img/logo-margin/logo-margin-vector.svg" style="width: 20%;"></a>
+
+如果你不是在開發網頁 API，而是正在開發一個在終端機中運行的<abbr title="Command Line Interface">命令列</abbr>應用程式，不妨嘗試 <a href="https://typer.tiangolo.com/" class="external-link" target="_blank">**Typer**</a>。
+
+**Typer** 是 FastAPI 的小兄弟。他立志成為命令列的 **FastAPI**。 ⌨️ 🚀
+
+## 安裝需求
+
+FastAPI 是站在以下巨人的肩膀上：
+
+- <a href="https://www.starlette.io/" class="external-link" target="_blank">Starlette</a> 負責網頁的部分
+- <a href="https://docs.pydantic.dev/" class="external-link" target="_blank">Pydantic</a> 負責資料的部分
+
+## 安裝
+
+<div class="termy">
+
+```console
+$ pip install fastapi
+
+---> 100%
+```
+
+</div>
+
+你同時也會需要 ASGI 伺服器用於生產環境，像是 <a href="https://www.uvicorn.org" class="external-link" target="_blank">Uvicorn</a> 或 <a href="https://github.com/pgjones/hypercorn" class="external-link" target="_blank">Hypercorn</a>。
+
+<div class="termy">
+
+```console
+$ pip install "uvicorn[standard]"
+
+---> 100%
+```
+
+</div>
+
+## 範例
+
+### 建立
+
+- 建立一個 python 檔案 `main.py`，並寫入以下程式碼：
+
+```Python
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+```
+
+<details markdown="1">
+<summary>或可以使用 <code>async def</code>...</summary>
+
+如果你的程式使用 `async` / `await`，請使用 `async def`：
+
+```Python hl_lines="9  14"
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+async def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+```
+
+**注意**：
+
+如果你不知道是否會用到，可以查看 _"In a hurry?"_ 章節中，關於 <a href="https://fastapi.tiangolo.com/async/#in-a-hurry" target="_blank">`async` 和 `await` 的部分</a>。
+
+</details>
+
+### 運行
+
+使用以下指令運行伺服器：
+
+<div class="termy">
+
+```console
+$ uvicorn main:app --reload
+
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [28720]
+INFO:     Started server process [28722]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
+
+</div>
+
+<details markdown="1">
+<summary>關於指令 <code>uvicorn main:app --reload</code>...</summary>
+
+該指令 `uvicorn main:app` 指的是：
+
+- `main`：`main.py` 檔案（一個 python 的 "模組"）。
+- `app`：在 `main.py` 檔案中，使用 `app = FastAPI()` 建立的物件。
+- `--reload`：程式碼更改後會自動重新啟動，請僅在開發時使用此參數。
+
+</details>
+
+### 檢查
+
+使用瀏覽器開啟 <a href="http://127.0.0.1:8000/items/5?q=somequery" class="external-link" target="_blank">http://127.0.0.1:8000/items/5?q=somequery</a>。
+
+你將會看到以下的 JSON 回應：
+
+```JSON
+{"item_id": 5, "q": "somequery"}
+```
+
+你已經建立了一個具有以下功能的 API：
+
+- 透過路徑 `/` 和 `/items/{item_id}` 接受 HTTP 請求。
+- 以上路經都接受 `GET` <em>請求</em>（也被稱為 HTTP _方法_）。
+- 路徑 `/items/{item_id}` 有一個 `int` 型別的 `item_id` 參數。
+- 路徑 `/items/{item_id}` 有一個 `str` 型別的查詢參數 `q`。
+
+### 互動式 API 文件
+
+使用瀏覽器開啟 <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>。
+
+你會看到自動生成的互動式 API 文件（由 <a href="https://github.com/swagger-api/swagger-ui" class="external-link" target="_blank">Swagger UI</a> 生成）：
+
+![Swagger UI](https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png)
+
+### ReDoc API 文件
+
+使用瀏覽器開啟 <a href="http://127.0.0.1:8000/redoc" class="external-link" target="_blank">http://127.0.0.1:8000/redoc</a>。
+
+你將看到 ReDoc 文件 (由 <a href="https://github.com/Rebilly/ReDoc" class="external-link" target="_blank">ReDoc</a> 生成)：
+
+![ReDoc](https://fastapi.tiangolo.com/img/index/index-02-redoc-simple.png)
+
+## 範例升級
+
+現在繼續修改 `main.py` 檔案，來接收一個帶有 body 的 `PUT` 請求。
+
+我們使用 Pydantic 來使用標準的 Python 型別聲明請求。
+
+```Python hl_lines="4  9-12  25-27"
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+    is_offer: Union[bool, None] = None
+
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+
+
+@app.put("/items/{item_id}")
+def update_item(item_id: int, item: Item):
+    return {"item_name": item.name, "item_id": item_id}
+```
+
+伺服器將自動重新載入（因為在上一步中，你向 `uvicorn` 指令添加了 `--reload` 的選項）。
+
+### 互動式 API 文件升級
+
+使用瀏覽器開啟 <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>。
+
+- 互動式 API 文件會自動更新，並加入新的 body 請求：
+
+![Swagger UI](https://fastapi.tiangolo.com/img/index/index-03-swagger-02.png)
+
+- 點擊 "Try it out" 按鈕， 你可以填寫參數並直接與 API 互動：
+
+![Swagger UI interaction](https://fastapi.tiangolo.com/img/index/index-04-swagger-03.png)
+
+- 然後點擊 "Execute" 按鈕，使用者介面將會向 API 發送請求，並將結果顯示在螢幕上：
+
+![Swagger UI interaction](https://fastapi.tiangolo.com/img/index/index-05-swagger-04.png)
+
+### ReDoc API 文件升級
+
+使用瀏覽器開啟 <a href="http://127.0.0.1:8000/redoc" class="external-link" target="_blank">http://127.0.0.1:8000/redoc</a>。
+
+- ReDoc API 文件會自動更新，並加入新的參數和 body 請求：
+
+![ReDoc](https://fastapi.tiangolo.com/img/index/index-06-redoc-02.png)
+
+### 總結
+
+總結來說， 你就像宣告函式的參數型別一樣，只宣告了一次請求參數和請求主體參數等型別。
+
+你使用 Python 標準型別來完成聲明。
+
+你不需要學習新的語法、類別、方法或函式庫等等。
+
+只需要使用 **Python 以上的版本**。
+
+舉個範例，比如宣告 int 的型別：
+
+```Python
+item_id: int
+```
+
+或是一個更複雜的 `Item` 模型：
+
+```Python
+item: Item
+```
+
+在進行一次宣告後，你將獲得：
+
+- 編輯器支援：
+    - 自動補全
+    - 型別檢查
+- 資料驗證：
+    - 驗證失敗時自動生成清楚的錯誤訊息
+    - 可驗證多層巢狀的 JSON 物件
+- <abbr title="也被稱為： 序列化或解析">轉換</abbr>輸入的資料： 轉換來自網路請求到 Python 資料型別。包含以下數據：
+    - JSON
+    - 路徑參數
+    - 查詢參數
+    - Cookies
+    - 請求標頭
+    - 表單
+    - 文件
+- <abbr title="也被稱為： 序列化或解析">轉換</abbr>輸出的資料： 轉換 Python 資料型別到網路傳輸的 JSON：
+    - 轉換 Python 型別 (`str`、 `int`、 `float`、 `bool`、 `list` 等)
+    - `datetime` 物件
+    - `UUID` 物件
+    - 數據模型
+    - ...還有其他更多
+- 自動生成的 API 文件，包含 2 種不同的使用介面：
+    - Swagger UI
+    - ReDoc
+
+---
+
+回到前面的的程式碼範例，**FastAPI** 還會：
+
+- 驗證 `GET` 和 `PUT` 請求路徑中是否包含 `item_id`。
+- 驗證 `GET` 和 `PUT` 請求中的 `item_id` 是否是 `int` 型別。
+    - 如果驗證失敗，將會返回清楚有用的錯誤訊息。
+- 查看 `GET` 請求中是否有命名為 `q` 的查詢參數 (例如 `http://127.0.0.1:8000/items/foo?q=somequery`)。
+    - 因為 `q` 參數被宣告為 `= None`，所以是選填的。
+    - 如果沒有宣告 `None`，則此參數將會是必填 (例如 `PUT` 範例的請求 body)。
+- 對於 `PUT` 的請求 `/items/{item_id}`，將會讀取 body 為 JSON：
+    - 驗證是否有必填屬性 `name` 且型別是 `str`。
+    - 驗證是否有必填屬性 `price` 且型別是 `float`。
+    - 驗證是否有選填屬性 `is_offer` 且型別是 `bool`。
+    - 以上驗證都適用於多層次巢狀 JSON 物件。
+- 自動轉換 JSON 格式。
+- 透過 OpenAPI 文件來記錄所有內容，可以被用於：
+    - 互動式文件系統。
+    - 自動為多種程式語言生成用戶端的程式碼。
+- 提供兩種交互式文件介面。
+
+---
+
+雖然我們只敘述了表面的功能，但其實你已經理解了它是如何執行。
+
+試著修改以下程式碼：
+
+```Python
+    return {"item_name": item.name, "item_id": item_id}
+```
+
+從：
+
+```Python
+        ... "item_name": item.name ...
+```
+
+修改為：
+
+```Python
+        ... "item_price": item.price ...
+```
+
+然後觀察你的編輯器，會自動補全並且還知道他們的型別：
+
+![editor support](https://fastapi.tiangolo.com/img/vscode-completion.png)
+
+有關更多功能的完整範例，可以參考 <a href="https://fastapi.tiangolo.com/tutorial/">教學 - 使用者指南</a>。
+
+**劇透警告**： 教學 - 使用者指南內容有：
+
+- 對來自不同地方的**參數**進行宣告：像是 **headers**, **cookies**, **form 表單**以及**上傳檔案**。
+- 如何設定 **驗證限制** 像是 `maximum_length` or `regex`。
+- 簡單且非常容易使用的 **<abbr title="也被稱為元件、資源、提供者、服務或是注入">依賴注入</abbr>** 系統。
+- 安全性和身份驗證，包含提供支援 **OAuth2**、**JWT tokens** 和 **HTTP Basic** 驗證。
+- 更進階 (但同樣簡單) 的宣告 **多層次的巢狀 JSON 格式** (感謝 Pydantic)。
+- **GraphQL** 與 <a href="https://strawberry.rocks" class="external-link" target="_blank">Strawberry</a> 以及其他的相關函式庫進行整合。
+- 更多其他的功能 (感謝 Starlette) 像是：
+    - **WebSockets**
+    - 於 HTTPX 和 `pytest` 的非常簡單測試
+    - **CORS**
+    - **Cookie Sessions**
+    - ...以及更多
+
+## 效能
+
+來自獨立機構 TechEmpower 的測試結果，顯示在 Uvicorn 執行下的 **FastAPI** 是 <a href="https://www.techempower.com/benchmarks/#section=test&runid=7464e520-0dc2-473d-bd34-dbdfd7e85911&hw=ph&test=query&l=zijzen-7" class="external-link" target="_blank">最快的 Python 框架之一</a>， 僅次於 Starlette 和 Uvicorn 本身 (兩者是 FastAPI 的底層)。 (\*)
+
+想了解更多訊息，可以參考 <a href="https://fastapi.tiangolo.com/benchmarks/" class="internal-link" target="_blank">測試結果</a>。
+
+## 可選的依賴套件
+
+用於 Pydantic：
+
+- <a href="https://github.com/JoshData/python-email-validator" target="_blank"><code>email-validator</code></a> - 用於電子郵件驗證。
+- <a href="https://docs.pydantic.dev/latest/usage/pydantic_settings/" target="_blank"><code>pydantic-settings</code></a> - 用於設定管理。
+- <a href="https://docs.pydantic.dev/latest/usage/types/extra_types/extra_types/" target="_blank"><code>pydantic-extra-types</code></a> - 用於與 Pydantic 一起使用的額外型別。
+
+用於 Starlette：
+
+- <a href="https://www.python-httpx.org" target="_blank"><code>httpx</code></a> - 使用 `TestClient`時必須安裝。
+- <a href="https://jinja.palletsprojects.com" target="_blank"><code>jinja2</code></a> - 使用預設的模板配置時必須安裝。
+- <a href="https://github.com/Kludex/python-multipart" target="_blank"><code>python-multipart</code></a> - 需要使用 `request.form()` 對表單進行<abbr title="轉換來自表單的 HTTP 請求到 Python 資料型別"> "解析" </abbr>時安裝。
+- <a href="https://pythonhosted.org/itsdangerous/" target="_blank"><code>itsdangerous</code></a> - 需要使用 `SessionMiddleware` 支援時安裝。
+- <a href="https://pyyaml.org/wiki/PyYAMLDocumentation" target="_blank"><code>pyyaml</code></a> - 用於支援 Starlette 的 `SchemaGenerator` (如果你使用 FastAPI，可能不需要它)。
+
+用於 FastAPI / Starlette：
+
+- <a href="https://www.uvicorn.org" target="_blank"><code>uvicorn</code></a> - 用於加載和運行應用程式的服務器。
+- <a href="https://github.com/ijl/orjson" target="_blank"><code>orjson</code></a> - 使用 `ORJSONResponse`時必須安裝。
+- <a href="https://github.com/esnme/ultrajson" target="_blank"><code>ujson</code></a> - 使用 `UJSONResponse` 時必須安裝。
+
+你可以使用 `pip install "fastapi[all]"` 來安裝這些所有依賴套件。
+
+## 授權
+
+該項目遵循 MIT 許可協議。
+
+
+================================================
+File: /docs/zh-hant/docs/virtual-environments.md
+================================================
+# 虛擬環境
+
+當你在 Python 專案中工作時，你可能會需要使用一個**虛擬環境**（或類似的機制）來隔離你為每個專案安裝的套件。
+
+/// info
+
+如果你已經了解虛擬環境，知道如何建立和使用它們，你可以考慮跳過這一部分。🤓
+
+///
+
+/// tip
+
+**虛擬環境**和**環境變數**是不同的。
+
+**環境變數**是系統中的一個變數，可以被程式使用。
+
+**虛擬環境**是一個包含一些檔案的目錄。
+
+///
+
+/// info
+
+這個頁面將教你如何使用**虛擬環境**以及了解它們的工作原理。
+
+如果你計畫使用一個**可以為你管理一切的工具**（包括安裝 Python），試試 <a href="https://github.com/astral-sh/uv" class="external-link" target="_blank">uv</a>。
+
+///
+
+## 建立一個專案
+
+首先，為你的專案建立一個目錄。
+
+我（指原作者 —— 譯者注）通常會在我的主目錄下建立一個名為 `code` 的目錄。
+
+在這個目錄下，我再為每個專案建立一個目錄。
+
+<div class="termy">
+
+```console
+// 進入主目錄
+$ cd
+// 建立一個用於存放所有程式碼專案的目錄
+$ mkdir code
+// 進入 code 目錄
+$ cd code
+// 建立一個用於存放這個專案的目錄
+$ mkdir awesome-project
+// 進入這個專案的目錄
+$ cd awesome-project
+```
+
+</div>
+
+## 建立一個虛擬環境
+
+在開始一個 Python 專案的**第一時間**，**<abbr title="還有其他做法，此處僅作為一個簡單的指引">在你的專案內部</abbr>**建立一個虛擬環境。
+
+/// tip
+
+你只需要**在每個專案中操作一次**，而不是每次工作時都操作。
+
+///
+
+//// tab | `venv`
+
+你可以使用 Python 自帶的 `venv` 模組來建立一個虛擬環境。
+
+<div class="termy">
+
+```console
+$ python -m venv .venv
+```
+
+</div>
+
+/// details | 上述命令的含義
+
+* `python`: 使用名為 `python` 的程式
+* `-m`: 以腳本的方式呼叫一個模組，我們將告訴它接下來使用哪個模組
+* `venv`: 使用名為 `venv` 的模組，這個模組通常隨 Python 一起安裝
+* `.venv`: 在新目錄 `.venv` 中建立虛擬環境
+
+///
+
+////
+
+//// tab | `uv`
+
+如果你安裝了 <a href="https://github.com/astral-sh/uv" class="external-link" target="_blank">`uv`</a>，你也可以使用它來建立一個虛擬環境。
+
+<div class="termy">
+
+```console
+$ uv venv
+```
+
+</div>
+
+/// tip
+
+預設情況下，`uv` 會在一個名為 `.venv` 的目錄中建立一個虛擬環境。
+
+但你可以透過傳遞一個額外的引數來自訂它，指定目錄的名稱。
+
+///
+
+////
+
+這個命令會在一個名為 `.venv` 的目錄中建立一個新的虛擬環境。
+
+/// details | `.venv`，或是其他名稱
+
+你可以在不同的目錄下建立虛擬環境，但通常我們會把它命名為 `.venv`。
+
+///
+
+## 啟動虛擬環境
+
+啟動新的虛擬環境來確保你運行的任何 Python 指令或安裝的套件都能使用到它。
+
+/// tip
+
+**每次**開始一個**新的終端會話**來在這個專案工作時，你都需要執行這個操作。
+
+///
+
+//// tab | Linux, macOS
+
+<div class="termy">
+
+```console
+$ source .venv/bin/activate
+```
+
+</div>
+
+////
+
+//// tab | Windows PowerShell
+
+<div class="termy">
+
+```console
+$ .venv\Scripts\Activate.ps1
+```
+
+</div>
+
+////
+
+//// tab | Windows Bash
+
+或者，如果你在 Windows 上使用 Bash（例如 <a href="https://gitforwindows.org/" class="external-link" target="_blank">Git Bash</a>）：
+
+<div class="termy">
+
+```console
+$ source .venv/Scripts/activate
+```
+
+</div>
+
+////
+
+/// tip
+
+每次你在這個環境中安裝一個**新的套件**時，都需要**重新啟動**這個環境。
+
+這麼做確保了當你使用一個由這個套件安裝的**終端（<abbr title="命令列介面">CLI</abbr>）程式**時，你使用的是你的虛擬環境中的程式，而不是全域安裝、可能版本不同的程式。
+
+///
+
+## 檢查虛擬環境是否啟動
+
+檢查虛擬環境是否啟動（前面的指令是否生效）。
+
+/// tip
+
+這是**非必需的**，但這是一個很好的方法，可以**檢查**一切是否按預期工作，以及你是否使用了你打算使用的虛擬環境。
+
+///
+
+//// tab | Linux, macOS, Windows Bash
+
+<div class="termy">
+
+```console
+$ which python
+
+/home/user/code/awesome-project/.venv/bin/python
+```
+
+</div>
+
+如果它顯示了在你專案（在這個例子中是 `awesome-project`）的 `.venv/bin/python` 中的 `python` 二進位檔案，那麼它就生效了。🎉
+
+////
+
+//// tab | Windows PowerShell
+
+<div class="termy">
+
+```console
+$ Get-Command python
+
+C:\Users\user\code\awesome-project\.venv\Scripts\python
+```
+
+</div>
+
+如果它顯示了在你專案（在這個例子中是 `awesome-project`）的 `.venv\Scripts\python` 中的 `python` 二進位檔案，那麼它就生效了。🎉
+
+////
+
+## 升級 `pip`
+
+/// tip
+
+如果你使用 <a href="https://github.com/astral-sh/uv" class="external-link" target="_blank">`uv`</a> 來安裝內容，而不是 `pip`，那麼你就不需要升級 `pip`。😎
+
+///
+
+如果你使用 `pip` 來安裝套件（它是 Python 的預設元件），你應該將它**升級**到最新版本。
+
+在安裝套件時出現的許多奇怪的錯誤都可以透過先升級 `pip` 來解決。
+
+/// tip
+
+通常你只需要在建立虛擬環境後**執行一次**這個操作。
+
+///
+
+確保虛擬環境是啟動的（使用上面的指令），然後運行：
+
+<div class="termy">
+
+```console
+$ python -m pip install --upgrade pip
+
+---> 100%
+```
+
+</div>
+
+## 加入 `.gitignore`
+
+如果你使用 **Git**（這是你應該使用的），加入一個 `.gitignore` 檔案來排除你的 `.venv` 中的所有內容。
+
+/// tip
+
+如果你使用 <a href="https://github.com/astral-sh/uv" class="external-link" target="_blank">`uv`</a> 來建立虛擬環境，它會自動為你完成這個操作，你可以跳過這一步。😎
+
+///
+
+/// tip
+
+通常你只需要在建立虛擬環境後**執行一次**這個操作。
+
+///
+
+<div class="termy">
+
+```console
+$ echo "*" > .venv/.gitignore
+```
+
+</div>
+
+/// details | 上述指令的含義
+
+-   `echo "*"`: 將在終端中「顯示」文本 `*`（接下來的部分會對這個操作進行一些修改）
+-   `>`: 使左邊的指令顯示到終端的任何內容實際上都不會被顯示，而是會被寫入到右邊的檔案中
+-   `.gitignore`: 被寫入文本的檔案的名稱
+
+而 `*` 對於 Git 來說意味著「所有內容」。所以，它會忽略 `.venv` 目錄中的所有內容。
+
+該指令會建立一個名為 .gitignore 的檔案，內容如下：
+
+```gitignore
+*
+```
+
+///
+
+## 安裝套件
+
+在啟用虛擬環境後，你可以在其中安裝套件。
+
+/// tip
+
+當你需要安裝或升級套件時，執行本操作**一次**；
+
+如果你需要再升級版本或新增套件，你可以**再次執行此操作**。
+
+///
+
+### 直接安裝套件
+
+如果你急於安裝，不想使用檔案來聲明專案的套件依賴，你可以直接安裝它們。
+
+/// tip
+
+將程式所需的套件及其版本放在檔案中（例如 `requirements.txt` 或 `pyproject.toml`）是個好（而且非常好）的主意。
+
+///
+
+//// tab | `pip`
+
+<div class="termy">
+
+```console
+$ pip install "fastapi[standard]"
+
+---> 100%
+```
+
+</div>
+
+////
+
+//// tab | `uv`
+
+如果你有 <a href="https://github.com/astral-sh/uv" class="external-link" target="_blank">`uv`</a>:
+
+<div class="termy">
+
+```console
+$ uv pip install "fastapi[standard]"
+---> 100%
+```
+
+</div>
+
+////
+
+### 從 `requirements.txt` 安裝
+
+如果你有一個 `requirements.txt` 檔案，你可以使用它來安裝其中的套件。
+
+//// tab | `pip`
+
+<div class="termy">
+
+```console
+$ pip install -r requirements.txt
+---> 100%
+```
+
+</div>
+
+////
+
+//// tab | `uv`
+
+如果你有 <a href="https://github.com/astral-sh/uv" class="external-link" target="_blank">`uv`</a>:
+
+<div class="termy">
+
+```console
+$ uv pip install -r requirements.txt
+---> 100%
+```
+
+</div>
+
+////
+
+/// details | 關於 `requirements.txt`
+
+一個包含一些套件的 `requirements.txt` 檔案看起來應該是這樣的：
+
+```requirements.txt
+fastapi[standard]==0.113.0
+pydantic==2.8.0
+```
+
+///
+
+## 執行程式
+
+在啟用虛擬環境後，你可以執行你的程式，它將使用虛擬環境中的 Python 和你在其中安裝的套件。
+
+<div class="termy">
+
+```console
+$ python main.py
+
+Hello World
+```
+
+</div>
+
+## 設定編輯器
+
+你可能會用到編輯器，請確保設定它使用你建立的相同虛擬環境（它可能會自動偵測到），以便你可以獲得自動完成和内嵌錯誤提示。
+
+例如：
+
+* <a href="https://code.visualstudio.com/docs/python/environments#_select-and-activate-an-environment" class="external-link" target="_blank">VS Code</a>
+* <a href="https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html" class="external-link" target="_blank">PyCharm</a>
+
+/// tip
+
+通常你只需要在建立虛擬環境時執行此操作**一次**。
+
+///
+
+## 退出虛擬環境
+
+當你完成工作後，你可以**退出**虛擬環境。
+
+<div class="termy">
+
+```console
+$ deactivate
+```
+
+</div>
+
+這樣，當你執行 `python` 時它不會嘗試從已安裝套件的虛擬環境中執行。
+
+## 開始工作
+
+現在你已經準備好開始你的工作了。
+
+
+
+/// tip
+
+你想要理解上面的所有內容嗎？
+
+繼續閱讀。👇🤓
+
+///
+
+## 為什麼要使用虛擬環境
+
+你需要安裝 <a href="https://www.python.org/" class="external-link" target="_blank">Python</a> 才能使用 FastAPI。
+
+接下來，你需要**安裝** FastAPI 以及你想使用的其他**套件**。
+
+要安裝套件，你通常會使用隨 Python 一起提供的 `pip` 指令（或類似的替代工具）。
+
+然而，如果你直接使用 `pip`，套件將會安裝在你的**全域 Python 環境**中（即 Python 的全域安裝）。
+
+### 存在的問題
+
+那麼，在全域 Python 環境中安裝套件有什麼問題呢？
+
+有時候，你可能會開發許多不同的程式，而這些程式各自依賴於**不同的套件**；有些專案甚至需要依賴於**相同套件的不同版本**。😱
+
+例如，你可能會建立一個名為 `philosophers-stone` 的專案，這個程式依賴於另一個名為 **`harry` 的套件，並使用版本 `1`**。因此，你需要安裝 `harry`。
+
+```mermaid
+flowchart LR
+    stone(philosophers-stone) -->|需要| harry-1[harry v1]
+```
+
+然而，在此之後，你又建立了另一個名為 `prisoner-of-azkaban` 的專案，而這個專案也依賴於 `harry`，但需要的是 **`harry` 版本 `3`**。
+
+```mermaid
+flowchart LR
+    azkaban(prisoner-of-azkaban) --> |需要| harry-3[harry v3]
+```
+
+現在的問題是，如果你在全域環境中安裝套件而不是在本地**虛擬環境**中，你將面臨選擇安裝哪個版本的 `harry` 的困境。
+
+如果你想運行 `philosophers-stone`，你需要先安裝 `harry` 版本 `1`，例如：
+
+<div class="termy">
+
+```console
+$ pip install "harry==1"
+```
+
+</div>
+
+然後你會在全域 Python 環境中安裝 `harry` 版本 `1`。
+
+```mermaid
+flowchart LR
+    subgraph global[全域環境]
+        harry-1[harry v1]
+    end
+    subgraph stone-project[專案 philosophers-stone]
+        stone(philosophers-stone) -->|需要| harry-1
+    end
+```
+
+但如果你想運行 `prisoner-of-azkaban`，你需要解除安裝 `harry` 版本 `1` 並安裝 `harry` 版本 `3`（或者只要你安裝版本 `3`，版本 `1` 就會自動移除）。
+
+<div class="termy">
+
+```console
+$ pip install "harry==3"
+```
+
+</div>
+
+於是，你在全域 Python 環境中安裝了 `harry` 版本 `3`。
+
+如果你再次嘗試運行 `philosophers-stone`，很可能會**無法正常運作**，因為它需要的是 `harry` 版本 `1`。
+
+```mermaid
+flowchart LR
+    subgraph global[全域環境]
+        harry-1[<strike>harry v1</strike>]
+        style harry-1 fill:#ccc,stroke-dasharray: 5 5
+        harry-3[harry v3]
+    end
+    subgraph stone-project[專案 philosophers-stone]
+        stone(philosophers-stone) -.-x|⛔️| harry-1
+    end
+    subgraph azkaban-project[專案 prisoner-of-azkaban]
+        azkaban(prisoner-of-azkaban) --> |需要| harry-3
+    end
+```
+
+/// tip
+
+Python 套件在推出**新版本**時通常會儘量**避免破壞性更改**，但最好還是要謹慎，在安裝新版本前進行測試，以確保一切能正常運行。
+
+///
+
+現在，想像一下如果有**許多**其他**套件**，它們都是你的**專案所依賴的**。這樣是非常難以管理的。你可能會發現有些專案使用了一些**不相容的套件版本**，而無法得知為什麼某些程式無法正常運作。
+
+此外，取決於你的操作系統（例如 Linux、Windows、macOS），它可能已經預先安裝了 Python。在這種情況下，它可能已經有一些系統所需的套件和特定版本。如果你在全域 Python 環境中安裝套件，可能會**破壞**某些隨作業系統一起安裝的程式。
+
+## 套件安裝在哪裡
+
+當你安裝 Python 時，它會在你的電腦中建立一些目錄並放置一些檔案。
+
+其中一些目錄專門用來存放你所安裝的所有套件。
+
+當你運行：
+
+<div class="termy">
+
+```console
+// 先別去運行這個指令，這只是個示例 🤓
+$ pip install "fastapi[standard]"
+---> 100%
+```
+
+</div>
+
+這會從 <a href="https://pypi.org/project/fastapi/" class="external-link" target="_blank">PyPI</a> 下載一個壓縮檔案，其中包含 FastAPI 的程式碼。
+
+它還會**下載** FastAPI 所依賴的其他套件的檔案。
+
+接著，它會**解壓**所有這些檔案，並將它們放在你的電腦中的某個目錄中。
+
+預設情況下，這些下載和解壓的檔案會放置於隨 Python 安裝的目錄中，即**全域環境**。
+
+## 什麼是虛擬環境
+
+解決套件都安裝在全域環境中的問題方法是為你所做的每個專案使用一個**虛擬環境**。
+
+虛擬環境是一個**目錄**，與全域環境非常相似，你可以在其中針對某個專案安裝套件。
+
+這樣，每個專案都會有自己的虛擬環境（`.venv` 目錄），其中包含自己的套件。
+
+```mermaid
+flowchart TB
+    subgraph stone-project[專案 philosophers-stone]
+        stone(philosophers-stone) --->|需要| harry-1
+        subgraph venv1[.venv]
+            harry-1[harry v1]
+        end
+    end
+    subgraph azkaban-project[專案 prisoner-of-azkaban]
+        azkaban(prisoner-of-azkaban) --->|需要| harry-3
+        subgraph venv2[.venv]
+            harry-3[harry v3]
+        end
+    end
+    stone-project ~~~ azkaban-project
+```
+
+## 啟用虛擬環境意味著什麼
+
+當你啟用了虛擬環境，例如：
+
+//// tab | Linux, macOS
+
+<div class="termy">
+
+```console
+$ source .venv/bin/activate
+```
+
+</div>
+
+////
+
+//// tab | Windows PowerShell
+
+<div class="termy">
+
+```console
+$ .venv\Scripts\Activate.ps1
+```
+
+</div>
+
+////
+
+//// tab | Windows Bash
+
+或者如果你在 Windows 上使用 Bash（例如 <a href="https://gitforwindows.org/" class="external-link" target="_blank">Git Bash</a>）：
+
+<div class="termy">
+
+```console
+$ source .venv/Scripts/activate
+```
+
+</div>
+
+////
+
+這個命令會建立或修改一些[環境變數](environment-variables.md){.internal-link target=_blank}，這些環境變數將在接下來的指令中可用。
+
+其中之一是 `PATH` 變數。
+
+/// tip
+
+你可以在 [環境變數](environment-variables.md#path-environment-variable){.internal-link target=_blank} 部分了解更多關於 `PATH` 環境變數的內容。
+
+///
+
+啟用虛擬環境會將其路徑 `.venv/bin`（在 Linux 和 macOS 上）或 `.venv\Scripts`（在 Windows 上）加入到 `PATH` 環境變數中。
+
+假設在啟用環境之前，`PATH` 變數看起來像這樣：
+
+//// tab | Linux, macOS
+
+```plaintext
+/usr/bin:/bin:/usr/sbin:/sbin
+```
+
+這意味著系統會在以下目錄中查找程式：
+
+* `/usr/bin`
+* `/bin`
+* `/usr/sbin`
+* `/sbin`
+
+////
+
+//// tab | Windows
+
+```plaintext
+C:\Windows\System32
+```
+
+這意味著系統會在以下目錄中查找程式：
+
+* `C:\Windows\System32`
+
+////
+
+啟用虛擬環境後，`PATH` 變數會變成這樣：
+
+//// tab | Linux, macOS
+
+```plaintext
+/home/user/code/awesome-project/.venv/bin:/usr/bin:/bin:/usr/sbin:/sbin
+```
+
+這意味著系統現在會首先在以下目錄中查找程式：
+
+```plaintext
+/home/user/code/awesome-project/.venv/bin
+```
+
+然後再在其他目錄中查找。
+
+因此，當你在終端機中輸入 `python` 時，系統會在以下目錄中找到 Python 程式：
+
+```plaintext
+/home/user/code/awesome-project/.venv/bin/python
+```
+
+並使用這個。
+
+////
+
+//// tab | Windows
+
+```plaintext
+C:\Users\user\code\awesome-project\.venv\Scripts;C:\Windows\System32
+```
+
+這意味著系統現在會首先在以下目錄中查找程式：
+
+```plaintext
+C:\Users\user\code\awesome-project\.venv\Scripts
+```
+
+然後再在其他目錄中查找。
+
+因此，當你在終端機中輸入 `python` 時，系統會在以下目錄中找到 Python 程式：
+
+```plaintext
+C:\Users\user\code\awesome-project\.venv\Scripts\python
+```
+
+並使用這個。
+
+////
+
+一個重要的細節是，虛擬環境路徑會被放在 `PATH` 變數的**開頭**。系統會在找到任何其他可用的 Python **之前**找到它。這樣，當你運行 `python` 時，它會使用**虛擬環境中的** Python，而不是任何其他 `python`（例如，全域環境中的 `python`）。
+
+啟用虛擬環境還會改變其他一些內容，但這是它所做的最重要的事情之一。
+
+## 檢查虛擬環境
+
+當你檢查虛擬環境是否啟動時，例如：
+
+//// tab | Linux, macOS, Windows Bash
+
+<div class="termy">
+
+```console
+$ which python
+
+/home/user/code/awesome-project/.venv/bin/python
+```
+
+</div>
+
+////
+
+//// tab | Windows PowerShell
+
+<div class="termy">
+
+```console
+$ Get-Command python
+
+C:\Users\user\code\awesome-project\.venv\Scripts\python
+```
+
+</div>
+
+////
+
+這表示將使用的 `python` 程式是**在虛擬環境中**的那一個。
+
+在 Linux 和 macOS 中使用 `which`，在 Windows PowerShell 中使用 `Get-Command`。
+
+這個指令的運作方式是，它會在 `PATH` 環境變數中搜尋，依序**逐個路徑**查找名為 `python` 的程式。一旦找到，它會**顯示該程式的路徑**。
+
+最重要的是，當你呼叫 `python` 時，將執行的就是這個確切的 "`python`"。
+
+因此，你可以確認是否在正確的虛擬環境中。
+
+/// tip
+
+啟動一個虛擬環境，取得一個 Python，然後**切換到另一個專案**是件很容易的事；
+
+但如果第二個專案**無法正常運作**，那可能是因為你使用了來自其他專案的虛擬環境的、**不正確的 Python**。
+
+因此，檢查正在使用的 `python` 是非常實用的。🤓
+
+///
+
+## 為什麼要停用虛擬環境
+
+例如，你可能正在一個專案 `philosophers-stone` 上工作，**啟動了該虛擬環境**，安裝了套件並使用了該環境，
+
+然後你想要在**另一個專案** `prisoner-of-azkaban` 上工作，
+
+你進入那個專案：
+
+<div class="termy">
+
+```console
+$ cd ~/code/prisoner-of-azkaban
+```
+
+</div>
+
+如果你不去停用 `philosophers-stone` 的虛擬環境，當你在終端中執行 `python` 時，它會嘗試使用 `philosophers-stone` 中的 Python。
+
+<div class="termy">
+
+```console
+$ cd ~/code/prisoner-of-azkaban
+
+$ python main.py
+
+// 匯入 sirius 錯誤，未安裝 😱
+Traceback (most recent call last):
+    File "main.py", line 1, in <module>
+        import sirius
+```
+
+</div>
+
+但如果你停用虛擬環境並啟用 `prisoner-of-askaban` 的新虛擬環境，那麼當你執行 `python` 時，它會使用 `prisoner-of-askaban` 中虛擬環境的 Python。
+
+<div class="termy">
+
+```console
+$ cd ~/code/prisoner-of-azkaban
+
+// 你不需要在舊目錄中操作停用，你可以在任何地方操作停用，甚至在切換到另一個專案之後 😎
+$ deactivate
+
+// 啟用 prisoner-of-azkaban/.venv 中的虛擬環境 🚀
+$ source .venv/bin/activate
+
+// 現在當你執行 python 時，它會在這個虛擬環境中找到已安裝的 sirius 套件 ✨
+$ python main.py
+
+I solemnly swear 🐺
+```
+
+</div>
+
+## 替代方案
+
+這是一個簡單的指南，幫助你入門並教會你如何理解一切**底層**的原理。
+
+有許多**替代方案**來管理虛擬環境、套件依賴（requirements）、專案。
+
+當你準備好並想要使用一個工具來**管理整個專案**、套件依賴、虛擬環境等，建議你嘗試 <a href="https://github.com/astral-sh/uv" class="external-link" target="_blank">uv</a>。
+
+`uv` 可以執行許多操作，它可以：
+
+* 為你**安裝 Python**，包括不同的版本
+* 為你的專案管理**虛擬環境**
+* 安裝**套件**
+* 為你的專案管理套件的**依賴和版本**
+* 確保你有一個**精確**的套件和版本集合來安裝，包括它們的依賴項，這樣你可以確保專案在生產環境中運行的狀態與開發時在你的電腦上運行的狀態完全相同，這被稱為**鎖定**
+* 還有很多其他功能
+
+## 結論
+
+如果你讀過並理解了所有這些，現在**你對虛擬環境的了解已超過許多開發者**。🤓
+
+未來當你為看起來複雜的問題除錯時，了解這些細節很可能會有所幫助，你會知道**它是如何在底層運作的**。😎
+
+
+================================================
+File: /docs/zh-hant/docs/about/index.md
+================================================
+# 關於 FastAPI
+
+關於 FastAPI、其設計、靈感來源等更多資訊。 🤓
+
+
+================================================
+File: /docs/zh-hant/docs/deployment/cloud.md
+================================================
+# 在雲端部署 FastAPI
+
+你幾乎可以使用**任何雲端供應商**來部署你的 FastAPI 應用程式。
+
+在大多數情況下，主要的雲端供應商都有部署 FastAPI 的指南。
+
+## 雲端供應商 - 贊助商
+
+一些雲端供應商 ✨ [**贊助 FastAPI**](../help-fastapi.md#sponsor-the-author){.internal-link target=_blank} ✨，這確保了 FastAPI 及其**生態系統**持續健康地**發展**。
+
+這也展現了他們對 FastAPI 和其**社群**（包括你）的真正承諾，他們不僅希望為你提供**優質的服務**，還希望確保你擁有一個**良好且健康的框架**：FastAPI。🙇
+
+你可能會想嘗試他們的服務，以下有他們的指南：
+
+* <a href="https://docs.platform.sh/languages/python.html?utm_source=fastapi-signup&utm_medium=banner&utm_campaign=FastAPI-signup-June-2023" class="external-link" target="_blank" >Platform.sh</a>
+* <a href="https://docs.porter.run/language-specific-guides/fastapi" class="external-link" target="_blank">Porter</a>
+* <a href="https://docs.withcoherence.com/" class="external-link" target="_blank">Coherence</a>
+
+
+================================================
+File: /docs/zh-hant/docs/deployment/index.md
+================================================
+# 部署
+
+部署 **FastAPI** 應用程式相對容易。
+
+## 部署是什麼意思
+
+**部署**應用程式指的是執行一系列必要的步驟，使其能夠**讓使用者存取和使用**。
+
+對於一個 **Web API**，部署通常涉及將其放置在**遠端伺服器**上，並使用性能優良且穩定的**伺服器程式**，確保使用者能夠高效、無中斷地存取應用程式，且不會遇到問題。
+
+這與**開發**階段形成鮮明對比，在**開發**階段，你會不斷更改程式碼、破壞程式碼、修復程式碼，然後停止和重新啟動伺服器等。
+
+## 部署策略
+
+根據你的使用場景和使用工具，有多種方法可以實現此目的。
+
+你可以使用一些工具自行**部署伺服器**，你也可以使用能為你完成部分工作的**雲端服務**，或其他可能的選項。
+
+我將向你展示在部署 **FastAPI** 應用程式時你可能應該記住的一些主要概念（儘管其中大部分適用於任何其他類型的 Web 應用程式）。
+
+在接下來的部分中，你將看到更多需要記住的細節以及一些技巧。 ✨
+
+
+================================================
+File: /docs/zh-hant/docs/how-to/index.md
+================================================
+# 使用指南 - 範例集
+
+在這裡，你將會看到**不同主題**的範例或「如何使用」的指南。
+
+大多數這些想法都是**獨立**的，在大多數情況下，你只需要研究那些直接適用於**你的專案**的東西。
+
+如果有些東西看起來很有趣且對你的專案很有用的話再去讀它，否則你可能可以跳過它們。
+
+/// tip
+
+如果你想要以結構化的方式**學習 FastAPI**（推薦），請前往[教學 - 使用者指南](../tutorial/index.md){.internal-link target=_blank}逐章閱讀。
+
+///
+
+
+================================================
+File: /docs/zh-hant/docs/learn/index.md
+================================================
+# 學習
+
+以下是學習 FastAPI 的入門介紹和教學。
+
+你可以將其視為一本**書籍**或一門**課程**，這是**官方**認可並推薦的 FastAPI 學習方式。 😎
+
+
+================================================
+File: /docs/zh-hant/docs/resources/index.md
+================================================
+# 資源
+
+額外的資源、外部連結、文章等。 ✈️
+
+
+================================================
+File: /docs/zh-hant/docs/tutorial/first-steps.md
+================================================
+# 第一步
+
+最簡單的 FastAPI 檔案可能看起來像這樣：
+
+{* ../../docs_src/first_steps/tutorial001.py *}
+
+將其複製到一個名為 `main.py` 的文件中。
+
+執行即時重新載入伺服器（live server）：
+
+<div class="termy">
+
+```console
+$ <font color="#4E9A06">fastapi</font> dev <u style="text-decoration-style:single">main.py</u>
+<font color="#3465A4">INFO    </font> Using path <font color="#3465A4">main.py</font>
+<font color="#3465A4">INFO    </font> Resolved absolute path <font color="#75507B">/home/user/code/awesomeapp/</font><font color="#AD7FA8">main.py</font>
+<font color="#3465A4">INFO    </font> Searching for package file structure from directories with <font color="#3465A4">__init__.py</font> files
+<font color="#3465A4">INFO    </font> Importing from <font color="#75507B">/home/user/code/</font><font color="#AD7FA8">awesomeapp</font>
+
+ ╭─ <font color="#8AE234"><b>Python module file</b></font> ─╮
+ │                      │
+ │  🐍 main.py          │
+ │                      │
+ ╰──────────────────────╯
+
+<font color="#3465A4">INFO    </font> Importing module <font color="#4E9A06">main</font>
+<font color="#3465A4">INFO    </font> Found importable FastAPI app
+
+ ╭─ <font color="#8AE234"><b>Importable FastAPI app</b></font> ─╮
+ │                          │
+ │  <span style="background-color:#272822"><font color="#FF4689">from</font></span><span style="background-color:#272822"><font color="#F8F8F2"> main </font></span><span style="background-color:#272822"><font color="#FF4689">import</font></span><span style="background-color:#272822"><font color="#F8F8F2"> app</font></span><span style="background-color:#272822">  </span>  │
+ │                          │
+ ╰──────────────────────────╯
+
+<font color="#3465A4">INFO    </font> Using import string <font color="#8AE234"><b>main:app</b></font>
+
+ <span style="background-color:#C4A000"><font color="#2E3436">╭────────── FastAPI CLI - Development mode ───────────╮</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  Serving at: http://127.0.0.1:8000                  │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  API docs: http://127.0.0.1:8000/docs               │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  Running in development mode, for production use:   │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  </font></span><span style="background-color:#C4A000"><font color="#555753"><b>fastapi run</b></font></span><span style="background-color:#C4A000"><font color="#2E3436">                                        │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">╰─────────────────────────────────────────────────────╯</font></span>
+
+<font color="#4E9A06">INFO</font>:     Will watch for changes in these directories: [&apos;/home/user/code/awesomeapp&apos;]
+<font color="#4E9A06">INFO</font>:     Uvicorn running on <b>http://127.0.0.1:8000</b> (Press CTRL+C to quit)
+<font color="#4E9A06">INFO</font>:     Started reloader process [<font color="#34E2E2"><b>2265862</b></font>] using <font color="#34E2E2"><b>WatchFiles</b></font>
+<font color="#4E9A06">INFO</font>:     Started server process [<font color="#06989A">2265873</font>]
+<font color="#4E9A06">INFO</font>:     Waiting for application startup.
+<font color="#4E9A06">INFO</font>:     Application startup complete.
+```
+
+</div>
+
+在輸出中，有一列類似於：
+
+```hl_lines="4"
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+那列顯示了你的應用程式正在本地端機器上運行的 URL。
+
+### 查看它
+
+在瀏覽器中打開 <a href="http://127.0.0.1:8000" class="external-link" target="_blank">http://127.0.0.1:8000</a>.
+
+你將看到如下的 JSON 回應：
+
+```JSON
+{"message": "Hello World"}
+```
+
+### 互動式 API 文件
+
+現在，前往 <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
+
+你將看到自動的互動式 API 文件（由 <a href="https://github.com/swagger-api/swagger-ui" class="external-link" target="_blank">Swagger UI</a> 提供）：
+
+![Swagger UI](https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png)
+
+### 替代 API 文件
+
+現在，前往 <a href="http://127.0.0.1:8000/redoc" class="external-link" target="_blank">http://127.0.0.1:8000/redoc</a>.
+
+你將看到另一種自動文件（由 <a href="https://github.com/Rebilly/ReDoc" class="external-link" target="_blank">ReDoc</a> 提供）：
+
+![ReDoc](https://fastapi.tiangolo.com/img/index/index-02-redoc-simple.png)
+
+### OpenAPI
+
+**FastAPI** 使用定義 API 的 **OpenAPI** 標準來生成一個 「schema」 與你的所有 API。
+
+#### 「Schema」
+
+「schema」是對某個事物的定義或描述。它並不是實作它的程式碼，而僅僅是一個抽象的描述。
+
+#### API 「schema」
+
+在這種情況下，<a href="https://github.com/OAI/OpenAPI-Specification" class="external-link" target="_blank">OpenAPI</a> 是一個規範，它規定了如何定義 API 的 schema。
+
+這個 schema 定義包含了你的 API 路徑、可能接收的參數等內容。
+
+#### 資料 「schema」
+
+「schema」這個術語也可能指某些資料的結構，比如 JSON 內容的結構。
+
+在這種情況下，它指的是 JSON 的屬性、資料型別等。
+
+#### OpenAPI 和 JSON Schema
+
+OpenAPI 定義了 API 的 schema。這個 schema 包含了使用 **JSON Schema** 定義的資料，這是 JSON 資料 schema 的標準。
+
+#### 檢查 `openapi.json`
+
+如果你好奇原始的 OpenAPI schema 長什麼樣子，FastAPI 會自動生成一個包含所有 API 描述的 JSON (schema)。
+
+你可以直接在 <a href="http://127.0.0.1:8000/openapi.json" class="external-link" target="_blank">http://127.0.0.1:8000/openapi.json</a> 查看它。
+
+它會顯示一個 JSON，類似於：

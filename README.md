@@ -1,14 +1,73 @@
 # Script Doc Processor
 
-Solución para procesar y consultar grandes volúmenes de documentos de texto utilizando ChromaDB como base de datos vectorial. Diseñado específicamente para trabajar con Claude Sonnet 3.5v2 a través de la extensión Cline en VS Code.
+Sistema de procesamiento y consulta de documentación diseñado para mejorar las capacidades de modelos LLM (como Claude) proporcionándoles contexto actualizado a través de documentación en formato txt. El sistema utiliza ChromaDB como base de datos vectorial para almacenar y recuperar eficientemente la información relevante.
+
+## Propósito Principal
+
+El objetivo principal de este sistema es permitir que los modelos LLM, específicamente Claude a través de la extensión Cline en VS Code, tengan acceso a información actualizada y contextual para tomar decisiones más precisas. Esto se logra mediante:
+
+1. Procesamiento de cualquier documentación en formato txt
+2. Almacenamiento eficiente en una base de datos vectorial
+3. Recuperación contextual basada en similitud semántica
+4. Integración seamless con Cline para consultas en tiempo real
+
+## Scripts Principales
+
+El proyecto cuenta con tres scripts principales:
+
+1. **doc_processor.py**: Script principal para procesar documentación
+   - Procesa cualquier archivo txt independiente de su contenido o temática
+   - Extrae metadatos automáticamente
+   - Detecta tipos de documentos y versiones
+   - Genera embeddings para búsqueda semántica
+
+2. **query_docs.py**: Script para realizar consultas
+   - Búsqueda semántica en toda la documentación procesada
+   - Filtrado por tipo de documento
+   - Ranking de relevancia
+   - Resaltado de coincidencias
+
+3. **smart_docs.py**: Script con funcionalidades adicionales
+   - Procesamiento avanzado de texto
+   - Utilidades de manipulación de documentos
+   - Funciones auxiliares
 
 ## Características
 
-- Procesamiento de documentos de texto en chunks manejables
-- Almacenamiento vectorial usando ChromaDB
-- Consultas semánticas sobre la documentación procesada
-- Integración con Cline para desarrollo asistido
-- Soporte para Docker
+- **Flexibilidad en el Procesamiento**: 
+  - Acepta cualquier documentación en formato txt
+  - No está limitado a un tipo específico de contenido
+  - Adaptable a diferentes estructuras y formatos de documentación
+
+- **Procesamiento Inteligente**:
+  - División automática en chunks manejables
+  - Extracción de metadatos relevantes
+  - Detección automática de tipos de documento
+  - Identificación de versiones cuando están disponibles
+
+- **Almacenamiento Eficiente**:
+  - Uso de ChromaDB como base de datos vectorial
+  - Optimización para búsquedas semánticas
+  - Persistencia de datos entre sesiones
+
+- **Integración con Cline**:
+  - Proporciona contexto actualizado a Claude
+  - Mejora la precisión de las respuestas
+  - Permite decisiones basadas en documentación actual
+
+## Estructura del Proyecto
+
+```
+proyecto/
+├── src/                    # Código fuente principal
+│   ├── processors/        # Procesamiento de documentos
+│   ├── storage/          # Gestión de almacenamiento
+│   └── utils/           # Utilidades generales
+├── doc_py/              # Directorio para documentación
+├── doc_processor.py     # Script principal
+├── query_docs.py        # Script de consultas
+└── smart_docs.py        # Funcionalidades adicionales
+```
 
 ## Instalación
 
@@ -26,14 +85,11 @@ chmod +x install.sh
 ./install.sh
 ```
 
-3. Usar el procesador de documentos:
-```bash
-# Procesar documentación
-docker-compose run --rm doc-processor --path docs/mi_proyecto --reset
-
-# Realizar consultas
-docker-compose run --rm doc-processor --query "tu consulta aquí"
-```
+El script de instalación:
+- Verifica las dependencias necesarias
+- Crea la estructura de directorios
+- Construye la imagen Docker
+- Configura los permisos necesarios
 
 ### Opción 2: Instalación Local
 
@@ -48,87 +104,69 @@ cd script-doc_processor.py
 pip install -r requirements.txt
 ```
 
-## Estructura de Proyecto Recomendada
+## Uso
 
-```
-proyecto/
-├── docs/                    # Documentación del proyecto
-│   ├── nextjs_2025/        # Documentación específica (ej: Next.js 2025)
-│   │   ├── parte_1.txt
-│   │   └── parte_2.txt
-│   └── otros_docs/         # Otra documentación relevante
-├── smart_docs.py           # Script principal
-├── requirements.txt        # Dependencias
-├── .gitignore             # Configuración de git
-└── chroma_db/             # Base de datos vectorial (auto-generada)
-```
-
-## Uso con Cline
-
-### 1. Procesar Documentación
+### 1. Procesamiento de Nueva Documentación
 
 ```bash
-# Con Docker:
-docker-compose run --rm doc-processor --path docs/nextjs_2025 --reset
+# Con Docker
+docker-compose run --rm doc-processor --path /ruta/a/tu/documentacion
 
-# Sin Docker:
-python3 smart_docs.py --path docs/nextjs_2025 --reset
+# Sin Docker
+python3 doc_processor.py --path /ruta/a/tu/documentacion
 ```
 
-### 2. Realizar Consultas Estructuradas
+### 2. Consultas sobre la Documentación
 
 ```bash
-# Con Docker:
-docker-compose run --rm doc-processor --query "Basándote en la documentación de [tecnología], muestra paso a paso cómo [objetivo específico], incluyendo:
-1) [primer aspecto]
-2) [segundo aspecto]
-3) [tercer aspecto]"
+# Con Docker
+docker-compose run --rm query
 
-# Sin Docker:
-python3 smart_docs.py --query "..."
+# Sin Docker
+python3 query_docs.py
 ```
 
-### 3. Ejemplo de Consulta
+## Ejemplos de Uso
+
+### 1. Procesar Nueva Documentación
 
 ```bash
-docker-compose run --rm doc-processor --query "Basándote en la documentación de Next.js 2025, explica cómo implementar:
-1) Configuración inicial del proyecto
-2) Manejo de rutas y páginas
-3) Integración con APIs"
+# Procesar documentación de un proyecto
+docker-compose run --rm doc-processor --path doc_py/nueva_documentacion
+
+# Procesar múltiples archivos
+python3 doc_processor.py --path /ruta/a/tus/archivos/txt
+```
+
+### 2. Realizar Consultas
+
+```bash
+# Consulta interactiva
+docker-compose run --rm query
+
+# Consulta específica
+python3 query_docs.py --search "¿Cómo implementar esta funcionalidad?"
 ```
 
 ## Mejores Prácticas
 
 ### 1. Organización de Documentación
 
-- Dividir documentación en archivos manejables
-- Usar nombres descriptivos y numerados
-- Mantener una estructura consistente por tecnología/tema
-- Incluir versión en nombre de directorio
+- Dividir documentación extensa en archivos manejables
+- Usar nombres descriptivos
+- Mantener una estructura consistente
+- Incluir información de versiones cuando sea relevante
 
-### 2. Control de Versiones
+### 2. Mantenimiento
 
-- Documentar fecha y versión de la documentación
-- Mantener documentación antigua en directorios separados
-- Usar --reset al cambiar significativamente el contexto
-
-### 3. Uso con Docker
-
-- Los volúmenes persisten entre ejecuciones
-- La documentación se monta en /app/docs
-- La base de datos ChromaDB se monta en /app/chroma_db
-- Usar --rm para limpiar contenedores después de cada uso
-
-### 4. Mantenimiento
-
-- Limpiar chroma_db/ periódicamente
-- Hacer respaldo de documentos importantes
-- Actualizar la imagen Docker cuando haya cambios en requirements.txt
+- Actualizar la documentación regularmente
+- Limpiar la base de datos vectorial periódicamente
+- Hacer respaldos de documentación importante
 
 ## Contribuir
 
 1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
+2. Crea una rama para tu feature (`git checkout -b feature/NuevaFuncionalidad`)
+3. Commit tus cambios (`git commit -m 'Añadir nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/NuevaFuncionalidad`)
 5. Abre un Pull Request

@@ -1,0 +1,7371 @@
+class UserIn(UserBase):
+    password: str
+
+
+class UserOut(UserBase):
+    pass
+
+
+class UserInDB(UserBase):
+    hashed_password: str
+
+
+def fake_password_hasher(raw_password: str):
+    return "supersecret" + raw_password
+
+
+def fake_save_user(user_in: UserIn):
+    hashed_password = fake_password_hasher(user_in.password)
+    user_in_db = UserInDB(**user_in.dict(), hashed_password=hashed_password)
+    print("User saved! ..not really")
+    return user_in_db
+
+
+@app.post("/user/", response_model=UserOut)
+async def create_user(user_in: UserIn):
+    user_saved = fake_save_user(user_in)
+    return user_saved
+
+
+================================================
+File: /docs_src/extra_models/tutorial003.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class BaseItem(BaseModel):
+    description: str
+    type: str
+
+
+class CarItem(BaseItem):
+    type: str = "car"
+
+
+class PlaneItem(BaseItem):
+    type: str = "plane"
+    size: int
+
+
+items = {
+    "item1": {"description": "All my friends drive a low rider", "type": "car"},
+    "item2": {
+        "description": "Music is my aeroplane, it's my aeroplane",
+        "type": "plane",
+        "size": 5,
+    },
+}
+
+
+@app.get("/items/{item_id}", response_model=Union[PlaneItem, CarItem])
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/extra_models/tutorial003_py310.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class BaseItem(BaseModel):
+    description: str
+    type: str
+
+
+class CarItem(BaseItem):
+    type: str = "car"
+
+
+class PlaneItem(BaseItem):
+    type: str = "plane"
+    size: int
+
+
+items = {
+    "item1": {"description": "All my friends drive a low rider", "type": "car"},
+    "item2": {
+        "description": "Music is my aeroplane, it's my aeroplane",
+        "type": "plane",
+        "size": 5,
+    },
+}
+
+
+@app.get("/items/{item_id}", response_model=Union[PlaneItem, CarItem])
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/extra_models/tutorial004.py
+================================================
+from typing import List
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str
+
+
+items = [
+    {"name": "Foo", "description": "There comes my hero"},
+    {"name": "Red", "description": "It's my aeroplane"},
+]
+
+
+@app.get("/items/", response_model=List[Item])
+async def read_items():
+    return items
+
+
+================================================
+File: /docs_src/extra_models/tutorial004_py39.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str
+
+
+items = [
+    {"name": "Foo", "description": "There comes my hero"},
+    {"name": "Red", "description": "It's my aeroplane"},
+]
+
+
+@app.get("/items/", response_model=list[Item])
+async def read_items():
+    return items
+
+
+================================================
+File: /docs_src/extra_models/tutorial005.py
+================================================
+from typing import Dict
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/keyword-weights/", response_model=Dict[str, float])
+async def read_keyword_weights():
+    return {"foo": 2.3, "bar": 3.4}
+
+
+================================================
+File: /docs_src/extra_models/tutorial005_py39.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/keyword-weights/", response_model=dict[str, float])
+async def read_keyword_weights():
+    return {"foo": 2.3, "bar": 3.4}
+
+
+================================================
+File: /docs_src/first_steps/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/first_steps/tutorial002.py
+================================================
+from fastapi import FastAPI
+
+my_awesome_api = FastAPI()
+
+
+@my_awesome_api.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/first_steps/tutorial003.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def root():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/generate_clients/tutorial001.py
+================================================
+from typing import List
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+
+
+class ResponseMessage(BaseModel):
+    message: str
+
+
+@app.post("/items/", response_model=ResponseMessage)
+async def create_item(item: Item):
+    return {"message": "item received"}
+
+
+@app.get("/items/", response_model=List[Item])
+async def get_items():
+    return [
+        {"name": "Plumbus", "price": 3},
+        {"name": "Portal Gun", "price": 9001},
+    ]
+
+
+================================================
+File: /docs_src/generate_clients/tutorial001_py39.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+
+
+class ResponseMessage(BaseModel):
+    message: str
+
+
+@app.post("/items/", response_model=ResponseMessage)
+async def create_item(item: Item):
+    return {"message": "item received"}
+
+
+@app.get("/items/", response_model=list[Item])
+async def get_items():
+    return [
+        {"name": "Plumbus", "price": 3},
+        {"name": "Portal Gun", "price": 9001},
+    ]
+
+
+================================================
+File: /docs_src/generate_clients/tutorial002.py
+================================================
+from typing import List
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+
+
+class ResponseMessage(BaseModel):
+    message: str
+
+
+class User(BaseModel):
+    username: str
+    email: str
+
+
+@app.post("/items/", response_model=ResponseMessage, tags=["items"])
+async def create_item(item: Item):
+    return {"message": "Item received"}
+
+
+@app.get("/items/", response_model=List[Item], tags=["items"])
+async def get_items():
+    return [
+        {"name": "Plumbus", "price": 3},
+        {"name": "Portal Gun", "price": 9001},
+    ]
+
+
+@app.post("/users/", response_model=ResponseMessage, tags=["users"])
+async def create_user(user: User):
+    return {"message": "User received"}
+
+
+================================================
+File: /docs_src/generate_clients/tutorial002_py39.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+
+
+class ResponseMessage(BaseModel):
+    message: str
+
+
+class User(BaseModel):
+    username: str
+    email: str
+
+
+@app.post("/items/", response_model=ResponseMessage, tags=["items"])
+async def create_item(item: Item):
+    return {"message": "Item received"}
+
+
+@app.get("/items/", response_model=list[Item], tags=["items"])
+async def get_items():
+    return [
+        {"name": "Plumbus", "price": 3},
+        {"name": "Portal Gun", "price": 9001},
+    ]
+
+
+@app.post("/users/", response_model=ResponseMessage, tags=["users"])
+async def create_user(user: User):
+    return {"message": "User received"}
+
+
+================================================
+File: /docs_src/generate_clients/tutorial003.py
+================================================
+from typing import List
+
+from fastapi import FastAPI
+from fastapi.routing import APIRoute
+from pydantic import BaseModel
+
+
+def custom_generate_unique_id(route: APIRoute):
+    return f"{route.tags[0]}-{route.name}"
+
+
+app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+
+
+class ResponseMessage(BaseModel):
+    message: str
+
+
+class User(BaseModel):
+    username: str
+    email: str
+
+
+@app.post("/items/", response_model=ResponseMessage, tags=["items"])
+async def create_item(item: Item):
+    return {"message": "Item received"}
+
+
+@app.get("/items/", response_model=List[Item], tags=["items"])
+async def get_items():
+    return [
+        {"name": "Plumbus", "price": 3},
+        {"name": "Portal Gun", "price": 9001},
+    ]
+
+
+@app.post("/users/", response_model=ResponseMessage, tags=["users"])
+async def create_user(user: User):
+    return {"message": "User received"}
+
+
+================================================
+File: /docs_src/generate_clients/tutorial003_py39.py
+================================================
+from fastapi import FastAPI
+from fastapi.routing import APIRoute
+from pydantic import BaseModel
+
+
+def custom_generate_unique_id(route: APIRoute):
+    return f"{route.tags[0]}-{route.name}"
+
+
+app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
+
+
+class Item(BaseModel):
+    name: str
+    price: float
+
+
+class ResponseMessage(BaseModel):
+    message: str
+
+
+class User(BaseModel):
+    username: str
+    email: str
+
+
+@app.post("/items/", response_model=ResponseMessage, tags=["items"])
+async def create_item(item: Item):
+    return {"message": "Item received"}
+
+
+@app.get("/items/", response_model=list[Item], tags=["items"])
+async def get_items():
+    return [
+        {"name": "Plumbus", "price": 3},
+        {"name": "Portal Gun", "price": 9001},
+    ]
+
+
+@app.post("/users/", response_model=ResponseMessage, tags=["users"])
+async def create_user(user: User):
+    return {"message": "User received"}
+
+
+================================================
+File: /docs_src/generate_clients/tutorial004.js
+================================================
+import * as fs from 'fs'
+
+async function modifyOpenAPIFile(filePath) {
+  try {
+    const data = await fs.promises.readFile(filePath)
+    const openapiContent = JSON.parse(data)
+
+    const paths = openapiContent.paths
+    for (const pathKey of Object.keys(paths)) {
+      const pathData = paths[pathKey]
+      for (const method of Object.keys(pathData)) {
+        const operation = pathData[method]
+        if (operation.tags && operation.tags.length > 0) {
+          const tag = operation.tags[0]
+          const operationId = operation.operationId
+          const toRemove = `${tag}-`
+          if (operationId.startsWith(toRemove)) {
+            const newOperationId = operationId.substring(toRemove.length)
+            operation.operationId = newOperationId
+          }
+        }
+      }
+    }
+
+    await fs.promises.writeFile(
+      filePath,
+      JSON.stringify(openapiContent, null, 2),
+    )
+    console.log('File successfully modified')
+  } catch (err) {
+    console.error('Error:', err)
+  }
+}
+
+const filePath = './openapi.json'
+modifyOpenAPIFile(filePath)
+
+
+================================================
+File: /docs_src/generate_clients/tutorial004.py
+================================================
+import json
+from pathlib import Path
+
+file_path = Path("./openapi.json")
+openapi_content = json.loads(file_path.read_text())
+
+for path_data in openapi_content["paths"].values():
+    for operation in path_data.values():
+        tag = operation["tags"][0]
+        operation_id = operation["operationId"]
+        to_remove = f"{tag}-"
+        new_operation_id = operation_id[len(to_remove) :]
+        operation["operationId"] = new_operation_id
+
+file_path.write_text(json.dumps(openapi_content))
+
+
+================================================
+File: /docs_src/graphql/tutorial001.py
+================================================
+import strawberry
+from fastapi import FastAPI
+from strawberry.fastapi import GraphQLRouter
+
+
+@strawberry.type
+class User:
+    name: str
+    age: int
+
+
+@strawberry.type
+class Query:
+    @strawberry.field
+    def user(self) -> User:
+        return User(name="Patrick", age=100)
+
+
+schema = strawberry.Schema(query=Query)
+
+
+graphql_app = GraphQLRouter(schema)
+
+app = FastAPI()
+app.include_router(graphql_app, prefix="/graphql")
+
+
+================================================
+File: /docs_src/handling_errors/tutorial001.py
+================================================
+from fastapi import FastAPI, HTTPException
+
+app = FastAPI()
+
+items = {"foo": "The Foo Wrestlers"}
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: str):
+    if item_id not in items:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return {"item": items[item_id]}
+
+
+================================================
+File: /docs_src/handling_errors/tutorial002.py
+================================================
+from fastapi import FastAPI, HTTPException
+
+app = FastAPI()
+
+items = {"foo": "The Foo Wrestlers"}
+
+
+@app.get("/items-header/{item_id}")
+async def read_item_header(item_id: str):
+    if item_id not in items:
+        raise HTTPException(
+            status_code=404,
+            detail="Item not found",
+            headers={"X-Error": "There goes my error"},
+        )
+    return {"item": items[item_id]}
+
+
+================================================
+File: /docs_src/handling_errors/tutorial003.py
+================================================
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+
+
+class UnicornException(Exception):
+    def __init__(self, name: str):
+        self.name = name
+
+
+app = FastAPI()
+
+
+@app.exception_handler(UnicornException)
+async def unicorn_exception_handler(request: Request, exc: UnicornException):
+    return JSONResponse(
+        status_code=418,
+        content={"message": f"Oops! {exc.name} did something. There goes a rainbow..."},
+    )
+
+
+@app.get("/unicorns/{name}")
+async def read_unicorn(name: str):
+    if name == "yolo":
+        raise UnicornException(name=name)
+    return {"unicorn_name": name}
+
+
+================================================
+File: /docs_src/handling_errors/tutorial004.py
+================================================
+from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import PlainTextResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
+app = FastAPI()
+
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, exc):
+    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    return PlainTextResponse(str(exc), status_code=400)
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    if item_id == 3:
+        raise HTTPException(status_code=418, detail="Nope! I don't like 3.")
+    return {"item_id": item_id}
+
+
+================================================
+File: /docs_src/handling_errors/tutorial005.py
+================================================
+from fastapi import FastAPI, Request, status
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        content=jsonable_encoder({"detail": exc.errors(), "body": exc.body}),
+    )
+
+
+class Item(BaseModel):
+    title: str
+    size: int
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/handling_errors/tutorial006.py
+================================================
+from fastapi import FastAPI, HTTPException
+from fastapi.exception_handlers import (
+    http_exception_handler,
+    request_validation_exception_handler,
+)
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
+app = FastAPI()
+
+
+@app.exception_handler(StarletteHTTPException)
+async def custom_http_exception_handler(request, exc):
+    print(f"OMG! An HTTP error!: {repr(exc)}")
+    return await http_exception_handler(request, exc)
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    print(f"OMG! The client sent invalid data!: {exc}")
+    return await request_validation_exception_handler(request, exc)
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    if item_id == 3:
+        raise HTTPException(status_code=418, detail="Nope! I don't like 3.")
+    return {"item_id": item_id}
+
+
+================================================
+File: /docs_src/header_param_models/tutorial001.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial001_an.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    host: str
+    save_data: bool
+    if_modified_since: str | None = None
+    traceparent: str | None = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial001_py310.py
+================================================
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    host: str
+    save_data: bool
+    if_modified_since: str | None = None
+    traceparent: str | None = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial001_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_an.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    host: str
+    save_data: bool
+    if_modified_since: str | None = None
+    traceparent: str | None = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_pv1.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_pv1_an.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_pv1_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    host: str
+    save_data: bool
+    if_modified_since: str | None = None
+    traceparent: str | None = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_pv1_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_pv1_py310.py
+================================================
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    host: str
+    save_data: bool
+    if_modified_since: str | None = None
+    traceparent: str | None = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_pv1_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_py310.py
+================================================
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    host: str
+    save_data: bool
+    if_modified_since: str | None = None
+    traceparent: str | None = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_param_models/tutorial002_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    host: str
+    save_data: bool
+    if_modified_since: Union[str, None] = None
+    traceparent: Union[str, None] = None
+    x_tag: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(headers: CommonHeaders = Header()):
+    return headers
+
+
+================================================
+File: /docs_src/header_params/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(user_agent: Union[str, None] = Header(default=None)):
+    return {"User-Agent": user_agent}
+
+
+================================================
+File: /docs_src/header_params/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(user_agent: Annotated[Union[str, None], Header()] = None):
+    return {"User-Agent": user_agent}
+
+
+================================================
+File: /docs_src/header_params/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(user_agent: Annotated[str | None, Header()] = None):
+    return {"User-Agent": user_agent}
+
+
+================================================
+File: /docs_src/header_params/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(user_agent: Annotated[Union[str, None], Header()] = None):
+    return {"User-Agent": user_agent}
+
+
+================================================
+File: /docs_src/header_params/tutorial001_py310.py
+================================================
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(user_agent: str | None = Header(default=None)):
+    return {"User-Agent": user_agent}
+
+
+================================================
+File: /docs_src/header_params/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    strange_header: Union[str, None] = Header(default=None, convert_underscores=False),
+):
+    return {"strange_header": strange_header}
+
+
+================================================
+File: /docs_src/header_params/tutorial002_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    strange_header: Annotated[
+        Union[str, None], Header(convert_underscores=False)
+    ] = None,
+):
+    return {"strange_header": strange_header}
+
+
+================================================
+File: /docs_src/header_params/tutorial002_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    strange_header: Annotated[str | None, Header(convert_underscores=False)] = None,
+):
+    return {"strange_header": strange_header}
+
+
+================================================
+File: /docs_src/header_params/tutorial002_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    strange_header: Annotated[
+        Union[str, None], Header(convert_underscores=False)
+    ] = None,
+):
+    return {"strange_header": strange_header}
+
+
+================================================
+File: /docs_src/header_params/tutorial002_py310.py
+================================================
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    strange_header: str | None = Header(default=None, convert_underscores=False),
+):
+    return {"strange_header": strange_header}
+
+
+================================================
+File: /docs_src/header_params/tutorial003.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(x_token: Union[List[str], None] = Header(default=None)):
+    return {"X-Token values": x_token}
+
+
+================================================
+File: /docs_src/header_params/tutorial003_an.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Header
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(x_token: Annotated[Union[List[str], None], Header()] = None):
+    return {"X-Token values": x_token}
+
+
+================================================
+File: /docs_src/header_params/tutorial003_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(x_token: Annotated[list[str] | None, Header()] = None):
+    return {"X-Token values": x_token}
+
+
+================================================
+File: /docs_src/header_params/tutorial003_an_py39.py
+================================================
+from typing import Annotated, List, Union
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(x_token: Annotated[Union[List[str], None], Header()] = None):
+    return {"X-Token values": x_token}
+
+
+================================================
+File: /docs_src/header_params/tutorial003_py310.py
+================================================
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(x_token: list[str] | None = Header(default=None)):
+    return {"X-Token values": x_token}
+
+
+================================================
+File: /docs_src/header_params/tutorial003_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(x_token: Union[list[str], None] = Header(default=None)):
+    return {"X-Token values": x_token}
+
+
+================================================
+File: /docs_src/metadata/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+description = """
+ChimichangApp API helps you do awesome stuff. 🚀
+
+## Items
+
+You can **read items**.
+
+## Users
+
+You will be able to:
+
+* **Create users** (_not implemented_).
+* **Read users** (_not implemented_).
+"""
+
+app = FastAPI(
+    title="ChimichangApp",
+    description=description,
+    summary="Deadpool's favorite app. Nuff said.",
+    version="0.0.1",
+    terms_of_service="http://example.com/terms/",
+    contact={
+        "name": "Deadpoolio the Amazing",
+        "url": "http://x-force.example.com/contact/",
+        "email": "dp@x-force.example.com",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+)
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"name": "Katana"}]
+
+
+================================================
+File: /docs_src/metadata/tutorial001_1.py
+================================================
+from fastapi import FastAPI
+
+description = """
+ChimichangApp API helps you do awesome stuff. 🚀
+
+## Items
+
+You can **read items**.
+
+## Users
+
+You will be able to:
+
+* **Create users** (_not implemented_).
+* **Read users** (_not implemented_).
+"""
+
+app = FastAPI(
+    title="ChimichangApp",
+    description=description,
+    summary="Deadpool's favorite app. Nuff said.",
+    version="0.0.1",
+    terms_of_service="http://example.com/terms/",
+    contact={
+        "name": "Deadpoolio the Amazing",
+        "url": "http://x-force.example.com/contact/",
+        "email": "dp@x-force.example.com",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "identifier": "MIT",
+    },
+)
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"name": "Katana"}]
+
+
+================================================
+File: /docs_src/metadata/tutorial002.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI(openapi_url="/api/v1/openapi.json")
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"name": "Foo"}]
+
+
+================================================
+File: /docs_src/metadata/tutorial003.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI(docs_url="/documentation", redoc_url=None)
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"name": "Foo"}]
+
+
+================================================
+File: /docs_src/metadata/tutorial004.py
+================================================
+from fastapi import FastAPI
+
+tags_metadata = [
+    {
+        "name": "users",
+        "description": "Operations with users. The **login** logic is also here.",
+    },
+    {
+        "name": "items",
+        "description": "Manage items. So _fancy_ they have their own docs.",
+        "externalDocs": {
+            "description": "Items external docs",
+            "url": "https://fastapi.tiangolo.com/",
+        },
+    },
+]
+
+app = FastAPI(openapi_tags=tags_metadata)
+
+
+@app.get("/users/", tags=["users"])
+async def get_users():
+    return [{"name": "Harry"}, {"name": "Ron"}]
+
+
+@app.get("/items/", tags=["items"])
+async def get_items():
+    return [{"name": "wand"}, {"name": "flying broom"}]
+
+
+================================================
+File: /docs_src/middleware/tutorial001.py
+================================================
+import time
+
+from fastapi import FastAPI, Request
+
+app = FastAPI()
+
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.perf_counter()
+    response = await call_next(request)
+    process_time = time.perf_counter() - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
+
+
+================================================
+File: /docs_src/openapi_callbacks/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import APIRouter, FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Invoice(BaseModel):
+    id: str
+    title: Union[str, None] = None
+    customer: str
+    total: float
+
+
+class InvoiceEvent(BaseModel):
+    description: str
+    paid: bool
+
+
+class InvoiceEventReceived(BaseModel):
+    ok: bool
+
+
+invoices_callback_router = APIRouter()
+
+
+@invoices_callback_router.post(
+    "{$callback_url}/invoices/{$request.body.id}", response_model=InvoiceEventReceived
+)
+def invoice_notification(body: InvoiceEvent):
+    pass
+
+
+@app.post("/invoices/", callbacks=invoices_callback_router.routes)
+def create_invoice(invoice: Invoice, callback_url: Union[HttpUrl, None] = None):
+    """
+    Create an invoice.
+
+    This will (let's imagine) let the API user (some external developer) create an
+    invoice.
+
+    And this path operation will:
+
+    * Send the invoice to the client.
+    * Collect the money from the client.
+    * Send a notification back to the API user (the external developer), as a callback.
+        * At this point is that the API will somehow send a POST request to the
+            external API with the notification of the invoice event
+            (e.g. "payment successful").
+    """
+    # Send the invoice, collect the money, send the notification (the callback)
+    return {"msg": "Invoice received"}
+
+
+================================================
+File: /docs_src/openapi_webhooks/tutorial001.py
+================================================
+from datetime import datetime
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Subscription(BaseModel):
+    username: str
+    monthly_fee: float
+    start_date: datetime
+
+
+@app.webhooks.post("new-subscription")
+def new_subscription(body: Subscription):
+    """
+    When a new user subscribes to your service we'll send you a POST request with this
+    data to the URL that you register for the event `new-subscription` in the dashboard.
+    """
+
+
+@app.get("/users/")
+def read_users():
+    return ["Rick", "Morty"]
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/", operation_id="some_specific_id_you_define")
+async def read_items():
+    return [{"item_id": "Foo"}]
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial002.py
+================================================
+from fastapi import FastAPI
+from fastapi.routing import APIRoute
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"item_id": "Foo"}]
+
+
+def use_route_names_as_operation_ids(app: FastAPI) -> None:
+    """
+    Simplify operation IDs so that generated API clients have simpler function
+    names.
+
+    Should be called only after all routes have been added.
+    """
+    for route in app.routes:
+        if isinstance(route, APIRoute):
+            route.operation_id = route.name  # in this case, 'read_items'
+
+
+use_route_names_as_operation_ids(app)
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial003.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/", include_in_schema=False)
+async def read_items():
+    return [{"item_id": "Foo"}]
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial004.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+
+
+@app.post("/items/", response_model=Item, summary="Create an item")
+async def create_item(item: Item):
+    """
+    Create an item with all the information:
+
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    \f
+    :param item: User input.
+    """
+    return item
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial005.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/", openapi_extra={"x-aperture-labs-portal": "blue"})
+async def read_items():
+    return [{"item_id": "portal-gun"}]
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial006.py
+================================================
+from fastapi import FastAPI, Request
+
+app = FastAPI()
+
+
+def magic_data_reader(raw_body: bytes):
+    return {
+        "size": len(raw_body),
+        "content": {
+            "name": "Maaaagic",
+            "price": 42,
+            "description": "Just kiddin', no magic here. ✨",
+        },
+    }
+
+
+@app.post(
+    "/items/",
+    openapi_extra={
+        "requestBody": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "required": ["name", "price"],
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "price": {"type": "number"},
+                            "description": {"type": "string"},
+                        },
+                    }
+                }
+            },
+            "required": True,
+        },
+    },
+)
+async def create_item(request: Request):
+    raw_body = await request.body()
+    data = magic_data_reader(raw_body)
+    return data
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial007.py
+================================================
+from typing import List
+
+import yaml
+from fastapi import FastAPI, HTTPException, Request
+from pydantic import BaseModel, ValidationError
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    tags: List[str]
+
+
+@app.post(
+    "/items/",
+    openapi_extra={
+        "requestBody": {
+            "content": {"application/x-yaml": {"schema": Item.model_json_schema()}},
+            "required": True,
+        },
+    },
+)
+async def create_item(request: Request):
+    raw_body = await request.body()
+    try:
+        data = yaml.safe_load(raw_body)
+    except yaml.YAMLError:
+        raise HTTPException(status_code=422, detail="Invalid YAML")
+    try:
+        item = Item.model_validate(data)
+    except ValidationError as e:
+        raise HTTPException(status_code=422, detail=e.errors(include_url=False))
+    return item
+
+
+================================================
+File: /docs_src/path_operation_advanced_configuration/tutorial007_pv1.py
+================================================
+from typing import List
+
+import yaml
+from fastapi import FastAPI, HTTPException, Request
+from pydantic import BaseModel, ValidationError
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    tags: List[str]
+
+
+@app.post(
+    "/items/",
+    openapi_extra={
+        "requestBody": {
+            "content": {"application/x-yaml": {"schema": Item.schema()}},
+            "required": True,
+        },
+    },
+)
+async def create_item(request: Request):
+    raw_body = await request.body()
+    try:
+        data = yaml.safe_load(raw_body)
+    except yaml.YAMLError:
+        raise HTTPException(status_code=422, detail="Invalid YAML")
+    try:
+        item = Item.parse_obj(data)
+    except ValidationError as e:
+        raise HTTPException(status_code=422, detail=e.errors())
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial001.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI, status
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+
+
+@app.post("/items/", response_model=Item, status_code=status.HTTP_201_CREATED)
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial001_py310.py
+================================================
+from fastapi import FastAPI, status
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+
+
+@app.post("/items/", response_model=Item, status_code=status.HTTP_201_CREATED)
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial001_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, status
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+
+
+@app.post("/items/", response_model=Item, status_code=status.HTTP_201_CREATED)
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial002.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+
+
+@app.post("/items/", response_model=Item, tags=["items"])
+async def create_item(item: Item):
+    return item
+
+
+@app.get("/items/", tags=["items"])
+async def read_items():
+    return [{"name": "Foo", "price": 42}]
+
+
+@app.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "johndoe"}]
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+
+
+@app.post("/items/", response_model=Item, tags=["items"])
+async def create_item(item: Item):
+    return item
+
+
+@app.get("/items/", tags=["items"])
+async def read_items():
+    return [{"name": "Foo", "price": 42}]
+
+
+@app.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "johndoe"}]
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial002_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+
+
+@app.post("/items/", response_model=Item, tags=["items"])
+async def create_item(item: Item):
+    return item
+
+
+@app.get("/items/", tags=["items"])
+async def read_items():
+    return [{"name": "Foo", "price": 42}]
+
+
+@app.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "johndoe"}]
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial002b.py
+================================================
+from enum import Enum
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+class Tags(Enum):
+    items = "items"
+    users = "users"
+
+
+@app.get("/items/", tags=[Tags.items])
+async def get_items():
+    return ["Portal gun", "Plumbus"]
+
+
+@app.get("/users/", tags=[Tags.users])
+async def read_users():
+    return ["Rick", "Morty"]
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial003.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+
+
+@app.post(
+    "/items/",
+    response_model=Item,
+    summary="Create an item",
+    description="Create an item with all the information, name, description, price, tax and a set of unique tags",
+)
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial003_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+
+
+@app.post(
+    "/items/",
+    response_model=Item,
+    summary="Create an item",
+    description="Create an item with all the information, name, description, price, tax and a set of unique tags",
+)
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial003_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+
+
+@app.post(
+    "/items/",
+    response_model=Item,
+    summary="Create an item",
+    description="Create an item with all the information, name, description, price, tax and a set of unique tags",
+)
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial004.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+
+
+@app.post("/items/", response_model=Item, summary="Create an item")
+async def create_item(item: Item):
+    """
+    Create an item with all the information:
+
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial004_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+
+
+@app.post("/items/", response_model=Item, summary="Create an item")
+async def create_item(item: Item):
+    """
+    Create an item with all the information:
+
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial004_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+
+
+@app.post("/items/", response_model=Item, summary="Create an item")
+async def create_item(item: Item):
+    """
+    Create an item with all the information:
+
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial005.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+
+
+@app.post(
+    "/items/",
+    response_model=Item,
+    summary="Create an item",
+    response_description="The created item",
+)
+async def create_item(item: Item):
+    """
+    Create an item with all the information:
+
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial005_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+
+
+@app.post(
+    "/items/",
+    response_model=Item,
+    summary="Create an item",
+    response_description="The created item",
+)
+async def create_item(item: Item):
+    """
+    Create an item with all the information:
+
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial005_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+
+
+@app.post(
+    "/items/",
+    response_model=Item,
+    summary="Create an item",
+    response_description="The created item",
+)
+async def create_item(item: Item):
+    """
+    Create an item with all the information:
+
+    - **name**: each item must have a name
+    - **description**: a long description
+    - **price**: required
+    - **tax**: if the item doesn't have tax, you can omit this
+    - **tags**: a set of unique tag strings for this item
+    """
+    return item
+
+
+================================================
+File: /docs_src/path_operation_configuration/tutorial006.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/", tags=["items"])
+async def read_items():
+    return [{"name": "Foo", "price": 42}]
+
+
+@app.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "johndoe"}]
+
+
+@app.get("/elements/", tags=["items"], deprecated=True)
+async def read_elements():
+    return [{"item_id": "Foo"}]
+
+
+================================================
+File: /docs_src/path_params/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id):
+    return {"item_id": item_id}
+
+
+================================================
+File: /docs_src/path_params/tutorial002.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    return {"item_id": item_id}
+
+
+================================================
+File: /docs_src/path_params/tutorial003.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/users/me")
+async def read_user_me():
+    return {"user_id": "the current user"}
+
+
+@app.get("/users/{user_id}")
+async def read_user(user_id: str):
+    return {"user_id": user_id}
+
+
+================================================
+File: /docs_src/path_params/tutorial003b.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/users")
+async def read_users():
+    return ["Rick", "Morty"]
+
+
+@app.get("/users")
+async def read_users2():
+    return ["Bean", "Elfo"]
+
+
+================================================
+File: /docs_src/path_params/tutorial004.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/files/{file_path:path}")
+async def read_file(file_path: str):
+    return {"file_path": file_path}
+
+
+================================================
+File: /docs_src/path_params/tutorial005.py
+================================================
+from enum import Enum
+
+from fastapi import FastAPI
+
+
+class ModelName(str, Enum):
+    alexnet = "alexnet"
+    resnet = "resnet"
+    lenet = "lenet"
+
+
+app = FastAPI()
+
+
+@app.get("/models/{model_name}")
+async def get_model(model_name: ModelName):
+    if model_name is ModelName.alexnet:
+        return {"model_name": model_name, "message": "Deep Learning FTW!"}
+
+    if model_name.value == "lenet":
+        return {"model_name": model_name, "message": "LeCNN all the images"}
+
+    return {"model_name": model_name, "message": "Have some residuals"}
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: int = Path(title="The ID of the item to get"),
+    q: Union[str, None] = Query(default=None, alias="item-query"),
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Path, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get")],
+    q: Annotated[Union[str, None], Query(alias="item-query")] = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get")],
+    q: Annotated[str | None, Query(alias="item-query")] = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get")],
+    q: Annotated[Union[str, None], Query(alias="item-query")] = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial001_py310.py
+================================================
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: int = Path(title="The ID of the item to get"),
+    q: str | None = Query(default=None, alias="item-query"),
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial002.py
+================================================
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(q: str, item_id: int = Path(title="The ID of the item to get")):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial002_an.py
+================================================
+from fastapi import FastAPI, Path
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    q: str, item_id: Annotated[int, Path(title="The ID of the item to get")]
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial002_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    q: str, item_id: Annotated[int, Path(title="The ID of the item to get")]
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial003.py
+================================================
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(*, item_id: int = Path(title="The ID of the item to get"), q: str):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial003_an.py
+================================================
+from fastapi import FastAPI, Path
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get")], q: str
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial003_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get")], q: str
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial004.py
+================================================
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    *, item_id: int = Path(title="The ID of the item to get", ge=1), q: str
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial004_an.py
+================================================
+from fastapi import FastAPI, Path
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=1)], q: str
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial004_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=1)], q: str
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial005.py
+================================================
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    *,
+    item_id: int = Path(title="The ID of the item to get", gt=0, le=1000),
+    q: str,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial005_an.py
+================================================
+from fastapi import FastAPI, Path
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get", gt=0, le=1000)],
+    q: str,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial005_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    item_id: Annotated[int, Path(title="The ID of the item to get", gt=0, le=1000)],
+    q: str,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial006.py
+================================================
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    *,
+    item_id: int = Path(title="The ID of the item to get", ge=0, le=1000),
+    q: str,
+    size: float = Query(gt=0, lt=10.5),
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if size:
+        results.update({"size": size})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial006_an.py
+================================================
+from fastapi import FastAPI, Path, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    *,
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=0, le=1000)],
+    q: str,
+    size: Annotated[float, Query(gt=0, lt=10.5)],
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if size:
+        results.update({"size": size})
+    return results
+
+
+================================================
+File: /docs_src/path_params_numeric_validations/tutorial006_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_items(
+    *,
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=0, le=1000)],
+    q: str,
+    size: Annotated[float, Query(gt=0, lt=10.5)],
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if size:
+        results.update({"size": size})
+    return results
+
+
+================================================
+File: /docs_src/python_types/tutorial001.py
+================================================
+def get_full_name(first_name, last_name):
+    full_name = first_name.title() + " " + last_name.title()
+    return full_name
+
+
+print(get_full_name("john", "doe"))
+
+
+================================================
+File: /docs_src/python_types/tutorial002.py
+================================================
+def get_full_name(first_name: str, last_name: str):
+    full_name = first_name.title() + " " + last_name.title()
+    return full_name
+
+
+print(get_full_name("john", "doe"))
+
+
+================================================
+File: /docs_src/python_types/tutorial003.py
+================================================
+def get_name_with_age(name: str, age: int):
+    name_with_age = name + " is this old: " + age
+    return name_with_age
+
+
+================================================
+File: /docs_src/python_types/tutorial004.py
+================================================
+def get_name_with_age(name: str, age: int):
+    name_with_age = name + " is this old: " + str(age)
+    return name_with_age
+
+
+================================================
+File: /docs_src/python_types/tutorial005.py
+================================================
+def get_items(item_a: str, item_b: int, item_c: float, item_d: bool, item_e: bytes):
+    return item_a, item_b, item_c, item_d, item_d, item_e
+
+
+================================================
+File: /docs_src/python_types/tutorial006.py
+================================================
+from typing import List
+
+
+def process_items(items: List[str]):
+    for item in items:
+        print(item)
+
+
+================================================
+File: /docs_src/python_types/tutorial006_py39.py
+================================================
+def process_items(items: list[str]):
+    for item in items:
+        print(item)
+
+
+================================================
+File: /docs_src/python_types/tutorial007.py
+================================================
+from typing import Set, Tuple
+
+
+def process_items(items_t: Tuple[int, int, str], items_s: Set[bytes]):
+    return items_t, items_s
+
+
+================================================
+File: /docs_src/python_types/tutorial007_py39.py
+================================================
+def process_items(items_t: tuple[int, int, str], items_s: set[bytes]):
+    return items_t, items_s
+
+
+================================================
+File: /docs_src/python_types/tutorial008.py
+================================================
+from typing import Dict
+
+
+def process_items(prices: Dict[str, float]):
+    for item_name, item_price in prices.items():
+        print(item_name)
+        print(item_price)
+
+
+================================================
+File: /docs_src/python_types/tutorial008_py39.py
+================================================
+def process_items(prices: dict[str, float]):
+    for item_name, item_price in prices.items():
+        print(item_name)
+        print(item_price)
+
+
+================================================
+File: /docs_src/python_types/tutorial008b.py
+================================================
+from typing import Union
+
+
+def process_item(item: Union[int, str]):
+    print(item)
+
+
+================================================
+File: /docs_src/python_types/tutorial008b_py310.py
+================================================
+def process_item(item: int | str):
+    print(item)
+
+
+================================================
+File: /docs_src/python_types/tutorial009.py
+================================================
+from typing import Optional
+
+
+def say_hi(name: Optional[str] = None):
+    if name is not None:
+        print(f"Hey {name}!")
+    else:
+        print("Hello World")
+
+
+================================================
+File: /docs_src/python_types/tutorial009_py310.py
+================================================
+def say_hi(name: str | None = None):
+    if name is not None:
+        print(f"Hey {name}!")
+    else:
+        print("Hello World")
+
+
+================================================
+File: /docs_src/python_types/tutorial009b.py
+================================================
+from typing import Union
+
+
+def say_hi(name: Union[str, None] = None):
+    if name is not None:
+        print(f"Hey {name}!")
+    else:
+        print("Hello World")
+
+
+================================================
+File: /docs_src/python_types/tutorial009c.py
+================================================
+from typing import Optional
+
+
+def say_hi(name: Optional[str]):
+    print(f"Hey {name}!")
+
+
+================================================
+File: /docs_src/python_types/tutorial009c_py310.py
+================================================
+def say_hi(name: str | None):
+    print(f"Hey {name}!")
+
+
+================================================
+File: /docs_src/python_types/tutorial010.py
+================================================
+class Person:
+    def __init__(self, name: str):
+        self.name = name
+
+
+def get_person_name(one_person: Person):
+    return one_person.name
+
+
+================================================
+File: /docs_src/python_types/tutorial011.py
+================================================
+from datetime import datetime
+from typing import List, Union
+
+from pydantic import BaseModel
+
+
+class User(BaseModel):
+    id: int
+    name: str = "John Doe"
+    signup_ts: Union[datetime, None] = None
+    friends: List[int] = []
+
+
+external_data = {
+    "id": "123",
+    "signup_ts": "2017-06-01 12:22",
+    "friends": [1, "2", b"3"],
+}
+user = User(**external_data)
+print(user)
+# > User id=123 name='John Doe' signup_ts=datetime.datetime(2017, 6, 1, 12, 22) friends=[1, 2, 3]
+print(user.id)
+# > 123
+
+
+================================================
+File: /docs_src/python_types/tutorial011_py310.py
+================================================
+from datetime import datetime
+
+from pydantic import BaseModel
+
+
+class User(BaseModel):
+    id: int
+    name: str = "John Doe"
+    signup_ts: datetime | None = None
+    friends: list[int] = []
+
+
+external_data = {
+    "id": "123",
+    "signup_ts": "2017-06-01 12:22",
+    "friends": [1, "2", b"3"],
+}
+user = User(**external_data)
+print(user)
+# > User id=123 name='John Doe' signup_ts=datetime.datetime(2017, 6, 1, 12, 22) friends=[1, 2, 3]
+print(user.id)
+# > 123
+
+
+================================================
+File: /docs_src/python_types/tutorial011_py39.py
+================================================
+from datetime import datetime
+from typing import Union
+
+from pydantic import BaseModel
+
+
+class User(BaseModel):
+    id: int
+    name: str = "John Doe"
+    signup_ts: Union[datetime, None] = None
+    friends: list[int] = []
+
+
+external_data = {
+    "id": "123",
+    "signup_ts": "2017-06-01 12:22",
+    "friends": [1, "2", b"3"],
+}
+user = User(**external_data)
+print(user)
+# > User id=123 name='John Doe' signup_ts=datetime.datetime(2017, 6, 1, 12, 22) friends=[1, 2, 3]
+print(user.id)
+# > 123
+
+
+================================================
+File: /docs_src/python_types/tutorial012.py
+================================================
+from typing import Optional
+
+from pydantic import BaseModel
+
+
+class User(BaseModel):
+    name: str
+    age: Optional[int]
+
+
+================================================
+File: /docs_src/python_types/tutorial013.py
+================================================
+from typing_extensions import Annotated
+
+
+def say_hello(name: Annotated[str, "this is just metadata"]) -> str:
+    return f"Hello {name}"
+
+
+================================================
+File: /docs_src/python_types/tutorial013_py39.py
+================================================
+from typing import Annotated
+
+
+def say_hello(name: Annotated[str, "this is just metadata"]) -> str:
+    return f"Hello {name}"
+
+
+================================================
+File: /docs_src/query_param_models/tutorial001.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial001_an.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Annotated, Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial001_an_py310.py
+================================================
+from typing import Annotated, Literal
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial001_an_py39.py
+================================================
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Annotated, Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial001_py310.py
+================================================
+from typing import Literal
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial001_py39.py
+================================================
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_an.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Annotated, Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_an_py310.py
+================================================
+from typing import Annotated, Literal
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_an_py39.py
+================================================
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Annotated, Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_pv1.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_pv1_an.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Annotated, Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: List[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_pv1_an_py310.py
+================================================
+from typing import Annotated, Literal
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_pv1_an_py39.py
+================================================
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Annotated, Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_pv1_py310.py
+================================================
+from typing import Literal
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_pv1_py39.py
+================================================
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_py310.py
+================================================
+from typing import Literal
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_param_models/tutorial002_py39.py
+================================================
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+from typing_extensions import Literal
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal["created_at", "updated_at"] = "created_at"
+    tags: list[str] = []
+
+
+@app.get("/items/")
+async def read_items(filter_query: FilterParams = Query()):
+    return filter_query
+
+
+================================================
+File: /docs_src/query_params/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+@app.get("/items/")
+async def read_item(skip: int = 0, limit: int = 10):
+    return fake_items_db[skip : skip + limit]
+
+
+================================================
+File: /docs_src/query_params/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: str, q: Union[str, None] = None):
+    if q:
+        return {"item_id": item_id, "q": q}
+    return {"item_id": item_id}
+
+
+================================================
+File: /docs_src/query_params/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: str, q: str | None = None):
+    if q:
+        return {"item_id": item_id, "q": q}
+    return {"item_id": item_id}
+
+
+================================================
+File: /docs_src/query_params/tutorial003.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: str, q: Union[str, None] = None, short: bool = False):
+    item = {"item_id": item_id}
+    if q:
+        item.update({"q": q})
+    if not short:
+        item.update(
+            {"description": "This is an amazing item that has a long description"}
+        )
+    return item
+
+
+================================================
+File: /docs_src/query_params/tutorial003_py310.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: str, q: str | None = None, short: bool = False):
+    item = {"item_id": item_id}
+    if q:
+        item.update({"q": q})
+    if not short:
+        item.update(
+            {"description": "This is an amazing item that has a long description"}
+        )
+    return item
+
+
+================================================
+File: /docs_src/query_params/tutorial004.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/users/{user_id}/items/{item_id}")
+async def read_user_item(
+    user_id: int, item_id: str, q: Union[str, None] = None, short: bool = False
+):
+    item = {"item_id": item_id, "owner_id": user_id}
+    if q:
+        item.update({"q": q})
+    if not short:
+        item.update(
+            {"description": "This is an amazing item that has a long description"}
+        )
+    return item
+
+
+================================================
+File: /docs_src/query_params/tutorial004_py310.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/users/{user_id}/items/{item_id}")
+async def read_user_item(
+    user_id: int, item_id: str, q: str | None = None, short: bool = False
+):
+    item = {"item_id": item_id, "owner_id": user_id}
+    if q:
+        item.update({"q": q})
+    if not short:
+        item.update(
+            {"description": "This is an amazing item that has a long description"}
+        )
+    return item
+
+
+================================================
+File: /docs_src/query_params/tutorial005.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_user_item(item_id: str, needy: str):
+    item = {"item_id": item_id, "needy": needy}
+    return item
+
+
+================================================
+File: /docs_src/query_params/tutorial006.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_user_item(
+    item_id: str, needy: str, skip: int = 0, limit: Union[int, None] = None
+):
+    item = {"item_id": item_id, "needy": needy, "skip": skip, "limit": limit}
+    return item
+
+
+================================================
+File: /docs_src/query_params/tutorial006_py310.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_user_item(
+    item_id: str, needy: str, skip: int = 0, limit: int | None = None
+):
+    item = {"item_id": item_id, "needy": needy, "skip": skip, "limit": limit}
+    return item
+
+
+================================================
+File: /docs_src/query_params/tutorial006b.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_user_item(
+    item_id: str, needy: str, skip: int = 0, limit: Union[int, None] = None
+):
+    item = {"item_id": item_id, "needy": needy, "skip": skip, "limit": limit}
+    return item
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Union[str, None] = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial001_py310.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str | None = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Union[str, None] = Query(default=None, max_length=50)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial002_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[Union[str, None], Query(max_length=50)] = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial002_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str | None, Query(max_length=50)] = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial002_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str | None = Query(default=None, max_length=50)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial003.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Union[str, None] = Query(default=None, min_length=3, max_length=50),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial003_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[Union[str, None], Query(min_length=3, max_length=50)] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial003_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[str | None, Query(min_length=3, max_length=50)] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial003_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[Union[str, None], Query(min_length=3, max_length=50)] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial003_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str | None = Query(default=None, min_length=3, max_length=50)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial004.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Union[str, None] = Query(
+        default=None, min_length=3, max_length=50, pattern="^fixedquery$"
+    ),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial004_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        Union[str, None], Query(min_length=3, max_length=50, pattern="^fixedquery$")
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial004_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        str | None, Query(min_length=3, max_length=50, pattern="^fixedquery$")
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial004_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        Union[str, None], Query(min_length=3, max_length=50, pattern="^fixedquery$")
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial004_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: str | None = Query(
+        default=None, min_length=3, max_length=50, pattern="^fixedquery$"
+    ),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial004_regex_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        str | None, Query(min_length=3, max_length=50, regex="^fixedquery$")
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial005.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str = Query(default="fixedquery", min_length=3)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial005_an.py
+================================================
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)] = "fixedquery"):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial005_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)] = "fixedquery"):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str = Query(min_length=3)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006_an.py
+================================================
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)]):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)]):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006b.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str = Query(default=..., min_length=3)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006b_an.py
+================================================
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)] = ...):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006b_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)] = ...):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006c.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Union[str, None] = Query(default=..., min_length=3)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006c_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[Union[str, None], Query(min_length=3)] = ...):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006c_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str | None, Query(min_length=3)] = ...):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006c_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[Union[str, None], Query(min_length=3)] = ...):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006c_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str | None = Query(default=..., min_length=3)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006d.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str = Query(default=..., min_length=3)):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006d_an.py
+================================================
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)] = ...):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial006d_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str, Query(min_length=3)] = ...):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial007.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Union[str, None] = Query(default=None, title="Query string", min_length=3),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial007_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[Union[str, None], Query(title="Query string", min_length=3)] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial007_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[str | None, Query(title="Query string", min_length=3)] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial007_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[Union[str, None], Query(title="Query string", min_length=3)] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial007_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: str | None = Query(default=None, title="Query string", min_length=3),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial008.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Union[str, None] = Query(
+        default=None,
+        title="Query string",
+        description="Query string for the items to search in the database that have a good match",
+        min_length=3,
+    ),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial008_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        Union[str, None],
+        Query(
+            title="Query string",
+            description="Query string for the items to search in the database that have a good match",
+            min_length=3,
+        ),
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial008_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        str | None,
+        Query(
+            title="Query string",
+            description="Query string for the items to search in the database that have a good match",
+            min_length=3,
+        ),
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial008_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        Union[str, None],
+        Query(
+            title="Query string",
+            description="Query string for the items to search in the database that have a good match",
+            min_length=3,
+        ),
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial008_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: str | None = Query(
+        default=None,
+        title="Query string",
+        description="Query string for the items to search in the database that have a good match",
+        min_length=3,
+    ),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial009.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Union[str, None] = Query(default=None, alias="item-query")):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial009_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[Union[str, None], Query(alias="item-query")] = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial009_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[str | None, Query(alias="item-query")] = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial009_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[Union[str, None], Query(alias="item-query")] = None):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial009_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: str | None = Query(default=None, alias="item-query")):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial010.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Union[str, None] = Query(
+        default=None,
+        alias="item-query",
+        title="Query string",
+        description="Query string for the items to search in the database that have a good match",
+        min_length=3,
+        max_length=50,
+        pattern="^fixedquery$",
+        deprecated=True,
+    ),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial010_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        Union[str, None],
+        Query(
+            alias="item-query",
+            title="Query string",
+            description="Query string for the items to search in the database that have a good match",
+            min_length=3,
+            max_length=50,
+            pattern="^fixedquery$",
+            deprecated=True,
+        ),
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial010_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        str | None,
+        Query(
+            alias="item-query",
+            title="Query string",
+            description="Query string for the items to search in the database that have a good match",
+            min_length=3,
+            max_length=50,
+            pattern="^fixedquery$",
+            deprecated=True,
+        ),
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial010_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: Annotated[
+        Union[str, None],
+        Query(
+            alias="item-query",
+            title="Query string",
+            description="Query string for the items to search in the database that have a good match",
+            min_length=3,
+            max_length=50,
+            pattern="^fixedquery$",
+            deprecated=True,
+        ),
+    ] = None,
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial010_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    q: str | None = Query(
+        default=None,
+        alias="item-query",
+        title="Query string",
+        description="Query string for the items to search in the database that have a good match",
+        min_length=3,
+        max_length=50,
+        pattern="^fixedquery$",
+        deprecated=True,
+    ),
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial011.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Union[List[str], None] = Query(default=None)):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial011_an.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[Union[List[str], None], Query()] = None):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial011_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[list[str] | None, Query()] = None):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial011_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[Union[list[str], None], Query()] = None):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial011_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: list[str] | None = Query(default=None)):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial011_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Union[list[str], None] = Query(default=None)):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial012.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: List[str] = Query(default=["foo", "bar"])):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial012_an.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[List[str], Query()] = ["foo", "bar"]):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial012_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[list[str], Query()] = ["foo", "bar"]):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial012_py39.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: list[str] = Query(default=["foo", "bar"])):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial013.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: list = Query(default=[])):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial013_an.py
+================================================
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[list, Query()] = []):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial013_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(q: Annotated[list, Query()] = []):
+    query_items = {"q": q}
+    return query_items
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial014.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    hidden_query: Union[str, None] = Query(default=None, include_in_schema=False),
+):
+    if hidden_query:
+        return {"hidden_query": hidden_query}
+    else:
+        return {"hidden_query": "Not found"}
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial014_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Query
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    hidden_query: Annotated[Union[str, None], Query(include_in_schema=False)] = None,
+):
+    if hidden_query:
+        return {"hidden_query": hidden_query}
+    else:
+        return {"hidden_query": "Not found"}
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial014_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    hidden_query: Annotated[str | None, Query(include_in_schema=False)] = None,
+):
+    if hidden_query:
+        return {"hidden_query": hidden_query}
+    else:
+        return {"hidden_query": "Not found"}
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial014_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    hidden_query: Annotated[Union[str, None], Query(include_in_schema=False)] = None,
+):
+    if hidden_query:
+        return {"hidden_query": hidden_query}
+    else:
+        return {"hidden_query": "Not found"}
+
+
+================================================
+File: /docs_src/query_params_str_validations/tutorial014_py310.py
+================================================
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(
+    hidden_query: str | None = Query(default=None, include_in_schema=False),
+):
+    if hidden_query:
+        return {"hidden_query": hidden_query}
+    else:
+        return {"hidden_query": "Not found"}
+
+
+================================================
+File: /docs_src/request_files/tutorial001.py
+================================================
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: bytes = File()):
+    return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_02.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Union[bytes, None] = File(default=None)):
+    if not file:
+        return {"message": "No file sent"}
+    else:
+        return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: Union[UploadFile, None] = None):
+    if not file:
+        return {"message": "No upload file sent"}
+    else:
+        return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_02_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, File, UploadFile
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Annotated[Union[bytes, None], File()] = None):
+    if not file:
+        return {"message": "No file sent"}
+    else:
+        return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: Union[UploadFile, None] = None):
+    if not file:
+        return {"message": "No upload file sent"}
+    else:
+        return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_02_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Annotated[bytes | None, File()] = None):
+    if not file:
+        return {"message": "No file sent"}
+    else:
+        return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile | None = None):
+    if not file:
+        return {"message": "No upload file sent"}
+    else:
+        return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_02_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Annotated[Union[bytes, None], File()] = None):
+    if not file:
+        return {"message": "No file sent"}
+    else:
+        return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: Union[UploadFile, None] = None):
+    if not file:
+        return {"message": "No upload file sent"}
+    else:
+        return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_02_py310.py
+================================================
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: bytes | None = File(default=None)):
+    if not file:
+        return {"message": "No file sent"}
+    else:
+        return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile | None = None):
+    if not file:
+        return {"message": "No upload file sent"}
+    else:
+        return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_03.py
+================================================
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: bytes = File(description="A file read as bytes")):
+    return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(
+    file: UploadFile = File(description="A file read as UploadFile"),
+):
+    return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_03_an.py
+================================================
+from fastapi import FastAPI, File, UploadFile
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Annotated[bytes, File(description="A file read as bytes")]):
+    return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(
+    file: Annotated[UploadFile, File(description="A file read as UploadFile")],
+):
+    return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_03_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Annotated[bytes, File(description="A file read as bytes")]):
+    return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(
+    file: Annotated[UploadFile, File(description="A file read as UploadFile")],
+):
+    return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_an.py
+================================================
+from fastapi import FastAPI, File, UploadFile
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Annotated[bytes, File()]):
+    return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial001_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, File, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(file: Annotated[bytes, File()]):
+    return {"file_size": len(file)}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile):
+    return {"filename": file.filename}
+
+
+================================================
+File: /docs_src/request_files/tutorial002.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(files: List[bytes] = File()):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(files: List[UploadFile]):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_files/tutorial002_an.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(files: Annotated[List[bytes], File()]):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(files: List[UploadFile]):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_files/tutorial002_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(files: Annotated[list[bytes], File()]):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(files: list[UploadFile]):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_files/tutorial002_py39.py
+================================================
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(files: list[bytes] = File()):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(files: list[UploadFile]):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_files/tutorial003.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(
+    files: List[bytes] = File(description="Multiple files as bytes"),
+):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(
+    files: List[UploadFile] = File(description="Multiple files as UploadFile"),
+):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_files/tutorial003_an.py
+================================================
+from typing import List
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(
+    files: Annotated[List[bytes], File(description="Multiple files as bytes")],
+):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(
+    files: Annotated[
+        List[UploadFile], File(description="Multiple files as UploadFile")
+    ],
+):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_files/tutorial003_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(
+    files: Annotated[list[bytes], File(description="Multiple files as bytes")],
+):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(
+    files: Annotated[
+        list[UploadFile], File(description="Multiple files as UploadFile")
+    ],
+):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_files/tutorial003_py39.py
+================================================
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_files(
+    files: list[bytes] = File(description="Multiple files as bytes"),
+):
+    return {"file_sizes": [len(file) for file in files]}
+
+
+@app.post("/uploadfiles/")
+async def create_upload_files(
+    files: list[UploadFile] = File(description="Multiple files as UploadFile"),
+):
+    return {"filenames": [file.filename for file in files]}
+
+
+@app.get("/")
+async def main():
+    content = """
+<body>
+<form action="/files/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+<form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+<input name="files" type="file" multiple>
+<input type="submit">
+</form>
+</body>
+    """
+    return HTMLResponse(content=content)
+
+
+================================================
+File: /docs_src/request_form_models/tutorial001.py
+================================================
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/login/")
+async def login(data: FormData = Form()):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial001_an.py
+================================================
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/login/")
+async def login(data: Annotated[FormData, Form()]):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial001_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/login/")
+async def login(data: Annotated[FormData, Form()]):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial002.py
+================================================
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+    model_config = {"extra": "forbid"}
+
+
+@app.post("/login/")
+async def login(data: FormData = Form()):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial002_an.py
+================================================
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+    model_config = {"extra": "forbid"}
+
+
+@app.post("/login/")
+async def login(data: Annotated[FormData, Form()]):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial002_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+    model_config = {"extra": "forbid"}
+
+
+@app.post("/login/")
+async def login(data: Annotated[FormData, Form()]):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial002_pv1.py
+================================================
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+
+    class Config:
+        extra = "forbid"
+
+
+@app.post("/login/")
+async def login(data: FormData = Form()):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial002_pv1_an.py
+================================================
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+
+    class Config:
+        extra = "forbid"
+
+
+@app.post("/login/")
+async def login(data: Annotated[FormData, Form()]):
+    return data
+
+
+================================================
+File: /docs_src/request_form_models/tutorial002_pv1_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Form
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class FormData(BaseModel):
+    username: str
+    password: str
+
+    class Config:
+        extra = "forbid"
+
+
+@app.post("/login/")
+async def login(data: Annotated[FormData, Form()]):
+    return data
+
+
+================================================
+File: /docs_src/request_forms/tutorial001.py
+================================================
+from fastapi import FastAPI, Form
+
+app = FastAPI()
+
+
+@app.post("/login/")
+async def login(username: str = Form(), password: str = Form()):
+    return {"username": username}
+
+
+================================================
+File: /docs_src/request_forms/tutorial001_an.py
+================================================
+from fastapi import FastAPI, Form
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.post("/login/")
+async def login(username: Annotated[str, Form()], password: Annotated[str, Form()]):
+    return {"username": username}
+
+
+================================================
+File: /docs_src/request_forms/tutorial001_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Form
+
+app = FastAPI()
+
+
+@app.post("/login/")
+async def login(username: Annotated[str, Form()], password: Annotated[str, Form()]):
+    return {"username": username}
+
+
+================================================
+File: /docs_src/request_forms_and_files/tutorial001.py
+================================================
+from fastapi import FastAPI, File, Form, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(
+    file: bytes = File(), fileb: UploadFile = File(), token: str = Form()
+):
+    return {
+        "file_size": len(file),
+        "token": token,
+        "fileb_content_type": fileb.content_type,
+    }
+
+
+================================================
+File: /docs_src/request_forms_and_files/tutorial001_an.py
+================================================
+from fastapi import FastAPI, File, Form, UploadFile
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(
+    file: Annotated[bytes, File()],
+    fileb: Annotated[UploadFile, File()],
+    token: Annotated[str, Form()],
+):
+    return {
+        "file_size": len(file),
+        "token": token,
+        "fileb_content_type": fileb.content_type,
+    }
+
+
+================================================
+File: /docs_src/request_forms_and_files/tutorial001_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, File, Form, UploadFile
+
+app = FastAPI()
+
+
+@app.post("/files/")
+async def create_file(
+    file: Annotated[bytes, File()],
+    fileb: Annotated[UploadFile, File()],
+    token: Annotated[str, Form()],
+):
+    return {
+        "file_size": len(file),
+        "token": token,
+        "fileb_content_type": fileb.content_type,
+    }
+
+
+================================================
+File: /docs_src/response_change_status_code/tutorial001.py
+================================================
+from fastapi import FastAPI, Response, status
+
+app = FastAPI()
+
+tasks = {"foo": "Listen to the Bar Fighters"}
+
+
+@app.put("/get-or-create-task/{task_id}", status_code=200)
+def get_or_create_task(task_id: str, response: Response):
+    if task_id not in tasks:
+        tasks[task_id] = "This didn't exist before"
+        response.status_code = status.HTTP_201_CREATED
+    return tasks[task_id]
+
+
+================================================
+File: /docs_src/response_cookies/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+
+@app.post("/cookie/")
+def create_cookie():
+    content = {"message": "Come to the dark side, we have cookies"}
+    response = JSONResponse(content=content)
+    response.set_cookie(key="fakesession", value="fake-cookie-session-value")
+    return response
+
+
+================================================
+File: /docs_src/response_cookies/tutorial002.py
+================================================
+from fastapi import FastAPI, Response
+
+app = FastAPI()
+
+
+@app.post("/cookie-and-object/")
+def create_cookie(response: Response):
+    response.set_cookie(key="fakesession", value="fake-cookie-session-value")
+    return {"message": "Come to the dark side, we have cookies"}
+
+
+================================================
+File: /docs_src/response_directly/tutorial001.py
+================================================
+from datetime import datetime
+from typing import Union
+
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    title: str
+    timestamp: datetime
+    description: Union[str, None] = None
+
+
+app = FastAPI()
+
+
+@app.put("/items/{id}")
+def update_item(id: str, item: Item):
+    json_compatible_item_data = jsonable_encoder(item)
+    return JSONResponse(content=json_compatible_item_data)
+
+
+================================================
+File: /docs_src/response_directly/tutorial002.py
+================================================
+from fastapi import FastAPI, Response
+
+app = FastAPI()
+
+
+@app.get("/legacy/")
+def get_legacy_data():
+    data = """<?xml version="1.0"?>
+    <shampoo>
+    <Header>
+        Apply shampoo here.
+    </Header>
+    <Body>
+        You'll have to use soap here.
+    </Body>
+    </shampoo>
+    """
+    return Response(content=data, media_type="application/xml")
+
+
+================================================
+File: /docs_src/response_headers/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+
+@app.get("/headers/")
+def get_headers():
+    content = {"message": "Hello World"}
+    headers = {"X-Cat-Dog": "alone in the world", "Content-Language": "en-US"}
+    return JSONResponse(content=content, headers=headers)
+
+
+================================================
+File: /docs_src/response_headers/tutorial002.py
+================================================
+from fastapi import FastAPI, Response
+
+app = FastAPI()
+
+
+@app.get("/headers-and-object/")
+def get_headers(response: Response):
+    response.headers["X-Cat-Dog"] = "alone in the world"
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/response_model/tutorial001.py
+================================================
+from typing import Any, List, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: List[str] = []
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item) -> Any:
+    return item
+
+
+@app.get("/items/", response_model=List[Item])
+async def read_items() -> Any:
+    return [
+        {"name": "Portal Gun", "price": 42.0},
+        {"name": "Plumbus", "price": 32.0},
+    ]
+
+
+================================================
+File: /docs_src/response_model/tutorial001_01.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: List[str] = []
+
+
+@app.post("/items/")
+async def create_item(item: Item) -> Item:
+    return item
+
+
+@app.get("/items/")
+async def read_items() -> List[Item]:
+    return [
+        Item(name="Portal Gun", price=42.0),
+        Item(name="Plumbus", price=32.0),
+    ]
+
+
+================================================
+File: /docs_src/response_model/tutorial001_01_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: list[str] = []
+
+
+@app.post("/items/")
+async def create_item(item: Item) -> Item:
+    return item
+
+
+@app.get("/items/")
+async def read_items() -> list[Item]:
+    return [
+        Item(name="Portal Gun", price=42.0),
+        Item(name="Plumbus", price=32.0),
+    ]
+
+
+================================================
+File: /docs_src/response_model/tutorial001_01_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: list[str] = []
+
+
+@app.post("/items/")
+async def create_item(item: Item) -> Item:
+    return item
+
+
+@app.get("/items/")
+async def read_items() -> list[Item]:
+    return [
+        Item(name="Portal Gun", price=42.0),
+        Item(name="Plumbus", price=32.0),
+    ]
+
+
+================================================
+File: /docs_src/response_model/tutorial001_py310.py
+================================================
+from typing import Any
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: list[str] = []
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item) -> Any:
+    return item
+
+
+@app.get("/items/", response_model=list[Item])
+async def read_items() -> Any:
+    return [
+        {"name": "Portal Gun", "price": 42.0},
+        {"name": "Plumbus", "price": 32.0},
+    ]
+
+
+================================================
+File: /docs_src/response_model/tutorial001_py39.py
+================================================
+from typing import Any, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: list[str] = []
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item) -> Any:
+    return item
+
+
+@app.get("/items/", response_model=list[Item])
+async def read_items() -> Any:
+    return [
+        {"name": "Portal Gun", "price": 42.0},
+        {"name": "Plumbus", "price": 32.0},
+    ]
+
+
+================================================
+File: /docs_src/response_model/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+# Don't do this in production!
+@app.post("/user/")
+async def create_user(user: UserIn) -> UserIn:
+    return user
+
+
+================================================
+File: /docs_src/response_model/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+# Don't do this in production!
+@app.post("/user/")
+async def create_user(user: UserIn) -> UserIn:
+    return user
+
+
+================================================
+File: /docs_src/response_model/tutorial003.py
+================================================
+from typing import Any, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+class UserOut(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+@app.post("/user/", response_model=UserOut)
+async def create_user(user: UserIn) -> Any:
+    return user
+
+
+================================================
+File: /docs_src/response_model/tutorial003_01.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class BaseUser(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+class UserIn(BaseUser):
+    password: str
+
+
+@app.post("/user/")
+async def create_user(user: UserIn) -> BaseUser:
+    return user
+
+
+================================================
+File: /docs_src/response_model/tutorial003_01_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class BaseUser(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+class UserIn(BaseUser):
+    password: str
+
+
+@app.post("/user/")
+async def create_user(user: UserIn) -> BaseUser:
+    return user
+
+
+================================================
+File: /docs_src/response_model/tutorial003_02.py
+================================================
+from fastapi import FastAPI, Response
+from fastapi.responses import JSONResponse, RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/portal")
+async def get_portal(teleport: bool = False) -> Response:
+    if teleport:
+        return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return JSONResponse(content={"message": "Here's your interdimensional portal."})
+
+
+================================================
+File: /docs_src/response_model/tutorial003_03.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/teleport")
+async def get_teleport() -> RedirectResponse:
+    return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+
+================================================
+File: /docs_src/response_model/tutorial003_04.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Response
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/portal")
+async def get_portal(teleport: bool = False) -> Union[Response, dict]:
+    if teleport:
+        return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return {"message": "Here's your interdimensional portal."}
+
+
+================================================
+File: /docs_src/response_model/tutorial003_04_py310.py
+================================================
+from fastapi import FastAPI, Response
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/portal")
+async def get_portal(teleport: bool = False) -> Response | dict:
+    if teleport:
+        return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return {"message": "Here's your interdimensional portal."}
+
+
+================================================
+File: /docs_src/response_model/tutorial003_05.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Response
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/portal", response_model=None)
+async def get_portal(teleport: bool = False) -> Union[Response, dict]:
+    if teleport:
+        return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return {"message": "Here's your interdimensional portal."}
+
+
+================================================
+File: /docs_src/response_model/tutorial003_05_py310.py
+================================================
+from fastapi import FastAPI, Response
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/portal", response_model=None)
+async def get_portal(teleport: bool = False) -> Response | dict:
+    if teleport:
+        return RedirectResponse(url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    return {"message": "Here's your interdimensional portal."}
+
+
+================================================
+File: /docs_src/response_model/tutorial003_py310.py
+================================================
+from typing import Any
+
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+class UserOut(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+@app.post("/user/", response_model=UserOut)
+async def create_user(user: UserIn) -> Any:
+    return user
+
+
+================================================
+File: /docs_src/response_model/tutorial004.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: float = 10.5
+    tags: List[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/response_model/tutorial004_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float = 10.5
+    tags: list[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/response_model/tutorial004_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: float = 10.5
+    tags: list[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/response_model/tutorial005.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: float = 10.5
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The Bar fighters", "price": 62, "tax": 20.2},
+    "baz": {
+        "name": "Baz",
+        "description": "There goes my baz",
+        "price": 50.2,
+        "tax": 10.5,
+    },
+}
+
+
+@app.get(
+    "/items/{item_id}/name",
+    response_model=Item,
+    response_model_include={"name", "description"},
+)
+async def read_item_name(item_id: str):
+    return items[item_id]
+
+
+@app.get("/items/{item_id}/public", response_model=Item, response_model_exclude={"tax"})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/response_model/tutorial005_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float = 10.5
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The Bar fighters", "price": 62, "tax": 20.2},
+    "baz": {
+        "name": "Baz",
+        "description": "There goes my baz",
+        "price": 50.2,
+        "tax": 10.5,
+    },
+}
+
+
+@app.get(
+    "/items/{item_id}/name",
+    response_model=Item,
+    response_model_include={"name", "description"},
+)
+async def read_item_name(item_id: str):
+    return items[item_id]
+
+
+@app.get("/items/{item_id}/public", response_model=Item, response_model_exclude={"tax"})
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/response_model/tutorial006.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: float = 10.5
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The Bar fighters", "price": 62, "tax": 20.2},
+    "baz": {
+        "name": "Baz",
+        "description": "There goes my baz",
+        "price": 50.2,
+        "tax": 10.5,
+    },
+}
+
+
+@app.get(
+    "/items/{item_id}/name",
+    response_model=Item,
+    response_model_include=["name", "description"],
+)
+async def read_item_name(item_id: str):
+    return items[item_id]
+
+
+@app.get("/items/{item_id}/public", response_model=Item, response_model_exclude=["tax"])
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/response_model/tutorial006_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float = 10.5
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The Bar fighters", "price": 62, "tax": 20.2},
+    "baz": {
+        "name": "Baz",
+        "description": "There goes my baz",
+        "price": 50.2,
+        "tax": 10.5,
+    },
+}
+
+
+@app.get(
+    "/items/{item_id}/name",
+    response_model=Item,
+    response_model_include=["name", "description"],
+)
+async def read_item_name(item_id: str):
+    return items[item_id]
+
+
+@app.get("/items/{item_id}/public", response_model=Item, response_model_exclude=["tax"])
+async def read_item_public_data(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/response_status_code/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.post("/items/", status_code=201)
+async def create_item(name: str):
+    return {"name": name}
+
+
+================================================
+File: /docs_src/response_status_code/tutorial002.py
+================================================
+from fastapi import FastAPI, status
+
+app = FastAPI()
+
+
+@app.post("/items/", status_code=status.HTTP_201_CREATED)
+async def create_item(name: str):
+    return {"name": name}
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "name": "Foo",
+                    "description": "A very nice Item",
+                    "price": 35.4,
+                    "tax": 3.2,
+                }
+            ]
+        }
+    }
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial001_pv1.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+    class Config:
+        schema_extra = {
+            "examples": [
+                {
+                    "name": "Foo",
+                    "description": "A very nice Item",
+                    "price": 35.4,
+                    "tax": 3.2,
+                }
+            ]
+        }
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial001_pv1_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+    class Config:
+        schema_extra = {
+            "examples": [
+                {
+                    "name": "Foo",
+                    "description": "A very nice Item",
+                    "price": 35.4,
+                    "tax": 3.2,
+                }
+            ]
+        }
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial001_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "name": "Foo",
+                    "description": "A very nice Item",
+                    "price": 35.4,
+                    "tax": 3.2,
+                }
+            ]
+        }
+    }
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str = Field(examples=["Foo"])
+    description: Union[str, None] = Field(default=None, examples=["A very nice Item"])
+    price: float = Field(examples=[35.4])
+    tax: Union[float, None] = Field(default=None, examples=[3.2])
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str = Field(examples=["Foo"])
+    description: str | None = Field(default=None, examples=["A very nice Item"])
+    price: float = Field(examples=[35.4])
+    tax: float | None = Field(default=None, examples=[3.2])
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial003.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int,
+    item: Item = Body(
+        examples=[
+            {
+                "name": "Foo",
+                "description": "A very nice Item",
+                "price": 35.4,
+                "tax": 3.2,
+            }
+        ],
+    ),
+):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial003_an.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int,
+    item: Annotated[
+        Item,
+        Body(
+            examples=[
+                {
+                    "name": "Foo",
+                    "description": "A very nice Item",
+                    "price": 35.4,
+                    "tax": 3.2,
+                }
+            ],
+        ),
+    ],
+):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial003_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int,
+    item: Annotated[
+        Item,
+        Body(
+            examples=[
+                {
+                    "name": "Foo",
+                    "description": "A very nice Item",
+                    "price": 35.4,
+                    "tax": 3.2,
+                }
+            ],
+        ),
+    ],
+):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial003_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int,
+    item: Annotated[
+        Item,
+        Body(
+            examples=[
+                {
+                    "name": "Foo",
+                    "description": "A very nice Item",
+                    "price": 35.4,
+                    "tax": 3.2,
+                }
+            ],
+        ),
+    ],
+):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/schema_extra_example/tutorial003_py310.py
+================================================
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int,
+    item: Item = Body(
+        examples=[
+            {
+                "name": "Foo",
+                "description": "A very nice Item",
+                "price": 35.4,
+                "tax": 3.2,
+            }
+        ],
+    ),

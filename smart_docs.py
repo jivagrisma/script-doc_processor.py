@@ -1,381 +1,183 @@
-import os
-import chromadb
-from chromadb.config import Settings
-from typing import List, Dict, Optional, Any, Tuple
-import json
-import re
-from dataclasses import dataclass
-from tqdm import tqdm
+#!/usr/bin/env python3
+from typing import Dict, List, Optional
 import argparse
+from pathlib import Path
+from loguru import logger
+import sys
+from concurrent.futures import ThreadPoolExecutor
 import time
 
-@dataclass
-class DocumentChunk:
-    content: str
-    metadata: Dict[str, Any]
-    chunk_id: int
-    total_chunks: int
+from src.processors.text_processor import TextProcessor
+from src.storage.vector_store import VectorStore
+from src.utils.file_handler import FileHandler
+from src.utils.initialize_nltk import download_nltk_resources
+from src.config import OPTIMIZATION_SETTINGS
 
-class SmartDocumentManager:
-    def __init__(self, persist_directory: str = "./chroma_db", reset: bool = False):
+class SmartDocs:
+    """
+    Procesador inteligente de documentación con optimizaciones de rendimiento.
+    """
+    def __init__(self):
+        self.setup_logging()
+        self.initialize_resources()
+        self.file_handler = FileHandler()
+        self.text_processor = TextProcessor()
+        self.vector_store = VectorStore()
+        self.batch_size = OPTIMIZATION_SETTINGS["batch_size"]
+
+    def setup_logging(self):
         """
-        Inicializa el gestor de documentos con ChromaDB
+        Configura el sistema de logging.
         """
-        self.persist_directory = persist_directory
-        os.makedirs(persist_directory, exist_ok=True)
-        
-        settings = Settings(
-            anonymized_telemetry=False,
-            allow_reset=True,
-            is_persistent=True
+        logger.remove()
+        logger.add(
+            sys.stderr,
+            format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
+            level="INFO"
         )
-        
-        self.client = chromadb.PersistentClient(
-            path=persist_directory,
-            settings=settings
-        )
-        
-        # Configuración de chunks
-        self.max_chunk_size = 4000  # Caracteres por chunk
-        self.overlap = 200  # Solapamiento entre chunks para mantener contexto
-        
-        # Obtener o crear colección
-        self.collection = self.get_or_create_collection(reset)
 
-    def get_or_create_collection(self, reset: bool = False):
+    def initialize_resources(self):
         """
-        Obtiene la colección existente o crea una nueva
-        """
-        collection_name = "smart_docs"
-        
-        if reset:
-            try:
-                self.client.delete_collection(collection_name)
-                time.sleep(1)  # Dar tiempo para que se complete la eliminación
-            except Exception as e:
-                print(f"Error al eliminar colección: {str(e)}")
-        
-        try:
-            return self.client.get_collection(collection_name)
-        except:
-            try:
-                return self.client.create_collection(
-                    name=collection_name,
-                    metadata={"hnsw:space": "cosine"}
-                )
-            except Exception as e:
-                print(f"Error al crear colección: {str(e)}")
-                # Si todo falla, crear una colección con nombre único
-                return self.client.create_collection(
-                    name=f"{collection_name}_{os.urandom(4).hex()}",
-                    metadata={"hnsw:space": "cosine"}
-                )
-
-    def preprocess_content(self, content: str) -> str:
-        """
-        Preprocesa el contenido del documento
-        """
-        # Eliminar múltiples espacios en blanco y saltos de línea
-        content = re.sub(r'\s+', ' ', content)
-        return content.strip()
-
-    def chunk_document(self, content: str, metadata: Dict) -> List[DocumentChunk]:
-        """
-        Divide un documento en chunks más pequeños con solapamiento
-        """
-        content = self.preprocess_content(content)
-        chunks = []
-        
-        # Dividir en chunks con solapamiento
-        start = 0
-        chunk_id = 0
-        while start < len(content):
-            # Calcular el final del chunk actual
-            end = start + self.max_chunk_size
-            
-            # Si no es el último chunk, ajustar para no cortar palabras
-            if end < len(content):
-                # Buscar el último espacio dentro del solapamiento
-                last_space = content.rfind(' ', end - self.overlap, end)
-                if last_space != -1:
-                    end = last_space
-            
-            # Crear el chunk
-            chunk_content = content[start:end].strip()
-            if chunk_content:
-                chunks.append(DocumentChunk(
-                    content=chunk_content,
-                    metadata={
-                        **metadata,
-                        "chunk_id": chunk_id,
-                        "start_char": start,
-                        "end_char": end
-                    },
-                    chunk_id=chunk_id,
-                    total_chunks=0  # Se actualizará después
-                ))
-            
-            # Mover el inicio al siguiente chunk, considerando el solapamiento
-            start = end - self.overlap if end < len(content) else len(content)
-            chunk_id += 1
-        
-        # Actualizar el total de chunks en cada chunk
-        total_chunks = len(chunks)
-        for chunk in chunks:
-            chunk.total_chunks = total_chunks
-            chunk.metadata["total_chunks"] = total_chunks
-        
-        return chunks
-
-    def process_file(self, file_path: str) -> List[DocumentChunk]:
-        """
-        Procesa un archivo y lo divide en chunks
+        Inicializa recursos necesarios.
         """
         try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                content = file.read()
-                
-                # Extraer información de versión del path
-                path_parts = file_path.split(os.sep)
-                version = "latest"
-                for part in path_parts:
-                    if part.startswith('v') and any(c.isdigit() for c in part):
-                        version = part
-                    elif "latest" in part.lower():
-                        version = "latest"
-                
-                # Metadata enriquecida
-                metadata = {
-                    "source": os.path.basename(file_path),
-                    "directory": os.path.basename(os.path.dirname(file_path)),
-                    "file_path": file_path,
-                    "version": version,
-                    "processed_date": time.strftime("%Y-%m-%d"),
-                    "is_latest": "latest" in version.lower(),
-                }
-                
-                # Dividir en chunks
-                return self.chunk_document(content, metadata)
-                
+            logger.info("Inicializando recursos NLTK...")
+            download_nltk_resources()
         except Exception as e:
-            print(f"Error procesando {file_path}: {str(e)}")
-            return []
+            logger.error(f"Error inicializando recursos: {e}")
+            raise
 
-    def process_directory(self, directory_path: str, recursive: bool = True) -> None:
+    def process_directory(self, directory: str, reset: bool = False) -> None:
         """
-        Procesa todos los archivos .txt en un directorio usando batch processing
-        """
-        def get_files(dir_path):
-            if recursive:
-                for root, _, files in os.walk(dir_path):
-                    for file in files:
-                        if file.endswith('.txt'):
-                            yield os.path.join(root, file)
-            else:
-                for file in os.listdir(dir_path):
-                    if file.endswith('.txt'):
-                        yield os.path.join(dir_path, file)
-        
-        files = list(get_files(directory_path))
-        total_chunks = 0
-        batch_size = 10  # Tamaño del batch muy reducido para evitar problemas de memoria
-        
-        # Acumuladores para batch processing
-        all_documents = []
-        all_metadatas = []
-        all_ids = []
-        
-        with tqdm(total=len(files), desc="Procesando archivos") as pbar:
-            for file_path in files:
-                try:
-                    chunks = self.process_file(file_path)
-                    
-                    if chunks:
-                        # Preparar datos para el batch
-                        documents = [chunk.content for chunk in chunks]
-                        metadatas = [chunk.metadata for chunk in chunks]
-                        file_name = os.path.basename(file_path)
-                        ids = [f"doc_{os.path.splitext(file_name)[0]}_chunk_{chunk.chunk_id}" for chunk in chunks]
-                        
-                        # Acumular resultados
-                        all_documents.extend(documents)
-                        all_metadatas.extend(metadatas)
-                        all_ids.extend(ids)
-                        
-                        # Si alcanzamos el tamaño del batch, insertar en ChromaDB
-                        if len(all_documents) >= batch_size:
-                            try:
-                                # Añadir documentos en grupos más pequeños
-                                for i in range(0, len(all_documents), 5):
-                                    end = min(i + 5, len(all_documents))
-                                    self.collection.add(
-                                        documents=all_documents[i:end],
-                                        metadatas=all_metadatas[i:end],
-                                        ids=all_ids[i:end]
-                                    )
-                                    total_chunks += end - i
-                                    time.sleep(0.1)  # Pequeña pausa para evitar sobrecarga
-                                    
-                                # Limpiar acumuladores
-                                all_documents = []
-                                all_metadatas = []
-                                all_ids = []
-                                
-                            except Exception as e:
-                                print(f"Error al añadir batch a ChromaDB: {str(e)}")
-                    
-                    pbar.update(1)
-                    
-                except Exception as e:
-                    print(f"Error procesando {file_path}: {str(e)}")
-                    pbar.update(1)
-        
-        # Insertar el último batch si quedan documentos
-        if all_documents:
-            try:
-                # Añadir documentos en grupos más pequeños
-                for i in range(0, len(all_documents), 5):
-                    end = min(i + 5, len(all_documents))
-                    self.collection.add(
-                        documents=all_documents[i:end],
-                        metadatas=all_metadatas[i:end],
-                        ids=all_ids[i:end]
-                    )
-                    total_chunks += end - i
-                    time.sleep(0.1)  # Pequeña pausa para evitar sobrecarga
-            except Exception as e:
-                print(f"Error al añadir último batch a ChromaDB: {str(e)}")
-        
-        print(f"\nTotal de chunks procesados: {total_chunks}")
-
-    def query_documents(self, 
-                       query: str, 
-                       n_results: int = 5, 
-                       max_chars: int = 8000000) -> Dict:
-        """
-        Consulta los documentos más relevantes
+        Procesa todos los archivos en un directorio con optimizaciones.
         """
         try:
-            # Realizar la consulta
-            results = self.collection.query(
-                query_texts=[query],
-                n_results=n_results * 2,  # Obtener más resultados para filtrar después
-                include=["documents", "metadatas", "distances"]
+            start_time = time.time()
+            
+            # Crear/obtener colección
+            collection = self.vector_store.create_or_get_collection(reset=reset)
+            
+            # Escanear directorio
+            files = self.file_handler.scan_directory(directory)
+            total_files = len(files)
+            logger.info(f"Encontrados {total_files} archivos para procesar")
+
+            # Procesar archivos en lotes
+            for i in range(0, total_files, self.batch_size):
+                batch = files[i:i + self.batch_size]
+                batch_start = time.time()
+                
+                logger.info(f"Procesando lote {i//self.batch_size + 1}/{(total_files + self.batch_size - 1)//self.batch_size}")
+                
+                # Procesar lote
+                processed_files = self.text_processor.process_batch(batch)
+                
+                # Almacenar resultados
+                for processed_file in processed_files:
+                    if processed_file:
+                        chunks = self.text_processor.create_chunks(processed_file["sections"])
+                        self.vector_store.add_documents(
+                            collection=collection,
+                            chunks=chunks,
+                            source_metadata=processed_file["metadata"]
+                        )
+                
+                batch_time = time.time() - batch_start
+                logger.info(f"Lote procesado en {batch_time:.2f} segundos")
+
+            # Mostrar estadísticas
+            stats = self.vector_store.get_collection_stats(collection)
+            total_time = time.time() - start_time
+            
+            logger.info(f"Procesamiento completado en {total_time:.2f} segundos!")
+            logger.info(f"Estadísticas finales: {stats}")
+
+        except Exception as e:
+            logger.error(f"Error en el procesamiento: {e}")
+            raise
+
+    def query(self, query_text: str, n_results: int = 5) -> Dict:
+        """
+        Realiza una consulta optimizada sobre la documentación procesada.
+        """
+        try:
+            start_time = time.time()
+            collection = self.vector_store.create_or_get_collection()
+            
+            # Realizar consulta
+            results = self.vector_store.query_documents(
+                collection=collection,
+                query_text=query_text,
+                n_results=n_results
             )
             
-            if not results['documents'][0]:
-                return {"error": "No se encontraron resultados"}
+            # Formatear resultados para Cline
+            formatted_results = self._format_results_for_cline(results)
             
-            # Procesar resultados
-            processed_results = []
-            total_chars = 0
+            query_time = time.time() - start_time
+            logger.info(f"Consulta completada en {query_time:.2f} segundos")
             
-            for doc, meta, dist in zip(
-                results['documents'][0],
-                results['metadatas'][0],
-                results['distances'][0]
-            ):
-                # Verificar límite de caracteres
-                if total_chars + len(doc) > max_chars:
-                    break
-                
-                relevance = (1 - dist) * 100
-                processed_results.append({
-                    "content": doc,
-                    "metadata": meta,
-                    "relevance": relevance
-                })
-                total_chars += len(doc)
-            
-            # Ordenar por relevancia
-            processed_results.sort(key=lambda x: x['relevance'], reverse=True)
-            
-            return {
-                "results": processed_results,
-                "stats": {
-                    "total_chars": total_chars,
-                    "max_chars": max_chars,
-                    "results_count": len(processed_results),
-                    "truncated": total_chars >= max_chars
+            return formatted_results
+
+        except Exception as e:
+            logger.error(f"Error en la consulta: {e}")
+            raise
+
+    def _format_results_for_cline(self, results: Dict) -> Dict:
+        """
+        Formatea los resultados para ser utilizados por Cline.
+        """
+        formatted_results = {
+            "query": results["query"],
+            "results": []
+        }
+
+        for result in results["results"]:
+            # Formatear cada resultado individual
+            formatted_result = {
+                "content": result["content"],
+                "relevance": f"{result['relevance_score']*100:.2f}%",
+                "source": result["metadata"].get("filename", "Unknown"),
+                "context": {
+                    "section": result["metadata"].get("sections", []),
+                    "keywords": result["metadata"].get("keywords", []),
+                    "summary": result["metadata"].get("summary", "")
                 }
             }
-            
-        except Exception as e:
-            return {"error": f"Error en la consulta: {str(e)}"}
+            formatted_results["results"].append(formatted_result)
 
-def process_path(manager: SmartDocumentManager, path: str, recursive: bool = True) -> None:
-    """
-    Procesa un archivo o directorio
-    """
-    if os.path.isfile(path):
-        if path.endswith('.txt'):
-            print(f"\nProcesando archivo: {path}")
-            chunks = manager.process_file(path)
-            if chunks:
-                documents = [chunk.content for chunk in chunks]
-                metadatas = [chunk.metadata for chunk in chunks]
-                ids = [f"doc_{os.path.splitext(os.path.basename(path))[0]}_chunk_{chunk.chunk_id}" for chunk in chunks]
-                
-                # Añadir documentos en grupos pequeños
-                total_chunks = 0
-                for i in range(0, len(documents), 5):
-                    end = min(i + 5, len(documents))
-                    try:
-                        manager.collection.add(
-                            documents=documents[i:end],
-                            metadatas=metadatas[i:end],
-                            ids=ids[i:end]
-                        )
-                        total_chunks += end - i
-                        time.sleep(0.1)  # Pequeña pausa para evitar sobrecarga
-                    except Exception as e:
-                        print(f"Error al añadir chunks a ChromaDB: {str(e)}")
-                
-                print(f"\nTotal de chunks procesados: {total_chunks}")
-        else:
-            print(f"\nIgnorando archivo no txt: {path}")
-    elif os.path.isdir(path):
-        print(f"\nProcesando directorio: {path}")
-        manager.process_directory(path, recursive)
-        print("\nProcesamiento completado!")
-    else:
-        print(f"\nNo se encontró el archivo o directorio: {path}")
+        return formatted_results
 
 def main():
-    parser = argparse.ArgumentParser(description='Procesa documentos de texto y permite consultas semánticas')
-    parser.add_argument('--path', type=str, help='Archivo o directorio a procesar', required=True)
-    parser.add_argument('--recursive', action='store_true', help='Procesar subdirectorios recursivamente')
-    parser.add_argument('--query', type=str, help='Consulta a realizar (opcional)')
-    parser.add_argument('--reset', action='store_true', help='Resetear la base de datos')
-    args = parser.parse_args()
-
-    manager = SmartDocumentManager(reset=args.reset)
+    parser = argparse.ArgumentParser(description="Procesador inteligente de documentación")
+    parser.add_argument("--path", help="Ruta al directorio de documentos")
+    parser.add_argument("--query", help="Consulta a realizar")
+    parser.add_argument("--reset", action="store_true", help="Resetear la base de datos")
+    parser.add_argument("--results", type=int, default=5, help="Número de resultados a mostrar")
     
-    if os.path.exists(args.path):
-        process_path(manager, args.path, args.recursive)
+    args = parser.parse_args()
+    processor = SmartDocs()
+
+    try:
+        if args.path:
+            processor.process_directory(args.path, args.reset)
         
         if args.query:
-            print(f"\nRealizando consulta: {args.query}")
-            results = manager.query_documents(args.query)
+            results = processor.query(args.query, args.results)
+            print("\nResultados encontrados:")
+            print("-" * 80)
             
-            if "error" in results:
-                print(f"\nError: {results['error']}")
-            else:
-                print("\nResultados encontrados:")
+            for result in results["results"]:
+                print(f"\nRelevancia: {result['relevance']}")
+                print(f"Fuente: {result['source']}")
+                if result['context']['summary']:
+                    print(f"Resumen: {result['context']['summary']}")
+                print(f"Contenido:\n{result['content']}")
                 print("-" * 80)
-                
-                for r in results["results"]:
-                    print(f"\nRelevancia: {r['relevance']:.2f}%")
-                    print(f"Fuente: {r['metadata']['source']} (versión: {r['metadata']['version']})")
-                    print(f"Fecha de procesamiento: {r['metadata']['processed_date']}")
-                    print(f"Contenido:\n{r['content']}\n")
-                    print("-" * 80)
-                
-                print(f"\nEstadísticas:")
-                print(f"Total de caracteres: {results['stats']['total_chars']}")
-                print(f"Resultados encontrados: {results['stats']['results_count']}")
-    else:
-        print(f"\nNo se encontró el directorio: {args.path}")
+
+    except Exception as e:
+        logger.error(f"Error en la ejecución: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,7499 @@
+John O'Connor
+Kevin O'Connor
+Tim O'Malley
+Dan O'Reilly
+Zooko O'Whielacronx
+Aaron Oakley
+James Oakley
+Elena Oat
+Jon Oberheide
+Milan Oberkirch
+Pascal Oberndoerfer
+Géry Ogam
+Seonkyo Ok
+Jeffrey Ollie
+Adam Olsen
+Bryan Olson
+Grant Olson
+Furkan Onder
+Koray Oner
+Ethan Onstott
+Ken Jin Ooi
+Piet van Oostrum
+Tomas Oppelstrup
+Itamar Oren
+Jason Orendorff
+Yan "yyyyyyyan" Orestes
+Bastien Orivel
+orlnub123
+Douglas Orr
+William Orr
+Michele Orrù
+Tomáš Orsava
+Oleg Oshmyan
+Denis Osipov
+Savannah Ostrowski
+Denis S. Otkidach
+Peter Otten
+Michael Otteneder
+Richard Oudkerk
+Russel Owen
+Noah Oxer
+Joonas Paalasmaa
+Yaroslav Pankovych
+Martin Packman
+Elisha Paine
+Shriphani Palakodety
+Julien Palard
+Aviv Palivoda
+Ondrej Palkovsky
+Mike Pall
+Todd R. Palmer
+Juan David Ibáñez Palomar
+Nicola Palumbo
+Jan Palus
+Yongzhi Pan
+Martin Panter
+Mathias Panzenböck
+Marco Paolini
+M. Papillon
+Peter Parente
+Alexandre Parenteau
+Dan Parisien
+HyeSoo Park
+Moonsik Park
+William Park
+Claude Paroz
+Heikki Partanen
+Harri Pasanen
+Jeremiah Gabriel Pascual
+Gaël Pasgrimaud
+Feanil Patel
+Ashish Nitin Patil
+Alecsandru Patrascu
+Randy Pausch
+Samuele Pedroni
+Justin Peel
+Loic Pefferkorn
+Marcel van der Peijl
+Berker Peksag
+Andreas Pelme
+Steven Pemberton
+Bo Peng
+Bruno "Polaco" Penteado
+Santiago Peresón
+George Peristerakis
+Thomas Perl
+Mathieu Perreault
+Mark Perrego
+Trevor Perrin
+Yonatan Perry
+Gabriel de Perthuis
+Tim Peters
+Benjamin Peterson
+Joe Peterson
+Zvezdan Petkovic
+Ulrich Petri
+Chris Petrilli
+Roumen Petrov
+Bjorn Pettersen
+Justin D. Pettit
+Esa Peuha
+Ronny Pfannschmidt
+Geoff Philbrick
+Gavrie Philipson
+Adrian Phillips
+Dusty Phillips
+Christopher J. Phoenix
+James Pickering
+Neale Pickett
+Steve Piercy
+Jim St. Pierre
+Dan Pierson
+Martijn Pieters
+Antoine Pietri
+Anand B. Pillai
+François Pinard
+Tom Pinckney
+Zach Pincus
+Michael Piotrowski
+Zero Piraeus
+Antoine Pitrou
+Jean-François Piéronne
+Oleg Plakhotnyuk
+Anatoliy Platonov
+Marcel Plch
+Kirill Podoprigora
+Remi Pointel
+Jon Poler
+Ariel Poliak
+Guilherme Polo
+Illia Polosukhin
+Michael Pomraning
+Martin Pool
+Iustin Pop
+Claudiu Popa
+John Popplewell
+Matheus Vieira Portela
+Davin Potts
+Guillaume Pratte
+Pedro Pregueiro
+Florian Preinstorfer
+Alex Prengère
+Amrit Prem
+Paul Prescod
+Donovan Preston
+Eric Price
+Paul Price
+Matt Prodani
+Iuliia Proskurnia
+Dorian Pula
+Jyrki Pulliainen
+Steve Purcell
+Eduardo Pérez
+Fernando Pérez
+Kevin Jing Qiu
+Pierre Quentel
+Brian Quinlan
+Anders Qvist
+Thomas Rachel
+Domenico Ragusa
+Ram Rachum
+Jeffrey Rackauckas
+Jérôme Radix
+Burton Radons
+Kirill (python273) R.
+Abhilash Raj
+Shorya Raj
+Ajith Ramachandran
+Dhushyanth Ramasamy
+Ashwin Ramaswami
+Jeff Ramnani
+Grant Ramsay
+Bayard Randel
+Varpu Rantala
+Brodie Rao
+Rémi Rampin
+Senko Rasic
+Antti Rasinen
+Nikolaus Rath
+Sridhar Ratnakumar
+Ysj Ray
+Eric S. Raymond
+Edward K. Ream
+Chris Rebert
+Marc Recht
+John Redford
+Kalyan Reddy
+Terry J. Reedy
+Gareth Rees
+Amethyst Reese
+Steve Reeves
+Lennart Regebro
+John Regehr
+Federico Reghenzani
+Ofir Reichenberg
+Sean Reifschneider
+Michael P. Reilly
+Bernhard Reiter
+Steven Reiz
+Roeland Rengelink
+Antoine Reversat
+Flávio Ribeiro
+Francesco Ricciardi
+Tim Rice
+Martin Richard
+Jan Pieter Riegel
+Armin Rigo
+Arc Riley
+Nicholas Riley
+Jean-Claude Rimbault
+Vlad Riscutia
+Wes Rishel
+Daniel Riti
+Juan M. Bello Rivas
+Stefano Rivera
+Llandy Riveron Del Risco
+Mohd Sanad Zaki Rizvi
+Davide Rizzo
+Anthony Roach
+Lisa Roach
+Carl Robben
+Ben Roberts
+Mark Roberts
+Tony Roberts
+Andy Robinson
+Izan "TizzySaurus" Robinson
+Jim Robinson
+Yolanda Robla
+Daniel Rocco
+Mark Roddy
+Kevin Rodgers
+Sean Rodman
+Giampaolo Rodola
+Dustin Rodrigues
+Mauro S. M. Rodrigues
+Elson Rodriguez
+Adi Roiban
+Diego Rojas
+Luis Rojas
+Mike Romberg
+Armin Ronacher
+Case Roole
+Timothy Roscoe
+Joel Rosdahl
+Erik Rose
+Mark Roseman
+Josh Rosenberg
+Jim Roskind
+Brian Rosner
+Ignacio Rossi
+Guido van Rossum
+Just van Rossum
+Hugo van Rossum
+Saskia van Rossum
+Robin Roth
+Clement Rouault
+Tomas Roun
+Donald Wallace Rouse II
+Liam Routt
+Todd Rovito
+Craig Rowland
+Clinton Roy
+Ujan RoyBandyopadhyay
+Paul Rubin
+Sam Ruby
+Demur Rumed
+Audun S. Runde
+Eran Rundstein
+Rauli Ruohonen
+Laura Rupprecht
+Jeff Rush
+Sam Rushing
+Mark Russell
+Rusty Russell
+Nick Russo
+James Rutherford
+Eli Rykoff
+Chris Ryland
+Bernt Røskar Brenna
+Constantina S.
+Matthieu S
+Cheryl Sabella
+Patrick Sabin
+Sébastien Sablé
+Amit Saha
+Suman Saha
+Koki Saito
+Hajime Saitou
+George Sakkis
+Victor Salgado
+Rich Salz
+Kevin Samborn
+Adrian Sampson
+Nevada Sanchez
+James Sanders
+Ilya Sandler
+Rafael Santos
+Simon Sapin
+Mark Sapiro
+Ty Sarna
+Hugh Sasse
+Bob Savage
+Dave Sawyer
+Ben Sayer
+Luca Sbardella
+Marco Scataglini
+Andrew Schaaf
+Michael Scharf
+Andreas Schawo
+Neil Schemenauer
+David Scherer
+Wolfgang Scherer
+Hynek Schlawack
+Bob Schmertz
+Gregor Schmid
+Ralf Schmitt
+Michael Schneider
+Peter Schneider-Kamp
+Arvin Schnell
+Nofar Schnider
+Mickaël Schoentgen
+Ed Schouten
+Scott Schram
+Robin Schreiber
+Chad J. Schroeder
+Simon-Martin Schroeder
+Brian Schubert
+Christian Schubert
+Sam Schulenburg
+Andreas Schwab
+Stefan Schwarzer
+Dietmar Schwertberger
+Federico Schwindt
+Barry Scott
+Steven Scott
+Nick Seidenman
+Michael Seifert
+Žiga Seilnacht
+Jendrik Seipp
+Michael Selik
+Yury Selivanov
+Fred Sells
+Jiwon Seo
+Iñigo Serna
+Joakim Sernbrant
+Rodrigo Girão Serrão
+Roger D. Serwy
+Jerry Seutter
+Pete Sevander
+Denis Severson
+Silas Sewell
+Ian Seyer
+Dmitry Shachnev
+Anish Shah
+Jaineel Shah
+Daniel Shahaf
+Hui Shang
+Geoff Shannon
+Mark Shannon
+Ha Shao
+Richard Shapiro
+Soumya Sharma
+Varun Sharma
+Daniel Shaulov
+Vlad Shcherbina
+Justin Sheehy
+Akash Shende
+Charlie Shepherd
+Bruce Sherwood
+Gregory Shevchenko
+Hai Shi
+Alexander Shigin
+Pete Shinners
+Michael Shiplett
+John W. Shipman
+Shiyao Ma
+Alex Shkop
+Joel Shprentz
+Yue Shuaijie
+Jaysinh Shukla
+Terrel Shumway
+Eric Siegerman
+Reilly Tucker Siemens
+Paul Sijben
+SilentGhost
+Tim Silk
+Michael Simcich
+Ionel Simionescu
+Kirill Simonov
+Nathan Paul Simons
+Guilherme Simões
+Adam Simpkins
+Karthikeyan Singaravelan
+Mandeep Singh
+Ravi Sinha
+Janne Sinkkonen
+Ng Pheng Siong
+Yann Sionneau
+George Sipe
+J. Sipprell
+Giovanni Siragusa
+Ngalim Siregar
+Kragen Sitaker
+Kaartic Sivaraam
+Stanisław Skonieczny
+Bart Skowron
+Roman Skurikhin
+Ville Skyttä
+Michael Sloan
+Nick Sloan
+Tyler Smart
+Radek Smejkal
+Václav Šmilauer
+Casper W. Smet
+Allen W. Smith
+Christopher Smith
+Eric V. Smith
+Ethan H. Smith
+Gregory P. Smith
+Malcolm Smith
+Mark Smith
+Nathaniel J. Smith
+Roy Smith
+Ryan Smith-Roberts
+Rafal Smotrzyk
+Josh Snider
+Eric Snow
+Nikita Sobolev
+Dirk Soede
+Nir Soffer
+Paul Sokolovsky
+Evgeny Sologubov
+Cody Somerville
+Anthony Sottile
+Edoardo Spadolini
+Tom Sparrow
+Geoffrey Spear
+Clay Spence
+Stefan Sperling
+Nicholas Spies
+Per Spilling
+Joshua Spoerri
+Noah Spurrier
+Zackery Spytz
+Nathan Srebro
+RajGopal Srinivasan
+Tage Stabell-Kulo
+Quentin Stafford-Fraser
+Frank Stajano
+Manolis Stamatogiannakis
+Joel Stanley
+Kyle Stanley
+Brandon Stansbury
+Anthony Starks
+David Steele
+Oliver Steele
+Greg Stein
+Itai Steinherz
+Marek Stepniowski
+Baruch Sterin
+Chris Stern
+Eli Stevens
+Alex Stewart
+Victor Stinner
+Richard Stoakley
+Peter Stoehr
+Casper Stoel
+Daniel Stokes
+Michael Stone
+Serhiy Storchaka
+Ken Stox
+Petter Strandmark
+Charalampos Stratakis
+Dan Stromberg
+Donald Stufft
+Daniel Stutzbach
+Andreas Stührk
+Colin Su
+Pal Subbiah
+Michael J. Sullivan
+Nathan Sullivan
+Mark Summerfield
+Reuben Sumner
+Eryk Sun
+Sanjay Sundaresan
+Marek Šuppa
+Danica J. Sutherland
+Hisao Suzuki
+Kalle Svensson
+Andrew Svetlov
+Paul Swartz
+Dennis Sweeney
+Al Sweigart
+Sviatoslav Sydorenko
+Thenault Sylvain
+Péter Szabó
+John Szakmeister
+Piotr Szczepaniak
+Amir Szekely
+David Szotten
+Maciej Szulik
+Joel Taddei
+Arfrever Frehtes Taifersar Arahesis
+Hideaki Takahashi
+Takase Arihiro
+Licht Takeuchi
+Indra Talip
+Neil Tallim
+Geoff Talvola
+Anish Tambe
+Musashi Tamura
+William Tanksley
+Christian Tanzer
+Steven Taschuk
+Batuhan Taskaya
+Stefan Tatschner
+Amy Taylor
+Julian Taylor
+Monty Taylor
+Anatoly Techtonik
+Martin Teichmann
+Gustavo Temple
+Guo Ci Teo
+Mikhail Terekhov
+Victor Terrón
+Pablo Galindo
+Richard M. Tew
+Srinivas Reddy Thatiparthy
+Tobias Thelen
+Christian Theune
+Févry Thibault
+Lowe Thiderman
+Nicolas M. Thiéry
+James Thomas
+Reuben Thomas
+Robin Thomas
+Brian Thorne
+Christopher Thorne
+Stephen Thorne
+Jeremy Thurgood
+Eric Tiedemann
+July Tikhonov
+Tracy Tims
+Oz Tiram
+Oren Tirosh
+Tim Tisdall
+Jason Tishler
+Christian Tismer
+Jim Tittsler
+Frank J. Tobin
+James Tocknell
+Bennett Todd
+R Lindsay Todd
+Eugene Toder
+Erik Tollerud
+Stephen Tonkin
+Matias Torchinsky
+Sandro Tosi
+Richard Townsend
+David Townshend
+Nathan Trapuzzano
+Laurence Tratt
+Alberto Trevino
+Mayank Tripathi
+Matthias Troffaes
+Tom Tromey
+John Tromp
+Diane Trout
+Jason Trowbridge
+Steven Troxler
+Brent Tubbs
+Anthony Tuininga
+Erno Tukia
+Adam Turner
+David Turner
+Stephen Turner
+Itamar Turner-Trauring
+Theodore Turocy
+Bill Tutt
+Fraser Tweedale
+Doobee R. Tzeck
+Eren Türkay
+Lionel Ulmer
+Adnan Umer
+Utkarsh Upadhyay
+Roger Upole
+Daniel Urban
+Matthias Urlichs
+Michael Urman
+Hector Urtubia
+Elizabeth Uselton
+Lukas Vacek
+Juho Vähä-Herttua
+Ville Vainio
+Yann Vaginay
+Andi Vajda
+Case Van Horsen
+John Mark Vandenberg
+Kyle VanderBeek
+Wm. Keith van der Meulen
+Eric N. Vander Weele
+Andrew Vant
+Atul Varma
+Dmitry Vasiliev
+Sebastian Ortiz Vasquez
+Alexandre Vassalotti
+Nadeem Vawda
+Sye van der Veen
+Siddharth Velankar
+Frank Vercruesse
+Mike Verdone
+Jaap Vermeulen
+Nikita Vetoshkin
+Al Vezza
+Petr Viktorin
+Jacques A. Vidrine
+John Viega
+Dino Viehland
+Olivier Vielpeau
+Kannan Vijayan
+Kurt Vile
+Norman Vine
+Pauli Virtanen
+Frank Visser
+Long Vo
+Johannes Vogel
+Michael Vogt
+Radu Voicilas
+Alex Volkov
+Ruben Vorderman
+Guido Vranken
+Martijn Vries
+Sjoerd de Vries
+Jonas Wagner
+Daniel Wagner-Hall
+Niki W. Waibel
+Wojtek Walczak
+Charles Waldman
+Richard Walker
+Larry Wall
+Jacob Walls
+Kevin Walzer
+Rodrigo Steinmuller Wanderley
+Dingyuan Wang
+Edward C Wang
+Jiahua Wang
+Ke Wang
+Liang-Bo Wang
+Greg Ward
+Tom Wardill
+Zachary Ware
+Barry Warsaw
+Steve Waterbury
+Bob Watson
+Colin Watson
+David Watson
+Aaron Watters
+Alex Waygood
+James Webber
+Russel Webber
+Henrik Weber
+Leon Weber
+Steve Weber
+Corran Webster
+Glyn Webster
+Phil Webster
+Antoine Wecxsteen
+Stefan Wehr
+Zack Weinberg
+Bob Weiner
+Edward Welbourne
+Cliff Wells
+Rickard Westman
+Joseph Weston
+Jeff Wheeler
+Christopher White
+David White
+Mats Wichmann
+Pete Wicken
+Marcel Widjaja
+Truida Wiedijk
+Felix Wiemann
+Gerry Wiener
+Frank Wierzbicki
+Mariatta Wijaya
+Santoso Wijaya
+Chris Wilcox
+Bryce "Zooko" Wilcox-O'Hearn
+Timothy Wild
+Jakub Wilk
+Gerald S. Williams
+Jason Williams
+John Williams
+Roy Williams
+Sue Williams
+Carol Willing
+Steven Willis
+Frank Willison
+Alex Willmer
+David Wilson
+Geoff Wilson
+Greg V. Wilson
+Huon Wilson
+J Derek Wilson
+Paul Winkler
+Jody Winston
+Collin Winter
+Dik Winter
+Blake Winton
+Jean-Claude Wippler
+Stéphane Wirtel
+Peter Wirtz
+Lars Wirzenius
+John Wiseman
+Chris Withers
+Stefan Witzel
+Irek Wlizlo
+Charles Wohlganger
+David Wolever
+Klaus-Juergen Wolf
+Dan Wolfe
+Richard Wolff
+Tymoteusz Wołodźko
+Adam Woodbeck
+William Woodruff
+Steven Work
+Gordon Worley
+Darren Worrall
+Thomas Wouters
+Daniel Wozniak
+Simon Wrede
+Marcin Niemira
+Wei Wu
+Heiko Wundram
+Doug Wyatt
+Xiang Zhang
+Robert Xiao
+Florent Xicluna
+Yanbo, Xie
+Xinhang Xu
+Arnon Yaari
+Alakshendra Yadav
+Hirokazu Yamamoto
+Masayuki Yamamoto
+Zhikang Yan
+Jingchen Ye
+Ka-Ping Yee
+Chi Hsuan Yen
+Jason Yeo
+EungJun Yi
+Bob Yodlowski
+Danny Yoo
+Wonsup Yoon
+Andrew York
+Rory Yorke
+George Yoshida
+Kazuhiro Yoshida
+Masazumi Yoshikawa
+Arnaud Ysmal
+Bernard Yue
+Moshe Zadka
+Bader Zaidan
+Yair Zak
+Elias Zamaria
+Milan Zamazal
+Artur Zaprzala
+Mike Zarnstorff
+Yury V. Zaytsev
+Siebren van der Zee
+Christophe Zeitouny
+Nickolai Zeldovich
+Yuxiao Zeng
+Uwe Zessin
+Cheng Zhang
+George Zhang
+Youfu Zhang
+Charlie Zhao
+Kai Zhu
+Tarek Ziadé
+Jelle Zijlstra
+Gennadiy Zlobin
+Doug Zongker
+Peter Åstrand
+
+(Entries should be added in rough alphabetical order by last names)
+
+
+================================================
+File: /Misc/Porting
+================================================
+This document is moved to https://devguide.python.org/porting/
+
+
+================================================
+File: /Misc/README
+================================================
+Python Misc subdirectory
+========================
+
+This directory contains files that wouldn't fit in elsewhere.  Some
+documents are only of historic importance.
+
+Files found here
+----------------
+
+ACKS                    Acknowledgements
+HISTORY                 News from previous releases -- oldest last
+indent.pro              GNU indent profile approximating my C style
+NEWS                    News for this release (for some meaning of "this")
+Porting                 Mini-FAQ on porting to new platforms
+python-config.in        Python script template for python-config
+python.man              UNIX man page for the python interpreter
+python.pc.in            Package configuration info template for pkg-config
+README                  The file you're reading now
+README.AIX              Information about using Python on AIX
+README.valgrind         Information for Valgrind users, see valgrind-python.supp
+SpecialBuilds.txt       Describes extra symbols you can set for debug builds
+svnmap.txt              Map of old SVN revs and branches to hg changeset ids,
+                        help history-digging
+valgrind-python.supp    Valgrind suppression file, see README.valgrind
+vgrindefs               Python configuration for vgrind (a generic pretty printer)
+
+
+================================================
+File: /Misc/README.AIX
+================================================
+
+This documentation tries to help people who intend to use Python on
+AIX.
+
+There used to be many issues with Python on AIX, but the major ones
+have been corrected for version 3.2, so that Python should now work
+rather well on this platform. The remaining known issues are listed in
+this document.
+
+
+======================================================================
+			   Compiling Python
+----------------------------------------------------------------------
+
+You can compile Python with gcc or the native AIX compiler. The native
+compiler used to give better performances on this system with older
+versions of Python.  With Python 3.2 it may not be the case anymore,
+as this compiler does not allow compiling Python with computed gotos.
+Some benchmarks need to be done.
+
+Compiling with gcc:
+
+cd Python-3.2
+CC=gcc OPT="-O2" ./configure --enable-shared
+make
+
+There are various aliases for the native compiler.  The recommended
+alias for compiling Python is 'xlc_r', which provides a better level of
+compatibility and handles thread initialization properly.
+
+It is a good idea to add the '-qmaxmem=70000' option, otherwise the
+compiler considers various files too complex to optimize.
+
+Compiling with xlc:
+
+cd Python-3.2
+CC=xlc_r OPT="-O2 -qmaxmem=70000" ./configure --without-computed-gotos --enable-shared
+make
+
+
+======================================================================
+			  Memory Limitations
+----------------------------------------------------------------------
+
+Note: this section may not apply when compiling Python as a 64 bit
+application.
+
+By default on AIX each program gets one segment register for its data
+segment. As each segment register covers 256 MiB, a Python program that
+would use more than 256 MiB will raise a MemoryError.  The standard
+Python test suite is one such application.
+
+To allocate more segment registers to Python, you must use the linker
+option -bmaxdata or the ldedit tool to specify the number of bytes you
+need in the data segment.
+
+For example, if you want to allow 512 MiB of memory for Python (this is
+enough for the test suite to run without MemoryErrors), you should run
+the following command at the end of compilation:
+
+ldedit -b maxdata:0x20000000 ./python
+
+You can allow up to 2 GiB of memory for Python by using the value
+0x80000000 for maxdata.
+
+It is also possible to go beyond 2 GiB of memory by activating Large
+Page Use. You should consult the IBM documentation if you need to use
+this option. You can also follow the discussion of this problem
+in issue 11212 at bugs.python.org.
+
+http://publib.boulder.ibm.com/infocenter/aix/v6r1/index.jsp?topic=/com.ibm.aix.cmds/doc/aixcmds3/ldedit.htm
+
+
+======================================================================
+			     Known issues
+----------------------------------------------------------------------
+
+Those issues are currently affecting Python on AIX:
+
+* Python has not been fully tested on AIX when compiled as a 64 bit
+  application.
+
+* issue 3526: the memory used by a Python process will never be
+  released to the system. If you have a Python application on AIX that
+  uses a lot of memory, you should read this issue and you may
+  consider using the provided patch that implements a custom malloc
+  implementation
+
+* issue 11192: test_socket fails
+
+* issue 11190: test_locale fails
+
+* issue 11193: test_subprocess fails
+
+* issue 9920: minor arithmetic issues in cmath
+
+* issue 11215: test_fileio fails
+
+
+
+======================================================================
+		Implementation details for developers
+----------------------------------------------------------------------
+
+Python and python modules can now be built as shared libraries on AIX
+as usual.
+
+AIX shared libraries require that an "export" and "import" file be
+provided at compile time to list all extern symbols which may be
+shared between modules.  The "export" file (named python.exp) for the
+modules and the libraries that belong to the Python core is created by
+the "makexp_aix" script before performing the link of the python
+binary. It lists all global symbols (exported during the link) of the
+modules and the libraries that make up the python executable.
+
+When shared library modules (.so files) are made, a second shell
+script is invoked.  This script is named "ld_so_aix" and is also
+provided with the distribution in the Modules subdirectory.  This
+script acts as an "ld" wrapper which hides the explicit management of
+"export" and "import" files; it adds the appropriate arguments (in the
+appropriate order) to the link command that creates the shared module.
+Among other things, it specifies that the "python.exp" file is an
+"import" file for the shared module.
+
+This mechanism should be transparent.
+
+
+================================================
+File: /Misc/README.valgrind
+================================================
+This document describes some caveats about the use of Valgrind with
+Python.  Valgrind is used periodically by Python developers to try
+to ensure there are no memory leaks or invalid memory reads/writes.
+
+If you want to enable valgrind support in Python, you will need to
+configure Python --with-valgrind option or an older option
+--without-pymalloc.
+
+UPDATE: Python 3.6 now supports PYTHONMALLOC=malloc environment variable which
+can be used to force the usage of the malloc() allocator of the C library.
+
+If you don't want to read about the details of using Valgrind, there
+are still two things you must do to suppress the warnings.  First,
+you must use a suppressions file.  One is supplied in
+Misc/valgrind-python.supp.  Second, you must uncomment the lines in 
+Misc/valgrind-python.supp that suppress the warnings for PyObject_Free and
+PyObject_Realloc.
+
+If you want to use Valgrind more effectively and catch even more
+memory leaks, you will need to configure python --without-pymalloc.
+PyMalloc allocates a few blocks in big chunks and most object
+allocations don't call malloc, they use chunks doled about by PyMalloc
+from the big blocks.  This means Valgrind can't detect
+many allocations (and frees), except for those that are forwarded
+to the system malloc.  Note: configuring python --without-pymalloc
+makes Python run much slower, especially when running under Valgrind.
+You may need to run the tests in batches under Valgrind to keep
+the memory usage down to allow the tests to complete.  It seems to take
+about 5 times longer to run --without-pymalloc.
+
+Apr 15, 2006:
+  test_ctypes causes Valgrind 3.1.1 to fail (crash).
+  test_socket_ssl should be skipped when running valgrind.
+	The reason is that it purposely uses uninitialized memory.
+	This causes many spurious warnings, so it's easier to just skip it.
+
+
+Details:
+--------
+Python uses its own small-object allocation scheme on top of malloc,
+called PyMalloc.
+
+Valgrind may show some unexpected results when PyMalloc is used.
+Starting with Python 2.3, PyMalloc is used by default.  You can disable
+PyMalloc when configuring python by adding the --without-pymalloc option.
+If you disable PyMalloc, most of the information in this document and
+the supplied suppressions file will not be useful.  As discussed above,
+disabling PyMalloc can catch more problems.
+
+PyMalloc uses 256KB chunks of memory, so it can't detect anything
+wrong within these blocks.  For that reason, compiling Python
+--without-pymalloc usually increases the usefulness of other tools.
+
+If you use valgrind on a default build of Python,  you will see
+many errors like:
+
+        ==6399== Use of uninitialised value of size 4
+        ==6399== at 0x4A9BDE7E: PyObject_Free (obmalloc.c:711)
+        ==6399== by 0x4A9B8198: dictresize (dictobject.c:477)
+
+These are expected and not a problem.  Tim Peters explains
+the situation:
+
+        PyMalloc needs to know whether an arbitrary address is one
+	that's managed by it, or is managed by the system malloc.
+	The current scheme allows this to be determined in constant
+	time, regardless of how many memory areas are under pymalloc's
+	control.
+
+        The memory pymalloc manages itself is in one or more "arenas",
+	each a large contiguous memory area obtained from malloc.
+	The base address of each arena is saved by pymalloc
+	in a vector.  Each arena is carved into "pools", and a field at
+	the start of each pool contains the index of that pool's arena's
+	base address in that vector.
+
+        Given an arbitrary address, pymalloc computes the pool base
+	address corresponding to it, then looks at "the index" stored
+	near there.  If the index read up is out of bounds for the
+	vector of arena base addresses pymalloc maintains, then
+	pymalloc knows for certain that this address is not under
+	pymalloc's control.  Otherwise the index is in bounds, and
+	pymalloc compares
+
+            the arena base address stored at that index in the vector
+
+        to
+
+            the arbitrary address pymalloc is investigating
+
+        pymalloc controls this arbitrary address if and only if it lies
+        in the arena the address's pool's index claims it lies in.
+
+        It doesn't matter whether the memory pymalloc reads up ("the
+	index") is initialized.  If it's not initialized, then
+	whatever trash gets read up will lead pymalloc to conclude
+	(correctly) that the address isn't controlled by it, either
+	because the index is out of bounds, or the index is in bounds
+	but the arena it represents doesn't contain the address.
+
+        This determination has to be made on every call to one of
+	pymalloc's free/realloc entry points, so its speed is critical
+	(Python allocates and frees dynamic memory at a ferocious rate
+	-- everything in Python, from integers to "stack frames",
+	lives in the heap).
+
+
+================================================
+File: /Misc/SpecialBuilds.txt
+================================================
+This file describes some special Python build types enabled via compile-time
+preprocessor directives.
+
+IMPORTANT: if you want to build a debug-enabled Python, it is recommended that
+you use ``./configure --with-pydebug``, rather than the options listed here.
+
+However, if you wish to define some of these options individually, it is best
+to define them in the EXTRA_CFLAGS make variable;
+``make EXTRA_CFLAGS="-DPy_REF_DEBUG"``.
+
+
+Py_REF_DEBUG
+------------
+
+Turn on aggregate reference counting.  This arranges that extern _Py_RefTotal
+hold a count of all references, the sum of ob_refcnt across all objects.
+Passing ``-X showrefcount`` on the command line causes the interactive
+interpreter to print the reference count total as well the number of memory
+blocks allocated after each statement:
+
+    >>> 23
+    23
+    [8288 refs, 14332 blocks]
+    >>>
+
+Note that if this count increases when you're not storing away new objects,
+there's probably a leak.  Remember, though, that in interactive mode the special
+name "_" holds a reference to the last result displayed!
+
+Py_REF_DEBUG also checks after every decref to verify that the refcount hasn't
+gone negative, and causes an immediate fatal error if it has.
+
+Py_DEBUG implies Py_REF_DEBUG.
+
+Special gimmicks:
+
+sys.gettotalrefcount()
+    Return current total of all refcounts.
+
+
+Py_TRACE_REFS
+-------------
+
+Build option: ``./configure --with-trace-refs``.
+
+Turn on heavy reference debugging.  This is major surgery.  All live
+heap-allocated objects are traced in a hash table.  Most built-in type objects
+are not in this list, as they're statically allocated.
+
+Special gimmicks:
+
+sys.getobjects(max[, type])
+    Return list of the (no more than) max most-recently allocated objects, most
+    recently allocated first in the list, least-recently allocated last in the
+    list.  max=0 means no limit on list length.  If an optional type object is
+    passed, the list is also restricted to objects of that type.  The return
+    list itself, and some temp objects created just to call sys.getobjects(),
+    are excluded from the return list.  Note that the list returned is just
+    another object, though, so may appear in the return list the next time you
+    call getobjects(); note that every object in the list is kept alive too,
+    simply by virtue of being in the list.
+
+envvar PYTHONDUMPREFS
+    If this envvar exists, Py_FinalizeEx() arranges to print a list of all
+    still-live heap objects.  This is printed twice, in different formats,
+    before and after Py_FinalizeEx has cleaned up everything it can clean up.  The
+    first output block produces the repr() of each object so is more
+    informative; however, a lot of stuff destined to die is still alive then.
+    The second output block is much harder to work with (repr() can't be invoked
+    anymore -- the interpreter has been torn down too far), but doesn't list any
+    objects that will die.  The tool script combinerefs.py can be run over this
+    to combine the info from both output blocks.  The second output block, and
+    combinerefs.py, were new in Python 2.3b1.
+
+
+Py_DEBUG
+--------
+
+This is what is generally meant by "a debug build" of Python.
+
+Py_DEBUG implies LLTRACE and Py_REF_DEBUG. In addition, C assert()s are enabled
+(via the C way: by not defining NDEBUG), and some routines do additional sanity
+checks inside "#ifdef Py_DEBUG" blocks.
+
+
+LLTRACE
+-------
+
+Compile in support for Low Level TRACE-ing of the main interpreter loop.
+
+When this preprocessor symbol is defined, before PyEval_EvalFrame executes a
+frame's code it checks the frame's global namespace for a variable
+"__lltrace__".  If such a variable is found, mounds of information about what
+the interpreter is doing are sprayed to stdout, such as every opcode and opcode
+argument and values pushed onto and popped off the value stack.
+
+Not useful very often, but very useful when needed.
+
+Py_DEBUG implies LLTRACE.
+
+
+================================================
+File: /Misc/externals.spdx.json
+================================================
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-PACKAGE-bzip2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ab8d1b0cc087c20d4c32c0e4fcf7d0c733a95da12cedc6d63b3f0a9af07427e2"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/bzip2-1.0.8.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:bzip:bzip2:1.0.8:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "bzip2",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "1.0.8"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-libffi",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9d802681adfea27d84cae0487a785fb9caa925bdad44c401b364c59ab2b8edda"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/libffi-3.4.4.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:libffi_project:libffi:3.4.4:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "libffi",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "3.4.4"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-mpdecimal",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "338fac3fb8cdd60f406b6326431338756f58a8af94229ffd9bf1e7c2b1ad71ca"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/mpdecimal-4.0.0.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:bytereef:mpdecimal:4.0.0:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "mpdecimal",
+      "originator": "Organization: bytereef.org",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "4.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-openssl",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1550c87996a0858474a9dd179deab2c55eb73726b9a140b32865b02fd3d8a86b"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/openssl-3.0.15.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:openssl:openssl:3.0.15:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "openssl",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "3.0.15"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-sqlite",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "730e4a3efd6a63828bee499940fb13acc2a32c182502ce8a1d970387895d0504"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/sqlite-3.45.3.0.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:sqlite:sqlite:3.45.3.0:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "sqlite",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "3.45.3.0"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-tcl-core",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4c23f0dd3efcbe6f3a22c503a68d147617bb30c4f5290f1eb3eaacf0b460440b"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/tcl-core-8.6.15.0.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:tcl_tk:tcl_tk:8.6.15.0:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "tcl-core",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "8.6.15.0"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-tk",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0ae56d39bca92865f338529557a1e56d110594184b6dc5a91339c5675751e264"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/tk-8.6.15.0.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:tcl_tk:tcl_tk:8.6.15.0:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "tk",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "8.6.15.0"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a15c168e39e87d750c3dc766edc7f19bdda57dacf01e509678467eace91ad282"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/xz-5.2.5.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:tukaani:xz:5.2.5:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "xz",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "5.2.5"
+    },
+    {
+      "SPDXID": "SPDXRef-PACKAGE-zlib",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e3f3fb32564952006eb18b091ca8464740e5eca29d328cfb0b2da22768e0b638"
+        }
+      ],
+      "downloadLocation": "https://github.com/python/cpython-source-deps/archive/refs/tags/zlib-1.3.1.tar.gz",
+      "externalRefs": [
+        {
+          "referenceCategory": "SECURITY",
+          "referenceLocator": "cpe:2.3:a:zlib:zlib:1.3.1:*:*:*:*:*:*:*",
+          "referenceType": "cpe23Type"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "name": "zlib",
+      "primaryPackagePurpose": "SOURCE",
+      "versionInfo": "1.3.1"
+    }
+  ],
+  "spdxVersion": "SPDX-2.3"
+}
+
+================================================
+File: /Misc/indent.pro
+================================================
+--blank-lines-after-declarations
+--blank-lines-after-procedures
+--braces-after-func-def-line
+--braces-on-if-line
+--braces-on-struct-decl-line
+--break-after-boolean-operator
+--comment-indentation25
+--comment-line-length79
+--continue-at-parentheses
+--dont-cuddle-do-while
+--dont-cuddle-else
+--indent-level4
+--line-length79
+--no-space-after-casts
+--no-space-after-function-call-names
+--no-space-after-parentheses
+--no-tabs
+--procnames-start-lines
+--space-after-for
+--space-after-if
+--space-after-while
+--swallow-optional-blank-lines
+-T PyCFunction
+-T PyObject
+
+
+================================================
+File: /Misc/platform_triplet.c
+================================================
+/* Detect platform triplet from builtin defines
+ * cc -E Misc/platform_triplet.c | grep '^PLATFORM_TRIPLET=' | tr -d ' '
+ */
+#undef bfin
+#undef cris
+#undef fr30
+#undef linux
+#undef hppa
+#undef hpux
+#undef i386
+#undef mips
+#undef powerpc
+#undef sparc
+#undef unix
+
+#if defined(__ANDROID__)
+#  if defined(__x86_64__)
+PLATFORM_TRIPLET=x86_64-linux-android
+#  elif defined(__i386__)
+PLATFORM_TRIPLET=i686-linux-android
+#  elif defined(__aarch64__)
+PLATFORM_TRIPLET=aarch64-linux-android
+#  elif defined(__arm__)
+PLATFORM_TRIPLET=arm-linux-androideabi
+#  else
+#    error unknown Android platform
+#  endif
+
+#elif defined(__linux__)
+/*
+ * BEGIN of Linux block
+ */
+// Detect libc (based on config.guess)
+# include <features.h>
+# if defined(__UCLIBC__)
+#  error uclibc not supported
+# elif defined(__dietlibc__)
+#  error dietlibc not supported
+# elif defined(__GLIBC__)
+#  define LIBC gnu
+#  define LIBC_X32 gnux32
+#  if defined(__ARM_PCS_VFP)
+#   define LIBC_ARM gnueabihf
+#  else
+#   define LIBC_ARM gnueabi
+#  endif
+#  if defined(__loongarch__)
+#   if defined(__loongarch_soft_float)
+#    define LIBC_LA gnusf
+#   elif defined(__loongarch_single_float)
+#    define LIBC_LA gnuf32
+#   elif defined(__loongarch_double_float)
+#    define LIBC_LA gnu
+#   else
+#    error unknown loongarch floating-point base abi
+#   endif
+#  endif
+#  if defined(_MIPS_SIM)
+#   if defined(__mips_hard_float)
+#    if _MIPS_SIM == _ABIO32
+#     define LIBC_MIPS gnu
+#    elif _MIPS_SIM == _ABIN32
+#     define LIBC_MIPS gnuabin32
+#    elif _MIPS_SIM == _ABI64
+#     define LIBC_MIPS gnuabi64
+#    else
+#     error unknown mips sim value
+#    endif
+#   else
+#    if _MIPS_SIM == _ABIO32
+#     define LIBC_MIPS gnusf
+#    elif _MIPS_SIM == _ABIN32
+#     define LIBC_MIPS gnuabin32sf
+#    elif _MIPS_SIM == _ABI64
+#     define LIBC_MIPS gnuabi64sf
+#    else
+#     error unknown mips sim value
+#    endif
+#   endif
+#  endif
+#  if defined(__SPE__)
+#   define LIBC_PPC gnuspe
+#  else
+#   define LIBC_PPC gnu
+#  endif
+# else
+// Heuristic to detect musl libc
+#  include <stdarg.h>
+#  ifdef __DEFINED_va_list
+#   define LIBC musl
+#   define LIBC_X32 muslx32
+#   if defined(__ARM_PCS_VFP)
+#    define LIBC_ARM musleabihf
+#   else
+#    define LIBC_ARM musleabi
+#   endif
+#   if defined(__loongarch__)
+#    if defined(__loongarch_soft_float)
+#     define LIBC_LA muslsf
+#    elif defined(__loongarch_single_float)
+#     define LIBC_LA muslf32
+#    elif defined(__loongarch_double_float)
+#     define LIBC_LA musl
+#    else
+#     error unknown loongarch floating-point base abi
+#    endif
+#   endif
+#   if defined(_MIPS_SIM)
+#    if defined(__mips_hard_float)
+#     if _MIPS_SIM == _ABIO32
+#      define LIBC_MIPS musl
+#     elif _MIPS_SIM == _ABIN32
+#      define LIBC_MIPS musln32
+#     elif _MIPS_SIM == _ABI64
+#      define LIBC_MIPS musl
+#     else
+#      error unknown mips sim value
+#     endif
+#    else
+#     if _MIPS_SIM == _ABIO32
+#      define LIBC_MIPS muslsf
+#     elif _MIPS_SIM == _ABIN32
+#      define LIBC_MIPS musln32sf
+#     elif _MIPS_SIM == _ABI64
+#      define LIBC_MIPS muslsf
+#     else
+#      error unknown mips sim value
+#     endif
+#    endif
+#   endif
+#   if defined(_SOFT_FLOAT) || defined(__NO_FPRS__)
+#    define LIBC_PPC muslsf
+#   else
+#    define LIBC_PPC musl
+#   endif
+#  else
+#   error unknown libc
+#  endif
+# endif
+
+# if defined(__x86_64__) && defined(__LP64__)
+PLATFORM_TRIPLET=x86_64-linux-LIBC
+# elif defined(__x86_64__) && defined(__ILP32__)
+PLATFORM_TRIPLET=x86_64-linux-LIBC_X32
+# elif defined(__i386__)
+PLATFORM_TRIPLET=i386-linux-LIBC
+# elif defined(__aarch64__) && defined(__AARCH64EL__)
+#  if defined(__ILP32__)
+PLATFORM_TRIPLET=aarch64_ilp32-linux-LIBC
+#  else
+PLATFORM_TRIPLET=aarch64-linux-LIBC
+#  endif
+# elif defined(__aarch64__) && defined(__AARCH64EB__)
+#  if defined(__ILP32__)
+PLATFORM_TRIPLET=aarch64_be_ilp32-linux-LIBC
+#  else
+PLATFORM_TRIPLET=aarch64_be-linux-LIBC
+#  endif
+# elif defined(__alpha__)
+PLATFORM_TRIPLET=alpha-linux-LIBC
+# elif defined(__ARM_EABI__)
+#  if defined(__ARMEL__)
+PLATFORM_TRIPLET=arm-linux-LIBC_ARM
+#  else
+PLATFORM_TRIPLET=armeb-linux-LIBC_ARM
+#  endif
+# elif defined(__hppa__)
+PLATFORM_TRIPLET=hppa-linux-LIBC
+# elif defined(__ia64__)
+PLATFORM_TRIPLET=ia64-linux-LIBC
+# elif defined(__loongarch__) && defined(__loongarch_lp64)
+PLATFORM_TRIPLET=loongarch64-linux-LIBC_LA
+# elif defined(__m68k__) && !defined(__mcoldfire__)
+PLATFORM_TRIPLET=m68k-linux-LIBC
+# elif defined(__mips__)
+#  if defined(__mips_isa_rev) && (__mips_isa_rev >=6)
+#   if defined(_MIPSEL) && defined(__mips64)
+PLATFORM_TRIPLET=mipsisa64r6el-linux-LIBC_MIPS
+#   elif defined(_MIPSEL)
+PLATFORM_TRIPLET=mipsisa32r6el-linux-LIBC_MIPS
+#   elif defined(__mips64)
+PLATFORM_TRIPLET=mipsisa64r6-linux-LIBC_MIPS
+#   else
+PLATFORM_TRIPLET=mipsisa32r6-linux-LIBC_MIPS
+#   endif
+#  else
+#   if defined(_MIPSEL) && defined(__mips64)
+PLATFORM_TRIPLET=mips64el-linux-LIBC_MIPS
+#   elif defined(_MIPSEL)
+PLATFORM_TRIPLET=mipsel-linux-LIBC_MIPS
+#   elif defined(__mips64)
+PLATFORM_TRIPLET=mips64-linux-LIBC_MIPS
+#   else
+PLATFORM_TRIPLET=mips-linux-LIBC_MIPS
+#   endif
+#  endif
+# elif defined(__or1k__)
+PLATFORM_TRIPLET=or1k-linux-LIBC
+# elif defined(__powerpc64__)
+#  if defined(__LITTLE_ENDIAN__)
+PLATFORM_TRIPLET=powerpc64le-linux-LIBC
+#  else
+PLATFORM_TRIPLET=powerpc64-linux-LIBC
+#  endif
+# elif defined(__powerpc__)
+PLATFORM_TRIPLET=powerpc-linux-LIBC_PPC
+# elif defined(__s390x__)
+PLATFORM_TRIPLET=s390x-linux-LIBC
+# elif defined(__s390__)
+PLATFORM_TRIPLET=s390-linux-LIBC
+# elif defined(__sh__) && defined(__LITTLE_ENDIAN__)
+PLATFORM_TRIPLET=sh4-linux-LIBC
+# elif defined(__sparc__) && defined(__arch64__)
+PLATFORM_TRIPLET=sparc64-linux-LIBC
+# elif defined(__sparc__)
+PLATFORM_TRIPLET=sparc-linux-LIBC
+# elif defined(__riscv)
+#  if __riscv_xlen == 32
+PLATFORM_TRIPLET=riscv32-linux-LIBC
+#  elif __riscv_xlen == 64
+PLATFORM_TRIPLET=riscv64-linux-LIBC
+#  else
+#   error unknown platform triplet
+#  endif
+# else
+#   error unknown platform triplet
+# endif
+/*
+ * END of Linux block
+ */
+#elif defined(__FreeBSD_kernel__)
+# if defined(__LP64__)
+PLATFORM_TRIPLET=x86_64-kfreebsd-gnu
+# elif defined(__i386__)
+PLATFORM_TRIPLET=i386-kfreebsd-gnu
+# else
+#   error unknown platform triplet
+# endif
+#elif defined(__gnu_hurd__)
+# if defined(__x86_64__) && defined(__LP64__)
+PLATFORM_TRIPLET=x86_64-gnu
+# elif defined(__i386__)
+PLATFORM_TRIPLET=i386-gnu
+# else
+#   error unknown platform triplet
+# endif
+#elif defined(__APPLE__)
+#  include "TargetConditionals.h"
+// Older macOS SDKs do not define TARGET_OS_*
+#  if defined(TARGET_OS_IOS) && TARGET_OS_IOS
+#    if defined(TARGET_OS_SIMULATOR) && TARGET_OS_SIMULATOR
+#      if __x86_64__
+PLATFORM_TRIPLET=x86_64-iphonesimulator
+#      else
+PLATFORM_TRIPLET=arm64-iphonesimulator
+#      endif
+#    else
+PLATFORM_TRIPLET=arm64-iphoneos
+#    endif
+// Older macOS SDKs do not define TARGET_OS_OSX
+#  elif !defined(TARGET_OS_OSX) || TARGET_OS_OSX
+PLATFORM_TRIPLET=darwin
+#  else
+#    error unknown Apple platform
+#  endif
+#elif defined(__VXWORKS__)
+PLATFORM_TRIPLET=vxworks
+#elif defined(__wasm32__)
+#  if defined(__EMSCRIPTEN__)
+PLATFORM_TRIPLET=wasm32-emscripten
+#  elif defined(__wasi__)
+#    if defined(_REENTRANT)
+PLATFORM_TRIPLET=wasm32-wasi-threads
+#    else
+PLATFORM_TRIPLET=wasm32-wasi
+#    endif
+#  else
+#    error unknown wasm32 platform
+#  endif
+#elif defined(__wasm64__)
+#  if defined(__EMSCRIPTEN__)
+PLATFORM_TRIPLET=wasm64-emscripten
+#  elif defined(__wasi__)
+PLATFORM_TRIPLET=wasm64-wasi
+#  else
+#    error unknown wasm64 platform
+#  endif
+#else
+# error unknown platform triplet
+#endif
+
+
+================================================
+File: /Misc/python-config.in
+================================================
+#!@EXENAME@
+# -*- python -*-
+
+# Keep this script in sync with python-config.sh.in
+
+import getopt
+import sys
+import sysconfig
+
+valid_opts = ['prefix', 'exec-prefix', 'includes', 'libs', 'cflags',
+              'ldflags', 'extension-suffix', 'help', 'abiflags', 'configdir',
+              'embed']
+
+def exit_with_usage(code=1):
+    print("Usage: {0} [{1}]".format(
+        sys.argv[0], '|'.join('--'+opt for opt in valid_opts)),
+        file=sys.stdout if code == 0 else sys.stderr)
+    sys.exit(code)
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:], '', valid_opts)
+except getopt.error:
+    exit_with_usage()
+
+if not opts:
+    exit_with_usage()
+
+getvar = sysconfig.get_config_var
+pyver = getvar('VERSION')
+
+opt_flags = [flag for (flag, val) in opts]
+
+if '--help' in opt_flags:
+    exit_with_usage(code=0)
+
+for opt in opt_flags:
+    if opt == '--prefix':
+        print(getvar('prefix'))
+
+    elif opt == '--exec-prefix':
+        print(getvar('exec_prefix'))
+
+    elif opt in ('--includes', '--cflags'):
+        flags = ['-I' + sysconfig.get_path('include'),
+                 '-I' + sysconfig.get_path('platinclude')]
+        if opt == '--cflags':
+            flags.extend(getvar('CFLAGS').split())
+        print(' '.join(flags))
+
+    elif opt in ('--libs', '--ldflags'):
+        libs = []
+        if '--embed' in opt_flags:
+            libs.append('-lpython' + pyver + sys.abiflags)
+        else:
+            libpython = getvar('LIBPYTHON')
+            if libpython:
+                libs.append(libpython)
+        libs.extend(getvar('LIBS').split() + getvar('SYSLIBS').split())
+
+        # add the prefix/lib/pythonX.Y/config dir, but only if there is no
+        # shared library in prefix/lib/.
+        if opt == '--ldflags':
+            if not getvar('Py_ENABLE_SHARED'):
+                libs.insert(0, '-L' + getvar('LIBPL'))
+        print(' '.join(libs))
+
+    elif opt == '--extension-suffix':
+        print(getvar('EXT_SUFFIX'))
+
+    elif opt == '--abiflags':
+        print(sys.abiflags)
+
+    elif opt == '--configdir':
+        print(getvar('LIBPL'))
+
+
+================================================
+File: /Misc/python-config.sh.in
+================================================
+#!/bin/sh
+
+# Keep this script in sync with python-config.in
+
+exit_with_usage ()
+{
+    local usage
+    usage="Usage: $0 --prefix|--exec-prefix|--includes|--libs|--cflags|--ldflags|--extension-suffix|--help|--abiflags|--configdir|--embed"
+    if [ "$1" -eq 0 ]; then
+        echo "$usage"
+    else
+        echo "$usage" >&2
+    fi
+    exit $1
+}
+
+if [ "$1" = "" ] ; then
+    exit_with_usage 1
+fi
+
+# Returns the actual prefix where this script was installed to.
+installed_prefix ()
+{
+    RESULT=$(dirname $(cd $(dirname "$1") && pwd -P))
+    if which readlink >/dev/null 2>&1 ; then
+        if readlink -f "$RESULT" >/dev/null 2>&1; then
+          RESULT=$(readlink -f "$RESULT")
+        fi
+    fi
+    echo $RESULT
+}
+
+prefix_real=$(installed_prefix "$0")
+
+# Use sed to fix paths from their built-to locations to their installed-to
+# locations. Keep prefix & exec_prefix using their original values in case
+# they are referenced in other configure variables, to prevent double
+# substitution, issue #22140.
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+exec_prefix_real=${prefix_real}
+includedir=$(echo "@includedir@" | sed "s#$prefix#$prefix_real#")
+libdir=$(echo "@libdir@" | sed "s#$prefix#$prefix_real#")
+CFLAGS=$(echo "@CFLAGS@" | sed "s#$prefix#$prefix_real#")
+VERSION="@VERSION@"
+LIBM="@LIBM@"
+LIBC="@LIBC@"
+SYSLIBS="$LIBM $LIBC"
+ABIFLAGS="@ABIFLAGS@"
+LIBS="@LIBPYTHON@ @LIBS@ $SYSLIBS"
+LIBS_EMBED="-lpython${VERSION}${ABIFLAGS} @LIBS@ $SYSLIBS"
+BASECFLAGS="@BASECFLAGS@"
+LDLIBRARY="@LDLIBRARY@"
+OPT="@OPT@"
+PY_ENABLE_SHARED="@PY_ENABLE_SHARED@"
+LDVERSION="@LDVERSION@"
+LIBDEST=${prefix_real}/lib/python${VERSION}
+LIBPL=$(echo "@LIBPL@" | sed "s#$prefix#$prefix_real#")
+SO="@EXT_SUFFIX@"
+PYTHONFRAMEWORK="@PYTHONFRAMEWORK@"
+INCDIR="-I$includedir/python${VERSION}${ABIFLAGS}"
+PLATINCDIR="-I$includedir/python${VERSION}${ABIFLAGS}"
+PY_EMBED=0
+
+# Scan for --help or unknown argument.
+for ARG in $*
+do
+    case $ARG in
+        --help)
+            exit_with_usage 0
+        ;;
+        --embed)
+            PY_EMBED=1
+        ;;
+        --prefix|--exec-prefix|--includes|--libs|--cflags|--ldflags|--extension-suffix|--abiflags|--configdir)
+        ;;
+        *)
+            exit_with_usage 1
+        ;;
+    esac
+done
+
+if [ $PY_EMBED = 1 ] ; then
+    LIBS="$LIBS_EMBED"
+fi
+
+for ARG in "$@"
+do
+    case "$ARG" in
+        --prefix)
+            echo "$prefix_real"
+        ;;
+        --exec-prefix)
+            echo "$exec_prefix_real"
+        ;;
+        --includes)
+            echo "$INCDIR $PLATINCDIR"
+        ;;
+        --cflags)
+            echo "$INCDIR $PLATINCDIR $BASECFLAGS $CFLAGS $OPT"
+        ;;
+        --libs)
+            echo "$LIBS"
+        ;;
+        --ldflags)
+            LIBPLUSED=
+            if [ "$PY_ENABLE_SHARED" = "0" ] ; then
+                LIBPLUSED="-L$LIBPL"
+            fi
+            echo "$LIBPLUSED -L$libdir $LIBS"
+        ;;
+        --extension-suffix)
+            echo "$SO"
+        ;;
+        --abiflags)
+            echo "$ABIFLAGS"
+        ;;
+        --configdir)
+            echo "$LIBPL"
+        ;;
+esac
+done
+
+
+================================================
+File: /Misc/python-embed.pc.in
+================================================
+# See: man pkg-config
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: Python
+Description: Embed Python into an application
+Requires:
+Version: @VERSION@
+Libs.private: @LIBS@
+Libs: -L${libdir} -lpython@VERSION@@ABIFLAGS@
+Cflags: -I${includedir}/python@VERSION@@ABIFLAGS@
+
+
+================================================
+File: /Misc/python.man
+================================================
+.TH PYTHON "1"
+
+.\" To view this file while editing, run it through groff:
+.\"   groff -Tascii -man python.man | less
+
+.SH NAME
+python \- an interpreted, interactive, object-oriented programming language
+.SH SYNOPSIS
+.B python
+[
+.B \-B
+]
+[
+.B \-b
+]
+[
+.B \-d
+]
+[
+.B \-E
+]
+[
+.B \-h
+]
+[
+.B \-i
+]
+[
+.B \-I
+]
+.br
+       [
+.B \-m
+.I module-name
+]
+[
+.B \-q
+]
+[
+.B \-O
+]
+[
+.B \-OO
+]
+[
+.B \-P
+]
+[
+.B \-s
+]
+[
+.B \-S
+]
+[
+.B \-u
+]
+.br
+       [
+.B \-v
+]
+[
+.B \-V
+]
+[
+.B \-W
+.I argument
+]
+[
+.B \-x
+]
+[
+.B \-X
+.I option
+]
+[
+.B \-?
+]
+.br
+       [
+.B \--check-hash-based-pycs
+.I default
+|
+.I always
+|
+.I never
+]
+.br
+       [
+.B \--help
+]
+[
+.B \--help-env
+]
+[
+.B \--help-xoptions
+]
+[
+.B \--help-all
+]
+.br
+       [
+.B \-c
+.I command
+|
+.I script
+|
+\-
+]
+[
+.I arguments
+]
+.SH DESCRIPTION
+Python is an interpreted, interactive, object-oriented programming
+language that combines remarkable power with very clear syntax.
+For an introduction to programming in Python, see the Python Tutorial.
+The Python Library Reference documents built-in and standard types,
+constants, functions and modules.
+Finally, the Python Reference Manual describes the syntax and
+semantics of the core language in (perhaps too) much detail.
+(These documents may be located via the
+.B "INTERNET RESOURCES"
+below; they may be installed on your system as well.)
+.PP
+Python's basic power can be extended with your own modules written in
+C or C++.
+On most systems such modules may be dynamically loaded.
+Python is also adaptable as an extension language for existing
+applications.
+See the internal documentation for hints.
+.PP
+Documentation for installed Python modules and packages can be
+viewed by running the
+.B pydoc
+program.
+.SH COMMAND LINE OPTIONS
+.TP
+.B \-B
+Don't write
+.I .pyc
+files on import. See also PYTHONDONTWRITEBYTECODE.
+.TP
+.B \-b
+Issue warnings about str(bytes_instance), str(bytearray_instance)
+and comparing bytes/bytearray with str. (-bb: issue errors)
+.TP
+.BI "\-c " command
+Specify the command to execute (see next section).
+This terminates the option list (following options are passed as
+arguments to the command).
+.TP
+.BI "\-\-check-hash-based-pycs " mode
+Configure how Python evaluates the up-to-dateness of hash-based .pyc files.
+.TP
+.B \-d
+Turn on parser debugging output (for expert only, depending on
+compilation options).
+.TP
+.B \-E
+Ignore environment variables like PYTHONPATH and PYTHONHOME that modify
+the behavior of the interpreter.
+.TP
+.B \-h ", " \-? ", "\-\-help
+Prints the usage for the interpreter executable and exits.
+.TP
+.B "\-\-help\-env"
+Prints help about Python-specific environment variables and exits.
+.TP
+.B "\-\-help\-xoptions"
+Prints help about implementation-specific \fB\-X\fP options and exits.
+.TP
+.TP
+.B "\-\-help\-all"
+Prints complete usage information and exits.
+.TP
+.B \-i
+When a script is passed as first argument or the \fB\-c\fP option is
+used, enter interactive mode after executing the script or the
+command.  It does not read the $PYTHONSTARTUP file.  This can be
+useful to inspect global variables or a stack trace when a script
+raises an exception.
+.TP
+.B \-I
+Run Python in isolated mode. This also implies \fB\-E\fP, \fB\-P\fP and \fB\-s\fP. In
+isolated mode sys.path contains neither the script's directory nor the user's
+site-packages directory. All PYTHON* environment variables are ignored, too.
+Further restrictions may be imposed to prevent the user from injecting
+malicious code.
+.TP
+.BI "\-m " module-name
+Searches
+.I sys.path
+for the named module and runs the corresponding
+.I .py
+file as a script. This terminates the option list (following options
+are passed as arguments to the module).
+.TP
+.B \-O
+Remove assert statements and any code conditional on the value of
+__debug__; augment the filename for compiled (bytecode) files by
+adding .opt-1 before the .pyc extension.
+.TP
+.B \-OO
+Do \fB-O\fP and also discard docstrings; change the filename for
+compiled (bytecode) files by adding .opt-2 before the .pyc extension.
+.TP
+.B \-P
+Don't automatically prepend a potentially unsafe path to \fBsys.path\fP such
+as the current directory, the script's directory or an empty string. See also the
+\fBPYTHONSAFEPATH\fP environment variable.
+.TP
+.B \-q
+Do not print the version and copyright messages. These messages are
+also suppressed in non-interactive mode.
+.TP
+.B \-s
+Don't add user site directory to sys.path.
+.TP
+.B \-S
+Disable the import of the module
+.I site
+and the site-dependent manipulations of
+.I sys.path
+that it entails.  Also disable these manipulations if
+.I site
+is explicitly imported later.
+.TP
+.B \-u
+Force the stdout and stderr streams to be unbuffered.
+This option has no effect on the stdin stream.
+.TP
+.B \-v
+Print a message each time a module is initialized, showing the place
+(filename or built-in module) from which it is loaded.  When given
+twice, print a message for each file that is checked for when
+searching for a module.  Also provides information on module cleanup
+at exit.
+.TP
+.B \-V ", " \-\-version
+Prints the Python version number of the executable and exits.  When given
+twice, print more information about the build.
+
+.TP
+.BI "\-W " argument
+Warning control. Python's warning machinery by default prints warning messages
+to
+.IR sys.stderr .
+
+The simplest settings apply a particular action unconditionally to all warnings
+emitted by a process (even those that are otherwise ignored by default):
+
+  -Wdefault  # Warn once per call location
+  -Werror    # Convert to exceptions
+  -Walways   # Warn every time
+  -Wall      # Same as -Walways
+  -Wmodule   # Warn once per calling module
+  -Wonce     # Warn once per Python process
+  -Wignore   # Never warn
+
+The action names can be abbreviated as desired and the interpreter will resolve
+them to the appropriate action name. For example,
+.B -Wi
+is the same as
+.B -Wignore .
+
+The full form of argument is:
+.IB action:message:category:module:lineno
+
+Empty fields match all values; trailing empty fields may be omitted. For
+example
+.B -W ignore::DeprecationWarning
+ignores all DeprecationWarning warnings.
+
+The
+.I action
+field is as explained above but only applies to warnings that match
+the remaining fields.
+
+The
+.I message
+field must match the whole printed warning message; this match is
+case-insensitive.
+
+The
+.I category
+field matches the warning category (ex: "DeprecationWarning"). This must be a
+class name; the match test whether the actual warning category of the message
+is a subclass of the specified warning category.
+
+The
+.I module
+field matches the (fully-qualified) module name; this match is case-sensitive.
+
+The
+.I lineno
+field matches the line number, where zero matches all line numbers and is thus
+equivalent to an omitted line number.
+
+Multiple
+.B -W
+options can be given; when a warning matches more than one option, the action
+for the last matching option is performed. Invalid
+.B -W
+options are ignored (though, a warning message is printed about invalid options
+when the first warning is issued).
+
+Warnings can also be controlled using the
+.B PYTHONWARNINGS
+environment variable and from within a Python program using the warnings
+module.  For example, the warnings.filterwarnings() function can be used to use
+a regular expression on the warning message.
+
+.TP
+.BI "\-X " option
+Set implementation-specific option. The following options are available:
+
+    -X faulthandler: enable faulthandler
+
+    -X showrefcount: output the total reference count and number of used
+        memory blocks when the program finishes or after each statement in the
+        interactive interpreter. This only works on debug builds
+
+    -X tracemalloc: start tracing Python memory allocations using the
+        tracemalloc module. By default, only the most recent frame is stored in a
+        traceback of a trace. Use -X tracemalloc=NFRAME to start tracing with a
+        traceback limit of NFRAME frames
+
+    -X importtime: show how long each import takes. It shows module name,
+        cumulative time (including nested imports) and self time (excluding
+        nested imports). Note that its output may be broken in multi-threaded
+        application. Typical usage is python3 -X importtime -c 'import asyncio'
+
+    -X dev: enable CPython's "development mode", introducing additional runtime
+        checks which are too expensive to be enabled by default. It will not be
+        more verbose than the default if the code is correct: new warnings are
+        only emitted when an issue is detected. Effect of the developer mode:
+           * Add default warning filter, as -W default
+           * Install debug hooks on memory allocators: see the PyMem_SetupDebugHooks()
+             C function
+           * Enable the faulthandler module to dump the Python traceback on a crash
+           * Enable asyncio debug mode
+           * Set the dev_mode attribute of sys.flags to True
+           * io.IOBase destructor logs close() exceptions
+
+    -X utf8: enable UTF-8 mode for operating system interfaces, overriding the default
+        locale-aware mode. -X utf8=0 explicitly disables UTF-8 mode (even when it would
+        otherwise activate automatically). See PYTHONUTF8 for more details
+
+    -X pycache_prefix=PATH: enable writing .pyc files to a parallel tree rooted at the
+        given directory instead of to the code tree.
+
+    -X warn_default_encoding: enable opt-in EncodingWarning for 'encoding=None'
+
+    -X no_debug_ranges: disable the inclusion of the tables mapping extra location
+       information (end line, start column offset and end column offset) to every
+       instruction in code objects. This is useful when smaller code objects and pyc
+       files are desired as well as suppressing the extra visual location indicators
+       when the interpreter displays tracebacks.
+
+    -X frozen_modules=[on|off]: whether or not frozen modules should be used.
+       The default is "on" (or "off" if you are running a local build).
+
+    -X int_max_str_digits=number: limit the size of int<->str conversions.
+       This helps avoid denial of service attacks when parsing untrusted data.
+       The default is sys.int_info.default_max_str_digits.  0 disables.
+
+.TP
+.B \-x
+Skip the first line of the source.  This is intended for a DOS
+specific hack only.  Warning: the line numbers in error messages will
+be off by one!
+.SH INTERPRETER INTERFACE
+The interpreter interface resembles that of the UNIX shell: when
+called with standard input connected to a tty device, it prompts for
+commands and executes them until an EOF is read; when called with a
+file name argument or with a file as standard input, it reads and
+executes a
+.I script
+from that file;
+when called with
+.B \-c
+.IR command ,
+it executes the Python statement(s) given as
+.IR command .
+Here
+.I command
+may contain multiple statements separated by newlines.
+Leading whitespace is significant in Python statements!
+In non-interactive mode, the entire input is parsed before it is
+executed.
+.PP
+If available, the script name and additional arguments thereafter are
+passed to the script in the Python variable
+.IR sys.argv ,
+which is a list of strings (you must first
+.I import sys
+to be able to access it).
+If no script name is given,
+.I sys.argv[0]
+is an empty string; if
+.B \-c
+is used,
+.I sys.argv[0]
+contains the string
+.I '-c'.
+Note that options interpreted by the Python interpreter itself
+are not placed in
+.IR sys.argv .
+.PP
+In interactive mode, the primary prompt is `>>>'; the second prompt
+(which appears when a command is not complete) is `...'.
+The prompts can be changed by assignment to
+.I sys.ps1
+or
+.IR sys.ps2 .
+The interpreter quits when it reads an EOF at a prompt.
+When an unhandled exception occurs, a stack trace is printed and
+control returns to the primary prompt; in non-interactive mode, the
+interpreter exits after printing the stack trace.
+The interrupt signal raises the
+.I Keyboard\%Interrupt
+exception; other UNIX signals are not caught (except that SIGPIPE is
+sometimes ignored, in favor of the
+.I IOError
+exception).  Error messages are written to stderr.
+.SH FILES AND DIRECTORIES
+These are subject to difference depending on local installation
+conventions; ${prefix} and ${exec_prefix} are installation-dependent
+and should be interpreted as for GNU software; they may be the same.
+The default for both is \fI/usr/local\fP.
+.IP \fI${exec_prefix}/bin/python\fP
+Recommended location of the interpreter.
+.PP
+.I ${prefix}/lib/python<version>
+.br
+.I ${exec_prefix}/lib/python<version>
+.RS
+Recommended locations of the directories containing the standard
+modules.
+.RE
+.PP
+.I ${prefix}/include/python<version>
+.br
+.I ${exec_prefix}/include/python<version>
+.RS
+Recommended locations of the directories containing the include files
+needed for developing Python extensions and embedding the
+interpreter.
+.RE
+.SH ENVIRONMENT VARIABLES
+.IP PYTHONSAFEPATH
+If this is set to a non-empty string, don't automatically prepend a potentially
+unsafe path to \fBsys.path\fP such as the current directory, the script's
+directory or an empty string. See also the \fB\-P\fP option.
+.IP PYTHONHOME
+Change the location of the standard Python libraries.  By default, the
+libraries are searched in ${prefix}/lib/python<version> and
+${exec_prefix}/lib/python<version>, where ${prefix} and ${exec_prefix}
+are installation-dependent directories, both defaulting to
+\fI/usr/local\fP.  When $PYTHONHOME is set to a single directory, its value
+replaces both ${prefix} and ${exec_prefix}.  To specify different values
+for these, set $PYTHONHOME to ${prefix}:${exec_prefix}.
+.IP PYTHONPATH
+Augments the default search path for module files.
+The format is the same as the shell's $PATH: one or more directory
+pathnames separated by colons.
+Non-existent directories are silently ignored.
+The default search path is installation dependent, but generally
+begins with ${prefix}/lib/python<version> (see PYTHONHOME above).
+The default search path is always appended to $PYTHONPATH.
+If a script argument is given, the directory containing the script is
+inserted in the path in front of $PYTHONPATH.
+The search path can be manipulated from within a Python program as the
+variable
+.IR sys.path .
+.IP PYTHONPLATLIBDIR
+Override sys.platlibdir.
+.IP PYTHONSTARTUP
+If this is the name of a readable file, the Python commands in that
+file are executed before the first prompt is displayed in interactive
+mode.
+The file is executed in the same name space where interactive commands
+are executed so that objects defined or imported in it can be used
+without qualification in the interactive session.
+You can also change the prompts
+.I sys.ps1
+and
+.I sys.ps2
+in this file.
+.IP PYTHONOPTIMIZE
+If this is set to a non-empty string it is equivalent to specifying
+the \fB\-O\fP option. If set to an integer, it is equivalent to
+specifying \fB\-O\fP multiple times.
+.IP PYTHONDEBUG
+If this is set to a non-empty string it is equivalent to specifying
+the \fB\-d\fP option. If set to an integer, it is equivalent to
+specifying \fB\-d\fP multiple times.
+.IP PYTHONDONTWRITEBYTECODE
+If this is set to a non-empty string it is equivalent to specifying
+the \fB\-B\fP option (don't try to write
+.I .pyc
+files).
+.IP PYTHONINSPECT
+If this is set to a non-empty string it is equivalent to specifying
+the \fB\-i\fP option.
+.IP PYTHONIOENCODING
+If this is set before running the interpreter, it overrides the encoding used
+for stdin/stdout/stderr, in the syntax
+.IB encodingname ":" errorhandler
+The
+.IB errorhandler
+part is optional and has the same meaning as in str.encode. For stderr, the
+.IB errorhandler
+ part is ignored; the handler will always be \'backslashreplace\'.
+.IP PYTHONNOUSERSITE
+If this is set to a non-empty string it is equivalent to specifying the
+\fB\-s\fP option (Don't add the user site directory to sys.path).
+.IP PYTHONUNBUFFERED
+If this is set to a non-empty string it is equivalent to specifying
+the \fB\-u\fP option.
+.IP PYTHONVERBOSE
+If this is set to a non-empty string it is equivalent to specifying
+the \fB\-v\fP option. If set to an integer, it is equivalent to
+specifying \fB\-v\fP multiple times.
+.IP PYTHONWARNINGS
+If this is set to a comma-separated string it is equivalent to
+specifying the \fB\-W\fP option for each separate value.
+.IP PYTHONHASHSEED
+If this variable is set to "random", a random value is used to seed the hashes
+of str and bytes objects.
+
+If PYTHONHASHSEED is set to an integer value, it is used as a fixed seed for
+generating the hash() of the types covered by the hash randomization.  Its
+purpose is to allow repeatable hashing, such as for selftests for the
+interpreter itself, or to allow a cluster of python processes to share hash
+values.
+
+The integer must be a decimal number in the range [0,4294967295].  Specifying
+the value 0 will disable hash randomization.
+.IP PYTHONINTMAXSTRDIGITS
+Limit the maximum digit characters in an int value
+when converting from a string and when converting an int back to a str.
+A value of 0 disables the limit.  Conversions to or from bases 2, 4, 8,
+16, and 32 are never limited.
+.IP PYTHONMALLOC
+Set the Python memory allocators and/or install debug hooks. The available
+memory allocators are
+.IR malloc
+and
+.IR pymalloc .
+The available debug hooks are
+.IR debug ,
+.IR malloc_debug ,
+and
+.IR pymalloc_debug .
+.IP
+When Python is compiled in debug mode, the default is
+.IR pymalloc_debug
+and the debug hooks are automatically used. Otherwise, the default is
+.IR pymalloc .
+.IP PYTHONMALLOCSTATS
+If set to a non-empty string, Python will print statistics of the pymalloc
+memory allocator every time a new pymalloc object arena is created, and on
+shutdown.
+.IP
+This variable is ignored if the
+.RB $ PYTHONMALLOC
+environment variable is used to force the
+.BR malloc (3)
+allocator of the C library, or if Python is configured without pymalloc support.
+.IP PYTHONASYNCIODEBUG
+If this environment variable is set to a non-empty string, enable the debug
+mode of the asyncio module.
+.IP PYTHONTRACEMALLOC
+If this environment variable is set to a non-empty string, start tracing
+Python memory allocations using the tracemalloc module.
+.IP
+The value of the variable is the maximum number of frames stored in a
+traceback of a trace. For example,
+.IB PYTHONTRACEMALLOC=1
+stores only the most recent frame.
+.IP PYTHONFAULTHANDLER
+If this environment variable is set to a non-empty string,
+.IR faulthandler.enable()
+is called at startup: install a handler for SIGSEGV, SIGFPE, SIGABRT, SIGBUS
+and SIGILL signals to dump the Python traceback.
+.IP
+This is equivalent to the \fB-X faulthandler\fP option.
+.IP PYTHONEXECUTABLE
+If this environment variable is set,
+.IB sys.argv[0]
+will be set to its value instead of the value got through the C runtime. Only
+works on Mac OS X.
+.IP PYTHONUSERBASE
+Defines the user base directory, which is used to compute the path of the user
+.IR site-packages
+directory and installation paths for
+.IR "python \-m pip install \-\-user" .
+.IP PYTHONPROFILEIMPORTTIME
+If this environment variable is set to a non-empty string, Python will
+show how long each import takes. This is exactly equivalent to setting
+\fB\-X importtime\fP on the command line.
+.IP PYTHONBREAKPOINT
+If this environment variable is set to 0, it disables the default debugger. It
+can be set to the callable of your debugger of choice.
+.IP PYTHON_COLORS
+If this variable is set to 1, the interpreter will colorize various kinds of
+output. Setting it to 0 deactivates this behavior.
+.IP PYTHON_HISTORY
+This environment variable can be used to set the location of a history file
+(on Unix, it is \fI~/.python_history\fP by default).
+.IP PYTHON_GIL
+If this variable is set to 1, the global interpreter lock (GIL) will be forced
+on. Setting it to 0 forces the GIL off. Only available in builds configured
+with \fB--disable-gil\fP.
+.SS Debug-mode variables
+Setting these variables only has an effect in a debug build of Python, that is,
+if Python was configured with the
+\fB\--with-pydebug\fP build option.
+.IP PYTHONDUMPREFS
+If this environment variable is set, Python will dump objects and reference
+counts still alive after shutting down the interpreter.
+.SH AUTHOR
+The Python Software Foundation: https://www.python.org/psf/
+.SH INTERNET RESOURCES
+Main website:  https://www.python.org/
+.br
+Documentation:  https://docs.python.org/
+.br
+Developer resources:  https://devguide.python.org/
+.br
+Downloads:  https://www.python.org/downloads/
+.br
+Module repository:  https://pypi.org/
+.br
+Newsgroups:  comp.lang.python, comp.lang.python.announce
+.SH LICENSING
+Python is distributed under an Open Source license.  See the file
+"LICENSE" in the Python source distribution for information on terms &
+conditions for accessing and otherwise using Python and for a
+DISCLAIMER OF ALL WARRANTIES.
+
+
+================================================
+File: /Misc/python.pc.in
+================================================
+# See: man pkg-config
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: Python
+Description: Build a C extension for Python
+Requires:
+Version: @VERSION@
+Libs.private: @LIBS@
+Libs: -L${libdir} @LIBPYTHON@
+Cflags: -I${includedir}/python@VERSION@@ABIFLAGS@
+
+
+================================================
+File: /Misc/valgrind-python.supp
+================================================
+#
+# This is a valgrind suppression file that should be used when using valgrind.
+#
+#  Here's an example of running valgrind:
+#
+#	cd python/dist/src
+#	valgrind --tool=memcheck --suppressions=Misc/valgrind-python.supp \
+#		./python -E ./Lib/test/regrtest.py -u gui,network
+#
+# You must edit Objects/obmalloc.c and uncomment Py_USING_MEMORY_DEBUGGER
+# to use the preferred suppressions with address_in_range.
+#
+# If you do not want to recompile Python, you can uncomment
+# suppressions for _PyObject_Free and _PyObject_Realloc.
+#
+# See Misc/README.valgrind for more information.
+
+# all tool names: Addrcheck,Memcheck,cachegrind,helgrind,massif
+{
+   ADDRESS_IN_RANGE/Invalid read of size 4
+   Memcheck:Addr4
+   fun:address_in_range
+}
+
+{
+   ADDRESS_IN_RANGE/Invalid read of size 4
+   Memcheck:Value4
+   fun:address_in_range
+}
+
+{
+   ADDRESS_IN_RANGE/Invalid read of size 8 (x86_64 aka amd64)
+   Memcheck:Value8
+   fun:address_in_range
+}
+
+{
+   ADDRESS_IN_RANGE/Conditional jump or move depends on uninitialised value
+   Memcheck:Cond
+   fun:address_in_range
+}
+
+#
+# Leaks (including possible leaks)
+#    Hmmm, I wonder if this masks some real leaks.  I think it does.
+#    Will need to fix that.
+#
+
+{
+   Suppress leaking the GIL after a fork.
+   Memcheck:Leak
+   fun:malloc
+   fun:PyThread_allocate_lock
+   fun:PyEval_ReInitThreads
+}
+
+{
+   Suppress leaking the autoTLSkey.  This looks like it shouldn't leak though.
+   Memcheck:Leak
+   fun:malloc
+   fun:PyThread_create_key
+   fun:_PyGILState_Init
+   fun:Py_InitializeEx
+   fun:Py_Main
+}
+
+{
+   Hmmm, is this a real leak or like the GIL?
+   Memcheck:Leak
+   fun:malloc
+   fun:PyThread_ReInitTLS
+}
+
+{
+   Handle PyMalloc confusing valgrind (possibly leaked)
+   Memcheck:Leak
+   fun:realloc
+   fun:_PyObject_GC_Resize
+   fun:COMMENT_THIS_LINE_TO_DISABLE_LEAK_WARNING
+}
+
+{
+   Handle PyMalloc confusing valgrind (possibly leaked)
+   Memcheck:Leak
+   fun:malloc
+   fun:_PyObject_GC_New
+   fun:COMMENT_THIS_LINE_TO_DISABLE_LEAK_WARNING
+}
+
+{
+   Handle PyMalloc confusing valgrind (possibly leaked)
+   Memcheck:Leak
+   fun:malloc
+   fun:_PyObject_GC_NewVar
+   fun:COMMENT_THIS_LINE_TO_DISABLE_LEAK_WARNING
+}
+
+#
+# Leaks: dlopen() called without dlclose()
+#
+
+{
+   dlopen() called without dlclose()
+   Memcheck:Leak
+   fun:malloc
+   fun:malloc
+   fun:strdup
+   fun:_dl_load_cache_lookup
+}
+{
+   dlopen() called without dlclose()
+   Memcheck:Leak
+   fun:malloc
+   fun:malloc
+   fun:strdup
+   fun:_dl_map_object
+}
+{
+   dlopen() called without dlclose()
+   Memcheck:Leak
+   fun:malloc
+   fun:*
+   fun:_dl_new_object
+}
+{
+   dlopen() called without dlclose()
+   Memcheck:Leak
+   fun:calloc
+   fun:*
+   fun:_dl_new_object
+}
+{
+   dlopen() called without dlclose()
+   Memcheck:Leak
+   fun:calloc
+   fun:*
+   fun:_dl_check_map_versions
+}
+
+
+#
+# Non-python specific leaks
+#
+
+{
+   Handle pthread issue (possibly leaked)
+   Memcheck:Leak
+   fun:calloc
+   fun:allocate_dtv
+   fun:_dl_allocate_tls_storage
+   fun:_dl_allocate_tls
+}
+
+{
+   Handle pthread issue (possibly leaked)
+   Memcheck:Leak
+   fun:memalign
+   fun:_dl_allocate_tls_storage
+   fun:_dl_allocate_tls
+}
+
+###{
+###   ADDRESS_IN_RANGE/Invalid read of size 4
+###   Memcheck:Addr4
+###   fun:_PyObject_Free
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Invalid read of size 4
+###   Memcheck:Value4
+###   fun:_PyObject_Free
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Use of uninitialised value of size 8
+###   Memcheck:Addr8
+###   fun:_PyObject_Free
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Use of uninitialised value of size 8
+###   Memcheck:Value8
+###   fun:_PyObject_Free
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Conditional jump or move depends on uninitialised value
+###   Memcheck:Cond
+###   fun:_PyObject_Free
+###}
+
+###{
+###   ADDRESS_IN_RANGE/Invalid read of size 4
+###   Memcheck:Addr4
+###   fun:_PyObject_Realloc
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Invalid read of size 4
+###   Memcheck:Value4
+###   fun:_PyObject_Realloc
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Use of uninitialised value of size 8
+###   Memcheck:Addr8
+###   fun:_PyObject_Realloc
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Use of uninitialised value of size 8
+###   Memcheck:Value8
+###   fun:_PyObject_Realloc
+###}
+###
+###{
+###   ADDRESS_IN_RANGE/Conditional jump or move depends on uninitialised value
+###   Memcheck:Cond
+###   fun:_PyObject_Realloc
+###}
+
+###
+### All the suppressions below are for errors that occur within libraries
+### that Python uses.  The problems to not appear to be related to Python's
+### use of the libraries.
+###
+
+{
+   Generic ubuntu ld problems
+   Memcheck:Addr8
+   obj:/lib/ld-2.4.so
+   obj:/lib/ld-2.4.so
+   obj:/lib/ld-2.4.so
+   obj:/lib/ld-2.4.so
+}
+
+{
+   Generic gentoo ld problems
+   Memcheck:Cond
+   obj:/lib/ld-2.3.4.so
+   obj:/lib/ld-2.3.4.so
+   obj:/lib/ld-2.3.4.so
+   obj:/lib/ld-2.3.4.so
+}
+
+{
+   DBM problems, see test_dbm
+   Memcheck:Param
+   write(buf)
+   fun:write
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   fun:dbm_close
+}
+
+{
+   DBM problems, see test_dbm
+   Memcheck:Value8
+   fun:memmove
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   fun:dbm_store
+   fun:dbm_ass_sub
+}
+
+{
+   DBM problems, see test_dbm
+   Memcheck:Cond
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   fun:dbm_store
+   fun:dbm_ass_sub
+}
+
+{
+   DBM problems, see test_dbm
+   Memcheck:Cond
+   fun:memmove
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   obj:/usr/lib/libdb1.so.2
+   fun:dbm_store
+   fun:dbm_ass_sub
+}
+
+{
+   GDBM problems, see test_gdbm
+   Memcheck:Param
+   write(buf)
+   fun:write
+   fun:gdbm_open
+
+}
+
+{
+   Uninitialised byte(s) false alarm, see bpo-35561
+   Memcheck:Param
+   epoll_ctl(event)
+   fun:epoll_ctl
+   fun:pyepoll_internal_ctl
+}
+
+{
+   ZLIB problems, see test_gzip
+   Memcheck:Cond
+   obj:/lib/libz.so.1.2.3
+   obj:/lib/libz.so.1.2.3
+   fun:deflate
+}
+
+{
+   Avoid problems w/readline doing a putenv and leaking on exit
+   Memcheck:Leak
+   fun:malloc
+   fun:xmalloc
+   fun:sh_set_lines_and_columns
+   fun:_rl_get_screen_size
+   fun:_rl_init_terminal_io
+   obj:/lib/libreadline.so.4.3
+   fun:rl_initialize
+}
+
+# Valgrind emits "Conditional jump or move depends on uninitialised value(s)"
+# false alarms on GCC builtin strcmp() function. The GCC code is correct.
+#
+# Valgrind bug: https://bugs.kde.org/show_bug.cgi?id=264936
+{
+   bpo-38118: Valgrind emits false alarm on GCC builtin strcmp()
+   Memcheck:Cond
+   fun:PyUnicode_Decode
+}
+
+
+###
+### These occur from somewhere within the SSL, when running
+###  test_socket_sll.  They are too general to leave on by default.
+###
+###{
+###   somewhere in SSL stuff
+###   Memcheck:Cond
+###   fun:memset
+###}
+###{
+###   somewhere in SSL stuff
+###   Memcheck:Value4
+###   fun:memset
+###}
+###
+###{
+###   somewhere in SSL stuff
+###   Memcheck:Cond
+###   fun:MD5_Update
+###}
+###
+###{
+###   somewhere in SSL stuff
+###   Memcheck:Value4
+###   fun:MD5_Update
+###}
+
+# Fedora's package "openssl-1.0.1-0.1.beta2.fc17.x86_64" on x86_64
+# See http://bugs.python.org/issue14171
+{
+   openssl 1.0.1 prng 1
+   Memcheck:Cond
+   fun:bcmp
+   fun:fips_get_entropy
+   fun:FIPS_drbg_instantiate
+   fun:RAND_init_fips
+   fun:OPENSSL_init_library
+   fun:SSL_library_init
+   fun:init_hashlib
+}
+
+{
+   openssl 1.0.1 prng 2
+   Memcheck:Cond
+   fun:fips_get_entropy
+   fun:FIPS_drbg_instantiate
+   fun:RAND_init_fips
+   fun:OPENSSL_init_library
+   fun:SSL_library_init
+   fun:init_hashlib
+}
+
+{
+   openssl 1.0.1 prng 3
+   Memcheck:Value8
+   fun:_x86_64_AES_encrypt_compact
+   fun:AES_encrypt
+}
+
+#
+# All of these problems come from using test_socket_ssl
+#
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:BN_bin2bn
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:BN_num_bits_word
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Value4
+   fun:BN_num_bits_word
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:BN_mod_exp_mont_word
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:BN_mod_exp_mont
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Param
+   write(buf)
+   fun:write
+   obj:/usr/lib/libcrypto.so.0.9.7
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:RSA_verify
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Value4
+   fun:RSA_verify
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Value4
+   fun:DES_set_key_unchecked
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Value4
+   fun:DES_encrypt2
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   obj:/usr/lib/libssl.so.0.9.7
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Value4
+   obj:/usr/lib/libssl.so.0.9.7
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:BUF_MEM_grow_clean
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:memcpy
+   fun:ssl3_read_bytes
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Cond
+   fun:SHA1_Update
+}
+
+{
+   from test_socket_ssl
+   Memcheck:Value4
+   fun:SHA1_Update
+}
+
+{
+   test_buffer_non_debug
+   Memcheck:Addr4
+   fun:PyUnicodeUCS2_FSConverter
+}
+
+{
+   test_buffer_non_debug
+   Memcheck:Addr4
+   fun:PyUnicode_FSConverter
+}
+
+{
+   wcscmp_false_positive
+   Memcheck:Addr8
+   fun:wcscmp
+   fun:_PyOS_GetOpt
+   fun:Py_Main
+   fun:main
+}
+
+# Additional suppressions for the unified decimal tests:
+{
+   test_decimal
+   Memcheck:Addr4
+   fun:PyUnicodeUCS2_FSConverter
+}
+
+{
+   test_decimal2
+   Memcheck:Addr4
+   fun:PyUnicode_FSConverter
+}
+
+
+
+================================================
+File: /Misc/vgrindefs
+================================================
+# vgrind is a pretty-printer that takes source code and outputs
+# eye-pleasing postscript.  The entry below should be added to your
+# local vgrindefs file.  Contributed by Neale Pickett <neale@lanl.gov>.
+
+python|Python|py:\
+        :pb=^\d?(def|class)\d\p(\d|\\|\(|\:):\
+        :cb=#:ce=$:sb=":se=\e":lb=':le=\e':\
+        :kw=assert and break class continue def del elif else except\
+         finally for from global if import in is lambda not or\
+         pass print raise return try while yield:
+
+
+================================================
+File: /Misc/NEWS.d/3.10.0a2.rst
+================================================
+.. bpo: 42103
+.. date: 2020-10-23-19-19-30
+.. nonce: cILT66
+.. release date: 2020-11-03
+.. section: Security
+
+Prevented potential DoS attack via CPU and RAM exhaustion when processing
+malformed Apple Property List files in binary format.
+
+..
+
+.. bpo: 42051
+.. date: 2020-10-19-10-56-27
+.. nonce: EU_B7u
+.. section: Security
+
+The :mod:`plistlib` module no longer accepts entity declarations in XML
+plist files to avoid XML vulnerabilities. This should not affect users as
+entity declarations are not used in regular plist files.
+
+..
+
+.. bpo: 42236
+.. date: 2020-11-01-21-21-38
+.. nonce: MPx-NK
+.. section: Core and Builtins
+
+If the ``nl_langinfo(CODESET)`` function returns an empty string, Python now
+uses UTF-8 as the filesystem encoding. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42218
+.. date: 2020-10-31-17-50-23
+.. nonce: Dp_Z3v
+.. section: Core and Builtins
+
+Fixed a bug in the PEG parser that was causing crashes in debug mode. Now
+errors are checked in left-recursive rules to avoid cases where such errors
+do not get handled in time and appear as long-distance crashes in other
+places.
+
+..
+
+.. bpo: 42214
+.. date: 2020-10-30-22-16-30
+.. nonce: lXskM_
+.. section: Core and Builtins
+
+Fixed a possible crash in the PEG parser when checking for the '!=' token in
+the ``barry_as_flufl`` rule. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 42206
+.. date: 2020-10-30-13-11-01
+.. nonce: xxssR8
+.. section: Core and Builtins
+
+Propagate and raise the errors caused by :c:func:`PyAST_Validate` in the
+parser.
+
+..
+
+.. bpo: 41796
+.. date: 2020-10-29-12-49-08
+.. nonce: tkGdHq
+.. section: Core and Builtins
+
+The :mod:`ast` module internal state is now per interpreter. Patch by Victor
+Stinner.
+
+..
+
+.. bpo: 42143
+.. date: 2020-10-27-21-34-05
+.. nonce: N6KXUO
+.. section: Core and Builtins
+
+Fix handling of errors during creation of ``PyFunctionObject``, which
+resulted in operations on uninitialized memory. Patch by Yonatan
+Goldschmidt.
+
+..
+
+.. bpo: 41659
+.. date: 2020-10-27-18-32-49
+.. nonce: d4a-8o
+.. section: Core and Builtins
+
+Fix a bug in the parser, where a curly brace following a ``primary`` didn't
+fail immediately. This led to invalid expressions like ``a {b}`` to throw a
+:exc:`SyntaxError` with a wrong offset, or invalid expressions ending with a
+curly brace like ``a {`` to not fail immediately in the REPL.
+
+..
+
+.. bpo: 42150
+.. date: 2020-10-25-21-14-18
+.. nonce: b70u_T
+.. section: Core and Builtins
+
+Fix possible buffer overflow in the new parser when checking for
+continuation lines. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 42123
+.. date: 2020-10-23-02-43-24
+.. nonce: 64gJWC
+.. section: Core and Builtins
+
+Run the parser two times. On the first run, disable all the rules that only
+generate better error messages to gain performance. If there's a parse
+failure, run the parser a second time with those enabled.
+
+..
+
+.. bpo: 42093
+.. date: 2020-10-20-04-24-07
+.. nonce: ooZZNh
+.. section: Core and Builtins
+
+The ``LOAD_ATTR`` instruction now uses new "per opcode cache" mechanism and
+it is about 36% faster now. Patch by Pablo Galindo and Yury Selivanov.
+
+..
+
+.. bpo: 42030
+.. date: 2020-10-15-21-55-32
+.. nonce: PmU2CA
+.. section: Core and Builtins
+
+Support for the legacy AIX-specific shared library loading support has been
+removed. All versions of AIX since 4.3 have supported and defaulted to using
+the common Unix mechanism instead.
+
+..
+
+.. bpo: 41984
+.. date: 2020-10-14-16-19-43
+.. nonce: SEtKMr
+.. section: Core and Builtins
+
+The garbage collector now tracks all user-defined classes. Patch by Brandt
+Bucher.
+
+..
+
+.. bpo: 41993
+.. date: 2020-10-10-13-53-52
+.. nonce: YMzixQ
+.. section: Core and Builtins
+
+Fixed potential issues with removing not completely initialized module from
+``sys.modules`` when import fails.
+
+..
+
+.. bpo: 41979
+.. date: 2020-10-09-10-55-50
+.. nonce: ImXIk2
+.. section: Core and Builtins
+
+Star-unpacking is now allowed for with item's targets in the PEG parser.
+
+..
+
+.. bpo: 41974
+.. date: 2020-10-08-09-58-19
+.. nonce: 8B-q8O
+.. section: Core and Builtins
+
+Removed special methods ``__int__``, ``__float__``, ``__floordiv__``,
+``__mod__``, ``__divmod__``, ``__rfloordiv__``, ``__rmod__`` and
+``__rdivmod__`` of the :class:`complex` class.  They always raised a
+:exc:`TypeError`.
+
+..
+
+.. bpo: 41902
+.. date: 2020-10-02-13-32-05
+.. nonce: ZKTxzW
+.. section: Core and Builtins
+
+Micro optimization when compute :c:member:`~PySequenceMethods.sq_item` and
+:c:member:`~PyMappingMethods.mp_subscript` of :class:`range`. Patch by
+Donghee Na.
+
+..
+
+.. bpo: 41894
+.. date: 2020-10-02-11-35-33
+.. nonce: ffmtOt
+.. section: Core and Builtins
+
+When loading a native module and a load failure occurs, prevent a possible
+UnicodeDecodeError when not running in a UTF-8 locale by decoding the load
+error message using the current locale's encoding.
+
+..
+
+.. bpo: 41902
+.. date: 2020-10-01-22-44-23
+.. nonce: iLoMVF
+.. section: Core and Builtins
+
+Micro optimization for range.index if step is 1. Patch by Donghee Na.
+
+..
+
+.. bpo: 41435
+.. date: 2020-08-07-13-42-48
+.. nonce: qPWjJA
+.. section: Core and Builtins
+
+Add ``sys._current_exceptions()`` function to retrieve a dictionary mapping
+each thread's identifier to the topmost exception currently active in that
+thread at the time the function is called.
+
+..
+
+.. bpo: 38605
+.. date: 2020-05-27-16-08-16
+.. nonce: rcs2uK
+.. section: Core and Builtins
+
+Enable ``from __future__ import annotations`` (:pep:`563`) by default. The
+values found in :attr:`~object.__annotations__` dicts are now strings, for
+example ``{"x": "int"}`` instead of ``{"x": int}``.
+
+..
+
+.. bpo: 35455
+.. date: 2020-11-02-14-10-48
+.. nonce: Q1xTIo
+.. section: Library
+
+On Solaris, :func:`~time.thread_time` is now implemented with
+``gethrvtime()`` because ``clock_gettime(CLOCK_THREAD_CPUTIME_ID)`` is not
+always available. Patch by Jakub Kulik.
+
+..
+
+.. bpo: 42233
+.. date: 2020-11-02-01-31-15
+.. nonce: YxRj-h
+.. section: Library
+
+The :func:`repr` of :mod:`typing` types containing :ref:`Generic Alias Types
+<types-genericalias>` previously did not show the parameterized types in the
+``GenericAlias``.  They have now been changed to do so.
+
+..
+
+.. bpo: 29566
+.. date: 2020-10-31-13-28-36
+.. nonce: 6aDbty
+.. section: Library
+
+``binhex.binhex()`` consistently writes macOS 9 line endings.
+
+..
+
+.. bpo: 26789
+.. date: 2020-10-31-01-16-49
+.. nonce: 9BdNAt
+.. section: Library
+
+The :class:`logging.FileHandler` class now keeps a reference to the builtin
+:func:`open` function to be able to open or reopen the file during Python
+finalization. Fix errors like: ``NameError: name 'open' is not defined``.
+Patch by Victor Stinner.
+
+..
+
+.. bpo: 42157
+.. date: 2020-10-26-23-29-16
+.. nonce: 4wuwTe
+.. section: Library
+
+Removed the ``unicodedata.ucnhash_CAPI`` attribute which was an internal
+PyCapsule object. The related private ``_PyUnicode_Name_CAPI`` structure was
+moved to the internal C API. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42157
+.. date: 2020-10-26-19-08-07
+.. nonce: Bdpa04
+.. section: Library
+
+Convert the :mod:`unicodedata` extension module to the multiphase
+initialization API (:pep:`489`) and convert the ``unicodedata.UCD`` static
+type to a heap type. Patch by Mohamed Koubaa and Victor Stinner.
+
+..
+
+.. bpo: 42146
+.. date: 2020-10-25-19-25-02
+.. nonce: 6A8uvS
+.. section: Library
+
+Fix memory leak in :func:`subprocess.Popen` in case an uid (gid) specified
+in ``user`` (``group``, ``extra_groups``) overflows ``uid_t`` (``gid_t``).
+
+..
+
+.. bpo: 42103
+.. date: 2020-10-23-19-20-14
+.. nonce: C5obK2
+.. section: Library
+
+:exc:`~plistlib.InvalidFileException` and :exc:`RecursionError` are now the
+only errors caused by loading malformed binary Plist file (previously
+ValueError and TypeError could be raised in some specific cases).
+
+..
+
+.. bpo: 41490
+.. date: 2020-10-23-08-54-47
+.. nonce: -Yk6OD
+.. section: Library
+
+In ``importlib.resources``, ``.path`` method is more aggressive about
+releasing handles to zipfile objects early, enabling use-cases like certifi
+to leave the context open but delete the underlying zip file.
+
+..
+
+.. bpo: 41052
+.. date: 2020-10-21-23-45-02
+.. nonce: 3N7J2J
+.. section: Library
+
+Pickling heap types implemented in C with protocols 0 and 1 raises now an
+error instead of producing incorrect data.
+
+..
+
+.. bpo: 42089
+.. date: 2020-10-19-16-53-19
+.. nonce: R1dthW
+.. section: Library
+
+In ``importlib.metadata.PackageNotFoundError``, make reference to the
+package metadata being missing to improve the user experience.
+
+..
+
+.. bpo: 41491
+.. date: 2020-10-19-14-02-09
+.. nonce: d1BUWH
+.. section: Library
+
+plistlib: fix parsing XML plists with hexadecimal integer values
+
+..
+
+.. bpo: 42065
+.. date: 2020-10-17-23-17-18
+.. nonce: 85BsRA
+.. section: Library
+
+Fix an incorrectly formatted error from :meth:`!_codecs.charmap_decode` when
+called with a mapped value outside the range of valid Unicode code points.
+PR by Max Bernstein.
+
+..
+
+.. bpo: 41966
+.. date: 2020-10-17-07-52-53
+.. nonce: gwEQRZ
+.. section: Library
+
+Fix pickling pure Python :class:`datetime.time` subclasses. Patch by Dean
+Inwood.
+
+..
+
+.. bpo: 19270
+.. date: 2020-10-16-22-48-01
+.. nonce: jd_gkA
+.. section: Library
+
+:meth:`sched.scheduler.cancel` will now cancel the correct event, if two
+events with same priority are scheduled for the same time. Patch by Bar
+Harel.
+
+..
+
+.. bpo: 28660
+.. date: 2020-10-16-16-08-04
+.. nonce: eX9pvD
+.. section: Library
+
+:func:`textwrap.wrap` now attempts to break long words after hyphens when
+``break_long_words=True`` and ``break_on_hyphens=True``.
+
+..
+
+.. bpo: 35823
+.. date: 2020-10-16-07-45-35
+.. nonce: SNQo56
+.. section: Library
+
+Use ``vfork()`` instead of ``fork()`` for :func:`subprocess.Popen` on Linux
+to improve performance in cases where it is deemed safe.
+
+..
+
+.. bpo: 42043
+.. date: 2020-10-15-17-20-37
+.. nonce: OS0p_v
+.. section: Library
+
+Add support for ``zipfile.Path`` inheritance. ``zipfile.Path.is_file()`` now
+returns False for non-existent names. ``zipfile.Path`` objects now expose a
+``.filename`` attribute and rely on that to resolve ``.name`` and
+``.parent`` when the ``Path`` object is at the root of the zipfile.
+
+..
+
+.. bpo: 42021
+.. date: 2020-10-12-21-21-24
+.. nonce: 8yv_8-
+.. section: Library
+
+Fix possible ref leaks in :mod:`sqlite3` module init.
+
+..
+
+.. bpo: 39101
+.. date: 2020-10-11-21-43-03
+.. nonce: -I49Pm
+.. section: Library
+
+Fixed tests using IsolatedAsyncioTestCase from hanging on BaseExceptions.
+
+..
+
+.. bpo: 41976
+.. date: 2020-10-08-18-22-28
+.. nonce: Svm0wb
+.. section: Library
+
+Fixed a bug that was causing :func:`ctypes.util.find_library` to return
+``None`` when triying to locate a library in an environment when gcc>=9 is
+available and ``ldconfig`` is not. Patch by Pablo Galindo
+
+..
+
+.. bpo: 41943
+.. date: 2020-10-07-18-36-03
+.. nonce: Pt55fT
+.. section: Library
+
+Fix bug where TestCase.assertLogs doesn't correctly filter messages by
+level.
+
+..
+
+.. bpo: 41923
+.. date: 2020-10-03-23-14-50
+.. nonce: Buonw9
+.. section: Library
+
+Implement :pep:`613`, introducing :data:`typing.TypeAlias` annotation.
+
+..
+
+.. bpo: 41905
+.. date: 2020-10-01-21-11-03
+.. nonce: _JpjR4
+.. section: Library
+
+A new function in abc: *update_abstractmethods* to re-calculate an abstract
+class's abstract status. In addition, *dataclass* has been changed to call
+this function.
+
+..
+
+.. bpo: 23706
+.. date: 2020-09-30-11-05-11
+.. nonce: dHTGjF
+.. section: Library
+
+Added *newline* parameter to ``pathlib.Path.write_text()``.
+
+..
+
+.. bpo: 41876
+.. date: 2020-09-29-16-23-54
+.. nonce: QicdDU
+.. section: Library
+
+Tkinter font class repr uses font name
+
+..
+
+.. bpo: 41831
+.. date: 2020-09-22-11-07-50
+.. nonce: k-Eop_
+.. section: Library
+
+``str()`` for the ``type`` attribute of the ``tkinter.Event`` object always
+returns now the numeric code returned by Tk instead of the name of the event
+type.
+
+..
+
+.. bpo: 39337
+.. date: 2020-09-13-02-02-18
+.. nonce: L3NXTt
+.. section: Library
+
+:func:`encodings.normalize_encoding` now ignores non-ASCII characters.
+
+..
+
+.. bpo: 41747
+.. date: 2020-09-08-23-41-29
+.. nonce: M6wLKv
+.. section: Library
+
+Ensure all methods that generated from :func:`dataclasses.dataclass` objects
+now have the proper ``__qualname__`` attribute referring to the class they
+belong to. Patch by Batuhan Taskaya.
+
+..
+
+.. bpo: 30681
+.. date: 2020-09-04-17-33-04
+.. nonce: LR4fnY
+.. section: Library
+
+Handle exceptions caused by unparsable date headers when using email
+"default" policy.  Patch by Tim Bell, Georges Toth
+
+..
+
+.. bpo: 41586
+.. date: 2020-08-19-08-32-13
+.. nonce: IYjmjK
+.. section: Library
+
+Add F_SETPIPE_SZ and F_GETPIPE_SZ to fcntl module. Allow setting pipesize on
+subprocess.Popen.
+
+..
+
+.. bpo: 41229
+.. date: 2020-07-19-20-10-41
+.. nonce: p8rJa2
+.. section: Library
+
+Add ``contextlib.aclosing`` for deterministic cleanup of async generators
+which is analogous to ``contextlib.closing`` for non-async generators. Patch
+by Joongi Kim and John Belmonte.
+
+..
+
+.. bpo: 16396
+.. date: 2020-07-08-09-45-00
+.. nonce: z8o8Pn
+.. section: Library
+
+Allow ``ctypes.wintypes`` to be imported on non-Windows systems.
+
+..
+
+.. bpo: 4356
+.. date: 2020-05-31-10-48-47
+.. nonce: P8kXqp
+.. section: Library
+
+Add a key function to the bisect module.
+
+..
+
+.. bpo: 40592
+.. date: 2020-05-14-16-01-34
+.. nonce: Cmk855
+.. section: Library
+
+:func:`shutil.which` now ignores empty entries in :envvar:`PATHEXT` instead
+of treating them as a match.
+
+..
+
+.. bpo: 40492
+.. date: 2020-05-04-12-16-00
+.. nonce: ONk9Na
+.. section: Library
+
+Fix ``--outfile`` for :mod:`cProfile` / :mod:`profile` not writing the
+output file in the original directory when the program being profiled
+changes the working directory.  PR by Anthony Sottile.
+
+..
+
+.. bpo: 34204
+.. date: 2020-04-21-17-18-33
+.. nonce: 9wXTtY
+.. section: Library
+
+The :mod:`shelve` module now uses :const:`pickle.DEFAULT_PROTOCOL` by default
+instead of :mod:`pickle` protocol ``3``.
+
+..
+
+.. bpo: 27321
+.. date: 2020-01-19-18-40-26
+.. nonce: 8e6SpM
+.. section: Library
+
+Fixed KeyError exception when flattening an email to a string attempts to
+replace a non-existent Content-Transfer-Encoding header.
+
+..
+
+.. bpo: 38976
+.. date: 2019-12-05-05-22-49
+.. nonce: 5MG7Uu
+.. section: Library
+
+The :mod:`http.cookiejar` module now supports the parsing of cookies in
+CURL-style cookiejar files through MozillaCookieJar on all platforms.
+Previously, such cookie entries would be silently ignored when loading a
+cookiejar with such entries.
+
+Additionally, the HTTP Only attribute is persisted in the object, and will
+be correctly written to file if the MozillaCookieJar object is subsequently
+dumped.
+
+..
+
+.. bpo: 42061
+.. date: 2020-10-28-21-39-45
+.. nonce: _x-0sg
+.. section: Documentation
+
+Document __format__ functionality for IP addresses.
+
+..
+
+.. bpo: 41910
+.. date: 2020-10-21-14-40-54
+.. nonce: CzBMit
+.. section: Documentation
+
+Document the default implementation of ``object.__eq__``.
+
+..
+
+.. bpo: 42010
+.. date: 2020-10-21-02-21-14
+.. nonce: 76vJ0u
+.. section: Documentation
+
+Clarify that subscription expressions are also valid for certain
+:term:`classes <class>` and :term:`types <type>` in the standard library,
+and for user-defined classes and types if the classmethod
+:meth:`__class_getitem__` is provided.
+
+..
+
+.. bpo: 41805
+.. date: 2020-10-10-01-36-37
+.. nonce: l-CGv5
+.. section: Documentation
+
+Documented :ref:`generic alias type <types-genericalias>` and
+:data:`types.GenericAlias`. Also added an entry in glossary for
+:term:`generic types <generic type>`.
+
+..
+
+.. bpo: 39693
+.. date: 2020-02-24-09-02-05
+.. nonce: QXw0Fm
+.. section: Documentation
+
+Fix tarfile's extractfile documentation
+
+..
+
+.. bpo: 39416
+.. date: 2020-01-22-05-14-53
+.. nonce: uYjhEm
+.. section: Documentation
+
+Document some restrictions on the default string representations of numeric
+classes.
+
+..
+
+.. bpo: 41739
+.. date: 2020-10-12-00-11-47
+.. nonce: wSCc4K
+.. section: Tests
+
+Fix test_logging.test_race_between_set_target_and_flush(): the test now
+waits until all threads complete to avoid leaking running threads.
+
+..
+
+.. bpo: 41970
+.. date: 2020-10-08-14-00-17
+.. nonce: aZ8QFf
+.. section: Tests
+
+Avoid a test failure in ``test_lib2to3`` if the module has already imported
+at the time the test executes. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 41944
+.. date: 2020-10-05-17-43-46
+.. nonce: rf1dYb
+.. section: Tests
+
+Tests for CJK codecs no longer call ``eval()`` on content received via HTTP.
+
+..
+
+.. bpo: 41306
+.. date: 2020-08-03-13-44-37
+.. nonce: VDoWXI
+.. section: Tests
+
+Fixed a failure in ``test_tk.test_widgets.ScaleTest`` happening when
+executing the test with Tk 8.6.10.
+
+..
+
+.. bpo: 38980
+.. date: 2020-10-21-18-31-54
+.. nonce: xz7BNd
+.. section: Build
+
+Add ``-fno-semantic-interposition`` to both the compile and link line when
+building with ``--enable-optimizations``. Patch by Victor Stinner and Pablo
+Galindo.
+
+..
+
+.. bpo: 38439
+.. date: 2020-10-20-13-19-42
+.. nonce: eMLi-t
+.. section: Windows
+
+Updates the icons for IDLE in the Windows Store package.
+
+..
+
+.. bpo: 38252
+.. date: 2020-10-18-18-43-45
+.. nonce: 7Nlepg
+.. section: Windows
+
+Use 8-byte step to detect ASCII sequence in 64-bit Windows build.
+
+..
+
+.. bpo: 39107
+.. date: 2020-09-24-23-09-40
+.. nonce: GbUZvD
+.. section: Windows
+
+Update Tcl and Tk to 8.6.10 in Windows installer.
+
+..
+
+.. bpo: 41557
+.. date: 2020-08-26-09-35-06
+.. nonce: vt00cQ
+.. section: Windows
+
+Update Windows installer to use SQLite 3.33.0.
+
+..
+
+.. bpo: 38324
+.. date: 2020-05-30-02-46-43
+.. nonce: 476M-5
+.. section: Windows
+
+Avoid Unicode errors when accessing certain locale data on Windows.
+
+..
+
+.. bpo: 41471
+.. date: 2020-10-19-12-25-19
+.. nonce: gwA7un
+.. section: macOS
+
+Ignore invalid prefix lengths in system proxy excludes.
+
+..
+
+.. bpo: 33987
+.. date: 2020-10-24-21-27-37
+.. nonce: fIh9JL
+.. section: IDLE
+
+Mostly finish using ttk widgets, mainly for editor, settings, and searches.
+Some patches by Mark Roseman.
+
+..
+
+.. bpo: 40511
+.. date: 2020-06-16-12-16-13
+.. nonce: XkihpM
+.. section: IDLE
+
+Typing opening and closing parentheses inside the parentheses of a function
+call will no longer cause unnecessary "flashing" off and on of an existing
+open call-tip, e.g. when typed in a string literal.
+
+..
+
+.. bpo: 38439
+.. date: 2020-04-22-09-37-40
+.. nonce: ieXL-c
+.. section: IDLE
+
+Add a 256×256 pixel IDLE icon to the Windows .ico file. Created by Andrew
+Clover. Remove the low-color gif variations from the .ico file.
+
+..
+
+.. bpo: 42157
+.. date: 2020-10-16-10-47-17
+.. nonce: e3BcPM
+.. section: C API
+
+The private ``_PyUnicode_Name_CAPI`` structure of the PyCapsule API
+``unicodedata.ucnhash_CAPI`` has been moved to the internal C API. Patch by
+Victor Stinner.
+
+..
+
+.. bpo: 42015
+.. date: 2020-10-12-20-13-58
+.. nonce: X4H2_V
+.. section: C API
+
+Fix potential crash in deallocating method objects when dynamically
+allocated :c:type:`PyMethodDef`'s lifetime is managed through the ``self`` argument
+of a :c:type:`PyCFunction`.
+
+..
+
+.. bpo: 40423
+.. date: 2020-10-11-19-17-44
+.. nonce: GsmgEj
+.. section: C API
+
+The :mod:`subprocess` module and ``os.closerange`` will now use the
+``close_range(low, high, flags)`` syscall when it is available for more
+efficient closing of ranges of descriptors.
+
+..
+
+.. bpo: 41845
+.. date: 2020-10-11-05-05-53
+.. nonce: ZFvuQM
+.. section: C API
+
+:c:func:`PyObject_GenericGetDict` is available again in the limited API when
+targeting 3.10 or later.
+
+..
+
+.. bpo: 40422
+.. date: 2020-10-10-14-05-24
+.. nonce: sh8IDY
+.. section: C API
+
+Add ``_Py_closerange`` function to provide performant closing of a range of
+file descriptors.
+
+..
+
+.. bpo: 41986
+.. date: 2020-10-09-22-50-46
+.. nonce: JUPE59
+.. section: C API
+
+:c:data:`!Py_FileSystemDefaultEncodeErrors` and :c:data:`!Py_UTF8Mode` are
+available again in limited API.
+
+..
+
+.. bpo: 41756
+.. date: 2020-09-28-14-31-07
+.. nonce: ZZ5wJG
+.. section: C API
+
+Add ``PyIter_Send`` function to allow sending value into
+generator/coroutine/iterator without raising StopIteration exception to
+signal return.
+
+..
+
+.. bpo: 41784
+.. date: 2020-09-14-10-17-00
+.. nonce: Yl4gI2
+.. section: C API
+
+Added ``PyUnicode_AsUTF8AndSize`` to the limited C API.
+
+
+================================================
+File: /Misc/NEWS.d/3.10.0a3.rst
+================================================
+.. bpo: 40791
+.. date: 2020-05-28-06-06-47
+.. nonce: QGZClX
+.. release date: 2020-12-07
+.. section: Security
+
+Add ``volatile`` to the accumulator variable in ``hmac.compare_digest``,
+making constant-time-defeating optimizations less likely.
+
+..
+
+.. bpo: 42576
+.. date: 2020-12-05-22-34-47
+.. nonce: lEeEl7
+.. section: Core and Builtins
+
+``types.GenericAlias`` will now raise a ``TypeError`` when attempting to
+initialize with a keyword argument.  Previously, this would cause the
+interpreter to crash if the interpreter was compiled with debug symbols.
+This does not affect interpreters compiled for release.  Patch by Ken Jin.
+
+..
+
+.. bpo: 42536
+.. date: 2020-12-02-20-23-31
+.. nonce: Kx3ZOu
+.. section: Core and Builtins
+
+Several built-in and standard library types now ensure that their internal
+result tuples are always tracked by the :term:`garbage collector <garbage
+collection>`:
+
+- :meth:`collections.OrderedDict.items() <collections.OrderedDict>`
+
+- :meth:`dict.items`
+
+- :func:`enumerate`
+
+- :func:`functools.reduce`
+
+- :func:`itertools.combinations`
+
+- :func:`itertools.combinations_with_replacement`
+
+- :func:`itertools.permutations`
+
+- :func:`itertools.product`
+
+- :func:`itertools.zip_longest`
+
+- :func:`zip`
+
+Previously, they could have become untracked by a prior garbage collection.
+Patch by Brandt Bucher.
+
+..
+
+.. bpo: 42500
+.. date: 2020-11-30-14-27-29
+.. nonce: excVKU
+.. section: Core and Builtins
+
+Improve handling of exceptions near recursion limit. Converts a number of
+Fatal Errors in RecursionErrors.
+
+..
+
+.. bpo: 42246
+.. date: 2020-11-24-14-01-43
+.. nonce: c9k9hj
+.. section: Core and Builtins
+
+PEP 626: After a return, the f_lineno attribute of a frame is always the
+last line executed.
+
+..
+
+.. bpo: 42435
+.. date: 2020-11-22-14-34-55
+.. nonce: uwlB2W
+.. section: Core and Builtins
+
+Speed up comparison of bytes objects with non-bytes objects when option
+:option:`-b` is specified. Speed up comparison of bytarray objects with
+non-buffer object.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-18-23-46-31
+.. nonce: GVOQ-m
+.. section: Core and Builtins
+
+Port the ``_warnings`` extension module to the multi-phase initialization
+API (:pep:`489`). Patch by Victor Stinner.
+
+..
+
+.. bpo: 41686
+.. date: 2020-11-17-16-25-50
+.. nonce: hX77kL
+.. section: Core and Builtins
+
+On Windows, the ``SIGINT`` event, ``_PyOS_SigintEvent()``, is now created
+even if Python is configured to not install signal handlers (if
+:c:member:`PyConfig.install_signal_handlers` equals to 0, or
+``Py_InitializeEx(0)``).
+
+..
+
+.. bpo: 42381
+.. date: 2020-11-16-23-45-56
+.. nonce: G4AWxL
+.. section: Core and Builtins
+
+Allow assignment expressions in set literals and set comprehensions as per
+PEP 572. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 42202
+.. date: 2020-11-16-18-13-07
+.. nonce: ZxenYD
+.. section: Core and Builtins
+
+Change function parameters annotations internal representation to tuple of
+strings. Patch provided by Yurii Karabas.
+
+..
+
+.. bpo: 42374
+.. date: 2020-11-16-17-57-09
+.. nonce: t7np1E
+.. section: Core and Builtins
+
+Fix a regression introduced by the new parser, where an unparenthesized
+walrus operator was not allowed within generator expressions.
+
+..
+
+.. bpo: 42316
+.. date: 2020-11-16-17-30-03
+.. nonce: _DdmpQ
+.. section: Core and Builtins
+
+Allow an unparenthesized walrus in subscript indexes.
+
+..
+
+.. bpo: 42349
+.. date: 2020-11-13-17-25-44
+.. nonce: JdWxez
+.. section: Core and Builtins
+
+Make sure that the compiler front-end produces a well-formed control flow
+graph. Be more aggressive in the compiler back-end, as it is now safe to
+do so.
+
+..
+
+.. bpo: 42296
+.. date: 2020-11-13-13-53-11
+.. nonce: DuGrLJ
+.. section: Core and Builtins
+
+On Windows, fix a regression in signal handling which prevented to interrupt
+a program using CTRL+C. The signal handler can be run in a thread different
+than the Python thread, in which case the test deciding if the thread can
+handle signals is wrong.
+
+..
+
+.. bpo: 42332
+.. date: 2020-11-12-23-16-14
+.. nonce: fEQIdk
+.. section: Core and Builtins
+
+:class:`types.GenericAlias` objects can now be the targets of weakrefs.
+
+..
+
+.. bpo: 42282
+.. date: 2020-11-07-21-02-05
+.. nonce: M1W4Wj
+.. section: Core and Builtins
+
+Optimise constant subexpressions that appear as part of named expressions
+(previously the AST optimiser did not descend into named expressions). Patch
+by Nick Coghlan.
+
+..
+
+.. bpo: 42266
+.. date: 2020-11-04-23-03-25
+.. nonce: G4hGDe
+.. section: Core and Builtins
+
+Fixed a bug with the LOAD_ATTR opcode cache that was not respecting
+monkey-patching a class-level attribute to make it a descriptor. Patch by
+Pablo Galindo.
+
+..
+
+.. bpo: 40077
+.. date: 2020-11-03-21-58-27
+.. nonce: a9qM1j
+.. section: Core and Builtins
+
+Convert :mod:`queue` to use heap types.
+
+..
+
+.. bpo: 42246
+.. date: 2020-11-02-15-48-17
+.. nonce: 3CNQEX
+.. section: Core and Builtins
+
+Improved accuracy of line tracing events and f_lineno attribute of Frame
+objects. See PEP 626 for details.
+
+..
+
+.. bpo: 40077
+.. date: 2020-11-02-14-39-48
+.. nonce: grY9TG
+.. section: Core and Builtins
+
+Convert :mod:`mmap` to use heap types.
+
+..
+
+.. bpo: 42233
+.. date: 2020-11-01-23-34-56
+.. nonce: zOSzja
+.. section: Core and Builtins
+
+Allow ``GenericAlias`` objects to use :ref:`union type expressions
+<types-union>`. This allows expressions like ``list[int] | dict[float,
+str]`` where previously a ``TypeError`` would have been thrown.  This also
+fixes union type expressions not de-duplicating ``GenericAlias`` objects.
+(Contributed by Ken Jin in :issue:`42233`.)
+
+..
+
+.. bpo: 26131
+.. date: 2020-10-22-17-27-08
+.. nonce: B-Veg7
+.. section: Core and Builtins
+
+The import system triggers a ``ImportWarning`` when it falls back to using
+``load_module()``.
+
+..
+
+.. bpo: 5054
+.. date: 2020-12-04-03-51-12
+.. nonce: 53StYZ
+.. section: Library
+
+CGIHTTPRequestHandler.run_cgi() HTTP_ACCEPT improperly parsed. Replace the
+special purpose getallmatchingheaders with generic get_all method and add
+relevant tests.
+
+Original Patch by Martin Panter. Modified by Senthil Kumaran.
+
+..
+
+.. bpo: 42562
+.. date: 2020-12-03-22-42-03
+.. nonce: 2hPmhi
+.. section: Library
+
+Fix issue when dis failed to parse function that has no line numbers. Patch
+provided by Yurii Karabas.
+
+..
+
+.. bpo: 17735
+.. date: 2020-12-03-22-22-24
+.. nonce: Qsaaue
+.. section: Library
+
+:func:`inspect.findsource` now raises :exc:`OSError` instead of
+:exc:`IndexError` when :attr:`co_lineno` of a code object is greater than
+the file length. This can happen, for example, when a file is edited after
+it was imported.  PR by Irit Katriel.
+
+..
+
+.. bpo: 42116
+.. date: 2020-12-03-15-42-32
+.. nonce: yIwroP
+.. section: Library
+
+Fix handling of trailing comments by :func:`inspect.getsource`.
+
+..
+
+.. bpo: 42532
+.. date: 2020-12-02-07-37-59
+.. nonce: ObNep_
+.. section: Library
+
+Remove unexpected call of ``__bool__`` when passing a ``spec_arg`` argument
+to a Mock.
+
+..
+
+.. bpo: 38200
+.. date: 2020-11-28-22-52-57
+.. nonce: DuWGlW
+.. section: Library
+
+Added itertools.pairwise()
+
+..
+
+.. bpo: 41818
+.. date: 2020-11-28-06-34-53
+.. nonce: mFSMc2
+.. section: Library
+
+Fix test_master_read() so that it succeeds on all platforms that either
+raise OSError or return b"" upon reading from master.
+
+..
+
+.. bpo: 42487
+.. date: 2020-11-28-04-31-20
+.. nonce: iqtC4L
+.. section: Library
+
+ChainMap.__iter__ no longer calls __getitem__ on underlying maps
+
+..
+
+.. bpo: 42482
+.. date: 2020-11-27-16-46-58
+.. nonce: EJC3sd
+.. section: Library
+
+:class:`~traceback.TracebackException` no longer holds a reference to the
+exception's traceback object. Consequently, instances of TracebackException
+for equivalent but non-equal exceptions now compare as equal.
+
+..
+
+.. bpo: 41818
+.. date: 2020-11-27-09-19-43
+.. nonce: KWYUbL
+.. section: Library
+
+Make test_openpty() avoid unexpected success due to number of rows and/or
+number of columns being == 0.
+
+..
+
+.. bpo: 42392
+.. date: 2020-11-26-12-40-16
+.. nonce: GbmdHE
+.. section: Library
+
+Remove loop parameter from ``asyncio.subprocess`` and ``asyncio.tasks``
+functions. Patch provided by Yurii Karabas.
+
+..
+
+.. bpo: 42392
+.. date: 2020-11-25-22-44-59
+.. nonce: T_DAEl
+.. section: Library
+
+Remove loop parameter from ``asyncio.open_connection`` and
+``asyncio.start_server`` functions. Patch provided by Yurii Karabas.
+
+..
+
+.. bpo: 28468
+.. date: 2020-11-24-13-18-05
+.. nonce: 8Gh2d4
+.. section: Library
+
+Add :func:`platform.freedesktop_os_release` function to parse
+freedesktop.org ``os-release`` files.
+
+..
+
+.. bpo: 42299
+.. date: 2020-11-23-23-42-08
+.. nonce: Fdn4Wf
+.. section: Library
+
+Removed the ``formatter`` module, which was deprecated in Python 3.4. It is
+somewhat obsolete, little used, and not tested. It was originally scheduled
+to be removed in Python 3.6, but such removals were delayed until after
+Python 2.7 EOL. Existing users should copy whatever classes they use into
+their code. Patch by Donghee Na and and Terry J. Reedy.
+
+..
+
+.. bpo: 26131
+.. date: 2020-11-22-12-30-26
+.. nonce: -HsFPG
+.. section: Library
+
+Deprecate zipimport.zipimporter.load_module() in favour of exec_module().
+
+..
+
+.. bpo: 41818
+.. date: 2020-11-20-14-44-07
+.. nonce: 33soAw
+.. section: Library
+
+Updated tests for the pty library. test_basic() has been changed to
+test_openpty(); this additionally checks if slave termios and slave winsize
+are being set properly by pty.openpty(). In order to add support for
+FreeBSD, NetBSD, OpenBSD, and Darwin, this also adds test_master_read(),
+which demonstrates that pty.spawn() should not depend on an OSError to exit
+from its copy loop.
+
+..
+
+.. bpo: 42392
+.. date: 2020-11-20-14-01-29
+.. nonce: -OUzvl
+.. section: Library
+
+Remove loop parameter from ``__init__`` in all ``asyncio.locks`` and
+``asyncio.Queue`` classes. Patch provided by Yurii Karabas.
+
+..
+
+.. bpo: 15450
+.. date: 2020-11-20-10-38-34
+.. nonce: E-y9PA
+.. section: Library
+
+Make :class:`filecmp.dircmp` respect subclassing. Now the
+:attr:`filecmp.dircmp.subdirs` behaves as expected when subclassing dircmp.
+
+..
+
+.. bpo: 42413
+.. date: 2020-11-19-20-27-51
+.. nonce: fjHrHx
+.. section: Library
+
+The exception :exc:`socket.timeout` is now an alias of :exc:`TimeoutError`.
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-19-16-14-36
+.. nonce: 83kf9d
+.. section: Library
+
+Support signal module on VxWorks.
+
+..
+
+.. bpo: 42406
+.. date: 2020-11-19-10-44-41
+.. nonce: r9rNCj
+.. section: Library
+
+We fixed an issue in ``pickle.whichmodule`` in which importing
+``multiprocessing`` could change the how pickle identifies which module an
+object belongs to, potentially breaking the unpickling of those objects.
+
+..
+
+.. bpo: 42403
+.. date: 2020-11-19-10-12-39
+.. nonce: t7q5AX
+.. section: Library
+
+Simplify the :mod:`importlib` external bootstrap code:
+``importlib._bootstrap_external`` now uses regular imports to import builtin
+modules. When it is imported, the builtin :func:`__import__` function is
+already fully working and so can be used to import builtin modules like
+:mod:`sys`. Patch by Victor Stinner.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-19-09-59-07
+.. nonce: 7cMypH
+.. section: Library
+
+Convert _sre module types to heap types (PEP 384). Patch by Erlend E.
+Aasland.
+
+..
+
+.. bpo: 42375
+.. date: 2020-11-19-04-13-53
+.. nonce: U8bp4s
+.. section: Library
+
+subprocess module update for DragonFlyBSD support.
+
+..
+
+.. bpo: 41713
+.. date: 2020-11-17-23-00-27
+.. nonce: -Us0tf
+.. section: Library
+
+Port the ``_signal`` extension module to the multi-phase initialization API
+(:pep:`489`). Patch by Victor Stinner and Mohamed Koubaa.
+
+..
+
+.. bpo: 37205
+.. date: 2020-11-16-15-08-12
+.. nonce: Wh5svI
+.. section: Library
+
+:func:`time.time`, :func:`time.perf_counter` and
+:func:`time.monotonic` functions can no longer fail with a Python fatal
+error, instead raise a regular Python exception on failure.
+
+..
+
+.. bpo: 42328
+.. date: 2020-11-15-17-02-00
+.. nonce: bqpPlR
+.. section: Library
+
+Fixed :meth:`tkinter.ttk.Style.map`. The function accepts now the
+representation of the default state as empty sequence (as returned by
+``Style.map()``). The structure of the result is now the same on all
+platform and does not depend on the value of ``wantobjects``.
+
+..
+
+.. bpo: 42345
+.. date: 2020-11-15-15-23-34
+.. nonce: hiIR7x
+.. section: Library
+
+Fix various issues with ``typing.Literal`` parameter handling (flatten,
+deduplicate, use type to cache key). Patch provided by Yurii Karabas.
+
+..
+
+.. bpo: 37205
+.. date: 2020-11-14-14-34-32
+.. nonce: iDbHrw
+.. section: Library
+
+:func:`time.perf_counter` on Windows and :func:`time.monotonic` on macOS
+are now system-wide. Previously, they used an offset computed at startup to
+reduce the precision loss caused by the float type. Use
+:func:`time.perf_counter_ns` and :func:`time.monotonic_ns` added in
+Python 3.7 to avoid this precision loss.
+
+..
+
+.. bpo: 42318
+.. date: 2020-11-14-13-46-27
+.. nonce: wYAcBD
+.. section: Library
+
+Fixed support of non-BMP characters in :mod:`tkinter` on macOS.
+
+..
+
+.. bpo: 42350
+.. date: 2020-11-13-18-53-50
+.. nonce: rsql7V
+.. section: Library
+
+Fix the :class:`threading.Thread` class at fork: do nothing if the thread is
+already stopped (ex: fork called at Python exit). Previously, an error was
+logged in the child process.
+
+..
+
+.. bpo: 42333
+.. date: 2020-11-12-18-21-15
+.. nonce: J9vFmV
+.. section: Library
+
+Port _ssl extension module to heap types.
+
+..
+
+.. bpo: 42014
+.. date: 2020-11-10-15-40-56
+.. nonce: ShM37l
+.. section: Library
+
+The ``onerror`` callback from ``shutil.rmtree`` now receives correct
+function when ``os.open`` fails.
+
+..
+
+.. bpo: 42237
+.. date: 2020-11-10-14-27-49
+.. nonce: F363jO
+.. section: Library
+
+Fix ``os.sendfile()`` on illumos.
+
+..
+
+.. bpo: 42308
+.. date: 2020-11-10-12-09-13
+.. nonce: yaJHH9
+.. section: Library
+
+Add :data:`threading.__excepthook__` to allow retrieving the original value
+of :func:`threading.excepthook` in case it is set to a broken or a different
+value. Patch by Mario Corchero.
+
+..
+
+.. bpo: 42131
+.. date: 2020-11-06-18-20-47
+.. nonce: l2rjjG
+.. section: Library
+
+Implement PEP 451/spec methods on zipimport.zipimporter: find_spec(),
+create_module(), and exec_module().
+
+This also allows for the documented deprecation of find_loader(),
+find_module(), and load_module().
+
+..
+
+.. bpo: 41877
+.. date: 2020-11-05-16-00-03
+.. nonce: FHbngM
+.. section: Library
+
+Mock objects which are not unsafe will now raise an AttributeError if an
+attribute with the prefix asert, aseert, or assrt is accessed, in addition
+to this already happening for the prefixes assert or assret.
+
+..
+
+.. bpo: 42264
+.. date: 2020-11-05-13-32-41
+.. nonce: r4KYUU
+.. section: Library
+
+``sqlite3.OptimizedUnicode`` has been undocumented and obsolete since Python
+3.3, when it was made an alias to :class:`str`.  It is now deprecated,
+scheduled for removal in Python 3.12.
+
+..
+
+.. bpo: 42251
+.. date: 2020-11-03-14-15-35
+.. nonce: 6TC32V
+.. section: Library
+
+Added :func:`threading.gettrace` and :func:`threading.getprofile` to
+retrieve the functions set by :func:`threading.settrace` and
+:func:`threading.setprofile` respectively. Patch by Mario Corchero.
+
+..
+
+.. bpo: 42249
+.. date: 2020-11-03-09-22-56
+.. nonce: vfNO2u
+.. section: Library
+
+Fixed writing binary Plist files larger than 4 GiB.
+
+..
+
+.. bpo: 42236
+.. date: 2020-11-02-23-05-17
+.. nonce: aJ6ZBR
+.. section: Library
+
+On Unix, the :func:`os.device_encoding` function now returns ``'UTF-8'``
+rather than the device encoding if the :ref:`Python UTF-8 Mode <utf8-mode>`
+is enabled.
+
+..
+
+.. bpo: 41754
+.. date: 2020-11-01-15-07-20
+.. nonce: DraSZh
+.. section: Library
+
+webbrowser: Ignore *NotADirectoryError* when calling ``xdg-settings``.
+
+..
+
+.. bpo: 42183
+.. date: 2020-10-29-11-17-35
+.. nonce: 50ZcIi
+.. section: Library
+
+Fix a stack overflow error for asyncio Task or Future repr().
+
+The overflow occurs under some circumstances when a Task or Future
+recursively returns itself.
+
+..
+
+.. bpo: 42140
+.. date: 2020-10-24-04-02-36
+.. nonce: miLqvb
+.. section: Library
+
+Improve asyncio.wait function to create the futures set just one time.
+
+..
+
+.. bpo: 42133
+.. date: 2020-10-23-15-47-47
+.. nonce: BzizYV
+.. section: Library
+
+Update various modules in the stdlib to fall back on ``__spec__.loader`` when
+``__loader__`` isn't defined on a module.
+
+..
+
+.. bpo: 26131
+.. date: 2020-10-22-17-26-35
+.. nonce: CAsI3O
+.. section: Library
+
+The ``load_module()`` methods found in ``importlib`` now trigger a
+``DeprecationWarning``.
+
+..
+
+.. bpo: 39825
+.. date: 2020-10-20-08-28-26
+.. nonce: n6KnG0
+.. section: Library
+
+Windows: Change ``sysconfig.get_config_var('EXT_SUFFIX')`` to the expected
+full ``platform_tag.extension`` format. Previously it was hard-coded to
+``.pyd``, now it is compatible with ``distutils.sysconfig`` and will result
+in something like ``.cp38-win_amd64.pyd``. This brings windows into
+conformance with the other platforms.
+
+..
+
+.. bpo: 26389
+.. date: 2020-10-08-23-51-55
+.. nonce: uga44e
+.. section: Library
+
+The :func:`traceback.format_exception`,
+:func:`traceback.format_exception_only`, and
+:func:`traceback.print_exception` functions can now take an exception object
+as a positional-only argument.
+
+..
+
+.. bpo: 41889
+.. date: 2020-10-01-16-17-11
+.. nonce: qLkNh8
+.. section: Library
+
+Enum: fix regression involving inheriting a multiply inherited enum
+
+..
+
+.. bpo: 41861
+.. date: 2020-10-01-15-44-52
+.. nonce: YTqJ7z
+.. section: Library
+
+Convert :mod:`sqlite3` to use heap types (PEP 384). Patch by Erlend E.
+Aasland.
+
+..
+
+.. bpo: 40624
+.. date: 2020-09-08-03-19-04
+.. nonce: 0-gYfx
+.. section: Library
+
+Added support for the XPath ``!=`` operator in xml.etree
+
+..
+
+.. bpo: 28850
+.. date: 2020-09-06-21-55-44
+.. nonce: HJNggD
+.. section: Library
+
+Fix :meth:`pprint.PrettyPrinter.format` overrides being ignored for contents
+of small containers. The :func:`pprint._safe_repr` function was removed.
+
+..
+
+.. bpo: 41625
+.. date: 2020-08-24-16-59-04
+.. nonce: Cc967V
+.. section: Library
+
+Expose the :c:func:`splice` as :func:`os.splice` in the :mod:`os` module.
+Patch by Pablo Galindo
+
+..
+
+.. bpo: 34215
+.. date: 2020-08-19-20-17-51
+.. nonce: _Cv8c-
+.. section: Library
+
+Clarify the error message for :exc:`asyncio.IncompleteReadError` when
+``expected`` is ``None``.
+
+..
+
+.. bpo: 41543
+.. date: 2020-08-14-00-39-04
+.. nonce: RpcRjb
+.. section: Library
+
+Add async context manager support for contextlib.nullcontext.
+
+..
+
+.. bpo: 21041
+.. date: 2020-08-10-15-06-55
+.. nonce: cYz1eL
+.. section: Library
+
+:attr:`pathlib.PurePath.parents` now supports negative indexing. Patch
+contributed by Yaroslav Pankovych.
+
+..
+
+.. bpo: 41332
+.. date: 2020-07-18-17-39-28
+.. nonce: QRGmA5
+.. section: Library
+
+Added missing connect_accepted_socket() method to
+``asyncio.AbstractEventLoop``.
+
+..
+
+.. bpo: 12800
+.. date: 2020-07-09-11-32-28
+.. nonce: fNgWwx
+.. section: Library
+
+Extracting a symlink from a tarball should succeed and overwrite the symlink
+if it already exists. The fix is to remove the existing file or symlink
+before extraction. Based on patch by Chris AtLee, Jeffrey Kintscher, and
+Senthil Kumaran.
+
+..
+
+.. bpo: 40968
+.. date: 2020-06-18-11-35-16
+.. nonce: R8Edbv
+.. section: Library
+
+:mod:`urllib.request` and :mod:`http.client` now send ``http/1.1`` ALPN
+extension during TLS handshake when no custom context is supplied.
+
+..
+
+.. bpo: 41001
+.. date: 2020-06-17-12-24-26
+.. nonce: 5mi7b0
+.. section: Library
+
+Add :func:`os.eventfd` to provide a low level interface for Linux's event
+notification file descriptor.
+
+..
+
+.. bpo: 40816
+.. date: 2020-05-29-15-25-41
+.. nonce: w61Pob
+.. section: Library
+
+Add AsyncContextDecorator to contextlib to support async context manager as
+a decorator.
+
+..
+
+.. bpo: 40550
+.. date: 2020-05-08-21-30-54
+.. nonce: i7GWkb
+.. section: Library
+
+Fix time-of-check/time-of-action issue in subprocess.Popen.send_signal.
+
+..
+
+.. bpo: 39411
+.. date: 2020-01-21-16-38-25
+.. nonce: 9uHFqT
+.. section: Library
+
+Add an ``is_async`` identifier to :mod:`pyclbr`'s ``Function`` objects.
+Patch by Batuhan Taskaya
+
+..
+
+.. bpo: 35498
+.. date: 2018-12-14-13-29-17
+.. nonce: LEJHl7
+.. section: Library
+
+Add slice support to :attr:`pathlib.PurePath.parents`.
+
+..
+
+.. bpo: 42238
+.. date: 2020-11-24-22-54-49
+.. nonce: 62EOTu
+.. section: Documentation
+
+Tentative to deprecate ``make suspicious`` by first removing it from the CI
+and documentation builds, but keeping it around for manual uses.
+
+..
+
+.. bpo: 42153
+.. date: 2020-11-15-13-46-31
+.. nonce: KjBhx3
+.. section: Documentation
+
+Fix the URL for the IMAP protocol documents.
+
+..
+
+.. bpo: 41028
+.. date: 2020-06-18-23-37-03
+.. nonce: vM8bC8
+.. section: Documentation
+
+Language and version switchers, previously maintained in every cpython
+branches, are now handled by docsbuild-script.
+
+..
+
+.. bpo: 41473
+.. date: 2020-12-04-11-47-09
+.. nonce: W_updK
+.. section: Tests
+
+Re-enable test_gdb on gdb 9.2 and newer:
+https://bugzilla.redhat.com/show_bug.cgi?id=1866884 bug is fixed in gdb
+10.1.
+
+..
+
+.. bpo: 42553
+.. date: 2020-12-03-13-32-44
+.. nonce: 2TRE2N
+.. section: Tests
+
+Fix ``test_asyncio.test_call_later()`` race condition: don't measure asyncio
+performance in the ``call_later()`` unit test. The test failed randomly on
+the CI.
+
+..
+
+.. bpo: 31904
+.. date: 2020-12-01-15-51-19
+.. nonce: iwetj4
+.. section: Tests
+
+Fix test_netrc on VxWorks: create temporary directories using temp_cwd().
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-26-11-13-13
+.. nonce: ay4g89
+.. section: Tests
+
+skip test_getaddrinfo_ipv6_scopeid_symbolic and
+test_getnameinfo_ipv6_scopeid_symbolic on VxWorks
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-25-17-00-53
+.. nonce: ue4hd9
+.. section: Tests
+
+skip test_test of test_mailcap on VxWorks
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-24-17-26-41
+.. nonce: eug834
+.. section: Tests
+
+add shell requirement for test_pipes
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-23-11-11-29
+.. nonce: V3sUZk
+.. section: Tests
+
+skip some tests related to fifo on VxWorks
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-20-15-07-18
+.. nonce: EBJXjJ
+.. section: Tests
+
+Fix test_doctest.py failures for VxWorks.
+
+..
+
+.. bpo: 40754
+.. date: 2020-11-13-21-51-34
+.. nonce: Ekoxkg
+.. section: Tests
+
+Include ``_testinternalcapi`` module in Windows installer for test suite
+
+..
+
+.. bpo: 41561
+.. date: 2020-09-18-16-14-03
+.. nonce: uPnwrW
+.. section: Tests
+
+test_ssl: skip test_min_max_version_mismatch when TLS 1.0 is not available
+
+..
+
+.. bpo: 31904
+.. date: 2020-05-20-17-28-46
+.. nonce: yt83Ge
+.. section: Tests
+
+Fix os module failures for VxWorks RTOS.
+
+..
+
+.. bpo: 31904
+.. date: 2020-05-20-14-28-48
+.. nonce: yJik6k
+.. section: Tests
+
+Fix fifo test cases for VxWorks RTOS.
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-19-17-01-50
+.. nonce: 894dk2
+.. section: Build
+
+remove libnet dependency from detect_socket() for VxWorks
+
+..
+
+.. bpo: 42398
+.. date: 2020-11-18-11-58-44
+.. nonce: Yt5wO8
+.. section: Build
+
+Fix a race condition in "make regen-all" when make -jN option is used to run
+jobs in parallel. The clinic.py script now only use atomic write to write
+files. Moveover, generated files are now left unchanged if the content does
+not change, to not change the file modification time.
+
+..
+
+.. bpo: 41617
+.. date: 2020-11-13-15-04-53
+.. nonce: 98_oaE
+.. section: Build
+
+Fix building ``pycore_bitutils.h`` internal header on old clang version
+without ``__builtin_bswap16()`` (ex: Xcode 4.6.3 on Mac OS X 10.7). Patch by
+Joshua Root and Victor Stinner.
+
+..
+
+.. bpo: 38823
+.. date: 2020-11-12-13-45-15
+.. nonce: C0z_Fe
+.. section: Build
+
+It is no longer possible to build the ``_ctypes`` extension module without
+:c:type:`wchar_t` type: remove ``CTYPES_UNICODE`` macro. Anyway, the
+:c:type:`wchar_t` type is required to build Python. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42087
+.. date: 2020-10-19-15-41-05
+.. nonce: 2AhRFP
+.. section: Build
+
+Support was removed for AIX 5.3 and below. See :issue:`40680`.
+
+..
+
+.. bpo: 40998
+.. date: 2020-06-17-09-05-02
+.. nonce: sgqmg9
+.. section: Build
+
+Addressed three compiler warnings found by undefined behavior sanitizer
+(ubsan).
+
+..
+
+.. bpo: 42120
+.. date: 2020-11-16-22-41-02
+.. nonce: 9scgko
+.. section: Windows
+
+Remove macro definition of ``copysign`` (to ``_copysign``) in headers.
+
+..
+
+.. bpo: 38506
+.. date: 2020-11-15-23-01-14
+.. nonce: hhdnuP
+.. section: Windows
+
+The Windows launcher now properly handles Python 3.10 when listing installed
+Python versions.
+
+..
+
+.. bpo: 42504
+.. date: 2020-12-02-15-48-40
+.. nonce: RQmMOR
+.. section: macOS
+
+Fix build on macOS Big Sur when MACOSX_DEPLOYMENT_TARGET=11
+
+..
+
+.. bpo: 41116
+.. date: 2020-11-15-16-43-45
+.. nonce: oCkbrF
+.. section: macOS
+
+Ensure distutils.unixxcompiler.find_library_file can find system provided
+libraries on macOS 11.
+
+..
+
+.. bpo: 41100
+.. date: 2020-11-01-16-40-23
+.. nonce: BApztP
+.. section: macOS
+
+Add support for macOS 11 and Apple Silicon systems.
+
+It is now possible to build "Universal 2" binaries using
+"--enable-universalsdk --with-universal-archs=universal2".
+
+Binaries build on later macOS versions can be deployed back to older
+versions (tested up to macOS 10.9), when using the correct deployment
+target. This is tested using Xcode 11 and later.
+
+..
+
+.. bpo: 42232
+.. date: 2020-11-01-15-10-28
+.. nonce: 2zI1GN
+.. section: macOS
+
+Added Darwin specific madvise options to mmap module.
+
+..
+
+.. bpo: 38443
+.. date: 2020-10-23-10-26-53
+.. nonce: vu64tl
+.. section: macOS
+
+The ``--enable-universalsdk`` and ``--with-universal-archs`` options for the
+configure script now check that the specified architectures can be used.
+
+..
+
+.. bpo: 42508
+.. date: 2020-11-30-19-46-05
+.. nonce: fE7w4M
+.. section: IDLE
+
+Keep IDLE running on macOS.  Remove obsolete workaround that prevented
+running files with shortcuts when using new universal2 installers built on
+macOS 11.
+
+..
+
+.. bpo: 42426
+.. date: 2020-11-21-17-21-21
+.. nonce: kNnPoC
+.. section: IDLE
+
+Fix reporting offset of the RE error in searchengine.
+
+..
+
+.. bpo: 42415
+.. date: 2020-11-20-01-30-27
+.. nonce: CyD-va
+.. section: IDLE
+
+Get docstrings for IDLE calltips more often by using inspect.getdoc.
+
+..
+
+.. bpo: 42212
+.. date: 2020-11-20-15-11-05
+.. nonce: sjzgOf
+.. section: Tools/Demos
+
+The smelly.py script now also checks the Python dynamic library and
+extension modules, not only the Python static library. Make also the script
+more verbose: explain what it does.
+
+..
+
+.. bpo: 36310
+.. date: 2020-05-03-01-30-46
+.. nonce: xDxxwY
+.. section: Tools/Demos
+
+Allow :file:`Tools/i18n/pygettext.py` to detect calls to ``gettext`` in
+f-strings.
+
+..
+
+.. bpo: 42423
+.. date: 2020-11-21-12-27-19
+.. nonce: ByJHhY
+.. section: C API
+
+The :c:func:`PyType_FromSpecWithBases` and
+:c:func:`PyType_FromModuleAndSpec` functions now accept a single class as
+the *bases* argument.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-19-17-44-36
+.. nonce: qBZc3o
+.. section: C API
+
+Port :mod:`select` extension module to multiphase initialization
+(:pep:`489`).
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-19-16-54-16
+.. nonce: 9tVsZt
+.. section: C API
+
+Port _posixsubprocess extension module to multiphase initialization
+(:pep:`489`).
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-19-15-33-42
+.. nonce: 9tVsZt
+.. section: C API
+
+Port _posixshmem extension module to multiphase initialization (:pep:`489`)
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-19-12-06-43
+.. nonce: KEfZpn
+.. section: C API
+
+Port _struct extension module to multiphase initialization (:pep:`489`)
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-19-09-17-01
+.. nonce: 6F9o6L
+.. section: C API
+
+Port :mod:`!spwd` extension module to multiphase initialization (:pep:`489`)
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-18-20-33-35
+.. nonce: B4ztSk
+.. section: C API
+
+Port :mod:`gc` extension module to multiphase initialization (:pep:`489`)
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-18-20-11-13
+.. nonce: fe3iRb
+.. section: C API
+
+Port _queue extension module to multiphase initialization (:pep:`489`)
+
+..
+
+.. bpo: 39573
+.. date: 2020-11-18-15-21-59
+.. nonce: VB3G2y
+.. section: C API
+
+Convert :c:func:`Py_TYPE` and :c:func:`Py_SIZE` back to macros to allow
+using them as an l-value. Many third party C extension modules rely on the
+ability of using Py_TYPE() and Py_SIZE() to set an object type and size:
+``Py_TYPE(obj) = type;`` and ``Py_SIZE(obj) = size;``.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-18-10-52-38
+.. nonce: FrWAwJ
+.. section: C API
+
+Port :mod:`symtable` extension module to multiphase initialization
+(:pep:`489`)
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-18-09-46-35
+.. nonce: SH8OIT
+.. section: C API
+
+Port :mod:`grp` and :mod:`pwd` extension modules to multiphase
+initialization (:pep:`489`)
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-18-09-16-23
+.. nonce: gkoI7Y
+.. section: C API
+
+Port _random extension module to multiphase initialization (:pep:`489`)
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-18-08-45-36
+.. nonce: VLZfiY
+.. section: C API
+
+Port _hashlib extension module to multiphase initialization (:pep:`489`)
+
+..
+
+.. bpo: 41713
+.. date: 2020-11-17-15-39-10
+.. nonce: Rq99Vc
+.. section: C API
+
+Removed the undocumented ``PyOS_InitInterrupts()`` function. Initializing
+Python already implicitly installs signal handlers: see
+:c:member:`PyConfig.install_signal_handlers`. Patch by Victor Stinner.
+
+..
+
+.. bpo: 40170
+.. date: 2020-11-13-01-40-28
+.. nonce: uh8lEf
+.. section: C API
+
+The ``Py_TRASHCAN_BEGIN`` macro no longer accesses PyTypeObject attributes,
+but now can get the condition by calling the new private
+:c:func:`!_PyTrash_cond()` function which hides implementation details.
+
+..
+
+.. bpo: 42260
+.. date: 2020-11-10-14-27-39
+.. nonce: -Br3Co
+.. section: C API
+
+:c:func:`Py_GetPath`, :c:func:`Py_GetPrefix`, :c:func:`Py_GetExecPrefix`,
+:c:func:`Py_GetProgramFullPath`, :c:func:`Py_GetPythonHome` and
+:c:func:`Py_GetProgramName` functions now return ``NULL`` if called before
+:c:func:`Py_Initialize` (before Python is initialized). Use the new
+:ref:`Python Initialization Configuration API <init-config>` to get the
+:ref:`Python Path Configuration.  <init-path-config>`. Patch by Victor
+Stinner.
+
+..
+
+.. bpo: 42260
+.. date: 2020-11-05-18-02-07
+.. nonce: pAeaNR
+.. section: C API
+
+The :c:func:`PyConfig_Read` function now only parses
+:c:member:`PyConfig.argv` arguments once: :c:member:`PyConfig.parse_argv` is
+set to ``2`` after arguments are parsed. Since Python arguments are
+strippped from :c:member:`PyConfig.argv`, parsing arguments twice would
+parse the application options as Python options.
+
+..
+
+.. bpo: 42262
+.. date: 2020-11-04-17-22-36
+.. nonce: fCWzBb
+.. section: C API
+
+Added :c:func:`Py_NewRef` and :c:func:`Py_XNewRef` functions to increment
+the reference count of an object and return the object. Patch by Victor
+Stinner.
+
+..
+
+.. bpo: 42260
+.. date: 2020-11-04-16-31-55
+.. nonce: CmgHtF
+.. section: C API
+
+When :c:func:`Py_Initialize` is called twice, the second call now updates
+more :mod:`sys` attributes for the configuration, rather than only
+:data:`sys.argv`. Patch by Victor Stinner.
+
+..
+
+.. bpo: 41832
+.. date: 2020-11-03-19-47-06
+.. nonce: dL1VJJ
+.. section: C API
+
+The :c:func:`PyType_FromModuleAndSpec` function now accepts NULL ``tp_doc``
+slot.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-03-11-52-27
+.. nonce: aDYJKB
+.. section: C API
+
+Added :c:func:`PyModule_AddObjectRef` function: similar to
+:c:func:`PyModule_AddObject` but don't steal a reference to the value on
+success. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42171
+.. date: 2020-10-27-21-10-14
+.. nonce: S3FWTP
+.. section: C API
+
+The :c:macro:`METH_FASTCALL` calling convention is added to the limited API.
+The functions  :c:func:`PyModule_AddType`,
+:c:func:`PyType_FromModuleAndSpec`, :c:func:`PyType_GetModule` and
+:c:func:`PyType_GetModuleState` are added to the limited API on Windows.
+
+..
+
+.. bpo: 42085
+.. date: 2020-10-19-15-58-16
+.. nonce: NhEf3W
+.. section: C API
+
+Add dedicated entry to PyAsyncMethods for sending values
+
+..
+
+.. bpo: 41073
+.. date: 2020-07-08-21-01-49
+.. nonce: VqQZON
+.. section: C API
+
+:c:func:`PyType_GetSlot()` can now accept static types.
+
+..
+
+.. bpo: 30459
+.. date: 2020-05-06-23-54-57
+.. nonce: N9_Jai
+.. section: C API
+
+:c:func:`PyList_SET_ITEM`, :c:func:`PyTuple_SET_ITEM` and
+:c:func:`PyCell_SET` macros can no longer be used as l-value or r-value. For
+example, ``x = PyList_SET_ITEM(a, b, c)`` and ``PyList_SET_ITEM(a, b, c) =
+x`` now fail with a compiler error. It prevents bugs like ``if
+(PyList_SET_ITEM (a, b, c) < 0) ...`` test. Patch by Zackery Spytz and
+Victor Stinner.
+
+
+================================================
+File: /Misc/NEWS.d/3.10.0a4.rst
+================================================
+.. bpo: 42814
+.. date: 2021-01-03-04-41-25
+.. nonce: sDvVbb
+.. release date: 2021-01-04
+.. section: Core and Builtins
+
+Fix undefined behavior in ``Objects/genericaliasobject.c``.
+
+..
+
+.. bpo: 42806
+.. date: 2021-01-03-00-20-38
+.. nonce: mLAobJ
+.. section: Core and Builtins
+
+Fix the column offsets for f-strings :mod:`ast` nodes surrounded by
+parentheses and for nodes that spawn multiple lines. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 40631
+.. date: 2020-12-31-20-58-22
+.. nonce: deRMCx
+.. section: Core and Builtins
+
+Fix regression where a single parenthesized starred expression was a valid
+assignment target.
+
+..
+
+.. bpo: 27794
+.. date: 2020-12-27-18-07-43
+.. nonce: sxgfGi
+.. section: Core and Builtins
+
+Improve the error message for failed writes/deletes to property objects.
+When possible, the attribute name is now shown. Patch provided by Yurii
+Karabas.
+
+..
+
+.. bpo: 42745
+.. date: 2020-12-25-23-30-58
+.. nonce: XsFoHS
+.. section: Core and Builtins
+
+Make the type attribute lookup cache per-interpreter. Patch by Victor
+Stinner.
+
+..
+
+.. bpo: 42246
+.. date: 2020-12-22-20-30-11
+.. nonce: 7BrPLg
+.. section: Core and Builtins
+
+Jumps to jumps are not eliminated when it would break PEP 626.
+
+..
+
+.. bpo: 42246
+.. date: 2020-12-16-14-44-21
+.. nonce: RtIEY7
+.. section: Core and Builtins
+
+Make sure that the ``f_lasti`` and ``f_lineno`` attributes of a frame are
+set correctly when an exception is raised or re-raised. Required for PEP
+626.
+
+..
+
+.. bpo: 32381
+.. date: 2020-12-15-18-43-43
+.. nonce: 3tIofL
+.. section: Core and Builtins
+
+The coding cookie (ex: ``# coding: latin1``) is now ignored in the command
+passed to the :option:`-c` command line option. Patch by Victor Stinner.
+
+..
+
+.. bpo: 30858
+.. date: 2020-12-13-15-23-09
+.. nonce: -f9G4z
+.. section: Core and Builtins
+
+Improve error location in expressions that contain assignments. Patch by
+Pablo Galindo and Lysandros Nikolaou.
+
+..
+
+.. bpo: 42615
+.. date: 2020-12-10-17-06-52
+.. nonce: Je6Q-r
+.. section: Core and Builtins
+
+Remove jump commands made redundant by the deletion of unreachable bytecode
+blocks
+
+..
+
+.. bpo: 42639
+.. date: 2020-12-09-01-55-10
+.. nonce: 5pI5HG
+.. section: Core and Builtins
+
+Make the :mod:`atexit` module state per-interpreter. It is now safe have
+more than one :mod:`atexit` module instance. Patch by Donghee Na and Victor
+Stinner.
+
+..
+
+.. bpo: 32381
+.. date: 2020-12-04-17-17-44
+.. nonce: NY5t2S
+.. section: Core and Builtins
+
+Fix encoding name when running a ``.pyc`` file on Windows:
+:c:func:`PyRun_SimpleFileExFlags()` now uses the correct encoding to decode
+the filename.
+
+..
+
+.. bpo: 42195
+.. date: 2020-11-20-00-57-47
+.. nonce: HeqcpS
+.. section: Core and Builtins
+
+The ``__args__`` of the parameterized generics for :data:`typing.Callable`
+and :class:`collections.abc.Callable` are now consistent.  The ``__args__``
+for :class:`collections.abc.Callable` are now flattened while
+:data:`typing.Callable`'s have not changed.  To allow this change,
+:class:`types.GenericAlias` can now be subclassed and
+``collections.abc.Callable``'s ``__class_getitem__`` will now return a
+subclass of ``types.GenericAlias``.  Tests for typing were also updated to
+not subclass things like ``Callable[..., T]`` as that is not a valid base
+class.  Finally, both ``Callable``\ s no longer validate their ``argtypes``,
+in ``Callable[[argtypes], resulttype]`` to prepare for :pep:`612`.  Patch by
+Ken Jin.
+
+..
+
+.. bpo: 40137
+.. date: 2020-11-19-23-12-57
+.. nonce: bihl9O
+.. section: Core and Builtins
+
+Convert functools module to use :c:func:`PyType_FromModuleAndSpec`.
+
+..
+
+.. bpo: 40077
+.. date: 2020-11-03-13-46-10
+.. nonce: NfAIdj
+.. section: Core and Builtins
+
+Convert :mod:`array` to use heap types, and establish module state for
+these.
+
+..
+
+.. bpo: 42008
+.. date: 2020-10-12-14-51-59
+.. nonce: ijWw2I
+.. section: Core and Builtins
+
+Fix _random.Random() seeding.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-09-12-19-21-52
+.. nonce: F2kDrU
+.. section: Core and Builtins
+
+Port the :mod:`pyexpat` extension module to multi-phase initialization
+(:pep:`489`).
+
+..
+
+.. bpo: 40521
+.. date: 2020-05-14-02-55-39
+.. nonce: dIlXsZ
+.. section: Core and Builtins
+
+Make the Unicode dictionary of interned strings compatible with
+subinterpreters. Patch by Victor Stinner.
+
+..
+
+.. bpo: 39465
+.. date: 2020-05-13-18-50-27
+.. nonce: j7nl6A
+.. section: Core and Builtins
+
+Make :c:func:`!_PyUnicode_FromId` function compatible with subinterpreters.
+Each interpreter now has an array of identifier objects (interned strings
+decoded from UTF-8). Patch by Victor Stinner.
+
+..
+
+.. bpo: 42257
+.. date: 2020-12-31-23-05-53
+.. nonce: ALQy7B
+.. section: Library
+
+Handle empty string in variable executable in platform.libc_ver()
+
+..
+
+.. bpo: 42772
+.. date: 2020-12-30-17-16-43
+.. nonce: Xe7WFV
+.. section: Library
+
+randrange() now raises a TypeError when step is specified without a stop
+argument.  Formerly, it silently ignored the step argument.
+
+..
+
+.. bpo: 42759
+.. date: 2020-12-27-22-19-26
+.. nonce: lGi_03
+.. section: Library
+
+Fixed equality comparison of :class:`tkinter.Variable` and
+:class:`tkinter.font.Font`. Objects which belong to different Tcl
+interpreters are now always different, even if they have the same name.
+
+..
+
+.. bpo: 42756
+.. date: 2020-12-27-21-22-01
+.. nonce: dHMPJ9
+.. section: Library
+
+Configure LMTP Unix-domain socket to use socket global default timeout when
+a timeout is not explicitly provided.
+
+..
+
+.. bpo: 23328
+.. date: 2020-12-27-18-47-01
+.. nonce: _xqepZ
+.. section: Library
+
+Allow / character in username, password fields on _PROXY envars.
+
+..
+
+.. bpo: 42740
+.. date: 2020-12-25-23-23-11
+.. nonce: F0rQ_E
+.. section: Library
+
+:func:`typing.get_args` and :func:`typing.get_origin` now support :pep:`604`
+union types and :pep:`612` additions to ``Callable``.
+
+..
+
+.. bpo: 42655
+.. date: 2020-12-25-12-32-47
+.. nonce: W5ytpV
+.. section: Library
+
+:mod:`subprocess` *extra_groups* is now correctly passed into setgroups()
+system call.
+
+..
+
+.. bpo: 42727
+.. date: 2020-12-23-19-43-06
+.. nonce: WH3ODh
+.. section: Library
+
+``EnumMeta.__prepare__`` now accepts ``**kwds`` to properly support
+``__init_subclass__``
+
+..
+
+.. bpo: 38308
+.. date: 2020-12-23-15-16-12
+.. nonce: lB4Sv0
+.. section: Library
+
+Add optional *weights* to *statistics.harmonic_mean()*.
+
+..
+
+.. bpo: 42721
+.. date: 2020-12-22-22-47-22
+.. nonce: I5Ai5L
+.. section: Library
+
+When simple query dialogs (:mod:`tkinter.simpledialog`), message boxes
+(:mod:`tkinter.messagebox`) or color choose dialog
+(:mod:`tkinter.colorchooser`) are created without arguments *master* and
+*parent*, and the default root window is not yet created, and
+:func:`~tkinter.NoDefaultRoot` was not called, a new temporal hidden root
+window will be created automatically. It will not be set as the default root
+window and will be destroyed right after closing the dialog window. It will
+help to use these simple dialog windows in programs which do not need other
+GUI.
+
+..
+
+.. bpo: 25246
+.. date: 2020-12-22-13-16-43
+.. nonce: GhhCTl
+.. section: Library
+
+Optimized :meth:`collections.deque.remove`.
+
+..
+
+.. bpo: 35728
+.. date: 2020-12-21-23-34-57
+.. nonce: 9m-azF
+.. section: Library
+
+Added a root parameter to :func:`tkinter.font.nametofont`.
+
+..
+
+.. bpo: 15303
+.. date: 2020-12-21-22-59-26
+.. nonce: zozVrq
+.. section: Library
+
+:mod:`tkinter` supports now widgets with boolean value False.
+
+..
+
+.. bpo: 42681
+.. date: 2020-12-20-22-50-15
+.. nonce: lDO6jb
+.. section: Library
+
+Fixed range checks for color and pair numbers in :mod:`curses`.
+
+..
+
+.. bpo: 42685
+.. date: 2020-12-19-17-32-43
+.. nonce: kwZlwp
+.. section: Library
+
+Improved placing of simple query windows in Tkinter (such as
+:func:`tkinter.simpledialog.askinteger`). They are now centered at the
+center of the parent window if it is specified and shown, otherwise at the
+center of the screen.
+
+..
+
+.. bpo: 9694
+.. date: 2020-12-19-12-33-38
+.. nonce: CkKK9V
+.. section: Library
+
+Argparse help no longer uses the confusing phrase, "optional arguments". It
+uses "options" instead.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-12-16-23-28-52
+.. nonce: Quy3zn
+.. section: Library
+
+Port the :mod:`!_thread` extension module to the multiphase initialization
+API (:pep:`489`) and convert its static types to heap types.
+
+..
+
+.. bpo: 37961
+.. date: 2020-12-16-16-16-33
+.. nonce: jrESEq
+.. section: Library
+
+Fix crash in :func:`tracemalloc.Traceback.__repr__` (regressed in Python
+3.9).
+
+..
+
+.. bpo: 42630
+.. date: 2020-12-15-17-51-27
+.. nonce: jf4jBl
+.. section: Library
+
+:mod:`tkinter` functions and constructors which need a default root window
+raise now :exc:`RuntimeError` with descriptive message instead of obscure
+:exc:`AttributeError` or :exc:`NameError` if it is not created yet or cannot
+be created automatically.
+
+..
+
+.. bpo: 42639
+.. date: 2020-12-15-15-14-29
+.. nonce: uJ3h8I
+.. section: Library
+
+:func:`atexit._run_exitfuncs` now logs callback exceptions using
+:data:`sys.unraisablehook`, rather than logging them directly into
+:data:`sys.stderr` and raise the last exception.
+
+..
+
+.. bpo: 42644
+.. date: 2020-12-15-10-00-04
+.. nonce: XgLCNx
+.. section: Library
+
+``logging.disable`` will now validate the types and value of its parameter.
+It also now accepts strings representing the levels (as does
+``logging.setLevel``) instead of only the numerical values.
+
+..
+
+.. bpo: 42639
+.. date: 2020-12-14-22-31-22
+.. nonce: 5Z3iWX
+.. section: Library
+
+At Python exit, if a callback registered with :func:`atexit.register` fails,
+its exception is now logged. Previously, only some exceptions were logged,
+and the last exception was always silently ignored.
+
+..
+
+.. bpo: 36541
+.. date: 2020-12-14-08-23-57
+.. nonce: qdEtZv
+.. section: Library
+
+Fixed lib2to3.pgen2 to be able to parse PEP-570 positional only argument
+syntax.
+
+..
+
+.. bpo: 42382
+.. date: 2020-12-13-22-05-35
+.. nonce: 2YtKo5
+.. section: Library
+
+In ``importlib.metadata``: -  ``EntryPoint`` objects now expose a ``.dist``
+object referencing the ``Distribution`` when constructed from a
+``Distribution``. - Add support for package discovery under package
+normalization rules. - The object returned by ``metadata()`` now has a
+formally defined protocol called ``PackageMetadata`` with declared support
+for the ``.get_all()`` method. - Synced with importlib_metadata 3.3.
+
+..
+
+.. bpo: 41877
+.. date: 2020-12-10-19-49-52
+.. nonce: wiVlPc
+.. section: Library
+
+A check is added against misspellings of autospect, auto_spec and set_spec
+being passed as arguments to patch, patch.object and create_autospec.
+
+..
+
+.. bpo: 39717
+.. date: 2020-12-10-18-36-52
+.. nonce: sK2u0w
+.. section: Library
+
+[tarfile] update nested exception raising to use ``from None`` or ``from e``
+
+..
+
+.. bpo: 41877
+.. date: 2020-12-10-09-24-44
+.. nonce: iJSCvM
+.. section: Library
+
+AttributeError for suspected misspellings of assertions on mocks are now
+pointing out that the cause are misspelled assertions and also what to do if
+the misspelling is actually an intended attribute name. The unittest.mock
+document is also updated to reflect the current set of recognised
+misspellings.
+
+..
+
+.. bpo: 41559
+.. date: 2020-12-10-00-09-40
+.. nonce: 1l4yjP
+.. section: Library
+
+Implemented :pep:`612`: added ``ParamSpec`` and ``Concatenate`` to
+:mod:`typing`.  Patch by Ken Jin.
+
+..
+
+.. bpo: 42385
+.. date: 2020-12-09-19-45-32
+.. nonce: boGbjo
+.. section: Library
+
+StrEnum: fix _generate_next_value_ to return a str
+
+..
+
+.. bpo: 31904
+.. date: 2020-12-09-15-23-28
+.. nonce: g3k5k3
+.. section: Library
+
+Define THREAD_STACK_SIZE for VxWorks.
+
+..
+
+.. bpo: 34750
+.. date: 2020-12-09-14-15-48
+.. nonce: x8TASR
+.. section: Library
+
+[Enum] ``_EnumDict.update()`` is now supported.
+
+..
+
+.. bpo: 42517
+.. date: 2020-12-09-10-59-16
+.. nonce: FKEVcZ
+.. section: Library
+
+Enum: private names do not become members / do not generate errors -- they
+remain normal attributes
+
+..
+
+.. bpo: 42678
+.. date: 2020-12-08-22-43-35
+.. nonce: ba9ktU
+.. section: Library
+
+``Enum``: call ``__init_subclass__`` after members have been added
+
+..
+
+.. bpo: 28964
+.. date: 2020-12-07-13-21-00
+.. nonce: UTQikc
+.. section: Library
+
+:func:`ast.literal_eval` adds line number information (if available) in
+error message for malformed nodes.
+
+..
+
+.. bpo: 42470
+.. date: 2020-12-06-12-00-00
+.. nonce: iqtC4L
+.. section: Library
+
+:func:`random.sample` no longer warns on a sequence which is also a set.
+
+..
+
+.. bpo: 31904
+.. date: 2020-11-27-18-09-59
+.. nonce: g8k43d
+.. section: Library
+
+:func:`posixpath.expanduser` returns the input *path* unchanged if user home
+directory is None on VxWorks.
+
+..
+
+.. bpo: 42388
+.. date: 2020-11-22-11-22-28
+.. nonce: LMgM6B
+.. section: Library
+
+Fix subprocess.check_output(..., input=None) behavior when text=True to be
+consistent with that of the documentation and universal_newlines=True.
+
+..
+
+.. bpo: 34463
+.. date: 2020-11-20-19-00-27
+.. nonce: aJcm56
+.. section: Library
+
+Fixed discrepancy between :mod:`traceback` and the interpreter in formatting
+of SyntaxError with lineno not set (:mod:`traceback` was changed to match
+interpreter).
+
+..
+
+.. bpo: 42393
+.. date: 2020-11-17-22-06-15
+.. nonce: BB0oXc
+.. section: Library
+
+Raise :exc:`OverflowError` instead of silent truncation in
+:meth:`socket.ntohs` and :meth:`socket.htons`.  Silent truncation was
+deprecated in Python 3.7. Patch by Erlend E. Aasland
+
+..
+
+.. bpo: 42222
+.. date: 2020-10-31-10-28-32
+.. nonce: Cfl1eR
+.. section: Library
+
+Harmonized :func:`random.randrange` argument handling to match :func:`range`.
+
+* The integer test and conversion in ``randrange()`` now uses
+  :func:`operator.index`.
+* Non-integer arguments to ``randrange()`` are deprecated.
+* The ``ValueError`` is deprecated in favor of a ``TypeError``.
+* It now runs a little faster than before.
+
+(Contributed by Raymond Hettinger and Serhiy Storchaka.)
+
+..
+
+.. bpo: 42163
+.. date: 2020-10-29-09-22-56
+.. nonce: O4VcCY
+.. section: Library
+
+Restore compatibility for ``uname_result`` around deepcopy and _replace.
+
+..
+
+.. bpo: 42090
+.. date: 2020-10-25-14-48-57
+.. nonce: Ubuc0j
+.. section: Library
+
+``zipfile.Path.joinpath`` now accepts arbitrary arguments, same as
+``pathlib.Path.joinpath``.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-10-20-23-28-55
+.. nonce: Iyka3r
+.. section: Library
+
+Port the _csv module to the multi-phase initialization API (:pep:`489`).
+
+..
+
+.. bpo: 42059
+.. date: 2020-10-17-12-42-08
+.. nonce: ZGMZ3D
+.. section: Library
+
+:class:`typing.TypedDict` types created using the alternative call-style
+syntax now correctly respect the ``total`` keyword argument when setting
+their ``__required_keys__`` and ``__optional_keys__`` class attributes.
+
+..
+
+.. bpo: 41960
+.. date: 2020-10-06-23-59-20
+.. nonce: icQ7Xd
+.. section: Library
+
+Add ``globalns`` and ``localns`` parameters to the :func:`inspect.signature`
+and :meth:`inspect.Signature.from_callable`.
+
+..
+
+.. bpo: 41907
+.. date: 2020-10-02-10-19-49
+.. nonce: wiIEsz
+.. section: Library
+
+fix ``format()`` behavior for ``IntFlag``
+
+..
+
+.. bpo: 41891
+.. date: 2020-09-30-13-35-29
+.. nonce: pNAeYI
+.. section: Library
+
+Ensure asyncio.wait_for waits for task completion
+
+..
+
+.. bpo: 24792
+.. date: 2020-09-11-16-07-00
+.. nonce: Z-ARra
+.. section: Library
+
+Fixed bug where :mod:`zipimporter` sometimes reports an incorrect cause of
+import errors.
+
+..
+
+.. bpo: 31904
+.. date: 2020-08-11-17-44-07
+.. nonce: cb13ea
+.. section: Library
+
+Fix site and sysconfig modules for VxWorks RTOS which has no home
+directories.
+
+..
+
+.. bpo: 41462
+.. date: 2020-08-03-17-54-32
+.. nonce: ek38d_
+.. section: Library
+
+Add :func:`os.set_blocking` support for VxWorks RTOS.
+
+..
+
+.. bpo: 40219
+.. date: 2020-07-13-19-43-11
+.. nonce: MUoJEP
+.. section: Library
+
+Lowered :class:`tkinter.ttk.LabeledScale` dummy widget to prevent hiding
+part of the content label.
+
+..
+
+.. bpo: 37193
+.. date: 2020-06-12-21-23-20
+.. nonce: wJximU
+.. section: Library
+
+Fixed memory leak in ``socketserver.ThreadingMixIn`` introduced in Python
+3.7.
+
+..
+
+.. bpo: 39068
+.. date: 2019-12-16-17-55-31
+.. nonce: Ti3f9P
+.. section: Library
+
+Fix initialization race condition in :func:`a85encode` and :func:`b85encode`
+in :mod:`base64`. Patch by Brandon Stansbury.
+
+..
+
+.. bpo: 17140
+.. date: 2020-12-16-21-06-16
+.. nonce: 1leSEg
+.. section: Documentation
+
+Add documentation for the :class:`multiprocessing.pool.ThreadPool` class.
+
+..
+
+.. bpo: 34398
+.. date: 2019-03-04-18-51-21
+.. nonce: YedUqW
+.. section: Documentation
+
+Prominently feature listings from the glossary in documentation search
+results. Patch by Ammar Askar.
+
+..
+
+.. bpo: 42794
+.. date: 2021-01-01-08-52-36
+.. nonce: -7-XGz
+.. section: Tests
+
+Update test_nntplib to use official group name of news.aioe.org for testing.
+Patch by Donghee Na.
+
+..
+
+.. bpo: 31904
+.. date: 2020-12-17-15-42-44
+.. nonce: d8g3l0d5
+.. section: Tests
+
+Skip some asyncio tests on VxWorks.
+
+..
+
+.. bpo: 42641
+.. date: 2020-12-15-17-38-04
+.. nonce: uzwlF_
+.. section: Tests
+
+Enhance ``test_select.test_select()``: it now takes 500 milliseconds rather than 10
+seconds. Use Python rather than a shell to make the test more portable.
+
+..
+
+.. bpo: 31904
+.. date: 2020-12-09-15-23-28
+.. nonce: ghj38d
+.. section: Tests
+
+Skip some tests in _test_all_chown_common() on VxWorks.
+
+..
+
+.. bpo: 42199
+.. date: 2020-10-29-21-26-46
+.. nonce: KksGCV
+.. section: Tests
+
+Fix bytecode helper assertNotInBytecode.
+
+..
+
+.. bpo: 41443
+.. date: 2020-07-30-18-43-05
+.. nonce: 834gyg
+.. section: Tests
+
+Add more attribute checking in test_posix.py
+
+..
+
+.. bpo: 31904
+.. date: 2020-07-30-18-06-15
+.. nonce: y3d8dk
+.. section: Tests
+
+Disable os.popen and impacted tests on VxWorks
+
+..
+
+.. bpo: 41439
+.. date: 2020-07-30-14-08-58
+.. nonce: yhteoi
+.. section: Tests
+
+Port test_ssl and test_uuid to VxWorks RTOS.
+
+..
+
+.. bpo: 42692
+.. date: 2021-01-04-05-07-30
+.. nonce: OO11SN
+.. section: Build
+
+Fix __builtin_available check on older compilers. Patch by Joshua Root.
+
+..
+
+.. bpo: 27640
+.. date: 2020-12-22-17-57-04
+.. nonce: j3a8r0
+.. section: Build
+
+Added ``--disable-test-modules`` option to the ``configure`` script: don't
+build nor install test modules. Patch by Xavier de Gaye, Thomas Petazzoni
+and Peixing Xin.
+
+..
+
+.. bpo: 42604
+.. date: 2020-12-20-02-35-28
+.. nonce: gRd89w
+.. section: Build
+
+Now all platforms use a value for the "EXT_SUFFIX" build variable derived
+from SOABI (for instance in freeBSD, "EXT_SUFFIX" is now ".cpython-310d.so"
+instead of ".so"). Previously only Linux, Mac and VxWorks were using a value
+for "EXT_SUFFIX" that included "SOABI".
+
+..
+
+.. bpo: 42598
+.. date: 2020-12-13-14-43-10
+.. nonce: 7ipr5H
+.. section: Build
+
+Fix implicit function declarations in configure which could have resulted in
+incorrect configuration checks.  Patch contributed by Joshua Root.
+
+..
+
+.. bpo: 31904
+.. date: 2020-12-11-18-04-38
+.. nonce: j3j6d8
+.. section: Build
+
+Enable libpython3.so for VxWorks.
+
+..
+
+.. bpo: 29076
+.. date: 2020-02-28-14-33-15
+.. nonce: Gtixi5
+.. section: Build
+
+Add fish shell support to macOS installer.
+
+..
+
+.. bpo: 42361
+.. date: 2021-01-04-01-17-17
+.. nonce: eolZAi
+.. section: macOS
+
+Update macOS installer build to use Tcl/Tk 8.6.11 (rc2, expected to be final
+release).
+
+..
+
+.. bpo: 41837
+.. date: 2021-01-04-00-48-08
+.. nonce: dX-unJ
+.. section: macOS
+
+Update macOS installer build to use OpenSSL 1.1.1i.
+
+..
+
+.. bpo: 42584
+.. date: 2020-12-07-11-37-35
+.. nonce: LygmqQ
+.. section: macOS
+
+Update macOS installer to use SQLite 3.34.0.
+
+..
+
+.. bpo: 42726
+.. date: 2020-12-23-19-42-11
+.. nonce: a5EkTv
+.. section: Tools/Demos
+
+Fixed Python 3 compatibility issue with gdb/libpython.py handling of
+attribute dictionaries.
+
+..
+
+.. bpo: 42613
+.. date: 2020-12-16-09-10-32
+.. nonce: J-jnm5
+.. section: Tools/Demos
+
+Fix ``freeze.py`` tool to use the prope config and library directories.
+Patch by Victor Stinner.
+
+..
+
+.. bpo: 42591
+.. date: 2020-12-10-10-43-03
+.. nonce: CXNY8G
+.. section: C API
+
+Export the :c:func:`Py_FrozenMain` function: fix a Python 3.9.0 regression.
+Python 3.9 uses ``-fvisibility=hidden`` and the function was not exported
+explicitly and so not exported.
+
+..
+
+.. bpo: 32381
+.. date: 2020-12-09-00-35-25
+.. nonce: Je08Ny
+.. section: C API
+
+Remove the private :c:func:`!_Py_fopen` function which is no longer needed.
+Use :c:func:`!_Py_wfopen` or :c:func:`!_Py_fopen_obj` instead. Patch by Victor
+Stinner.
+
+..
+
+.. bpo: 1635741
+.. date: 2020-11-22-13-46-06
+.. nonce: -fJLzA
+.. section: C API
+
+Port :mod:`resource` extension module to module state
+
+..
+
+.. bpo: 42111
+.. date: 2020-10-21-18-43-06
+.. nonce: 9pvtrc
+.. section: C API
+
+Update the ``xxlimited`` module to be a better example of how to use the
+limited C API.
+
+..
+
+.. bpo: 40052
+.. date: 2020-03-24-09-27-10
+.. nonce: 27P2KG
+.. section: C API
+
+Fix an alignment build warning/error in function
+``PyVectorcall_Function()``. Patch by Andreas Schneider, Antoine Pitrou and
+Petr Viktorin.
+
+
+================================================
+File: /Misc/NEWS.d/3.10.0a5.rst
+================================================
+.. bpo: 42938
+.. date: 2021-01-18-09-27-31
+.. nonce: 4Zn4Mp
+.. release date: 2021-02-02
+.. section: Security
+
+Avoid static buffers when computing the repr of :class:`ctypes.c_double` and
+:class:`ctypes.c_longdouble` values.
+
+..
+
+.. bpo: 42990
+.. date: 2021-01-30-11-31-44
+.. nonce: 69h_zK
+.. section: Core and Builtins
+
+Refactor the ``PyEval_`` family of functions.
+
+* An new function ``_PyEval_Vector`` is added to simplify calls to Python from C.
+* ``_PyEval_EvalCodeWithName`` is removed
+* ``PyEval_EvalCodeEx`` is retained as part of the API, but is not used internally
+
+..
+
+.. bpo: 38631
+.. date: 2021-01-29-17-48-44
+.. nonce: jR-3kC
+.. section: Core and Builtins
+
+Replace :c:func:`Py_FatalError` calls in the compiler with regular
+:exc:`SystemError` exceptions. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42997
+.. date: 2021-01-24-20-19-55
+.. nonce: QUOPgP
+.. section: Core and Builtins
+
+Improve error message for missing ":" before blocks. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 43017
+.. date: 2021-01-24-18-02-05
+.. nonce: emEcXX
+.. section: Core and Builtins
+
+Improve error message in the parser when using un-parenthesised tuples in
+comprehensions. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 42986
+.. date: 2021-01-20-23-44-15
+.. nonce: sWoaGf
+.. section: Core and Builtins
+
+Fix parser crash when reporting syntax errors in f-string with newlines.
+Patch by Pablo Galindo.
+
+..
+
+.. bpo: 40176
+.. date: 2021-01-20-22-31-01
+.. nonce: anjyWw
+.. section: Core and Builtins
+
+Syntax errors for unterminated string literals now point to the start of the
+string instead of reporting EOF/EOL.
+
+..
+
+.. bpo: 42927
+.. date: 2021-01-15-20-05-56
+.. nonce: GI-l-7
+.. section: Core and Builtins
+
+The inline cache for ``LOAD_ATTR`` now also optimizes access to attributes
+defined by ``__slots__``. This makes reading such attribute up to 30%
+faster.
+
+..
+
+.. bpo: 42864
+.. date: 2021-01-14-23-15-34
+.. nonce: QgOAQ1
+.. section: Core and Builtins
+
+Improve error messages in the parser when parentheses are not closed. Patch
+by Pablo Galindo.
+
+..
+
+.. bpo: 42924
+.. date: 2021-01-13-14-06-01
+.. nonce: _WS1Ok
+.. section: Core and Builtins
+
+Fix ``bytearray`` repetition incorrectly copying data from the start of the
+buffer, even if the data is offset within the buffer (e.g. after reassigning
+a slice at the start of the ``bytearray`` to a shorter byte string).
+
+..
+
+.. bpo: 42882
+.. date: 2021-01-11-17-58-52
+.. nonce: WfTdfg
+.. section: Core and Builtins
+
+Fix the :c:func:`!_PyUnicode_FromId` function (_Py_IDENTIFIER(var) API) when
+:c:func:`Py_Initialize` / :c:func:`Py_Finalize` is called multiple times:
+preserve ``_PyRuntime.unicode_ids.next_index`` value.
+
+..
+
+.. bpo: 42827
+.. date: 2021-01-06-17-06-37
+.. nonce: jtRR0D
+.. section: Core and Builtins
+
+Fix a crash when working out the error line of a :exc:`SyntaxError` in some
+multi-line expressions.
+
+..
+
+.. bpo: 42823
+.. date: 2021-01-04-18-17-07
+.. nonce: dcSynu
+.. section: Core and Builtins
+
+frame.f_lineno is correct even if frame.f_trace is set to True
+
+..
+
+.. bpo: 37324
+.. date: 2020-12-12-20-09-12
+.. nonce: jB-9_U
+.. section: Core and Builtins
+
+Remove deprecated aliases to :ref:`collections-abstract-base-classes` from
+the :mod:`collections` module.
+
+..
+
+.. bpo: 41994
+.. date: 2020-10-10-14-16-03
+.. nonce: Xop8sV
+.. section: Core and Builtins
+
+Fixed possible leak in ``import`` when ``sys.modules`` is not a ``dict``.
+
+..
+
+.. bpo: 27772
+.. date: 2018-12-20-23-59-23
+.. nonce: idHEcj
+.. section: Core and Builtins
+
+In string formatting, preceding the *width* field by ``'0'`` no longer
+affects the default alignment for strings.
+
+..
+
+.. bpo: 43108
+.. date: 2021-02-02-20-23-31
+.. nonce: lqcCZ6
+.. section: Library
+
+Fixed a reference leak in the :mod:`curses` module. Patch by Pablo Galindo
+
+..
+
+.. bpo: 43077
+.. date: 2021-01-30-15-20-06
+.. nonce: Owk61z
+.. section: Library
+
+Update the bundled pip to 21.0.1 and setuptools to 52.0.0.
+
+..
+
+.. bpo: 41282
+.. date: 2021-01-27-20-49-32
+.. nonce: SEPdV0
+.. section: Library
+
+Deprecate ``distutils`` in documentation and add warning on import.
+
+..
+
+.. bpo: 43014
+.. date: 2021-01-24-00-37-40
+.. nonce: BVPhEr
+.. section: Library
+
+Improve performance of :mod:`tokenize` by 20-30%.  Patch by Anthony Sottile.
+
+..
+
+.. bpo: 42323
+.. date: 2021-01-20-12-10-47
+.. nonce: PONB8e
+.. section: Library
+
+Fix :func:`math.nextafter` for NaN on AIX.
+
+..
+
+.. bpo: 42955
+.. date: 2021-01-18-11-59-46
+.. nonce: CSWLC9
+.. section: Library
+
+Add :data:`sys.stdlib_module_names`, containing the list of the standard
+library module names. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42944
+.. date: 2021-01-18-10-41-44
+.. nonce: RrONvy
+.. section: Library
+
+Fix ``random.Random.sample`` when ``counts`` argument is not ``None``.
+
+..
+
+.. bpo: 42934
+.. date: 2021-01-15-11-48-00
+.. nonce: ILKoOI
+.. section: Library
+
+Use :class:`~traceback.TracebackException`'s new ``compact`` param in
+:class:`~unittest.TestResult` to reduce time and memory consumed by
+traceback formatting.
+
+..
+
+.. bpo: 42931
+.. date: 2021-01-15-00-23-50
+.. nonce: QD6U2B
+.. section: Library
+
+Add :func:`randbytes` to ``random.__all__``.
+
+..
+
+.. bpo: 38250
+.. date: 2021-01-14-15-07-16
+.. nonce: 1fvhOk
+.. section: Library
+
+[Enum] Flags consisting of a single bit are now considered canonical, and
+will be the only flags returned from listing and iterating over a Flag class
+or a Flag member.  Multi-bit flags are considered aliases; they will be
+returned from lookups and operations that result in their value. Iteration
+for both Flag and Flag members is in definition order.
+
+..
+
+.. bpo: 42877
+.. date: 2021-01-13-12-55-41
+.. nonce: Fi1zEG
+.. section: Library
+
+Added the ``compact`` parameter to the constructor of
+:class:`traceback.TracebackException` to reduce time and memory for use
+cases that only need to call :func:`TracebackException.format` and
+:func:`TracebackException.format_exception_only`.
+
+..
+
+.. bpo: 42923
+.. date: 2021-01-13-12-15-13
+.. nonce: zBiNls
+.. section: Library
+
+The :c:func:`Py_FatalError` function and the :mod:`faulthandler` module now
+dump the list of extension modules on a fatal error.
+
+..
+
+.. bpo: 42848
+.. date: 2021-01-12-19-34-06
+.. nonce: 5G8oBl
+.. section: Library
+
+Removed recursion from :class:`~traceback.TracebackException` to allow it to
+handle long exception chains.
+
+..
+
+.. bpo: 42901
+.. date: 2021-01-11-17-36-59
+.. nonce: gFd-ta
+.. section: Library
+
+[Enum] move member creation from ``EnumMeta.__new__`` to
+``_proto_member.__set_name__``, allowing members to be created and visible
+in ``__init_subclass__``.
+
+..
+
+.. bpo: 42780
+.. date: 2021-01-08-15-49-20
+.. nonce: rtqi6B
+.. section: Library
+
+Fix os.set_inheritable() for O_PATH file descriptors on Linux.
+
+..
+
+.. bpo: 42866
+.. date: 2021-01-08-10-57-21
+.. nonce: Y1DnrO
+.. section: Library
+
+Fix a reference leak in the ``getcodec()`` function of CJK codecs. Patch by
+Victor Stinner.
+
+..
+
+.. bpo: 42846
+.. date: 2021-01-07-23-31-17
+.. nonce: kukDjw
+.. section: Library
+
+Convert the 6 CJK codec extension modules (_codecs_cn, _codecs_hk,
+_codecs_iso2022, _codecs_jp, _codecs_kr and _codecs_tw) to the multiphase
+initialization API (:pep:`489`). Patch by Victor Stinner.
+
+..
+
+.. bpo: 42851
+.. date: 2021-01-07-11-44-22
+.. nonce: uyQFyd
+.. section: Library
+
+remove __init_subclass__ support for Enum members
+
+..
+
+.. bpo: 42834
+.. date: 2021-01-05-23-55-24
+.. nonce: LxRnZC
+.. section: Library
+
+Make internal caches of the ``_json`` module compatible with
+subinterpreters.
+
+..
+
+.. bpo: 41748
+.. date: 2021-01-05-21-26-29
+.. nonce: KdC0w3
+.. section: Library
+
+Fix HTMLParser parsing rules for element attributes containing commas with
+spaces. Patch by Karl Dubost.
+
+..
+
+.. bpo: 40810
+.. date: 2021-01-05-00-52-30
+.. nonce: JxQqPe
+.. section: Library
+
+Require SQLite 3.7.15 or newer. Patch by Erlend E. Aasland.
+
+..
+
+.. bpo: 1635741
+.. date: 2021-01-04-15-05-40
+.. nonce: EOCfZY
+.. section: Library
+
+Convert the _multibytecodec extension module (CJK codecs) to multi-phase
+initialization (:pep:`489`).  Patch by Erlend E. Aasland.
+
+..
+
+.. bpo: 42802
+.. date: 2021-01-01-15-29-16
+.. nonce: Lw-bzl
+.. section: Library
+
+The distutils ``bdist_wininst`` command deprecated in Python 3.8 has been
+removed. The distutils ``bdist_wheel`` command is now recommended to
+distribute binary packages on Windows.
+
+..
+
+.. bpo: 24464
+.. date: 2020-12-30-14-56-25
+.. nonce: vbNVHe
+.. section: Library
+
+The undocumented built-in function ``sqlite3.enable_shared_cache`` is now
+deprecated, scheduled for removal in Python 3.12.  Its use is strongly
+discouraged by the SQLite3 documentation.  Patch by Erlend E. Aasland.
+
+..
+
+.. bpo: 42384
+.. date: 2020-11-17-14-32-39
+.. nonce: 1ZnQSn
+.. section: Library
+
+Make pdb populate sys.path[0] exactly the same as regular python execution.
+
+..
+
+.. bpo: 42383
+.. date: 2020-11-17-14-30-12
+.. nonce: ubl0Y_
+.. section: Library
+
+Fix pdb: previously pdb would fail to restart the debugging target if it was
+specified using a relative path and the current directory changed.
+
+..
+
+.. bpo: 42005
+.. date: 2020-10-11-13-48-03
+.. nonce: Jq6Az-
+.. section: Library
+
+Fix CLI of :mod:`cProfile` and :mod:`profile` to catch
+:exc:`BrokenPipeError`.
+
+..
+
+.. bpo: 41604
+.. date: 2020-08-21-15-24-14
+.. nonce: rTXleO
+.. section: Library
+
+Don't decrement the reference count of the previous user_ptr when
+set_panel_userptr fails.
+
+..
+
+.. bpo: 41149
+.. date: 2020-06-28-16-13-02
+.. nonce: jiZWtJ
+.. section: Library
+
+Allow executing callables that have a boolean value of ``False`` when passed
+to :class:`Threading.thread` as the target. Patch contributed by Barney
+Stratford.
+
+..
+
+.. bpo: 38307
+.. date: 2020-03-16-03-03-21
+.. nonce: 2cmw2i
+.. section: Library
+
+Add an 'end_lineno' attribute to the Class and Function objects that appear
+in the tree returned by pyclbr functions.  This and the existing 'lineno'
+attribute define the extent of class and def statements.  Patch by Aviral
+Srivastava.
+
+..
+
+.. bpo: 39273
+.. date: 2020-01-13-23-37-58
+.. nonce: m5hzxV
+.. section: Library
+
+The ``BUTTON5_*`` constants are now exposed in the :mod:`curses` module if
+available.
+
+..
+
+.. bpo: 33289
+.. date: 2018-04-23-13-44-10
+.. nonce: anBnUr
+.. section: Library
+
+Correct call to :mod:`tkinter.colorchooser` to return RGB triplet of ints
+instead of floats.  Patch by Cheryl Sabella.
+
+..
+
+.. bpo: 40304
+.. date: 2021-01-20-23-03-49
+.. nonce: -LK7Ps
+.. section: Documentation
+
+Fix doc for type(name, bases, dict).  Patch by Boris Verkhovskiy and Éric
+Araujo.
+
+..
+
+.. bpo: 42811
+.. date: 2021-01-04-22-14-22
+.. nonce: HY2beA
+.. section: Documentation
+
+Updated importlib.util.resolve_name() doc to use __spec__.parent instead of
+__package__. (Thanks Yair Frid.)
+
+..
+
+.. bpo: 40823
+.. date: 2020-05-30-13-39-22
+.. nonce: yB7K5w
+.. section: Tests
+
+Use :meth:`unittest.TestLoader().loadTestsFromTestCase` instead of
+:meth:`unittest.makeSuite` in :mod:`sqlite3` tests. Patch by Erlend E.
+Aasland.
+
+..
+
+.. bpo: 40810
+.. date: 2020-05-30-10-56-38
+.. nonce: LPqDLQ
+.. section: Tests
+
+In :mod:`sqlite3`, fix ``CheckTraceCallbackContent`` for SQLite pre 3.7.15.
+
+..
+
+.. bpo: 43031
+.. date: 2021-01-26-14-48-40
+.. nonce: 44nK9U
+.. section: Build
+
+Pass ``--timeout=$(TESTTIMEOUT)`` option to the default profile task
+``./python -m test --pgo`` command.
+
+..
+
+.. bpo: 36143
+.. date: 2021-01-18-20-52-06
+.. nonce: kgnIYo
+.. section: Build
+
+``make regen-all`` now also runs ``regen-keyword``. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42874
+.. date: 2021-01-12-10-06-50
+.. nonce: XKK61g
+.. section: Build
+
+Removed the grep -q and -E flags in the tzpath validation section of the
+configure script to better accommodate users of some platforms (specifically
+Solaris 10).
+
+..
+
+.. bpo: 31904
+.. date: 2021-01-11-23-26-00
+.. nonce: ty8f3h
+.. section: Build
+
+Add library search path by wr-cc in add_cross_compiling_paths() for VxWorks.
+
+..
+
+.. bpo: 42856
+.. date: 2021-01-07-12-51-38
+.. nonce: n3cMHV
+.. section: Build
+
+Add ``--with-wheel-pkg-dir=PATH`` option to the ``./configure`` script. If
+specified, the :mod:`ensurepip` module looks for ``setuptools`` and ``pip``
+wheel packages in this directory: if both are present, these wheel packages
+are used instead of ensurepip bundled wheel packages.
+
+Some Linux distribution packaging policies recommend against bundling
+dependencies. For example, Fedora installs wheel packages in the
+``/usr/share/python-wheels/`` directory and don't install the
+``ensurepip._bundled`` package.
+
+..
+
+.. bpo: 41837
+.. date: 2021-01-05-20-36-40
+.. nonce: bmS7vB
+.. section: Windows
+
+Updated Windows installer to include OpenSSL 1.1.1i
+
+..
+
+.. bpo: 42584
+.. date: 2020-12-07-11-40-52
+.. nonce: AsYnVX
+.. section: Windows
+
+Upgrade Windows installer to use SQLite 3.34.0.
+
+..
+
+.. bpo: 42504
+.. date: 2021-01-26-14-36-11
+.. nonce: ZxWt71
+.. section: macOS
+
+Ensure that the value of
+sysconfig.get_config_var('MACOSX_DEPLOYMENT_TARGET') is always a string,
+even in when the value is parsable as an integer.
+
+..
+
+.. bpo: 43008
+.. date: 2021-01-26-18-12-17
+.. nonce: mbQUc7
+.. section: IDLE
+
+Make IDLE invoke :func:`sys.excepthook` in normal, 2-process mode. Patch by
+Ken Hilton.
+
+..
+
+.. bpo: 33065
+.. date: 2021-01-10-01-25-43
+.. nonce: zmyHYJ
+.. section: IDLE
+
+Fix problem debugging user classes with __repr__ method.
+
+..
+
+.. bpo: 23544
+.. date: 2019-11-14-23-41-07
+.. nonce: 3etemb
+.. section: IDLE
+
+Disable Debug=>Stack Viewer when user code is running or Debugger is active,
+to prevent hang or crash.  Patch by Zackery Spytz.
+
+..
+
+.. bpo: 32631
+.. date: 2019-06-30-20-31-09
+.. nonce: e7_4BG
+.. section: IDLE
+
+Finish zzdummy example extension module: make menu entries work; add
+docstrings and tests with 100% coverage.
+
+..
+
+.. bpo: 42979
+.. date: 2021-01-28-01-11-59
+.. nonce: JrGkrm
+.. section: C API
+
+When Python is built in debug mode (with C assertions), calling a type slot
+like ``sq_length`` (``__len__()`` in Python) now fails with a fatal error if
+the slot succeeded with an exception set, or failed with no exception set.
+The error message contains the slot, the type name, and the current
+exception (if an exception is set). Patch by Victor Stinner.
+
+..
+
+.. bpo: 43030
+.. date: 2021-01-27-10-27-47
+.. nonce: loDcD_
+.. section: C API
+
+Fixed a compiler warning in :c:func:`Py_UNICODE_ISSPACE()` on platforms with
+signed :c:type:`wchar_t`.
+
+
+================================================
+File: /Misc/NEWS.d/3.10.0a6.rst
+================================================
+.. bpo: 42967
+.. date: 2021-02-14-15-59-16
+.. nonce: YApqDS
+.. release date: 2021-03-01
+.. section: Security
+
+Fix web cache poisoning vulnerability by defaulting the query args separator
+to ``&``, and allowing the user to choose a custom separator.
+
+..
+
+.. bpo: 43321
+.. date: 2021-02-26-13-17-52
+.. nonce: TCS3ph
+.. section: Core and Builtins
+
+Fix ``SystemError`` raised when ``PyArg_Parse*()`` is used with ``#`` but
+without ``PY_SSIZE_T_CLEAN`` defined.
+
+..
+
+.. bpo: 36346
+.. date: 2021-02-22-19-00-00
+.. nonce: uAoni0
+.. section: Core and Builtins
+
+``PyArg_Parse*()`` functions now emits ``DeprecationWarning`` when ``u`` or
+``Z`` format is used. See :pep:`623` for detail.
+
+..
+
+.. bpo: 43277
+.. date: 2021-02-20-16-50-22
+.. nonce: FXkRXk
+.. section: Core and Builtins
+
+Add a new :c:func:`PySet_CheckExact` function to the C-API to check if an
+object is an instance of :class:`set` but not an instance of a subtype.
+Patch by Pablo Galindo.
+
+..
+
+.. bpo: 42990
+.. date: 2021-02-18-15-12-30
+.. nonce: toAqBH
+.. section: Core and Builtins
+
+The :data:`types.FunctionType` constructor now inherits the current builtins
+if the *globals* dictionary has no ``"__builtins__"`` key, rather than using
+``{"None": None}`` as builtins: same behavior as :func:`eval` and
+:func:`exec` functions. Defining a function with ``def function(...): ...``
+in Python is not affected, globals cannot be overridden with this syntax: it
+also inherits the current builtins. Patch by Victor Stinner.
+
+..
+
+.. bpo: 42990
+.. date: 2021-02-17-19-02-21
+.. nonce: SKXHiI
+.. section: Core and Builtins
+
+Functions have a new ``__builtins__`` attribute which is used to look for
+builtin symbols when a function is executed, instead of looking into
+``__globals__['__builtins__']``. Patch by Mark Shannon and Victor Stinner.
+
+..
+
+.. bpo: 43149
+.. date: 2021-02-07-03-27-14
+.. nonce: 0umPKD
+.. section: Core and Builtins
+
+Improve the error message in the parser for exception groups without
+parentheses. Patch by Pablo Galindo.
+
+..
+
+.. bpo: 43121
+.. date: 2021-02-03-22-33-05
+.. nonce: jqcViq
+.. section: Core and Builtins
+
+Fixed an incorrect :exc:`SyntaxError` message for missing comma in literals.
+Patch by Pablo Galindo.
+
+..
+
+.. bpo: 42819
+.. date: 2021-01-04-23-54-34
+.. nonce: 4KO6wU
+.. section: Core and Builtins
+
+:mod:`readline`: Explicitly disable bracketed paste in the interactive
+interpreter, even if it's set in the inputrc, is enabled by default (eg GNU
+Readline 8.1), or a user calls ``readline.read_init_file()``. The Python
+REPL has not implemented bracketed paste support. Also, bracketed mode
+writes the ``"\x1b[?2004h"`` escape sequence into stdout which causes test
+failures in applications that don't support it. It can still be explicitly
+enabled by calling ``readline.parse_and_bind("set enable-bracketed-paste
+on")``. Patch by Dustin Rodrigues.
+
+..
+
+.. bpo: 42808
+.. date: 2021-01-02-05-10-58
+.. nonce: AOxgxl
+.. section: Core and Builtins
+
+Simple calls to ``type(object)`` are now faster due to the ``vectorcall``
+calling convention. Patch by Dennis Sweeney.
+
+..
+
+.. bpo: 42217
+.. date: 2020-10-31-16-54-00
+.. nonce: GdcHe5
+.. section: Core and Builtins
+
+Make the compiler merges same co_code and co_linetable objects in a module
+like already did for co_consts.
+
+..
+
+.. bpo: 41972
+.. date: 2020-10-23-23-17-23
+.. nonce: kbAwg4
+.. section: Core and Builtins
+
+Substring search functions such as ``str1 in str2`` and ``str2.find(str1)``
+now sometimes use the "Two-Way" string comparison algorithm to avoid
+quadratic behavior on long strings.
+
+..
+
+.. bpo: 42128
+.. date: 2020-10-23-08-54-04
+.. nonce: SWmVEm
+.. section: Core and Builtins
+
+Implement :pep:`634` (structural pattern matching). Patch by Brandt Bucher.
+
+..
+
+.. bpo: 40692
+.. date: 2020-05-19-22-10-05
+.. nonce: ajEhrR
+.. section: Core and Builtins
+
+In the :class:`concurrent.futures.ProcessPoolExecutor`, validate that
+:func:`multiprocess.synchronize` is available on a given platform and rely
+on that check in the :mod:`concurrent.futures` test suite so we can run
+tests that are unrelated to :class:`ProcessPoolExecutor` on those platforms.
+
+..
+
+.. bpo: 38302
+.. date: 2019-09-28-12-23-23
+.. nonce: hsCNgX
+.. section: Core and Builtins
+
+If :func:`object.__ipow__` returns :data:`NotImplemented`, the operator
+will correctly fall back to :func:`object.__pow__` and
+:func:`object.__rpow__` as expected.
+
+..
+
+.. bpo: 43316
+.. date: 2021-02-25-09-44-36
+.. nonce: k9Gyqn
+.. section: Library
+
+The ``python -m gzip`` command line application now properly fails when
+detecting an unsupported extension. It exits with a non-zero exit code and
+prints an error message to stderr.
+
+..
+
+.. bpo: 43317
+.. date: 2021-02-25-09-08-55
+.. nonce: qrOOpB
+.. section: Library
+
+Set the chunk size for the ``gzip`` module main function to
+io.DEFAULT_BUFFER_SIZE. This is slightly faster than the 1024 bytes constant
+that was used previously.
+
+..
+
+.. bpo: 43146
+.. date: 2021-02-23-17-20-16
+.. nonce: JAFplg
+.. section: Library
+
+Handle None in single-arg versions of :func:`~traceback.print_exception` and
+:func:`~traceback.format_exception`.
+
+..
+
+.. bpo: 43260
+.. date: 2021-02-20-12-15-29
+.. nonce: 6znAas
+.. section: Library
+
+Fix TextIOWrapper can not flush internal buffer forever after very large
+text is written.
+
+..
+
+.. bpo: 43258
+.. date: 2021-02-18-23-30-52
+.. nonce: LeU-q8
+.. section: Library
+
+Prevent needless allocation of :mod:`sqlite3` aggregate function context
+when no rows match an aggregate query. Patch by Erlend E. Aasland.
+
+..
+
+.. bpo: 43251
+.. date: 2021-02-18-14-24-42
+.. nonce: n6WZDw
+.. section: Library
+
+Improve :mod:`sqlite3` error handling: ``sqlite3_column_name()`` failures
+now result in :exc:`MemoryError`. Patch by Erlend E. Aasland.
+
+..
+
+.. bpo: 40956
+.. date: 2021-02-10-23-29-50
+.. nonce: LcAbwG
+.. section: Library
+
+Fix segfault in :meth:`sqlite3.Connection.backup` if no argument was
+provided. The regression was introduced by PR 23838. Patch by Erlend E.
+Aasland.
+
+..
+
+.. bpo: 43172
+.. date: 2021-02-10-06-00-53
+.. nonce: ZMCJni
+.. section: Library
+
+The readline module now passes its tests when built directly against
+libedit. Existing irreconcilable API differences remain in
+:func:`readline.get_begidx` and :func:`readline.get_endidx` behavior based
+on libreadline vs libedit use.
+
+..
+
+.. bpo: 43163
+.. date: 2021-02-08-21-13-51
+.. nonce: E2MgzH
+.. section: Library
+
+Fix a bug in :mod:`codeop` that was causing it to not ask for more input
+when multi-line snippets have unclosed parentheses. Patch by Pablo Galindo
+
+..
+
+.. bpo: 43162
+.. date: 2021-02-08-16-27-00

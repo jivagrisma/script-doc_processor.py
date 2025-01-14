@@ -1,0 +1,7371 @@
+
+```JSON
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/items/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+
+
+
+...
+```
+
+#### OpenAPI 的用途
+
+OpenAPI schema 驅動了兩個互動式文件系統。
+
+而且有許多替代方案，所有這些都是基於 OpenAPI。你可以輕鬆地將任何這些替代方案添加到使用 **FastAPI** 建置的應用程式中。
+
+你也可以用它自動生成程式碼，讓前端、手機應用程式或物聯網設備等與你的 API 進行通訊。
+
+## 逐步回顧
+
+### 第一步：引入 `FastAPI`
+
+{* ../../docs_src/first_steps/tutorial001.py h1[1] *}
+
+`FastAPI` 是一個 Python 類別，提供所有 API 的全部功能。
+
+/// note | Technical Details
+
+`FastAPI` 是一個直接繼承自 `Starlette` 的類別。
+
+你同樣可以透過 `FastAPI` 來使用 <a href="https://www.starlette.io/" class="external-link" target="_blank">Starlette</a> 所有的功能。
+
+///
+
+### 第二步：建立一個 `FastAPI` 「實例」
+
+{* ../../docs_src/first_steps/tutorial001.py h1[3] *}
+
+這裡的 `app` 變數將會是 `FastAPI` 類別的「實例」。
+
+這將是你建立所有 API 的主要互動點。
+
+### 第三步：建立一個 *路徑操作*
+
+#### 路徑
+
+這裡的「路徑」指的是 URL 中自第一個 `/` 以後的部分。
+
+例如，在 URL 中：
+
+```
+https://example.com/items/foo
+```
+
+……的路徑將會是：
+
+```
+/items/foo
+```
+
+/// info
+
+「路徑」也常被稱為「端點 endpoint」或「路由 route」。
+
+///
+
+在建置 API 時，「路徑」是分離「關注點」和「資源」的主要方式。
+
+#### 操作
+
+這裡的「操作」指的是 HTTP 的「方法」之一。
+
+其中包括：
+
+* `POST`
+* `GET`
+* `PUT`
+* `DELETE`
+
+……以及更少見的：
+
+* `OPTIONS`
+* `HEAD`
+* `PATCH`
+* `TRACE`
+
+在 HTTP 協定中，你可以使用這些「方法」之一（或更多）與每個路徑進行通信。
+
+---
+
+在建置 API 時，你通常使用這些特定的 HTTP 方法來執行特定的動作。
+
+通常你使用：
+
+* `POST`：用來建立資料。
+* `GET`：用來讀取資料。
+* `PUT`：用來更新資料。
+* `DELETE`：用來刪除資料。
+
+所以，在 OpenAPI 中，每個 HTTP 方法都被稱為「操作」。
+
+我們將會稱它們為「**操作**」。
+
+#### 定義一個 *路徑操作裝飾器*
+
+{* ../../docs_src/first_steps/tutorial001.py h1[6] *}
+
+`@app.get("/")` 告訴 **FastAPI** 那個函式負責處理請求：
+
+* 路徑 `/`
+* 使用 <abbr title="HTTP GET 方法"><code>get</code>操作</abbr>
+
+/// info | `@decorator` Info
+
+Python 中的 `@something` 語法被稱為「裝飾器」。
+
+你把它放在一個函式上面。像一個漂亮的裝飾帽子（我猜這是術語的來源）。
+
+一個「裝飾器」會對下面的函式做一些事情。
+
+在這種情況下，這個裝飾器告訴 **FastAPI** 那個函式對應於 **路徑** `/` 和 **操作** `get`.
+
+這就是「**路徑操作裝飾器**」。
+
+///
+
+你也可以使用其他的操作：
+
+* `@app.post()`
+* `@app.put()`
+* `@app.delete()`
+
+以及更少見的：
+
+* `@app.options()`
+* `@app.head()`
+* `@app.patch()`
+* `@app.trace()`
+
+/// tip
+
+你可以自由地使用每個操作（HTTP 方法）。
+
+**FastAPI** 不強制任何特定的意義。
+
+這裡的資訊作為一個指南，而不是要求。
+
+例如，當使用 GraphQL 時，你通常只使用 `POST` 操作。
+
+///
+
+### 第四步：定義 **路徑操作函式**
+
+這是我們的「**路徑操作函式**」：
+
+* **path**: 是 `/`.
+* **operation**: 是 `get`.
+* **function**: 是裝飾器下面的函式（在 `@app.get("/")` 下面）。
+
+{* ../../docs_src/first_steps/tutorial001.py h1[7] *}
+
+這就是一個 Python 函式。
+
+它將會在 **FastAPI** 收到一個請求時被呼叫，使用 `GET` 操作。
+
+在這種情況下，它是一個 `async` 函式。
+
+---
+
+你可以將它定義為一個正常的函式，而不是 `async def`:
+
+{* ../../docs_src/first_steps/tutorial003.py h1[7] *}
+
+/// note
+
+如果你不知道差別，請查看 [Async: *"In a hurry?"*](../async.md#in-a-hurry){.internal-link target=_blank}.
+
+///
+
+### 第五步：回傳內容
+
+{* ../../docs_src/first_steps/tutorial001.py h1[8] *}
+
+你可以返回一個 `dict`、`list`、單個值作為 `str`、`int` 等。
+
+你也可以返回 Pydantic 模型（稍後你會看到更多關於這方面的內容）。
+
+有很多其他物件和模型會自動轉換為 JSON（包括 ORMs，等等）。試用你最喜歡的，很有可能它們已經有支援。
+
+## 回顧
+
+* 引入 `FastAPI`.
+* 建立一個 `app` 實例。
+* 寫一個 **路徑操作裝飾器** 使用裝飾器像 `@app.get("/")`。
+* 定義一個 **路徑操作函式**；例如，`def root(): ...`。
+* 使用命令 `fastapi dev` 執行開發伺服器。
+
+
+================================================
+File: /docs/zh-hant/docs/tutorial/index.md
+================================================
+# 教學 - 使用者指南
+
+本教學將一步一步展示如何使用 **FastAPI** 及其大多數功能。
+
+每個部分都是在前一部分的基礎上逐步建置的，但內容結構是按主題分開的，因此你可以直接跳到任何特定的部分，解決你具體的 API 需求。
+
+它也被設計成可作為未來的參考，讓你隨時回來查看所需的內容。
+
+## 運行程式碼
+
+所有程式碼區塊都可以直接複製和使用（它們實際上是經過測試的 Python 檔案）。
+
+要運行任何範例，請將程式碼複製到 `main.py` 檔案，並使用以下命令啟動 `fastapi dev`：
+
+<div class="termy">
+
+```console
+$ <font color="#4E9A06">fastapi</font> dev <u style="text-decoration-style:single">main.py</u>
+<font color="#3465A4">INFO    </font> Using path <font color="#3465A4">main.py</font>
+<font color="#3465A4">INFO    </font> Resolved absolute path <font color="#75507B">/home/user/code/awesomeapp/</font><font color="#AD7FA8">main.py</font>
+<font color="#3465A4">INFO    </font> Searching for package file structure from directories with <font color="#3465A4">__init__.py</font> files
+<font color="#3465A4">INFO    </font> Importing from <font color="#75507B">/home/user/code/</font><font color="#AD7FA8">awesomeapp</font>
+
+ ╭─ <font color="#8AE234"><b>Python module file</b></font> ─╮
+ │                      │
+ │  🐍 main.py          │
+ │                      │
+ ╰──────────────────────╯
+
+<font color="#3465A4">INFO    </font> Importing module <font color="#4E9A06">main</font>
+<font color="#3465A4">INFO    </font> Found importable FastAPI app
+
+ ╭─ <font color="#8AE234"><b>Importable FastAPI app</b></font> ─╮
+ │                          │
+ │  <span style="background-color:#272822"><font color="#FF4689">from</font></span><span style="background-color:#272822"><font color="#F8F8F2"> main </font></span><span style="background-color:#272822"><font color="#FF4689">import</font></span><span style="background-color:#272822"><font color="#F8F8F2"> app</font></span><span style="background-color:#272822">  </span>  │
+ │                          │
+ ╰──────────────────────────╯
+
+<font color="#3465A4">INFO    </font> Using import string <font color="#8AE234"><b>main:app</b></font>
+
+ <span style="background-color:#C4A000"><font color="#2E3436">╭────────── FastAPI CLI - Development mode ───────────╮</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  Serving at: http://127.0.0.1:8000                  │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  API docs: http://127.0.0.1:8000/docs               │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  Running in development mode, for production use:   │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│  </font></span><span style="background-color:#C4A000"><font color="#555753"><b>fastapi run</b></font></span><span style="background-color:#C4A000"><font color="#2E3436">                                        │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">│                                                     │</font></span>
+ <span style="background-color:#C4A000"><font color="#2E3436">╰─────────────────────────────────────────────────────╯</font></span>
+
+<font color="#4E9A06">INFO</font>:     Will watch for changes in these directories: [&apos;/home/user/code/awesomeapp&apos;]
+<font color="#4E9A06">INFO</font>:     Uvicorn running on <b>http://127.0.0.1:8000</b> (Press CTRL+C to quit)
+<font color="#4E9A06">INFO</font>:     Started reloader process [<font color="#34E2E2"><b>2265862</b></font>] using <font color="#34E2E2"><b>WatchFiles</b></font>
+<font color="#4E9A06">INFO</font>:     Started server process [<font color="#06989A">2265873</font>]
+<font color="#4E9A06">INFO</font>:     Waiting for application startup.
+<font color="#4E9A06">INFO</font>:     Application startup complete.
+</pre>
+```
+
+</div>
+
+**強烈建議**你編寫或複製程式碼、進行修改並在本地端運行。
+
+在編輯器中使用它，才能真正體會到 FastAPI 的好處，可以看到你只需編寫少量程式碼，以及所有的型別檢查、自動補齊等功能。
+
+---
+
+## 安裝 FastAPI
+
+第一步是安裝 FastAPI。
+
+確保你建立一個[虛擬環境](../virtual-environments.md){.internal-link target=_blank}，啟用它，然後**安裝 FastAPI**：
+
+<div class="termy">
+
+```console
+$ pip install "fastapi[standard]"
+
+---> 100%
+```
+
+</div>
+
+/// note
+
+當你使用 `pip install "fastapi[standard]"` 安裝時，會包含一些預設的可選標準依賴項。
+
+如果你不想包含那些可選的依賴項，你可以使用 `pip install fastapi` 來安裝。
+
+///
+
+## 進階使用者指南
+
+還有一個**進階使用者指南**你可以稍後閱讀。
+
+**進階使用者指南**建立在這個教學之上，使用相同的概念，並教你一些額外的功能。
+
+但首先你應該閱讀**教學 - 使用者指南**（你正在閱讀的內容）。
+
+它被設計成你可以使用**教學 - 使用者指南**來建立一個完整的應用程式，然後根據你的需求，使用一些額外的想法來擴展它。
+
+
+================================================
+File: /docs/zh-hant/docs/tutorial/query-param-models.md
+================================================
+# 查詢參數模型
+
+如果你有一組具有相關性的**查詢參數**，你可以建立一個 **Pydantic 模型**來聲明它們。
+
+這將允許你在**多個地方**去**重複使用模型**，並且一次性為所有參數聲明驗證和元資料 (metadata)。😎
+
+/// note
+
+FastAPI 從 `0.115.0` 版本開始支援這個特性。🤓
+
+///
+
+## 使用 Pydantic 模型的查詢參數
+
+在一個 **Pydantic 模型**中聲明你需要的**查詢參數**，然後將參數聲明為 `Query`：
+
+{* ../../docs_src/query_param_models/tutorial001_an_py310.py hl[9:13,17] *}
+
+**FastAPI** 將會從請求的**查詢參數**中**提取**出**每個欄位**的資料，並將其提供給你定義的 Pydantic 模型。
+
+## 查看文件
+
+你可以在 `/docs` 頁面的 UI 中查看查詢參數：
+
+<div class="screenshot">
+<img src="/img/tutorial/query-param-models/image01.png">
+</div>
+
+## 禁止額外的查詢參數
+
+在一些特殊的使用場景中（可能不是很常見），你可能希望**限制**你要收到的查詢參數。
+
+你可以使用 Pydantic 的模型設定來 `forbid`（禁止）任何 `extra`（額外）欄位：
+
+{* ../../docs_src/query_param_models/tutorial002_an_py310.py hl[10] *}
+
+如果客戶端嘗試在**查詢參數**中發送一些**額外的**資料，他們將會收到一個**錯誤**回應。
+
+例如，如果客戶端嘗試發送一個值為 `plumbus` 的 `tool` 查詢參數，如：
+
+```http
+https://example.com/items/?limit=10&tool=plumbus
+```
+
+他們將收到一個**錯誤**回應，告訴他們查詢參數 `tool` 是不允許的：
+
+```json
+{
+    "detail": [
+        {
+            "type": "extra_forbidden",
+            "loc": ["query", "tool"],
+            "msg": "Extra inputs are not permitted",
+            "input": "plumbus"
+        }
+    ]
+}
+```
+
+## 總結
+
+你可以使用 **Pydantic 模型**在 **FastAPI** 中聲明**查詢參數**。😎
+
+/// tip
+
+劇透警告：你也可以使用 Pydantic 模型來聲明 cookie 和 headers，但你將在本教學的後面部分閱讀到這部分內容。🤫
+
+///
+
+
+================================================
+File: /docs_src/additional_responses/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+class Message(BaseModel):
+    message: str
+
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}", response_model=Item, responses={404: {"model": Message}})
+async def read_item(item_id: str):
+    if item_id == "foo":
+        return {"id": "foo", "value": "there goes my hero"}
+    return JSONResponse(status_code=404, content={"message": "Item not found"})
+
+
+================================================
+File: /docs_src/additional_responses/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        200: {
+            "content": {"image/png": {}},
+            "description": "Return the JSON item or an image.",
+        }
+    },
+)
+async def read_item(item_id: str, img: Union[bool, None] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+
+
+================================================
+File: /docs_src/additional_responses/tutorial003.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+class Message(BaseModel):
+    message: str
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={
+        404: {"model": Message, "description": "The item was not found"},
+        200: {
+            "description": "Item requested by ID",
+            "content": {
+                "application/json": {
+                    "example": {"id": "bar", "value": "The bar tenders"}
+                }
+            },
+        },
+    },
+)
+async def read_item(item_id: str):
+    if item_id == "foo":
+        return {"id": "foo", "value": "there goes my hero"}
+    else:
+        return JSONResponse(status_code=404, content={"message": "Item not found"})
+
+
+================================================
+File: /docs_src/additional_responses/tutorial004.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    id: str
+    value: str
+
+
+responses = {
+    404: {"description": "Item not found"},
+    302: {"description": "The item was moved"},
+    403: {"description": "Not enough privileges"},
+}
+
+
+app = FastAPI()
+
+
+@app.get(
+    "/items/{item_id}",
+    response_model=Item,
+    responses={**responses, 200: {"content": {"image/png": {}}}},
+)
+async def read_item(item_id: str, img: Union[bool, None] = None):
+    if img:
+        return FileResponse("image.png", media_type="image/png")
+    else:
+        return {"id": "foo", "value": "there goes my hero"}
+
+
+================================================
+File: /docs_src/additional_status_codes/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI, status
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+items = {"foo": {"name": "Fighters", "size": 6}, "bar": {"name": "Tenders", "size": 3}}
+
+
+@app.put("/items/{item_id}")
+async def upsert_item(
+    item_id: str,
+    name: Union[str, None] = Body(default=None),
+    size: Union[int, None] = Body(default=None),
+):
+    if item_id in items:
+        item = items[item_id]
+        item["name"] = name
+        item["size"] = size
+        return item
+    else:
+        item = {"name": name, "size": size}
+        items[item_id] = item
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=item)
+
+
+================================================
+File: /docs_src/additional_status_codes/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI, status
+from fastapi.responses import JSONResponse
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+items = {"foo": {"name": "Fighters", "size": 6}, "bar": {"name": "Tenders", "size": 3}}
+
+
+@app.put("/items/{item_id}")
+async def upsert_item(
+    item_id: str,
+    name: Annotated[Union[str, None], Body()] = None,
+    size: Annotated[Union[int, None], Body()] = None,
+):
+    if item_id in items:
+        item = items[item_id]
+        item["name"] = name
+        item["size"] = size
+        return item
+    else:
+        item = {"name": name, "size": size}
+        items[item_id] = item
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=item)
+
+
+================================================
+File: /docs_src/additional_status_codes/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Body, FastAPI, status
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+items = {"foo": {"name": "Fighters", "size": 6}, "bar": {"name": "Tenders", "size": 3}}
+
+
+@app.put("/items/{item_id}")
+async def upsert_item(
+    item_id: str,
+    name: Annotated[str | None, Body()] = None,
+    size: Annotated[int | None, Body()] = None,
+):
+    if item_id in items:
+        item = items[item_id]
+        item["name"] = name
+        item["size"] = size
+        return item
+    else:
+        item = {"name": name, "size": size}
+        items[item_id] = item
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=item)
+
+
+================================================
+File: /docs_src/additional_status_codes/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Body, FastAPI, status
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+items = {"foo": {"name": "Fighters", "size": 6}, "bar": {"name": "Tenders", "size": 3}}
+
+
+@app.put("/items/{item_id}")
+async def upsert_item(
+    item_id: str,
+    name: Annotated[Union[str, None], Body()] = None,
+    size: Annotated[Union[int, None], Body()] = None,
+):
+    if item_id in items:
+        item = items[item_id]
+        item["name"] = name
+        item["size"] = size
+        return item
+    else:
+        item = {"name": name, "size": size}
+        items[item_id] = item
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=item)
+
+
+================================================
+File: /docs_src/additional_status_codes/tutorial001_py310.py
+================================================
+from fastapi import Body, FastAPI, status
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+items = {"foo": {"name": "Fighters", "size": 6}, "bar": {"name": "Tenders", "size": 3}}
+
+
+@app.put("/items/{item_id}")
+async def upsert_item(
+    item_id: str,
+    name: str | None = Body(default=None),
+    size: int | None = Body(default=None),
+):
+    if item_id in items:
+        item = items[item_id]
+        item["name"] = name
+        item["size"] = size
+        return item
+    else:
+        item = {"name": name, "size": size}
+        items[item_id] = item
+        return JSONResponse(status_code=status.HTTP_201_CREATED, content=item)
+
+
+================================================
+File: /docs_src/advanced_middleware/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+
+app = FastAPI()
+
+app.add_middleware(HTTPSRedirectMiddleware)
+
+
+@app.get("/")
+async def main():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/advanced_middleware/tutorial002.py
+================================================
+from fastapi import FastAPI
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    TrustedHostMiddleware, allowed_hosts=["example.com", "*.example.com"]
+)
+
+
+@app.get("/")
+async def main():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/advanced_middleware/tutorial003.py
+================================================
+from fastapi import FastAPI
+from fastapi.middleware.gzip import GZipMiddleware
+
+app = FastAPI()
+
+app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
+
+
+@app.get("/")
+async def main():
+    return "somebigcontent"
+
+
+================================================
+File: /docs_src/app_testing/main.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+async def read_main():
+    return {"msg": "Hello World"}
+
+
+================================================
+File: /docs_src/app_testing/test_main.py
+================================================
+from fastapi.testclient import TestClient
+
+from .main import app
+
+client = TestClient(app)
+
+
+def test_read_main():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"msg": "Hello World"}
+
+
+================================================
+File: /docs_src/app_testing/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+app = FastAPI()
+
+
+@app.get("/")
+async def read_main():
+    return {"msg": "Hello World"}
+
+
+client = TestClient(app)
+
+
+def test_read_main():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"msg": "Hello World"}
+
+
+================================================
+File: /docs_src/app_testing/tutorial002.py
+================================================
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+from fastapi.websockets import WebSocket
+
+app = FastAPI()
+
+
+@app.get("/")
+async def read_main():
+    return {"msg": "Hello World"}
+
+
+@app.websocket("/ws")
+async def websocket(websocket: WebSocket):
+    await websocket.accept()
+    await websocket.send_json({"msg": "Hello WebSocket"})
+    await websocket.close()
+
+
+def test_read_main():
+    client = TestClient(app)
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"msg": "Hello World"}
+
+
+def test_websocket():
+    client = TestClient(app)
+    with client.websocket_connect("/ws") as websocket:
+        data = websocket.receive_json()
+        assert data == {"msg": "Hello WebSocket"}
+
+
+================================================
+File: /docs_src/app_testing/tutorial003.py
+================================================
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+app = FastAPI()
+
+items = {}
+
+
+@app.on_event("startup")
+async def startup_event():
+    items["foo"] = {"name": "Fighters"}
+    items["bar"] = {"name": "Tenders"}
+
+
+@app.get("/items/{item_id}")
+async def read_items(item_id: str):
+    return items[item_id]
+
+
+def test_read_items():
+    with TestClient(app) as client:
+        response = client.get("/items/foo")
+        assert response.status_code == 200
+        assert response.json() == {"name": "Fighters"}
+
+
+================================================
+File: /docs_src/app_testing/app_b/main.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header, HTTPException
+from pydantic import BaseModel
+
+fake_secret_token = "coneofsilence"
+
+fake_db = {
+    "foo": {"id": "foo", "title": "Foo", "description": "There goes my hero"},
+    "bar": {"id": "bar", "title": "Bar", "description": "The bartenders"},
+}
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    id: str
+    title: str
+    description: Union[str, None] = None
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_main(item_id: str, x_token: str = Header()):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item_id not in fake_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return fake_db[item_id]
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item, x_token: str = Header()):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item.id in fake_db:
+        raise HTTPException(status_code=409, detail="Item already exists")
+    fake_db[item.id] = item
+    return item
+
+
+================================================
+File: /docs_src/app_testing/app_b/test_main.py
+================================================
+from fastapi.testclient import TestClient
+
+from .main import app
+
+client = TestClient(app)
+
+
+def test_read_item():
+    response = client.get("/items/foo", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foo",
+        "title": "Foo",
+        "description": "There goes my hero",
+    }
+
+
+def test_read_item_bad_token():
+    response = client.get("/items/foo", headers={"X-Token": "hailhydra"})
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_read_nonexistent_item():
+    response = client.get("/items/baz", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Item not found"}
+
+
+def test_create_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"},
+    )
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foobar",
+        "title": "Foo Bar",
+        "description": "The Foo Barters",
+    }
+
+
+def test_create_item_bad_token():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "hailhydra"},
+        json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
+    )
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_create_existing_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={
+            "id": "foo",
+            "title": "The Foo ID Stealers",
+            "description": "There goes my stealer",
+        },
+    )
+    assert response.status_code == 409
+    assert response.json() == {"detail": "Item already exists"}
+
+
+================================================
+File: /docs_src/app_testing/app_b_an/main.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Header, HTTPException
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+fake_secret_token = "coneofsilence"
+
+fake_db = {
+    "foo": {"id": "foo", "title": "Foo", "description": "There goes my hero"},
+    "bar": {"id": "bar", "title": "Bar", "description": "The bartenders"},
+}
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    id: str
+    title: str
+    description: Union[str, None] = None
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_main(item_id: str, x_token: Annotated[str, Header()]):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item_id not in fake_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return fake_db[item_id]
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item, x_token: Annotated[str, Header()]):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item.id in fake_db:
+        raise HTTPException(status_code=409, detail="Item already exists")
+    fake_db[item.id] = item
+    return item
+
+
+================================================
+File: /docs_src/app_testing/app_b_an/test_main.py
+================================================
+from fastapi.testclient import TestClient
+
+from .main import app
+
+client = TestClient(app)
+
+
+def test_read_item():
+    response = client.get("/items/foo", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foo",
+        "title": "Foo",
+        "description": "There goes my hero",
+    }
+
+
+def test_read_item_bad_token():
+    response = client.get("/items/foo", headers={"X-Token": "hailhydra"})
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_read_nonexistent_item():
+    response = client.get("/items/baz", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Item not found"}
+
+
+def test_create_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"},
+    )
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foobar",
+        "title": "Foo Bar",
+        "description": "The Foo Barters",
+    }
+
+
+def test_create_item_bad_token():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "hailhydra"},
+        json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
+    )
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_create_existing_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={
+            "id": "foo",
+            "title": "The Foo ID Stealers",
+            "description": "There goes my stealer",
+        },
+    )
+    assert response.status_code == 409
+    assert response.json() == {"detail": "Item already exists"}
+
+
+================================================
+File: /docs_src/app_testing/app_b_an_py310/main.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Header, HTTPException
+from pydantic import BaseModel
+
+fake_secret_token = "coneofsilence"
+
+fake_db = {
+    "foo": {"id": "foo", "title": "Foo", "description": "There goes my hero"},
+    "bar": {"id": "bar", "title": "Bar", "description": "The bartenders"},
+}
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    id: str
+    title: str
+    description: str | None = None
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_main(item_id: str, x_token: Annotated[str, Header()]):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item_id not in fake_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return fake_db[item_id]
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item, x_token: Annotated[str, Header()]):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item.id in fake_db:
+        raise HTTPException(status_code=409, detail="Item already exists")
+    fake_db[item.id] = item
+    return item
+
+
+================================================
+File: /docs_src/app_testing/app_b_an_py310/test_main.py
+================================================
+from fastapi.testclient import TestClient
+
+from .main import app
+
+client = TestClient(app)
+
+
+def test_read_item():
+    response = client.get("/items/foo", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foo",
+        "title": "Foo",
+        "description": "There goes my hero",
+    }
+
+
+def test_read_item_bad_token():
+    response = client.get("/items/foo", headers={"X-Token": "hailhydra"})
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_read_nonexistent_item():
+    response = client.get("/items/baz", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Item not found"}
+
+
+def test_create_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"},
+    )
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foobar",
+        "title": "Foo Bar",
+        "description": "The Foo Barters",
+    }
+
+
+def test_create_item_bad_token():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "hailhydra"},
+        json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
+    )
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_create_existing_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={
+            "id": "foo",
+            "title": "The Foo ID Stealers",
+            "description": "There goes my stealer",
+        },
+    )
+    assert response.status_code == 409
+    assert response.json() == {"detail": "Item already exists"}
+
+
+================================================
+File: /docs_src/app_testing/app_b_an_py39/main.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Header, HTTPException
+from pydantic import BaseModel
+
+fake_secret_token = "coneofsilence"
+
+fake_db = {
+    "foo": {"id": "foo", "title": "Foo", "description": "There goes my hero"},
+    "bar": {"id": "bar", "title": "Bar", "description": "The bartenders"},
+}
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    id: str
+    title: str
+    description: Union[str, None] = None
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_main(item_id: str, x_token: Annotated[str, Header()]):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item_id not in fake_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return fake_db[item_id]
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item, x_token: Annotated[str, Header()]):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item.id in fake_db:
+        raise HTTPException(status_code=409, detail="Item already exists")
+    fake_db[item.id] = item
+    return item
+
+
+================================================
+File: /docs_src/app_testing/app_b_an_py39/test_main.py
+================================================
+from fastapi.testclient import TestClient
+
+from .main import app
+
+client = TestClient(app)
+
+
+def test_read_item():
+    response = client.get("/items/foo", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foo",
+        "title": "Foo",
+        "description": "There goes my hero",
+    }
+
+
+def test_read_item_bad_token():
+    response = client.get("/items/foo", headers={"X-Token": "hailhydra"})
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_read_nonexistent_item():
+    response = client.get("/items/baz", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Item not found"}
+
+
+def test_create_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"},
+    )
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foobar",
+        "title": "Foo Bar",
+        "description": "The Foo Barters",
+    }
+
+
+def test_create_item_bad_token():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "hailhydra"},
+        json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
+    )
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_create_existing_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={
+            "id": "foo",
+            "title": "The Foo ID Stealers",
+            "description": "There goes my stealer",
+        },
+    )
+    assert response.status_code == 409
+    assert response.json() == {"detail": "Item already exists"}
+
+
+================================================
+File: /docs_src/app_testing/app_b_py310/main.py
+================================================
+from fastapi import FastAPI, Header, HTTPException
+from pydantic import BaseModel
+
+fake_secret_token = "coneofsilence"
+
+fake_db = {
+    "foo": {"id": "foo", "title": "Foo", "description": "There goes my hero"},
+    "bar": {"id": "bar", "title": "Bar", "description": "The bartenders"},
+}
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    id: str
+    title: str
+    description: str | None = None
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_main(item_id: str, x_token: str = Header()):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item_id not in fake_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return fake_db[item_id]
+
+
+@app.post("/items/", response_model=Item)
+async def create_item(item: Item, x_token: str = Header()):
+    if x_token != fake_secret_token:
+        raise HTTPException(status_code=400, detail="Invalid X-Token header")
+    if item.id in fake_db:
+        raise HTTPException(status_code=409, detail="Item already exists")
+    fake_db[item.id] = item
+    return item
+
+
+================================================
+File: /docs_src/app_testing/app_b_py310/test_main.py
+================================================
+from fastapi.testclient import TestClient
+
+from .main import app
+
+client = TestClient(app)
+
+
+def test_read_item():
+    response = client.get("/items/foo", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foo",
+        "title": "Foo",
+        "description": "There goes my hero",
+    }
+
+
+def test_read_item_bad_token():
+    response = client.get("/items/foo", headers={"X-Token": "hailhydra"})
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_read_nonexistent_item():
+    response = client.get("/items/baz", headers={"X-Token": "coneofsilence"})
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Item not found"}
+
+
+def test_create_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"},
+    )
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foobar",
+        "title": "Foo Bar",
+        "description": "The Foo Barters",
+    }
+
+
+def test_create_item_bad_token():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "hailhydra"},
+        json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
+    )
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_create_existing_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "coneofsilence"},
+        json={
+            "id": "foo",
+            "title": "The Foo ID Stealers",
+            "description": "There goes my stealer",
+        },
+    )
+    assert response.status_code == 409
+    assert response.json() == {"detail": "Item already exists"}
+
+
+================================================
+File: /docs_src/async_tests/main.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "Tomato"}
+
+
+================================================
+File: /docs_src/async_tests/test_main.py
+================================================
+import pytest
+from httpx import ASGITransport, AsyncClient
+
+from .main import app
+
+
+@pytest.mark.anyio
+async def test_root():
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Tomato"}
+
+
+================================================
+File: /docs_src/background_tasks/tutorial001.py
+================================================
+from fastapi import BackgroundTasks, FastAPI
+
+app = FastAPI()
+
+
+def write_notification(email: str, message=""):
+    with open("log.txt", mode="w") as email_file:
+        content = f"notification for {email}: {message}"
+        email_file.write(content)
+
+
+@app.post("/send-notification/{email}")
+async def send_notification(email: str, background_tasks: BackgroundTasks):
+    background_tasks.add_task(write_notification, email, message="some notification")
+    return {"message": "Notification sent in the background"}
+
+
+================================================
+File: /docs_src/background_tasks/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import BackgroundTasks, Depends, FastAPI
+
+app = FastAPI()
+
+
+def write_log(message: str):
+    with open("log.txt", mode="a") as log:
+        log.write(message)
+
+
+def get_query(background_tasks: BackgroundTasks, q: Union[str, None] = None):
+    if q:
+        message = f"found query: {q}\n"
+        background_tasks.add_task(write_log, message)
+    return q
+
+
+@app.post("/send-notification/{email}")
+async def send_notification(
+    email: str, background_tasks: BackgroundTasks, q: str = Depends(get_query)
+):
+    message = f"message to {email}\n"
+    background_tasks.add_task(write_log, message)
+    return {"message": "Message sent"}
+
+
+================================================
+File: /docs_src/background_tasks/tutorial002_an.py
+================================================
+from typing import Union
+
+from fastapi import BackgroundTasks, Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+def write_log(message: str):
+    with open("log.txt", mode="a") as log:
+        log.write(message)
+
+
+def get_query(background_tasks: BackgroundTasks, q: Union[str, None] = None):
+    if q:
+        message = f"found query: {q}\n"
+        background_tasks.add_task(write_log, message)
+    return q
+
+
+@app.post("/send-notification/{email}")
+async def send_notification(
+    email: str, background_tasks: BackgroundTasks, q: Annotated[str, Depends(get_query)]
+):
+    message = f"message to {email}\n"
+    background_tasks.add_task(write_log, message)
+    return {"message": "Message sent"}
+
+
+================================================
+File: /docs_src/background_tasks/tutorial002_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import BackgroundTasks, Depends, FastAPI
+
+app = FastAPI()
+
+
+def write_log(message: str):
+    with open("log.txt", mode="a") as log:
+        log.write(message)
+
+
+def get_query(background_tasks: BackgroundTasks, q: str | None = None):
+    if q:
+        message = f"found query: {q}\n"
+        background_tasks.add_task(write_log, message)
+    return q
+
+
+@app.post("/send-notification/{email}")
+async def send_notification(
+    email: str, background_tasks: BackgroundTasks, q: Annotated[str, Depends(get_query)]
+):
+    message = f"message to {email}\n"
+    background_tasks.add_task(write_log, message)
+    return {"message": "Message sent"}
+
+
+================================================
+File: /docs_src/background_tasks/tutorial002_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import BackgroundTasks, Depends, FastAPI
+
+app = FastAPI()
+
+
+def write_log(message: str):
+    with open("log.txt", mode="a") as log:
+        log.write(message)
+
+
+def get_query(background_tasks: BackgroundTasks, q: Union[str, None] = None):
+    if q:
+        message = f"found query: {q}\n"
+        background_tasks.add_task(write_log, message)
+    return q
+
+
+@app.post("/send-notification/{email}")
+async def send_notification(
+    email: str, background_tasks: BackgroundTasks, q: Annotated[str, Depends(get_query)]
+):
+    message = f"message to {email}\n"
+    background_tasks.add_task(write_log, message)
+    return {"message": "Message sent"}
+
+
+================================================
+File: /docs_src/background_tasks/tutorial002_py310.py
+================================================
+from fastapi import BackgroundTasks, Depends, FastAPI
+
+app = FastAPI()
+
+
+def write_log(message: str):
+    with open("log.txt", mode="a") as log:
+        log.write(message)
+
+
+def get_query(background_tasks: BackgroundTasks, q: str | None = None):
+    if q:
+        message = f"found query: {q}\n"
+        background_tasks.add_task(write_log, message)
+    return q
+
+
+@app.post("/send-notification/{email}")
+async def send_notification(
+    email: str, background_tasks: BackgroundTasks, q: str = Depends(get_query)
+):
+    message = f"message to {email}\n"
+    background_tasks.add_task(write_log, message)
+    return {"message": "Message sent"}
+
+
+================================================
+File: /docs_src/behind_a_proxy/tutorial001.py
+================================================
+from fastapi import FastAPI, Request
+
+app = FastAPI()
+
+
+@app.get("/app")
+def read_main(request: Request):
+    return {"message": "Hello World", "root_path": request.scope.get("root_path")}
+
+
+================================================
+File: /docs_src/behind_a_proxy/tutorial002.py
+================================================
+from fastapi import FastAPI, Request
+
+app = FastAPI(root_path="/api/v1")
+
+
+@app.get("/app")
+def read_main(request: Request):
+    return {"message": "Hello World", "root_path": request.scope.get("root_path")}
+
+
+================================================
+File: /docs_src/behind_a_proxy/tutorial003.py
+================================================
+from fastapi import FastAPI, Request
+
+app = FastAPI(
+    servers=[
+        {"url": "https://stag.example.com", "description": "Staging environment"},
+        {"url": "https://prod.example.com", "description": "Production environment"},
+    ],
+    root_path="/api/v1",
+)
+
+
+@app.get("/app")
+def read_main(request: Request):
+    return {"message": "Hello World", "root_path": request.scope.get("root_path")}
+
+
+================================================
+File: /docs_src/behind_a_proxy/tutorial004.py
+================================================
+from fastapi import FastAPI, Request
+
+app = FastAPI(
+    servers=[
+        {"url": "https://stag.example.com", "description": "Staging environment"},
+        {"url": "https://prod.example.com", "description": "Production environment"},
+    ],
+    root_path="/api/v1",
+    root_path_in_servers=False,
+)
+
+
+@app.get("/app")
+def read_main(request: Request):
+    return {"message": "Hello World", "root_path": request.scope.get("root_path")}
+
+
+================================================
+File: /docs_src/bigger_applications/app/dependencies.py
+================================================
+from fastapi import Header, HTTPException
+
+
+async def get_token_header(x_token: str = Header()):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def get_query_token(token: str):
+    if token != "jessica":
+        raise HTTPException(status_code=400, detail="No Jessica token provided")
+
+
+================================================
+File: /docs_src/bigger_applications/app/main.py
+================================================
+from fastapi import Depends, FastAPI
+
+from .dependencies import get_query_token, get_token_header
+from .internal import admin
+from .routers import items, users
+
+app = FastAPI(dependencies=[Depends(get_query_token)])
+
+
+app.include_router(users.router)
+app.include_router(items.router)
+app.include_router(
+    admin.router,
+    prefix="/admin",
+    tags=["admin"],
+    dependencies=[Depends(get_token_header)],
+    responses={418: {"description": "I'm a teapot"}},
+)
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello Bigger Applications!"}
+
+
+================================================
+File: /docs_src/bigger_applications/app/internal/admin.py
+================================================
+from fastapi import APIRouter
+
+router = APIRouter()
+
+
+@router.post("/")
+async def update_admin():
+    return {"message": "Admin getting schwifty"}
+
+
+================================================
+File: /docs_src/bigger_applications/app/routers/items.py
+================================================
+from fastapi import APIRouter, Depends, HTTPException
+
+from ..dependencies import get_token_header
+
+router = APIRouter(
+    prefix="/items",
+    tags=["items"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
+
+
+fake_items_db = {"plumbus": {"name": "Plumbus"}, "gun": {"name": "Portal Gun"}}
+
+
+@router.get("/")
+async def read_items():
+    return fake_items_db
+
+
+@router.get("/{item_id}")
+async def read_item(item_id: str):
+    if item_id not in fake_items_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return {"name": fake_items_db[item_id]["name"], "item_id": item_id}
+
+
+@router.put(
+    "/{item_id}",
+    tags=["custom"],
+    responses={403: {"description": "Operation forbidden"}},
+)
+async def update_item(item_id: str):
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=403, detail="You can only update the item: plumbus"
+        )
+    return {"item_id": item_id, "name": "The great Plumbus"}
+
+
+================================================
+File: /docs_src/bigger_applications/app/routers/users.py
+================================================
+from fastapi import APIRouter
+
+router = APIRouter()
+
+
+@router.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
+
+
+@router.get("/users/me", tags=["users"])
+async def read_user_me():
+    return {"username": "fakecurrentuser"}
+
+
+@router.get("/users/{username}", tags=["users"])
+async def read_user(username: str):
+    return {"username": username}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an/dependencies.py
+================================================
+from fastapi import Header, HTTPException
+from typing_extensions import Annotated
+
+
+async def get_token_header(x_token: Annotated[str, Header()]):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def get_query_token(token: str):
+    if token != "jessica":
+        raise HTTPException(status_code=400, detail="No Jessica token provided")
+
+
+================================================
+File: /docs_src/bigger_applications/app_an/main.py
+================================================
+from fastapi import Depends, FastAPI
+
+from .dependencies import get_query_token, get_token_header
+from .internal import admin
+from .routers import items, users
+
+app = FastAPI(dependencies=[Depends(get_query_token)])
+
+
+app.include_router(users.router)
+app.include_router(items.router)
+app.include_router(
+    admin.router,
+    prefix="/admin",
+    tags=["admin"],
+    dependencies=[Depends(get_token_header)],
+    responses={418: {"description": "I'm a teapot"}},
+)
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello Bigger Applications!"}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an/internal/admin.py
+================================================
+from fastapi import APIRouter
+
+router = APIRouter()
+
+
+@router.post("/")
+async def update_admin():
+    return {"message": "Admin getting schwifty"}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an/routers/items.py
+================================================
+from fastapi import APIRouter, Depends, HTTPException
+
+from ..dependencies import get_token_header
+
+router = APIRouter(
+    prefix="/items",
+    tags=["items"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
+
+
+fake_items_db = {"plumbus": {"name": "Plumbus"}, "gun": {"name": "Portal Gun"}}
+
+
+@router.get("/")
+async def read_items():
+    return fake_items_db
+
+
+@router.get("/{item_id}")
+async def read_item(item_id: str):
+    if item_id not in fake_items_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return {"name": fake_items_db[item_id]["name"], "item_id": item_id}
+
+
+@router.put(
+    "/{item_id}",
+    tags=["custom"],
+    responses={403: {"description": "Operation forbidden"}},
+)
+async def update_item(item_id: str):
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=403, detail="You can only update the item: plumbus"
+        )
+    return {"item_id": item_id, "name": "The great Plumbus"}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an/routers/users.py
+================================================
+from fastapi import APIRouter
+
+router = APIRouter()
+
+
+@router.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
+
+
+@router.get("/users/me", tags=["users"])
+async def read_user_me():
+    return {"username": "fakecurrentuser"}
+
+
+@router.get("/users/{username}", tags=["users"])
+async def read_user(username: str):
+    return {"username": username}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an_py39/dependencies.py
+================================================
+from typing import Annotated
+
+from fastapi import Header, HTTPException
+
+
+async def get_token_header(x_token: Annotated[str, Header()]):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def get_query_token(token: str):
+    if token != "jessica":
+        raise HTTPException(status_code=400, detail="No Jessica token provided")
+
+
+================================================
+File: /docs_src/bigger_applications/app_an_py39/main.py
+================================================
+from fastapi import Depends, FastAPI
+
+from .dependencies import get_query_token, get_token_header
+from .internal import admin
+from .routers import items, users
+
+app = FastAPI(dependencies=[Depends(get_query_token)])
+
+
+app.include_router(users.router)
+app.include_router(items.router)
+app.include_router(
+    admin.router,
+    prefix="/admin",
+    tags=["admin"],
+    dependencies=[Depends(get_token_header)],
+    responses={418: {"description": "I'm a teapot"}},
+)
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello Bigger Applications!"}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an_py39/internal/admin.py
+================================================
+from fastapi import APIRouter
+
+router = APIRouter()
+
+
+@router.post("/")
+async def update_admin():
+    return {"message": "Admin getting schwifty"}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an_py39/routers/items.py
+================================================
+from fastapi import APIRouter, Depends, HTTPException
+
+from ..dependencies import get_token_header
+
+router = APIRouter(
+    prefix="/items",
+    tags=["items"],
+    dependencies=[Depends(get_token_header)],
+    responses={404: {"description": "Not found"}},
+)
+
+
+fake_items_db = {"plumbus": {"name": "Plumbus"}, "gun": {"name": "Portal Gun"}}
+
+
+@router.get("/")
+async def read_items():
+    return fake_items_db
+
+
+@router.get("/{item_id}")
+async def read_item(item_id: str):
+    if item_id not in fake_items_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return {"name": fake_items_db[item_id]["name"], "item_id": item_id}
+
+
+@router.put(
+    "/{item_id}",
+    tags=["custom"],
+    responses={403: {"description": "Operation forbidden"}},
+)
+async def update_item(item_id: str):
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=403, detail="You can only update the item: plumbus"
+        )
+    return {"item_id": item_id, "name": "The great Plumbus"}
+
+
+================================================
+File: /docs_src/bigger_applications/app_an_py39/routers/users.py
+================================================
+from fastapi import APIRouter
+
+router = APIRouter()
+
+
+@router.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
+
+
+@router.get("/users/me", tags=["users"])
+async def read_user_me():
+    return {"username": "fakecurrentuser"}
+
+
+@router.get("/users/{username}", tags=["users"])
+async def read_user(username: str):
+    return {"username": username}
+
+
+================================================
+File: /docs_src/body/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+app = FastAPI()
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/body/tutorial001_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+app = FastAPI()
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/body/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+app = FastAPI()
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    item_dict = item.dict()
+    if item.tax:
+        price_with_tax = item.price + item.tax
+        item_dict.update({"price_with_tax": price_with_tax})
+    return item_dict
+
+
+================================================
+File: /docs_src/body/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+app = FastAPI()
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    item_dict = item.dict()
+    if item.tax:
+        price_with_tax = item.price + item.tax
+        item_dict.update({"price_with_tax": price_with_tax})
+    return item_dict
+
+
+================================================
+File: /docs_src/body/tutorial003.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    return {"item_id": item_id, **item.dict()}
+
+
+================================================
+File: /docs_src/body/tutorial003_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    return {"item_id": item_id, **item.dict()}
+
+
+================================================
+File: /docs_src/body/tutorial004.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item, q: Union[str, None] = None):
+    result = {"item_id": item_id, **item.dict()}
+    if q:
+        result.update({"q": q})
+    return result
+
+
+================================================
+File: /docs_src/body/tutorial004_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item, q: str | None = None):
+    result = {"item_id": item_id, **item.dict()}
+    if q:
+        result.update({"q": q})
+    return result
+
+
+================================================
+File: /docs_src/body_fields/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = Field(
+        default=None, title="The description of the item", max_length=300
+    )
+    price: float = Field(gt=0, description="The price must be greater than zero")
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item = Body(embed=True)):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_fields/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel, Field
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = Field(
+        default=None, title="The description of the item", max_length=300
+    )
+    price: float = Field(gt=0, description="The price must be greater than zero")
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Annotated[Item, Body(embed=True)]):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_fields/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = Field(
+        default=None, title="The description of the item", max_length=300
+    )
+    price: float = Field(gt=0, description="The price must be greater than zero")
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Annotated[Item, Body(embed=True)]):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_fields/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = Field(
+        default=None, title="The description of the item", max_length=300
+    )
+    price: float = Field(gt=0, description="The price must be greater than zero")
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Annotated[Item, Body(embed=True)]):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_fields/tutorial001_py310.py
+================================================
+from fastapi import Body, FastAPI
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = Field(
+        default=None, title="The description of the item", max_length=300
+    )
+    price: float = Field(gt=0, description="The price must be greater than zero")
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item = Body(embed=True)):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    *,
+    item_id: int = Path(title="The ID of the item to get", ge=0, le=1000),
+    q: Union[str, None] = None,
+    item: Union[Item, None] = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if item:
+        results.update({"item": item})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=0, le=1000)],
+    q: Union[str, None] = None,
+    item: Union[Item, None] = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if item:
+        results.update({"item": item})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=0, le=1000)],
+    q: str | None = None,
+    item: Item | None = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if item:
+        results.update({"item": item})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: Annotated[int, Path(title="The ID of the item to get", ge=0, le=1000)],
+    q: Union[str, None] = None,
+    item: Union[Item, None] = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if item:
+        results.update({"item": item})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial001_py310.py
+================================================
+from fastapi import FastAPI, Path
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    *,
+    item_id: int = Path(title="The ID of the item to get", ge=0, le=1000),
+    q: str | None = None,
+    item: Item | None = None,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    if item:
+        results.update({"item": item})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item, user: User):
+    results = {"item_id": item_id, "item": item, "user": user}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: str | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item, user: User):
+    results = {"item_id": item_id, "item": item, "user": user}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial003.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item, user: User, importance: int = Body()):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial003_an.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int, item: Item, user: User, importance: Annotated[int, Body()]
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial003_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: str | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int, item: Item, user: User, importance: Annotated[int, Body()]
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial003_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    item_id: int, item: Item, user: User, importance: Annotated[int, Body()]
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial003_py310.py
+================================================
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: str | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item, user: User, importance: int = Body()):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial004.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    *,
+    item_id: int,
+    item: Item,
+    user: User,
+    importance: int = Body(gt=0),
+    q: Union[str, None] = None,
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial004_an.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    *,
+    item_id: int,
+    item: Item,
+    user: User,
+    importance: Annotated[int, Body(gt=0)],
+    q: Union[str, None] = None,
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial004_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: str | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    *,
+    item_id: int,
+    item: Item,
+    user: User,
+    importance: Annotated[int, Body(gt=0)],
+    q: str | None = None,
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial004_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    *,
+    item_id: int,
+    item: Item,
+    user: User,
+    importance: Annotated[int, Body(gt=0)],
+    q: Union[str, None] = None,
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial004_py310.py
+================================================
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+class User(BaseModel):
+    username: str
+    full_name: str | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(
+    *,
+    item_id: int,
+    item: Item,
+    user: User,
+    importance: int = Body(gt=0),
+    q: str | None = None,
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    if q:
+        results.update({"q": q})
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial005.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item = Body(embed=True)):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial005_an.py
+================================================
+from typing import Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Annotated[Item, Body(embed=True)]):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial005_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Annotated[Item, Body(embed=True)]):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial005_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Annotated[Item, Body(embed=True)]):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_multiple_params/tutorial005_py310.py
+================================================
+from fastapi import Body, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item = Body(embed=True)):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: list = []
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial001_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: list = []
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial002.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: List[str] = []
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: list[str] = []
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial002_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: list[str] = []
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial003.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial003_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial003_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial004.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: str
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+    image: Union[Image, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial004_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: str
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+    image: Image | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial004_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: str
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+    image: Union[Image, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial005.py
+================================================
+from typing import Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+    image: Union[Image, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial005_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+    image: Image | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial005_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+    image: Union[Image, None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial006.py
+================================================
+from typing import List, Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+    images: Union[List[Image], None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial006_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+    images: list[Image] | None = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial006_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+    images: Union[list[Image], None] = None
+
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial007.py
+================================================
+from typing import List, Set, Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: Set[str] = set()
+    images: Union[List[Image], None] = None
+
+
+class Offer(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    items: List[Item]
+
+
+@app.post("/offers/")
+async def create_offer(offer: Offer):
+    return offer
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial007_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    tax: float | None = None
+    tags: set[str] = set()
+    images: list[Image] | None = None
+
+
+class Offer(BaseModel):
+    name: str
+    description: str | None = None
+    price: float
+    items: list[Item]
+
+
+@app.post("/offers/")
+async def create_offer(offer: Offer):
+    return offer
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial007_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
+    tags: set[str] = set()
+    images: Union[list[Image], None] = None
+
+
+class Offer(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    items: list[Item]
+
+
+@app.post("/offers/")
+async def create_offer(offer: Offer):
+    return offer
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial008.py
+================================================
+from typing import List
+
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+@app.post("/images/multiple/")
+async def create_multiple_images(images: List[Image]):
+    return images
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial008_py39.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, HttpUrl
+
+app = FastAPI()
+
+
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
+
+@app.post("/images/multiple/")
+async def create_multiple_images(images: list[Image]):
+    return images
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial009.py
+================================================
+from typing import Dict
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.post("/index-weights/")
+async def create_index_weights(weights: Dict[int, float]):
+    return weights
+
+
+================================================
+File: /docs_src/body_nested_models/tutorial009_py39.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.post("/index-weights/")
+async def create_index_weights(weights: dict[int, float]):
+    return weights
+
+
+================================================
+File: /docs_src/body_updates/tutorial001.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: Union[str, None] = None
+    description: Union[str, None] = None
+    price: Union[float, None] = None
+    tax: float = 10.5
+    tags: List[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+@app.put("/items/{item_id}", response_model=Item)
+async def update_item(item_id: str, item: Item):
+    update_item_encoded = jsonable_encoder(item)
+    items[item_id] = update_item_encoded
+    return update_item_encoded
+
+
+================================================
+File: /docs_src/body_updates/tutorial001_py310.py
+================================================
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str | None = None
+    description: str | None = None
+    price: float | None = None
+    tax: float = 10.5
+    tags: list[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+@app.put("/items/{item_id}", response_model=Item)
+async def update_item(item_id: str, item: Item):
+    update_item_encoded = jsonable_encoder(item)
+    items[item_id] = update_item_encoded
+    return update_item_encoded
+
+
+================================================
+File: /docs_src/body_updates/tutorial001_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: Union[str, None] = None
+    description: Union[str, None] = None
+    price: Union[float, None] = None
+    tax: float = 10.5
+    tags: list[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+@app.put("/items/{item_id}", response_model=Item)
+async def update_item(item_id: str, item: Item):
+    update_item_encoded = jsonable_encoder(item)
+    items[item_id] = update_item_encoded
+    return update_item_encoded
+
+
+================================================
+File: /docs_src/body_updates/tutorial002.py
+================================================
+from typing import List, Union
+
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: Union[str, None] = None
+    description: Union[str, None] = None
+    price: Union[float, None] = None
+    tax: float = 10.5
+    tags: List[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+@app.patch("/items/{item_id}", response_model=Item)
+async def update_item(item_id: str, item: Item):
+    stored_item_data = items[item_id]
+    stored_item_model = Item(**stored_item_data)
+    update_data = item.dict(exclude_unset=True)
+    updated_item = stored_item_model.copy(update=update_data)
+    items[item_id] = jsonable_encoder(updated_item)
+    return updated_item
+
+
+================================================
+File: /docs_src/body_updates/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: str | None = None
+    description: str | None = None
+    price: float | None = None
+    tax: float = 10.5
+    tags: list[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+@app.patch("/items/{item_id}", response_model=Item)
+async def update_item(item_id: str, item: Item):
+    stored_item_data = items[item_id]
+    stored_item_model = Item(**stored_item_data)
+    update_data = item.dict(exclude_unset=True)
+    updated_item = stored_item_model.copy(update=update_data)
+    items[item_id] = jsonable_encoder(updated_item)
+    return updated_item
+
+
+================================================
+File: /docs_src/body_updates/tutorial002_py39.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Item(BaseModel):
+    name: Union[str, None] = None
+    description: Union[str, None] = None
+    price: Union[float, None] = None
+    tax: float = 10.5
+    tags: list[str] = []
+
+
+items = {
+    "foo": {"name": "Foo", "price": 50.2},
+    "bar": {"name": "Bar", "description": "The bartenders", "price": 62, "tax": 20.2},
+    "baz": {"name": "Baz", "description": None, "price": 50.2, "tax": 10.5, "tags": []},
+}
+
+
+@app.get("/items/{item_id}", response_model=Item)
+async def read_item(item_id: str):
+    return items[item_id]
+
+
+@app.patch("/items/{item_id}", response_model=Item)
+async def update_item(item_id: str, item: Item):
+    stored_item_data = items[item_id]
+    stored_item_model = Item(**stored_item_data)
+    update_data = item.dict(exclude_unset=True)
+    updated_item = stored_item_model.copy(update=update_data)
+    items[item_id] = jsonable_encoder(updated_item)
+    return updated_item
+
+
+================================================
+File: /docs_src/conditional_openapi/tutorial001.py
+================================================
+from fastapi import FastAPI
+from pydantic_settings import BaseSettings
+
+
+class Settings(BaseSettings):
+    openapi_url: str = "/openapi.json"
+
+
+settings = Settings()
+
+app = FastAPI(openapi_url=settings.openapi_url)
+
+
+@app.get("/")
+def root():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/configure_swagger_ui/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI(swagger_ui_parameters={"syntaxHighlight": False})
+
+
+@app.get("/users/{username}")
+async def read_user(username: str):
+    return {"message": f"Hello {username}"}
+
+
+================================================
+File: /docs_src/configure_swagger_ui/tutorial002.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
+
+
+@app.get("/users/{username}")
+async def read_user(username: str):
+    return {"message": f"Hello {username}"}
+
+
+================================================
+File: /docs_src/configure_swagger_ui/tutorial003.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI(swagger_ui_parameters={"deepLinking": False})
+
+
+@app.get("/users/{username}")
+async def read_user(username: str):
+    return {"message": f"Hello {username}"}
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Cookies = Cookie()):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    session_id: str
+    fatebook_tracker: str | None = None
+    googall_tracker: str | None = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial001_py310.py
+================================================
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    session_id: str
+    fatebook_tracker: str | None = None
+    googall_tracker: str | None = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Cookies = Cookie()):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Cookies = Cookie()):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_an.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    session_id: str
+    fatebook_tracker: str | None = None
+    googall_tracker: str | None = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_pv1.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Cookies = Cookie()):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_pv1_an.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_pv1_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    session_id: str
+    fatebook_tracker: str | None = None
+    googall_tracker: str | None = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_pv1_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    session_id: str
+    fatebook_tracker: Union[str, None] = None
+    googall_tracker: Union[str, None] = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Annotated[Cookies, Cookie()]):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_pv1_py310.py
+================================================
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    class Config:
+        extra = "forbid"
+
+    session_id: str
+    fatebook_tracker: str | None = None
+    googall_tracker: str | None = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Cookies = Cookie()):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_param_models/tutorial002_py310.py
+================================================
+from fastapi import Cookie, FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class Cookies(BaseModel):
+    model_config = {"extra": "forbid"}
+
+    session_id: str
+    fatebook_tracker: str | None = None
+    googall_tracker: str | None = None
+
+
+@app.get("/items/")
+async def read_items(cookies: Cookies = Cookie()):
+    return cookies
+
+
+================================================
+File: /docs_src/cookie_params/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(ads_id: Union[str, None] = Cookie(default=None)):
+    return {"ads_id": ads_id}
+
+
+================================================
+File: /docs_src/cookie_params/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(ads_id: Annotated[Union[str, None], Cookie()] = None):
+    return {"ads_id": ads_id}
+
+
+================================================
+File: /docs_src/cookie_params/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Cookie, FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(ads_id: Annotated[str | None, Cookie()] = None):
+    return {"ads_id": ads_id}
+
+
+================================================
+File: /docs_src/cookie_params/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Cookie, FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(ads_id: Annotated[Union[str, None], Cookie()] = None):
+    return {"ads_id": ads_id}
+
+
+================================================
+File: /docs_src/cookie_params/tutorial001_py310.py
+================================================
+from fastapi import Cookie, FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items(ads_id: str | None = Cookie(default=None)):
+    return {"ads_id": ads_id}
+
+
+================================================
+File: /docs_src/cors/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/")
+async def main():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/custom_docs_ui/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.openapi.docs import (
+    get_redoc_html,
+    get_swagger_ui_html,
+    get_swagger_ui_oauth2_redirect_html,
+)
+
+app = FastAPI(docs_url=None, redoc_url=None)
+
+
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - Swagger UI",
+        oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
+        swagger_js_url="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js",
+        swagger_css_url="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css",
+    )
+
+
+@app.get(app.swagger_ui_oauth2_redirect_url, include_in_schema=False)
+async def swagger_ui_redirect():
+    return get_swagger_ui_oauth2_redirect_html()
+
+
+@app.get("/redoc", include_in_schema=False)
+async def redoc_html():
+    return get_redoc_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - ReDoc",
+        redoc_js_url="https://unpkg.com/redoc@next/bundles/redoc.standalone.js",
+    )
+
+
+@app.get("/users/{username}")
+async def read_user(username: str):
+    return {"message": f"Hello {username}"}
+
+
+================================================
+File: /docs_src/custom_docs_ui/tutorial002.py
+================================================
+from fastapi import FastAPI
+from fastapi.openapi.docs import (
+    get_redoc_html,
+    get_swagger_ui_html,
+    get_swagger_ui_oauth2_redirect_html,
+)
+from fastapi.staticfiles import StaticFiles
+
+app = FastAPI(docs_url=None, redoc_url=None)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - Swagger UI",
+        oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
+        swagger_js_url="/static/swagger-ui-bundle.js",
+        swagger_css_url="/static/swagger-ui.css",
+    )
+
+
+@app.get(app.swagger_ui_oauth2_redirect_url, include_in_schema=False)
+async def swagger_ui_redirect():
+    return get_swagger_ui_oauth2_redirect_html()
+
+
+@app.get("/redoc", include_in_schema=False)
+async def redoc_html():
+    return get_redoc_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - ReDoc",
+        redoc_js_url="/static/redoc.standalone.js",
+    )
+
+
+@app.get("/users/{username}")
+async def read_user(username: str):
+    return {"message": f"Hello {username}"}
+
+
+================================================
+File: /docs_src/custom_request_and_route/tutorial001.py
+================================================
+import gzip
+from typing import Callable, List
+
+from fastapi import Body, FastAPI, Request, Response
+from fastapi.routing import APIRoute
+
+
+class GzipRequest(Request):
+    async def body(self) -> bytes:
+        if not hasattr(self, "_body"):
+            body = await super().body()
+            if "gzip" in self.headers.getlist("Content-Encoding"):
+                body = gzip.decompress(body)
+            self._body = body
+        return self._body
+
+
+class GzipRoute(APIRoute):
+    def get_route_handler(self) -> Callable:
+        original_route_handler = super().get_route_handler()
+
+        async def custom_route_handler(request: Request) -> Response:
+            request = GzipRequest(request.scope, request.receive)
+            return await original_route_handler(request)
+
+        return custom_route_handler
+
+
+app = FastAPI()
+app.router.route_class = GzipRoute
+
+
+@app.post("/sum")
+async def sum_numbers(numbers: List[int] = Body()):
+    return {"sum": sum(numbers)}
+
+
+================================================
+File: /docs_src/custom_request_and_route/tutorial002.py
+================================================
+from typing import Callable, List
+
+from fastapi import Body, FastAPI, HTTPException, Request, Response
+from fastapi.exceptions import RequestValidationError
+from fastapi.routing import APIRoute
+
+
+class ValidationErrorLoggingRoute(APIRoute):
+    def get_route_handler(self) -> Callable:
+        original_route_handler = super().get_route_handler()
+
+        async def custom_route_handler(request: Request) -> Response:
+            try:
+                return await original_route_handler(request)
+            except RequestValidationError as exc:
+                body = await request.body()
+                detail = {"errors": exc.errors(), "body": body.decode()}
+                raise HTTPException(status_code=422, detail=detail)
+
+        return custom_route_handler
+
+
+app = FastAPI()
+app.router.route_class = ValidationErrorLoggingRoute
+
+
+@app.post("/")
+async def sum_numbers(numbers: List[int] = Body()):
+    return sum(numbers)
+
+
+================================================
+File: /docs_src/custom_request_and_route/tutorial003.py
+================================================
+import time
+from typing import Callable
+
+from fastapi import APIRouter, FastAPI, Request, Response
+from fastapi.routing import APIRoute
+
+
+class TimedRoute(APIRoute):
+    def get_route_handler(self) -> Callable:
+        original_route_handler = super().get_route_handler()
+
+        async def custom_route_handler(request: Request) -> Response:
+            before = time.time()
+            response: Response = await original_route_handler(request)
+            duration = time.time() - before
+            response.headers["X-Response-Time"] = str(duration)
+            print(f"route duration: {duration}")
+            print(f"route response: {response}")
+            print(f"route response headers: {response.headers}")
+            return response
+
+        return custom_route_handler
+
+
+app = FastAPI()
+router = APIRouter(route_class=TimedRoute)
+
+
+@app.get("/")
+async def not_timed():
+    return {"message": "Not timed"}
+
+
+@router.get("/timed")
+async def timed():
+    return {"message": "It's the time of my life"}
+
+
+app.include_router(router)
+
+
+================================================
+File: /docs_src/custom_response/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import UJSONResponse
+
+app = FastAPI()
+
+
+@app.get("/items/", response_class=UJSONResponse)
+async def read_items():
+    return [{"item_id": "Foo"}]
+
+
+================================================
+File: /docs_src/custom_response/tutorial001b.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import ORJSONResponse
+
+app = FastAPI()
+
+
+@app.get("/items/", response_class=ORJSONResponse)
+async def read_items():
+    return ORJSONResponse([{"item_id": "Foo"}])
+
+
+================================================
+File: /docs_src/custom_response/tutorial002.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.get("/items/", response_class=HTMLResponse)
+async def read_items():
+    return """
+    <html>
+        <head>
+            <title>Some HTML in here</title>
+        </head>
+        <body>
+            <h1>Look ma! HTML!</h1>
+        </body>
+    </html>
+    """
+
+
+================================================
+File: /docs_src/custom_response/tutorial003.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items():
+    html_content = """
+    <html>
+        <head>
+            <title>Some HTML in here</title>
+        </head>
+        <body>
+            <h1>Look ma! HTML!</h1>
+        </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content, status_code=200)
+
+
+================================================
+File: /docs_src/custom_response/tutorial004.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+def generate_html_response():
+    html_content = """
+    <html>
+        <head>
+            <title>Some HTML in here</title>
+        </head>
+        <body>
+            <h1>Look ma! HTML!</h1>
+        </body>
+    </html>
+    """
+    return HTMLResponse(content=html_content, status_code=200)
+
+
+@app.get("/items/", response_class=HTMLResponse)
+async def read_items():
+    return generate_html_response()
+
+
+================================================
+File: /docs_src/custom_response/tutorial005.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+
+app = FastAPI()
+
+
+@app.get("/", response_class=PlainTextResponse)
+async def main():
+    return "Hello World"
+
+
+================================================
+File: /docs_src/custom_response/tutorial006.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/typer")
+async def redirect_typer():
+    return RedirectResponse("https://typer.tiangolo.com")
+
+
+================================================
+File: /docs_src/custom_response/tutorial006b.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/fastapi", response_class=RedirectResponse)
+async def redirect_fastapi():
+    return "https://fastapi.tiangolo.com"
+
+
+================================================
+File: /docs_src/custom_response/tutorial006c.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+
+app = FastAPI()
+
+
+@app.get("/pydantic", response_class=RedirectResponse, status_code=302)
+async def redirect_pydantic():
+    return "https://docs.pydantic.dev/"
+
+
+================================================
+File: /docs_src/custom_response/tutorial007.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+
+app = FastAPI()
+
+
+async def fake_video_streamer():
+    for i in range(10):
+        yield b"some fake video bytes"
+
+
+@app.get("/")
+async def main():
+    return StreamingResponse(fake_video_streamer())
+
+
+================================================
+File: /docs_src/custom_response/tutorial008.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+
+some_file_path = "large-video-file.mp4"
+app = FastAPI()
+
+
+@app.get("/")
+def main():
+    def iterfile():  # (1)
+        with open(some_file_path, mode="rb") as file_like:  # (2)
+            yield from file_like  # (3)
+
+    return StreamingResponse(iterfile(), media_type="video/mp4")
+
+
+================================================
+File: /docs_src/custom_response/tutorial009.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+
+some_file_path = "large-video-file.mp4"
+app = FastAPI()
+
+
+@app.get("/")
+async def main():
+    return FileResponse(some_file_path)
+
+
+================================================
+File: /docs_src/custom_response/tutorial009b.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+
+some_file_path = "large-video-file.mp4"
+app = FastAPI()
+
+
+@app.get("/", response_class=FileResponse)
+async def main():
+    return some_file_path
+
+
+================================================
+File: /docs_src/custom_response/tutorial009c.py
+================================================
+from typing import Any
+
+import orjson
+from fastapi import FastAPI, Response
+
+app = FastAPI()
+
+
+class CustomORJSONResponse(Response):
+    media_type = "application/json"
+
+    def render(self, content: Any) -> bytes:
+        assert orjson is not None, "orjson must be installed"
+        return orjson.dumps(content, option=orjson.OPT_INDENT_2)
+
+
+@app.get("/", response_class=CustomORJSONResponse)
+async def main():
+    return {"message": "Hello World"}
+
+
+================================================
+File: /docs_src/custom_response/tutorial010.py
+================================================
+from fastapi import FastAPI
+from fastapi.responses import ORJSONResponse
+
+app = FastAPI(default_response_class=ORJSONResponse)
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"item_id": "Foo"}]
+
+
+================================================
+File: /docs_src/dataclasses/tutorial001.py
+================================================
+from dataclasses import dataclass
+from typing import Union
+
+from fastapi import FastAPI
+
+
+@dataclass
+class Item:
+    name: str
+    price: float
+    description: Union[str, None] = None
+    tax: Union[float, None] = None
+
+
+app = FastAPI()
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+
+
+================================================
+File: /docs_src/dataclasses/tutorial002.py
+================================================
+from dataclasses import dataclass, field
+from typing import List, Union
+
+from fastapi import FastAPI
+
+
+@dataclass
+class Item:
+    name: str
+    price: float
+    tags: List[str] = field(default_factory=list)
+    description: Union[str, None] = None
+    tax: Union[float, None] = None
+
+
+app = FastAPI()
+
+
+@app.get("/items/next", response_model=Item)
+async def read_next_item():
+    return {
+        "name": "Island In The Moon",
+        "price": 12.99,
+        "description": "A place to be playin' and havin' fun",
+        "tags": ["breater"],
+    }
+
+
+================================================
+File: /docs_src/dataclasses/tutorial003.py
+================================================
+from dataclasses import field  # (1)
+from typing import List, Union
+
+from fastapi import FastAPI
+from pydantic.dataclasses import dataclass  # (2)
+
+
+@dataclass
+class Item:
+    name: str
+    description: Union[str, None] = None
+
+
+@dataclass
+class Author:
+    name: str
+    items: List[Item] = field(default_factory=list)  # (3)
+
+
+app = FastAPI()
+
+
+@app.post("/authors/{author_id}/items/", response_model=Author)  # (4)
+async def create_author_items(author_id: str, items: List[Item]):  # (5)
+    return {"name": author_id, "items": items}  # (6)
+
+
+@app.get("/authors/", response_model=List[Author])  # (7)
+def get_authors():  # (8)
+    return [  # (9)
+        {
+            "name": "Breaters",
+            "items": [
+                {
+                    "name": "Island In The Moon",
+                    "description": "A place to be playin' and havin' fun",
+                },
+                {"name": "Holy Buddies"},
+            ],
+        },
+        {
+            "name": "System of an Up",
+            "items": [
+                {
+                    "name": "Salt",
+                    "description": "The kombucha mushroom people's favorite",
+                },
+                {"name": "Pad Thai"},
+                {
+                    "name": "Lonely Night",
+                    "description": "The mostests lonliest nightiest of allest",
+                },
+            ],
+        },
+    ]
+
+
+================================================
+File: /docs_src/debugging/tutorial001.py
+================================================
+import uvicorn
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def root():
+    a = "a"
+    b = "b" + a
+    return {"hello world": b}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+================================================
+File: /docs_src/dependencies/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: dict = Depends(common_parameters)):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: dict = Depends(common_parameters)):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial001_02_an.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+CommonsDep = Annotated[dict, Depends(common_parameters)]
+
+
+@app.get("/items/")
+async def read_items(commons: CommonsDep):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: CommonsDep):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial001_02_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+async def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+CommonsDep = Annotated[dict, Depends(common_parameters)]
+
+
+@app.get("/items/")
+async def read_items(commons: CommonsDep):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: CommonsDep):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial001_02_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+CommonsDep = Annotated[dict, Depends(common_parameters)]
+
+
+@app.get("/items/")
+async def read_items(commons: CommonsDep):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: CommonsDep):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+async def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial001_py310.py
+================================================
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+async def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: dict = Depends(common_parameters)):
+    return commons
+
+
+@app.get("/users/")
+async def read_users(commons: dict = Depends(common_parameters)):
+    return commons
+
+
+================================================
+File: /docs_src/dependencies/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: CommonQueryParams = Depends(CommonQueryParams)):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial002_an.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[CommonQueryParams, Depends(CommonQueryParams)]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial002_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: str | None = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[CommonQueryParams, Depends(CommonQueryParams)]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial002_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[CommonQueryParams, Depends(CommonQueryParams)]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial002_py310.py
+================================================
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: str | None = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: CommonQueryParams = Depends(CommonQueryParams)):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial003.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons=Depends(CommonQueryParams)):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial003_an.py
+================================================
+from typing import Any, Union
+
+from fastapi import Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[Any, Depends(CommonQueryParams)]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial003_an_py310.py
+================================================
+from typing import Annotated, Any
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: str | None = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[Any, Depends(CommonQueryParams)]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial003_an_py39.py
+================================================
+from typing import Annotated, Any, Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[Any, Depends(CommonQueryParams)]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial003_py310.py
+================================================
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: str | None = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons=Depends(CommonQueryParams)):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial004.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: CommonQueryParams = Depends()):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial004_an.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[CommonQueryParams, Depends()]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial004_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: str | None = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[CommonQueryParams, Depends()]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial004_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: Union[str, None] = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[CommonQueryParams, Depends()]):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial004_py310.py
+================================================
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+class CommonQueryParams:
+    def __init__(self, q: str | None = None, skip: int = 0, limit: int = 100):
+        self.q = q
+        self.skip = skip
+        self.limit = limit
+
+
+@app.get("/items/")
+async def read_items(commons: CommonQueryParams = Depends()):
+    response = {}
+    if commons.q:
+        response.update({"q": commons.q})
+    items = fake_items_db[commons.skip : commons.skip + commons.limit]
+    response.update({"items": items})
+    return response
+
+
+================================================
+File: /docs_src/dependencies/tutorial005.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, Depends, FastAPI
+
+app = FastAPI()
+
+
+def query_extractor(q: Union[str, None] = None):
+    return q
+
+
+def query_or_cookie_extractor(
+    q: str = Depends(query_extractor),
+    last_query: Union[str, None] = Cookie(default=None),
+):
+    if not q:
+        return last_query
+    return q
+
+
+@app.get("/items/")
+async def read_query(query_or_default: str = Depends(query_or_cookie_extractor)):
+    return {"q_or_cookie": query_or_default}
+
+
+================================================
+File: /docs_src/dependencies/tutorial005_an.py
+================================================
+from typing import Union
+
+from fastapi import Cookie, Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+def query_extractor(q: Union[str, None] = None):
+    return q
+
+
+def query_or_cookie_extractor(
+    q: Annotated[str, Depends(query_extractor)],
+    last_query: Annotated[Union[str, None], Cookie()] = None,
+):
+    if not q:
+        return last_query
+    return q
+
+
+@app.get("/items/")
+async def read_query(
+    query_or_default: Annotated[str, Depends(query_or_cookie_extractor)],
+):
+    return {"q_or_cookie": query_or_default}
+
+
+================================================
+File: /docs_src/dependencies/tutorial005_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Cookie, Depends, FastAPI
+
+app = FastAPI()
+
+
+def query_extractor(q: str | None = None):
+    return q
+
+
+def query_or_cookie_extractor(
+    q: Annotated[str, Depends(query_extractor)],
+    last_query: Annotated[str | None, Cookie()] = None,
+):
+    if not q:
+        return last_query
+    return q
+
+
+@app.get("/items/")
+async def read_query(
+    query_or_default: Annotated[str, Depends(query_or_cookie_extractor)],
+):
+    return {"q_or_cookie": query_or_default}
+
+
+================================================
+File: /docs_src/dependencies/tutorial005_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Cookie, Depends, FastAPI
+
+app = FastAPI()
+
+
+def query_extractor(q: Union[str, None] = None):
+    return q
+
+
+def query_or_cookie_extractor(
+    q: Annotated[str, Depends(query_extractor)],
+    last_query: Annotated[Union[str, None], Cookie()] = None,
+):
+    if not q:
+        return last_query
+    return q
+
+
+@app.get("/items/")
+async def read_query(
+    query_or_default: Annotated[str, Depends(query_or_cookie_extractor)],
+):
+    return {"q_or_cookie": query_or_default}
+
+
+================================================
+File: /docs_src/dependencies/tutorial005_py310.py
+================================================
+from fastapi import Cookie, Depends, FastAPI
+
+app = FastAPI()
+
+
+def query_extractor(q: str | None = None):
+    return q
+
+
+def query_or_cookie_extractor(
+    q: str = Depends(query_extractor), last_query: str | None = Cookie(default=None)
+):
+    if not q:
+        return last_query
+    return q
+
+
+@app.get("/items/")
+async def read_query(query_or_default: str = Depends(query_or_cookie_extractor)):
+    return {"q_or_cookie": query_or_default}
+
+
+================================================
+File: /docs_src/dependencies/tutorial006.py
+================================================
+from fastapi import Depends, FastAPI, Header, HTTPException
+
+app = FastAPI()
+
+
+async def verify_token(x_token: str = Header()):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def verify_key(x_key: str = Header()):
+    if x_key != "fake-super-secret-key":
+        raise HTTPException(status_code=400, detail="X-Key header invalid")
+    return x_key
+
+
+@app.get("/items/", dependencies=[Depends(verify_token), Depends(verify_key)])
+async def read_items():
+    return [{"item": "Foo"}, {"item": "Bar"}]
+
+
+================================================
+File: /docs_src/dependencies/tutorial006_an.py
+================================================
+from fastapi import Depends, FastAPI, Header, HTTPException
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+async def verify_token(x_token: Annotated[str, Header()]):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def verify_key(x_key: Annotated[str, Header()]):
+    if x_key != "fake-super-secret-key":
+        raise HTTPException(status_code=400, detail="X-Key header invalid")
+    return x_key
+
+
+@app.get("/items/", dependencies=[Depends(verify_token), Depends(verify_key)])
+async def read_items():
+    return [{"item": "Foo"}, {"item": "Bar"}]
+
+
+================================================
+File: /docs_src/dependencies/tutorial006_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI, Header, HTTPException
+
+app = FastAPI()
+
+
+async def verify_token(x_token: Annotated[str, Header()]):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def verify_key(x_key: Annotated[str, Header()]):
+    if x_key != "fake-super-secret-key":
+        raise HTTPException(status_code=400, detail="X-Key header invalid")
+    return x_key
+
+
+@app.get("/items/", dependencies=[Depends(verify_token), Depends(verify_key)])
+async def read_items():
+    return [{"item": "Foo"}, {"item": "Bar"}]
+
+
+================================================
+File: /docs_src/dependencies/tutorial007.py
+================================================
+async def get_db():
+    db = DBSession()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+================================================
+File: /docs_src/dependencies/tutorial008.py
+================================================
+from fastapi import Depends
+
+
+async def dependency_a():
+    dep_a = generate_dep_a()
+    try:
+        yield dep_a
+    finally:
+        dep_a.close()
+
+
+async def dependency_b(dep_a=Depends(dependency_a)):
+    dep_b = generate_dep_b()
+    try:
+        yield dep_b
+    finally:
+        dep_b.close(dep_a)
+
+
+async def dependency_c(dep_b=Depends(dependency_b)):
+    dep_c = generate_dep_c()
+    try:
+        yield dep_c
+    finally:
+        dep_c.close(dep_b)
+
+
+================================================
+File: /docs_src/dependencies/tutorial008_an.py
+================================================
+from fastapi import Depends
+from typing_extensions import Annotated
+
+
+async def dependency_a():
+    dep_a = generate_dep_a()
+    try:
+        yield dep_a
+    finally:
+        dep_a.close()
+
+
+async def dependency_b(dep_a: Annotated[DepA, Depends(dependency_a)]):
+    dep_b = generate_dep_b()
+    try:
+        yield dep_b
+    finally:
+        dep_b.close(dep_a)
+
+
+async def dependency_c(dep_b: Annotated[DepB, Depends(dependency_b)]):
+    dep_c = generate_dep_c()
+    try:
+        yield dep_c
+    finally:
+        dep_c.close(dep_b)
+
+
+================================================
+File: /docs_src/dependencies/tutorial008_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends
+
+
+async def dependency_a():
+    dep_a = generate_dep_a()
+    try:
+        yield dep_a
+    finally:
+        dep_a.close()
+
+
+async def dependency_b(dep_a: Annotated[DepA, Depends(dependency_a)]):
+    dep_b = generate_dep_b()
+    try:
+        yield dep_b
+    finally:
+        dep_b.close(dep_a)
+
+
+async def dependency_c(dep_b: Annotated[DepB, Depends(dependency_b)]):
+    dep_c = generate_dep_c()
+    try:
+        yield dep_c
+    finally:
+        dep_c.close(dep_b)
+
+
+================================================
+File: /docs_src/dependencies/tutorial008b.py
+================================================
+from fastapi import Depends, FastAPI, HTTPException
+
+app = FastAPI()
+
+
+data = {
+    "plumbus": {"description": "Freshly pickled plumbus", "owner": "Morty"},
+    "portal-gun": {"description": "Gun to create portals", "owner": "Rick"},
+}
+
+
+class OwnerError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except OwnerError as e:
+        raise HTTPException(status_code=400, detail=f"Owner error: {e}")
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: str = Depends(get_username)):
+    if item_id not in data:
+        raise HTTPException(status_code=404, detail="Item not found")
+    item = data[item_id]
+    if item["owner"] != username:
+        raise OwnerError(username)
+    return item
+
+
+================================================
+File: /docs_src/dependencies/tutorial008b_an.py
+================================================
+from fastapi import Depends, FastAPI, HTTPException
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+data = {
+    "plumbus": {"description": "Freshly pickled plumbus", "owner": "Morty"},
+    "portal-gun": {"description": "Gun to create portals", "owner": "Rick"},
+}
+
+
+class OwnerError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except OwnerError as e:
+        raise HTTPException(status_code=400, detail=f"Owner error: {e}")
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)]):
+    if item_id not in data:
+        raise HTTPException(status_code=404, detail="Item not found")
+    item = data[item_id]
+    if item["owner"] != username:
+        raise OwnerError(username)
+    return item
+
+
+================================================
+File: /docs_src/dependencies/tutorial008b_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI, HTTPException
+
+app = FastAPI()
+
+
+data = {
+    "plumbus": {"description": "Freshly pickled plumbus", "owner": "Morty"},
+    "portal-gun": {"description": "Gun to create portals", "owner": "Rick"},
+}
+
+
+class OwnerError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except OwnerError as e:
+        raise HTTPException(status_code=400, detail=f"Owner error: {e}")
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)]):
+    if item_id not in data:
+        raise HTTPException(status_code=404, detail="Item not found")
+    item = data[item_id]
+    if item["owner"] != username:
+        raise OwnerError(username)
+    return item
+
+
+================================================
+File: /docs_src/dependencies/tutorial008c.py
+================================================
+from fastapi import Depends, FastAPI, HTTPException
+
+app = FastAPI()
+
+
+class InternalError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except InternalError:
+        print("Oops, we didn't raise again, Britney 😱")
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: str = Depends(get_username)):
+    if item_id == "portal-gun":
+        raise InternalError(
+            f"The portal gun is too dangerous to be owned by {username}"
+        )
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=404, detail="Item not found, there's only a plumbus here"
+        )
+    return item_id
+
+
+================================================
+File: /docs_src/dependencies/tutorial008c_an.py
+================================================
+from fastapi import Depends, FastAPI, HTTPException
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class InternalError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except InternalError:
+        print("Oops, we didn't raise again, Britney 😱")
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)]):
+    if item_id == "portal-gun":
+        raise InternalError(
+            f"The portal gun is too dangerous to be owned by {username}"
+        )
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=404, detail="Item not found, there's only a plumbus here"
+        )
+    return item_id
+
+
+================================================
+File: /docs_src/dependencies/tutorial008c_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI, HTTPException
+
+app = FastAPI()
+
+
+class InternalError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except InternalError:
+        print("Oops, we didn't raise again, Britney 😱")
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)]):
+    if item_id == "portal-gun":
+        raise InternalError(
+            f"The portal gun is too dangerous to be owned by {username}"
+        )
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=404, detail="Item not found, there's only a plumbus here"
+        )
+    return item_id
+
+
+================================================
+File: /docs_src/dependencies/tutorial008d.py
+================================================
+from fastapi import Depends, FastAPI, HTTPException
+
+app = FastAPI()
+
+
+class InternalError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except InternalError:
+        print("We don't swallow the internal error here, we raise again 😎")
+        raise
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: str = Depends(get_username)):
+    if item_id == "portal-gun":
+        raise InternalError(
+            f"The portal gun is too dangerous to be owned by {username}"
+        )
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=404, detail="Item not found, there's only a plumbus here"
+        )
+    return item_id
+
+
+================================================
+File: /docs_src/dependencies/tutorial008d_an.py
+================================================
+from fastapi import Depends, FastAPI, HTTPException
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class InternalError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except InternalError:
+        print("We don't swallow the internal error here, we raise again 😎")
+        raise
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)]):
+    if item_id == "portal-gun":
+        raise InternalError(
+            f"The portal gun is too dangerous to be owned by {username}"
+        )
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=404, detail="Item not found, there's only a plumbus here"
+        )
+    return item_id
+
+
+================================================
+File: /docs_src/dependencies/tutorial008d_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI, HTTPException
+
+app = FastAPI()
+
+
+class InternalError(Exception):
+    pass
+
+
+def get_username():
+    try:
+        yield "Rick"
+    except InternalError:
+        print("We don't swallow the internal error here, we raise again 😎")
+        raise
+
+
+@app.get("/items/{item_id}")
+def get_item(item_id: str, username: Annotated[str, Depends(get_username)]):
+    if item_id == "portal-gun":
+        raise InternalError(
+            f"The portal gun is too dangerous to be owned by {username}"
+        )
+    if item_id != "plumbus":
+        raise HTTPException(
+            status_code=404, detail="Item not found, there's only a plumbus here"
+        )
+    return item_id
+
+
+================================================
+File: /docs_src/dependencies/tutorial009.py
+================================================
+from fastapi import Depends
+
+
+async def dependency_a():
+    dep_a = generate_dep_a()
+    try:
+        yield dep_a
+    finally:
+        dep_a.close()
+
+
+async def dependency_b(dep_a=Depends(dependency_a)):
+    dep_b = generate_dep_b()
+    try:
+        yield dep_b
+    finally:
+        dep_b.close(dep_a)
+
+
+async def dependency_c(dep_b=Depends(dependency_b)):
+    dep_c = generate_dep_c()
+    try:
+        yield dep_c
+    finally:
+        dep_c.close(dep_b)
+
+
+================================================
+File: /docs_src/dependencies/tutorial010.py
+================================================
+class MySuperContextManager:
+    def __init__(self):
+        self.db = DBSession()
+
+    def __enter__(self):
+        return self.db
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.db.close()
+
+
+async def get_db():
+    with MySuperContextManager() as db:
+        yield db
+
+
+================================================
+File: /docs_src/dependencies/tutorial011.py
+================================================
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+class FixedContentQueryChecker:
+    def __init__(self, fixed_content: str):
+        self.fixed_content = fixed_content
+
+    def __call__(self, q: str = ""):
+        if q:
+            return self.fixed_content in q
+        return False
+
+
+checker = FixedContentQueryChecker("bar")
+
+
+@app.get("/query-checker/")
+async def read_query_check(fixed_content_included: bool = Depends(checker)):
+    return {"fixed_content_in_query": fixed_content_included}
+
+
+================================================
+File: /docs_src/dependencies/tutorial011_an.py
+================================================
+from fastapi import Depends, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+class FixedContentQueryChecker:
+    def __init__(self, fixed_content: str):
+        self.fixed_content = fixed_content
+
+    def __call__(self, q: str = ""):
+        if q:
+            return self.fixed_content in q
+        return False
+
+
+checker = FixedContentQueryChecker("bar")
+
+
+@app.get("/query-checker/")
+async def read_query_check(fixed_content_included: Annotated[bool, Depends(checker)]):
+    return {"fixed_content_in_query": fixed_content_included}
+
+
+================================================
+File: /docs_src/dependencies/tutorial011_an_py39.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI
+
+app = FastAPI()
+
+
+class FixedContentQueryChecker:
+    def __init__(self, fixed_content: str):
+        self.fixed_content = fixed_content
+
+    def __call__(self, q: str = ""):
+        if q:
+            return self.fixed_content in q
+        return False
+
+
+checker = FixedContentQueryChecker("bar")
+
+
+@app.get("/query-checker/")
+async def read_query_check(fixed_content_included: Annotated[bool, Depends(checker)]):
+    return {"fixed_content_in_query": fixed_content_included}
+
+
+================================================
+File: /docs_src/dependencies/tutorial012.py
+================================================
+from fastapi import Depends, FastAPI, Header, HTTPException
+
+
+async def verify_token(x_token: str = Header()):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def verify_key(x_key: str = Header()):
+    if x_key != "fake-super-secret-key":
+        raise HTTPException(status_code=400, detail="X-Key header invalid")
+    return x_key
+
+
+app = FastAPI(dependencies=[Depends(verify_token), Depends(verify_key)])
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"item": "Portal Gun"}, {"item": "Plumbus"}]
+
+
+@app.get("/users/")
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
+
+
+================================================
+File: /docs_src/dependencies/tutorial012_an.py
+================================================
+from fastapi import Depends, FastAPI, Header, HTTPException
+from typing_extensions import Annotated
+
+
+async def verify_token(x_token: Annotated[str, Header()]):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def verify_key(x_key: Annotated[str, Header()]):
+    if x_key != "fake-super-secret-key":
+        raise HTTPException(status_code=400, detail="X-Key header invalid")
+    return x_key
+
+
+app = FastAPI(dependencies=[Depends(verify_token), Depends(verify_key)])
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"item": "Portal Gun"}, {"item": "Plumbus"}]
+
+
+@app.get("/users/")
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
+
+
+================================================
+File: /docs_src/dependencies/tutorial012_an_py39.py
+================================================
+from fastapi import Depends, FastAPI, Header, HTTPException
+from typing_extensions import Annotated
+
+
+async def verify_token(x_token: Annotated[str, Header()]):
+    if x_token != "fake-super-secret-token":
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
+
+
+async def verify_key(x_key: Annotated[str, Header()]):
+    if x_key != "fake-super-secret-key":
+        raise HTTPException(status_code=400, detail="X-Key header invalid")
+    return x_key
+
+
+app = FastAPI(dependencies=[Depends(verify_token), Depends(verify_key)])
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"item": "Portal Gun"}, {"item": "Plumbus"}]
+
+
+@app.get("/users/")
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
+
+
+================================================
+File: /docs_src/dependency_testing/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+from fastapi.testclient import TestClient
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: dict = Depends(common_parameters)):
+    return {"message": "Hello Items!", "params": commons}
+
+
+@app.get("/users/")
+async def read_users(commons: dict = Depends(common_parameters)):
+    return {"message": "Hello Users!", "params": commons}
+
+
+client = TestClient(app)
+
+
+async def override_dependency(q: Union[str, None] = None):
+    return {"q": q, "skip": 5, "limit": 10}
+
+
+app.dependency_overrides[common_parameters] = override_dependency
+
+
+def test_override_in_items():
+    response = client.get("/items/")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": None, "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_q():
+    response = client.get("/items/?q=foo")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_params():
+    response = client.get("/items/?q=foo&skip=100&limit=200")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+================================================
+File: /docs_src/dependency_testing/tutorial001_an.py
+================================================
+from typing import Union
+
+from fastapi import Depends, FastAPI
+from fastapi.testclient import TestClient
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
+    return {"message": "Hello Items!", "params": commons}
+
+
+@app.get("/users/")
+async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
+    return {"message": "Hello Users!", "params": commons}
+
+
+client = TestClient(app)
+
+
+async def override_dependency(q: Union[str, None] = None):
+    return {"q": q, "skip": 5, "limit": 10}
+
+
+app.dependency_overrides[common_parameters] = override_dependency
+
+
+def test_override_in_items():
+    response = client.get("/items/")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": None, "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_q():
+    response = client.get("/items/?q=foo")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_params():
+    response = client.get("/items/?q=foo&skip=100&limit=200")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+================================================
+File: /docs_src/dependency_testing/tutorial001_an_py310.py
+================================================
+from typing import Annotated
+
+from fastapi import Depends, FastAPI
+from fastapi.testclient import TestClient
+
+app = FastAPI()
+
+
+async def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
+    return {"message": "Hello Items!", "params": commons}
+
+
+@app.get("/users/")
+async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
+    return {"message": "Hello Users!", "params": commons}
+
+
+client = TestClient(app)
+
+
+async def override_dependency(q: str | None = None):
+    return {"q": q, "skip": 5, "limit": 10}
+
+
+app.dependency_overrides[common_parameters] = override_dependency
+
+
+def test_override_in_items():
+    response = client.get("/items/")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": None, "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_q():
+    response = client.get("/items/?q=foo")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_params():
+    response = client.get("/items/?q=foo&skip=100&limit=200")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+================================================
+File: /docs_src/dependency_testing/tutorial001_an_py39.py
+================================================
+from typing import Annotated, Union
+
+from fastapi import Depends, FastAPI
+from fastapi.testclient import TestClient
+
+app = FastAPI()
+
+
+async def common_parameters(
+    q: Union[str, None] = None, skip: int = 0, limit: int = 100
+):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: Annotated[dict, Depends(common_parameters)]):
+    return {"message": "Hello Items!", "params": commons}
+
+
+@app.get("/users/")
+async def read_users(commons: Annotated[dict, Depends(common_parameters)]):
+    return {"message": "Hello Users!", "params": commons}
+
+
+client = TestClient(app)
+
+
+async def override_dependency(q: Union[str, None] = None):
+    return {"q": q, "skip": 5, "limit": 10}
+
+
+app.dependency_overrides[common_parameters] = override_dependency
+
+
+def test_override_in_items():
+    response = client.get("/items/")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": None, "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_q():
+    response = client.get("/items/?q=foo")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_params():
+    response = client.get("/items/?q=foo&skip=100&limit=200")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+================================================
+File: /docs_src/dependency_testing/tutorial001_py310.py
+================================================
+from fastapi import Depends, FastAPI
+from fastapi.testclient import TestClient
+
+app = FastAPI()
+
+
+async def common_parameters(q: str | None = None, skip: int = 0, limit: int = 100):
+    return {"q": q, "skip": skip, "limit": limit}
+
+
+@app.get("/items/")
+async def read_items(commons: dict = Depends(common_parameters)):
+    return {"message": "Hello Items!", "params": commons}
+
+
+@app.get("/users/")
+async def read_users(commons: dict = Depends(common_parameters)):
+    return {"message": "Hello Users!", "params": commons}
+
+
+client = TestClient(app)
+
+
+async def override_dependency(q: str | None = None):
+    return {"q": q, "skip": 5, "limit": 10}
+
+
+app.dependency_overrides[common_parameters] = override_dependency
+
+
+def test_override_in_items():
+    response = client.get("/items/")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": None, "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_q():
+    response = client.get("/items/?q=foo")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+def test_override_in_items_with_params():
+    response = client.get("/items/?q=foo&skip=100&limit=200")
+    assert response.status_code == 200
+    assert response.json() == {
+        "message": "Hello Items!",
+        "params": {"q": "foo", "skip": 5, "limit": 10},
+    }
+
+
+================================================
+File: /docs_src/encoder/tutorial001.py
+================================================
+from datetime import datetime
+from typing import Union
+
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+fake_db = {}
+
+
+class Item(BaseModel):
+    title: str
+    timestamp: datetime
+    description: Union[str, None] = None
+
+
+app = FastAPI()
+
+
+@app.put("/items/{id}")
+def update_item(id: str, item: Item):
+    json_compatible_item_data = jsonable_encoder(item)
+    fake_db[id] = json_compatible_item_data
+
+
+================================================
+File: /docs_src/encoder/tutorial001_py310.py
+================================================
+from datetime import datetime
+
+from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
+
+fake_db = {}
+
+
+class Item(BaseModel):
+    title: str
+    timestamp: datetime
+    description: str | None = None
+
+
+app = FastAPI()
+
+
+@app.put("/items/{id}")
+def update_item(id: str, item: Item):
+    json_compatible_item_data = jsonable_encoder(item)
+    fake_db[id] = json_compatible_item_data
+
+
+================================================
+File: /docs_src/events/tutorial001.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+items = {}
+
+
+@app.on_event("startup")
+async def startup_event():
+    items["foo"] = {"name": "Fighters"}
+    items["bar"] = {"name": "Tenders"}
+
+
+@app.get("/items/{item_id}")
+async def read_items(item_id: str):
+    return items[item_id]
+
+
+================================================
+File: /docs_src/events/tutorial002.py
+================================================
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.on_event("shutdown")
+def shutdown_event():
+    with open("log.txt", mode="a") as log:
+        log.write("Application shutdown")
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"name": "Foo"}]
+
+
+================================================
+File: /docs_src/events/tutorial003.py
+================================================
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+
+
+def fake_answer_to_everything_ml_model(x: float):
+    return x * 42
+
+
+ml_models = {}
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load the ML model
+    ml_models["answer_to_everything"] = fake_answer_to_everything_ml_model
+    yield
+    # Clean up the ML models and release the resources
+    ml_models.clear()
+
+
+app = FastAPI(lifespan=lifespan)
+
+
+@app.get("/predict")
+async def predict(x: float):
+    result = ml_models["answer_to_everything"](x)
+    return {"result": result}
+
+
+================================================
+File: /docs_src/extending_openapi/tutorial001.py
+================================================
+from fastapi import FastAPI
+from fastapi.openapi.utils import get_openapi
+
+app = FastAPI()
+
+
+@app.get("/items/")
+async def read_items():
+    return [{"name": "Foo"}]
+
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Custom title",
+        version="2.5.0",
+        summary="This is a very custom OpenAPI schema",
+        description="Here's a longer description of the custom **OpenAPI** schema",
+        routes=app.routes,
+    )
+    openapi_schema["info"]["x-logo"] = {
+        "url": "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png"
+    }
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi
+
+
+================================================
+File: /docs_src/extra_data_types/tutorial001.py
+================================================
+from datetime import datetime, time, timedelta
+from typing import Union
+from uuid import UUID
+
+from fastapi import Body, FastAPI
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def read_items(
+    item_id: UUID,
+    start_datetime: datetime = Body(),
+    end_datetime: datetime = Body(),
+    process_after: timedelta = Body(),
+    repeat_at: Union[time, None] = Body(default=None),
+):
+    start_process = start_datetime + process_after
+    duration = end_datetime - start_process
+    return {
+        "item_id": item_id,
+        "start_datetime": start_datetime,
+        "end_datetime": end_datetime,
+        "process_after": process_after,
+        "repeat_at": repeat_at,
+        "start_process": start_process,
+        "duration": duration,
+    }
+
+
+================================================
+File: /docs_src/extra_data_types/tutorial001_an.py
+================================================
+from datetime import datetime, time, timedelta
+from typing import Union
+from uuid import UUID
+
+from fastapi import Body, FastAPI
+from typing_extensions import Annotated
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def read_items(
+    item_id: UUID,
+    start_datetime: Annotated[datetime, Body()],
+    end_datetime: Annotated[datetime, Body()],
+    process_after: Annotated[timedelta, Body()],
+    repeat_at: Annotated[Union[time, None], Body()] = None,
+):
+    start_process = start_datetime + process_after
+    duration = end_datetime - start_process
+    return {
+        "item_id": item_id,
+        "start_datetime": start_datetime,
+        "end_datetime": end_datetime,
+        "process_after": process_after,
+        "repeat_at": repeat_at,
+        "start_process": start_process,
+        "duration": duration,
+    }
+
+
+================================================
+File: /docs_src/extra_data_types/tutorial001_an_py310.py
+================================================
+from datetime import datetime, time, timedelta
+from typing import Annotated
+from uuid import UUID
+
+from fastapi import Body, FastAPI
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def read_items(
+    item_id: UUID,
+    start_datetime: Annotated[datetime, Body()],
+    end_datetime: Annotated[datetime, Body()],
+    process_after: Annotated[timedelta, Body()],
+    repeat_at: Annotated[time | None, Body()] = None,
+):
+    start_process = start_datetime + process_after
+    duration = end_datetime - start_process
+    return {
+        "item_id": item_id,
+        "start_datetime": start_datetime,
+        "end_datetime": end_datetime,
+        "process_after": process_after,
+        "repeat_at": repeat_at,
+        "start_process": start_process,
+        "duration": duration,
+    }
+
+
+================================================
+File: /docs_src/extra_data_types/tutorial001_an_py39.py
+================================================
+from datetime import datetime, time, timedelta
+from typing import Annotated, Union
+from uuid import UUID
+
+from fastapi import Body, FastAPI
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def read_items(
+    item_id: UUID,
+    start_datetime: Annotated[datetime, Body()],
+    end_datetime: Annotated[datetime, Body()],
+    process_after: Annotated[timedelta, Body()],
+    repeat_at: Annotated[Union[time, None], Body()] = None,
+):
+    start_process = start_datetime + process_after
+    duration = end_datetime - start_process
+    return {
+        "item_id": item_id,
+        "start_datetime": start_datetime,
+        "end_datetime": end_datetime,
+        "process_after": process_after,
+        "repeat_at": repeat_at,
+        "start_process": start_process,
+        "duration": duration,
+    }
+
+
+================================================
+File: /docs_src/extra_data_types/tutorial001_py310.py
+================================================
+from datetime import datetime, time, timedelta
+from uuid import UUID
+
+from fastapi import Body, FastAPI
+
+app = FastAPI()
+
+
+@app.put("/items/{item_id}")
+async def read_items(
+    item_id: UUID,
+    start_datetime: datetime = Body(),
+    end_datetime: datetime = Body(),
+    process_after: timedelta = Body(),
+    repeat_at: time | None = Body(default=None),
+):
+    start_process = start_datetime + process_after
+    duration = end_datetime - start_process
+    return {
+        "item_id": item_id,
+        "start_datetime": start_datetime,
+        "end_datetime": end_datetime,
+        "process_after": process_after,
+        "repeat_at": repeat_at,
+        "start_process": start_process,
+        "duration": duration,
+    }
+
+
+================================================
+File: /docs_src/extra_models/tutorial001.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+class UserOut(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+class UserInDB(BaseModel):
+    username: str
+    hashed_password: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+def fake_password_hasher(raw_password: str):
+    return "supersecret" + raw_password
+
+
+def fake_save_user(user_in: UserIn):
+    hashed_password = fake_password_hasher(user_in.password)
+    user_in_db = UserInDB(**user_in.dict(), hashed_password=hashed_password)
+    print("User saved! ..not really")
+    return user_in_db
+
+
+@app.post("/user/", response_model=UserOut)
+async def create_user(user_in: UserIn):
+    user_saved = fake_save_user(user_in)
+    return user_saved
+
+
+================================================
+File: /docs_src/extra_models/tutorial001_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+class UserOut(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+class UserInDB(BaseModel):
+    username: str
+    hashed_password: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+def fake_password_hasher(raw_password: str):
+    return "supersecret" + raw_password
+
+
+def fake_save_user(user_in: UserIn):
+    hashed_password = fake_password_hasher(user_in.password)
+    user_in_db = UserInDB(**user_in.dict(), hashed_password=hashed_password)
+    print("User saved! ..not really")
+    return user_in_db
+
+
+@app.post("/user/", response_model=UserOut)
+async def create_user(user_in: UserIn):
+    user_saved = fake_save_user(user_in)
+    return user_saved
+
+
+================================================
+File: /docs_src/extra_models/tutorial002.py
+================================================
+from typing import Union
+
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserBase(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: Union[str, None] = None
+
+
+class UserIn(UserBase):
+    password: str
+
+
+class UserOut(UserBase):
+    pass
+
+
+class UserInDB(UserBase):
+    hashed_password: str
+
+
+def fake_password_hasher(raw_password: str):
+    return "supersecret" + raw_password
+
+
+def fake_save_user(user_in: UserIn):
+    hashed_password = fake_password_hasher(user_in.password)
+    user_in_db = UserInDB(**user_in.dict(), hashed_password=hashed_password)
+    print("User saved! ..not really")
+    return user_in_db
+
+
+@app.post("/user/", response_model=UserOut)
+async def create_user(user_in: UserIn):
+    user_saved = fake_save_user(user_in)
+    return user_saved
+
+
+================================================
+File: /docs_src/extra_models/tutorial002_py310.py
+================================================
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserBase(BaseModel):
+    username: str
+    email: EmailStr
+    full_name: str | None = None
+
+
