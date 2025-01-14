@@ -69,40 +69,124 @@ proyecto/
 └── smart_docs.py        # Funcionalidades adicionales
 ```
 
-## Instalación
+## Instalación y Uso en Nuevos Proyectos
 
-### Opción 1: Usando Docker (Recomendado)
+El sistema está diseñado para ser fácilmente integrado en cualquier proyecto que necesite proporcionar contexto actualizado a Cline. La instalación se realiza a través de Docker para garantizar consistencia y facilidad de uso.
 
-1. Clonar el repositorio:
+### Prerrequisitos
+
+- Docker instalado en el sistema
+- Docker Compose instalado
+- Git para clonar el repositorio
+
+### Instalación en un Nuevo Proyecto
+
+1. Clonar el repositorio dentro de tu proyecto:
 ```bash
-git clone https://github.com/jivagrisma/script-doc_processor.py.git
-cd script-doc_processor.py
+git clone https://github.com/jivagrisma/script-doc_processor.py.git docs-processor
+cd docs-processor
 ```
 
-2. Ejecutar script de instalación:
+2. Ejecutar el script de instalación automático:
 ```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-El script de instalación:
-- Verifica las dependencias necesarias
-- Crea la estructura de directorios
-- Construye la imagen Docker
-- Configura los permisos necesarios
+El script de instalación realiza automáticamente:
+- Verificación de prerrequisitos (Docker y Docker Compose)
+- Creación de la estructura de directorios necesaria
+- Configuración de permisos
+- Construcción de la imagen Docker
+- Creación de la configuración local
+- Configuración del volumen persistente para ChromaDB
 
-### Opción 2: Instalación Local
+### Estructura Docker
 
-1. Clonar el repositorio:
+El proyecto utiliza Docker Compose para definir tres servicios principales:
+
+1. **doc-processor**: Servicio para procesar documentación
+   ```bash
+   docker-compose run --rm doc-processor --path /ruta/a/tu/documentacion
+   ```
+
+2. **query**: Servicio para realizar consultas
+   ```bash
+   docker-compose run --rm query
+   ```
+
+3. **smart-docs**: Servicio para funcionalidades adicionales
+   ```bash
+   docker-compose run --rm smart-docs
+   ```
+
+Cada servicio está configurado con:
+- Volúmenes persistentes para datos
+- Variables de entorno preconfiguradas
+- Aislamiento de dependencias
+- Gestión automática de recursos
+
+### Ejemplo de Uso en un Nuevo Proyecto
+
+Por ejemplo, para un proyecto como "app_bancolombia":
+
+1. Dentro del proyecto, clonar el repositorio:
+```bash
+cd app_bancolombia
+git clone https://github.com/jivagrisma/script-doc_processor.py.git docs-processor
+```
+
+2. Instalar el sistema:
+```bash
+cd docs-processor
+./install.sh
+```
+
+3. Colocar documentación en formato txt:
+```bash
+# Ejemplo: documentación de Next.js 2025
+cp /ruta/documentacion/next2025/*.txt doc_py/
+```
+
+4. Procesar la documentación:
+```bash
+docker-compose run --rm doc-processor --path doc_py
+```
+
+5. Realizar consultas a través de Cline:
+```bash
+docker-compose run --rm query
+```
+
+### Ventajas de la Dockerización
+
+1. **Portabilidad**
+   - Funciona de manera consistente en cualquier sistema
+   - No requiere configuración adicional del entorno
+
+2. **Aislamiento**
+   - Las dependencias no interfieren con otros proyectos
+   - Cada instancia es independiente
+
+3. **Mantenibilidad**
+   - Actualizaciones simplificadas
+   - Gestión centralizada de dependencias
+
+4. **Escalabilidad**
+   - Fácil de replicar en múltiples proyectos
+   - Configuración consistente en todos los ambientes
+
+### Instalación Local (Alternativa)
+
+Si prefieres no usar Docker, puedes realizar una instalación local:
+
 ```bash
 git clone https://github.com/jivagrisma/script-doc_processor.py.git
 cd script-doc_processor.py
-```
-
-2. Instalar dependencias:
-```bash
 pip install -r requirements.txt
 ```
+
+**Nota**: La instalación con Docker es la opción recomendada para evitar problemas de compatibilidad y dependencias.
 
 ## Uso
 
