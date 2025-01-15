@@ -170,18 +170,38 @@ class DocumentProcessor:
         }
 
 if __name__ == "__main__":
-    # Ejemplo de uso
-    processor = DocumentProcessor()
+    import argparse
     
-    # Procesar cada subdirectorio en doc_py
-    base_dir = "doc_py"
+    # Configurar el parser de argumentos
+    parser = argparse.ArgumentParser(description='Procesa documentos y los almacena en ChromaDB')
+    parser.add_argument('--path', type=str, help='Ruta al directorio que contiene los documentos a procesar')
+    parser.add_argument('--batch-size', type=int, default=5, help='Tamaño del lote para procesamiento (default: 5)')
+    args = parser.parse_args()
+
+    if not args.path:
+        print("Error: Debe especificar una ruta con --path")
+        exit(1)
+
+    if not os.path.exists(args.path):
+        print(f"Error: La ruta {args.path} no existe")
+        exit(1)
+
+    # Inicializar el procesador
+    processor = DocumentProcessor()
     total_docs = 0
     
-    for subdir in os.listdir(base_dir):
-        subdir_path = os.path.join(base_dir, subdir)
-        if os.path.isdir(subdir_path):
-            print(f"\nProcesando directorio: {subdir}")
-            processor.process_directory(subdir_path)
+    # Si la ruta es un directorio, procesar sus subdirectorios
+    if os.path.isdir(args.path):
+        print(f"\nProcesando directorio principal: {args.path}")
+        # Primero procesar archivos en el directorio raíz
+        processor.process_directory(args.path, args.batch_size)
+        
+        # Luego procesar subdirectorios
+        for subdir in os.listdir(args.path):
+            subdir_path = os.path.join(args.path, subdir)
+            if os.path.isdir(subdir_path):
+                print(f"\nProcesando subdirectorio: {subdir}")
+                processor.process_directory(subdir_path, args.batch_size)
     
     # Mostrar estadísticas
     stats = processor.get_collection_stats()
